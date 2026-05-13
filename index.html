@@ -529,6 +529,43 @@
       max-width: 700px;
       margin: 0 auto;
     }
+    .booking-callout {
+      margin: 1.15rem 0 0.75rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(26, 163, 110, 0.4);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(9, 28, 46, 0.9), rgba(13, 49, 38, 0.85));
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      text-align: center;
+    }
+    .booking-callout p {
+      margin: 0;
+      color: #d9ebff;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+    .booking-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding: 0.66rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid rgba(164, 255, 223, 0.4);
+      color: #ecfff6;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #0f8bd8, #1aa36e);
+      box-shadow: 0 10px 20px rgba(26, 163, 110, 0.25);
+      transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+    }
+    .booking-link:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow: 0 14px 24px rgba(26, 163, 110, 0.3);
+    }
     .payment-methods {
       margin: 1.2rem auto 0;
       max-width: 860px;
@@ -1026,10 +1063,17 @@
         <input type="email" name="email" placeholder="Email Address" required>
         <input type="tel" name="phone" placeholder="Phone Number">
         <input type="text" name="company" placeholder="Company / Home (optional)">
-        <textarea name="message" rows="6" placeholder="How Can I Help You Today? (IT Support, Consulting, 3D Printing, etc.)" required></textarea>
+        <textarea name="message" rows="6" placeholder="How Can I Help You Today?" required></textarea>
         <input type="text" name="_honeypot" style="display:none;" tabindex="-1" autocomplete="off">
         <button type="submit">Send Message</button>
       </form>
+      <div class="booking-callout">
+        <p><strong>Book Your Free Consultation Directly Below</strong></p>
+        <a class="booking-link" href="https://calendar.proton.me/bookings#ZcJtL-cH_SdlYzW8UBilp1FtjftWdGzinYc-Os9IhGM=" target="_blank" rel="noopener noreferrer" aria-label="Book a consultation in Proton Calendar">
+          <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+          Tevis Engineering Solutions Calendar
+        </a>
+      </div>
       <p style="text-align:center; margin-top:2rem; color:#aaa;">
         📍 Cleveland, Ohio<br>
         📞 (814) 384-5117 • 📧 tyler@tevisengineering.com<br>

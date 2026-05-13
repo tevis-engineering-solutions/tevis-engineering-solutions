@@ -40,7 +40,7 @@
     }
 
     .page {
-      max-width: 1060px;
+      max-width: 1340px;
       margin: 0 auto;
       padding: 1.2rem 1rem 4rem;
     }
@@ -113,7 +113,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1.05fr 0.95fr 0.95fr;
       gap: 1rem;
       margin-top: 1rem;
     }
@@ -138,6 +138,22 @@
       color: var(--muted);
       margin-bottom: 0.9rem;
       font-size: 0.95rem;
+    }
+
+    .quick-pay-note {
+      margin-bottom: 0.9rem;
+      padding: 0.7rem 0.78rem;
+      border-radius: 12px;
+      border: 1px solid rgba(79, 162, 255, 0.35);
+      background: rgba(79, 162, 255, 0.1);
+      color: #d8e9ff;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .quick-pay-note i {
+      color: #8ac6ff;
+      margin-right: 0.35rem;
     }
 
     .lookup-row {
@@ -262,10 +278,141 @@
       gap: 0.72rem;
     }
 
+    .crypto-card {
+      border-color: rgba(100, 240, 210, 0.34);
+      background: linear-gradient(165deg, rgba(19, 32, 49, 0.96), rgba(16, 27, 41, 0.96));
+    }
+
+    .crypto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid rgba(100, 240, 210, 0.45);
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      color: #d7fff4;
+      background: rgba(100, 240, 210, 0.08);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.7rem;
+    }
+
+    .crypto-lead {
+      color: #c4d9f3;
+      font-size: 0.94rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .wallet-box {
+      border: 1px dashed rgba(100, 240, 210, 0.45);
+      border-radius: 14px;
+      background: rgba(10, 19, 30, 0.8);
+      padding: 0.8rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .wallet-label {
+      color: #9ddacb;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+      font-weight: 700;
+    }
+
+    .wallet-address {
+      display: block;
+      color: #eff7ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      letter-spacing: 0.01em;
+    }
+
+    .crypto-notes {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .crypto-notes li {
+      color: #c7dbf7;
+      font-size: 0.9rem;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .crypto-notes li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: #74e7ca;
+      font-size: 0.95rem;
+    }
+
     .support-form .small {
       font-size: 0.84rem;
       color: #9eb6d9;
       line-height: 1.45;
+    }
+
+    .contact-strip {
+      margin-top: 1.15rem;
+      border: 1px solid rgba(79, 162, 255, 0.3);
+      border-radius: 16px;
+      background: linear-gradient(150deg, rgba(16, 28, 43, 0.96), rgba(11, 21, 34, 0.95));
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .contact-strip h3 {
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 1rem;
+      color: #e8f1ff;
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-strip p {
+      color: #b8cbe6;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .social-links {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.72rem;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #d9e8ff;
+      background: rgba(79, 162, 255, 0.12);
+      border: 1px solid rgba(79, 162, 255, 0.35);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-1px);
+      background: rgba(79, 162, 255, 0.2);
     }
 
     .footer-note {
@@ -273,6 +420,12 @@
       color: #96adcd;
       font-size: 0.84rem;
       text-align: center;
+    }
+
+    @media (max-width: 1120px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 860px) {
@@ -301,6 +454,7 @@
       <section class="card" aria-labelledby="lookup-title">
         <h2 id="lookup-title">Find Your Invoice</h2>
         <p class="lead">Search using either your admin username or latest invoice number.</p>
+        <p class="quick-pay-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Once your invoice is found, click <strong>Pay Invoice</strong> to be directed to PayPal immediately and complete payment.</p>
 
         <div class="lookup-row">
           <input id="invoiceQuery" type="text" placeholder="" aria-label="Invoice number or admin username">
@@ -357,7 +511,47 @@
           <p class="small">For billing issues, contact: billing@tevisengineering.com</p>
         </form>
       </section>
+
+      <section class="card crypto-card" aria-labelledby="crypto-pay-title">
+        <h2 id="crypto-pay-title">Crypto Payment Option</h2>
+        <span class="crypto-badge"><i class="fa-brands fa-bitcoin"></i> Proton Wallet</span>
+        <p class="crypto-lead">Contact us or pay by crypto if it better fits your workflow. Bitcoin payments are accepted through our Proton Wallet for invoice settlement.</p>
+
+        <div class="wallet-box" aria-label="Proton Wallet address">
+          <div class="wallet-label">BTC Wallet Address</div>
+          <span class="wallet-address">bc1qt8jcvy26h0lqwk6mgsfudj277hmdqrskajmnxr</span>
+        </div>
+
+        <ul class="crypto-notes">
+          <li>Include your invoice number in your payment note or email so we can match your transaction quickly.</li>
+          <li>After sending payment, submit the Billing Support Form with your transaction ID for confirmation.</li>
+          <li>Network fees and exchange rates are determined by your wallet/provider at the time of transfer.</li>
+        </ul>
+      </section>
     </div>
+
+    <section class="contact-strip" aria-label="Contact details">
+      <h3>Contact Tevis Engineering Solutions</h3>
+      <p>
+        Cleveland, Ohio<br>
+        (814) 384-5117 | tyler@tevisengineering.com<br>
+        <strong>Sales inquiries:</strong> sales@tevisengineering.com | <strong>Billing issues:</strong> billing@tevisengineering.com
+      </p>
+      <div class="social-links">
+        <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/tmtevis" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://account.venmo.com/u/tyler-teee" target="_blank" rel="noopener noreferrer" aria-label="Venmo link placeholder">
+          <i class="fa-brands fa-venmo"></i> Venmo
+        </a>
+        <a href="https://www.paypal.biz/tevisengineeringsolutions" target="_blank" rel="noopener noreferrer" aria-label="PayPal link placeholder">
+          <i class="fa-brands fa-paypal"></i> PayPal
+        </a>
+      </div>
+    </section>
 
     <p class="footer-note">If your invoice is not found, submit the billing support form with your company name and payment timeline so we can resolve it quickly.</p>
   </div>
