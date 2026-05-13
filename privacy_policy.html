@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy &amp; Terms of Service | Tevis Engineering Solutions</title>
+  <meta name="description" content="Privacy Policy and Terms of Service for Tevis Engineering Solutions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-soft: #0f1623;
+      --card: #131d2d;
+      --border: #2a3d5f;
+      --text: #e8efff;
+      --muted: #b4c3dd;
+      --blue: #4fa2ff;
+      --teal: #64f0d2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(79,162,255,0.12), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.75;
+    }
+    .page { max-width: 820px; margin: 0 auto; padding: 1.4rem 1rem 5rem; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; gap: 0.8rem; flex-wrap: wrap; }
+    .brand { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; font-size: 0.96rem; color: #dceaff; }
+    .home-btn {
+      display: inline-flex; align-items: center; text-decoration: none; color: #e8f2ff;
+      background: rgba(79,162,255,0.16); border: 1px solid rgba(79,162,255,0.5);
+      border-radius: 999px; padding: 0.62rem 1rem; font-weight: 700; font-size: 0.9rem; transition: 0.2s ease;
+    }
+    .home-btn:hover { background: rgba(79,162,255,0.26); transform: translateY(-1px); }
+    .page-title {
+      font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      background: linear-gradient(90deg, #4fa2ff, #64f0d2);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.35rem;
+    }
+    .page-meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+
+    /* TOC */
+    .toc {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.2rem; margin-bottom: 2.5rem;
+    }
+    .toc h2 { font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.6rem; }
+    .toc ol { padding-left: 1.2rem; }
+    .toc li { font-size: 0.88rem; margin-bottom: 0.25rem; }
+    .toc a { color: var(--blue); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* Sections */
+    .doc-section { margin-bottom: 2.8rem; }
+    .doc-section h2 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800;
+      color: var(--text); margin-bottom: 0.8rem; padding-bottom: 0.45rem;
+      border-bottom: 1px solid var(--border); scroll-margin-top: 80px;
+    }
+    .doc-section h3 { font-size: 0.92rem; font-weight: 700; color: var(--blue); margin: 1.2rem 0 0.4rem; }
+    .doc-section p { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.9rem; }
+    .doc-section ul, .doc-section ol { padding-left: 1.4rem; margin-bottom: 0.9rem; }
+    .doc-section li { font-size: 0.91rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .doc-section strong { color: var(--text); }
+    .doc-section a { color: var(--blue); text-decoration: none; }
+    .doc-section a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: rgba(79,162,255,0.07); border: 1px solid rgba(79,162,255,0.25);
+      border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 1rem;
+    }
+    .highlight-box p { color: var(--text); margin: 0; font-size: 0.88rem; line-height: 1.6; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+    footer.doc-footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding-top: 1.5rem; border-top: 1px solid var(--border); line-height: 1.9; }
+    footer.doc-footer a { color: var(--blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span class="brand">Tevis Engineering Solutions</span>
+    <a href="index.html" class="home-btn">← Return Home</a>
+  </div>
+
+  <h1 class="page-title">Privacy Policy &amp; Terms of Service</h1>
+  <p class="page-meta">Last updated: June 2025 &nbsp;·&nbsp; Tevis Engineering Solutions, Cleveland Heights, Ohio</p>
+
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#privacy-policy">Privacy Policy</a> — What we collect, how we use it, your rights</li>
+      <li><a href="#terms-of-service">Terms of Service</a> — Conditions of use and engagement</li>
+      <li><a href="#payment-terms">Payment Terms</a> — Billing, invoicing, and late fees</li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== PRIVACY POLICY ===== -->
+  <section class="doc-section" id="privacy-policy">
+    <h2>1. Privacy Policy</h2>
+
+    <div class="highlight-box">
+      <p>We value your privacy. Tevis Engineering Solutions collects only the information necessary to deliver services, respond to inquiries, and process payments. We do not sell, rent, or trade your personal information to third parties.</p>
+    </div>
+
+    <h3>1.1 Information We Collect</h3>
+    <p>We may collect the following information when you contact us, submit a support ticket, or engage our services:</p>
+    <ul>
+      <li><strong>Contact Information:</strong> Name, email address, phone number, company name, and physical address (for on-site services).</li>
+      <li><strong>Device &amp; Technical Information:</strong> Descriptions of hardware, software, operating systems, and network configurations you provide in support requests.</li>
+      <li><strong>Payment Information:</strong> Invoice identifiers and payment confirmation records. Credit card and payment data is processed directly by PayPal — we do not store card numbers or sensitive payment credentials.</li>
+      <li><strong>Communications:</strong> Email correspondence, ticket submissions, and notes from service sessions, retained for record-keeping and future reference.</li>
+      <li><strong>Website Usage Data:</strong> Standard web server logs (IP address, browser type, pages visited) for security and analytics purposes. We do not use tracking cookies beyond what GitHub Pages may set by default.</li>
+    </ul>
+
+    <h3>1.2 How We Use Your Information</h3>
+    <ul>
+      <li>To schedule, deliver, and follow up on IT support and engineering services.</li>
+      <li>To generate invoices and process payments.</li>
+      <li>To respond to support tickets and inquiries.</li>
+      <li>To maintain service history for repeat clients.</li>
+      <li>To comply with applicable legal obligations.</li>
+    </ul>
+
+    <h3>1.3 Data Storage &amp; Security</h3>
+    <p>Your data may be stored in:</p>
+    <ul>
+      <li><strong>Email:</strong> Communications via Gmail / ProtonMail are subject to those providers' privacy policies.</li>
+      <li><strong>ProtonDrive:</strong> Service records and invoices may be stored in encrypted cloud storage.</li>
+      <li><strong>Formspree:</strong> Support ticket and contact form submissions are processed by Formspree, Inc. See <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.</li>
+      <li><strong>PayPal:</strong> Payment processing is handled by PayPal, Inc. See <a href="https://www.paypal.com/us/legalhub/privacy-full" target="_blank" rel="noopener">paypal.com privacy policy</a>.</li>
+    </ul>
+    <p>We take reasonable precautions to protect your data, but no transmission over the internet is 100% secure. You use our services at your own risk with respect to data transmission security.</p>
+
+    <h3>1.4 Data Retention</h3>
+    <p>We retain service records, communications, and invoices for a minimum of <strong>3 years</strong> for accounting and business continuity purposes. You may request deletion of your personal information by contacting us directly, subject to our legal record-keeping obligations.</p>
+
+    <h3>1.5 Third-Party Services</h3>
+    <p>Our website and tools may link to or integrate with third-party services (PayPal, Formspree, Google Fonts, Font Awesome, GitHub Pages, Chart.js). These services have their own privacy policies and we are not responsible for their data practices.</p>
+
+    <h3>1.6 Your Rights</h3>
+    <p>You may at any time:</p>
+    <ul>
+      <li>Request a copy of the personal information we hold about you.</li>
+      <li>Request correction of inaccurate information.</li>
+      <li>Request deletion of your personal data (subject to legal obligations).</li>
+      <li>Opt out of non-essential communications.</li>
+    </ul>
+    <p>To exercise these rights, contact us at <a href="mailto:tyler.m.tevis@gmail.com">tyler.m.tevis@gmail.com</a>.</p>
+
+    <h3>1.7 Children's Privacy</h3>
+    <p>Our services are not directed to children under 13. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately.</p>
+
+    <h3>1.8 Changes to This Policy</h3>
+    <p>We may update this Privacy Policy from time to time. The "Last Updated" date at the top of this page reflects the most recent revision. Continued use of our services constitutes acceptance of any updated policy.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== TERMS OF SERVICE ===== -->
+  <section class="doc-section" id="terms-of-service">
+    <h2>2. Terms of Service</h2>
+
+    <div class="highlight-box">
+      <p>By engaging Tevis Engineering Solutions for any service, submitting a support ticket, or using this website, you agree to the following terms. Please read them carefully.</p>
+    </div>
+
+    <h3>2.1 Services Provided</h3>
+    <p>Tevis Engineering Solutions provides IT support, technical consulting, data destruction, knowledge transfer, 3D printing, and related technology services to individuals and small businesses in the Cleveland, Ohio area and remotely. Services are provided on an as-needed basis as well as through managed support agreements.</p>
+
+    <h3>2.2 Service Agreements</h3>
+    <p>Formal engagements for recurring or project-based work may be governed by a separate written Statement of Work (SOW) or Service Agreement. In the absence of a signed agreement, these Terms of Service apply as the default governing document.</p>
+
+    <h3>2.3 Scope of Work &amp; Change Orders</h3>
+    <p>The agreed scope of work is defined at the start of each engagement. Any changes to scope require a written change order before additional work proceeds. Verbal approvals are not binding. Change orders are typically issued and confirmed within 24 hours of agreement.</p>
+
+    <h3>2.4 Client Responsibilities</h3>
+    <ul>
+      <li>Provide accurate and complete information about your technical environment and issue.</li>
+      <li>Maintain current, tested backups of all critical data before work begins. Tevis Engineering Solutions is not responsible for data loss that occurs during service.</li>
+      <li>Ensure timely access to devices, accounts, or facilities required for service delivery.</li>
+      <li>Pay invoices in accordance with the payment terms set forth herein.</li>
+    </ul>
+
+    <h3>2.5 Data &amp; Backups</h3>
+    <p><strong>Important:</strong> While we take every reasonable precaution, hardware repair, OS reinstalls, data destruction, and other technical work carry inherent risk of data loss. You are solely responsible for ensuring adequate backups exist before engaging any service that touches your data. We are not liable for data loss unless caused by gross negligence.</p>
+
+    <h3>2.6 Limitation of Liability</h3>
+    <p>To the fullest extent permitted by law, Tevis Engineering Solutions' total liability for any claim arising out of or relating to services shall not exceed the total fees paid for the specific service giving rise to the claim. We are not liable for indirect, incidental, consequential, or punitive damages of any kind.</p>
+
+    <h3>2.7 Confidentiality</h3>
+    <p>Both parties agree to treat as confidential any proprietary, business, or personal information exchanged during the service engagement. We will not disclose client information to third parties except as required by law or to fulfill the requested service (e.g., engaging a parts supplier).</p>
+
+    <h3>2.8 Intellectual Property</h3>
+    <p>Any deliverables, custom scripts, configurations, or documentation created for a client as part of a paid engagement belong to the client upon full payment. General tools, templates, and processes developed by Tevis Engineering Solutions remain our intellectual property.</p>
+
+    <h3>2.9 Acceptable Use</h3>
+    <p>Services may not be used to facilitate illegal activity, unauthorized access to systems, creation of malicious software, or violation of any applicable laws or regulations. We reserve the right to refuse or terminate service at any time for any reason, including suspected misuse.</p>
+
+    <h3>2.10 Governing Law</h3>
+    <p>These Terms are governed by the laws of the State of Ohio. Any disputes shall be resolved in Cuyahoga County, Ohio.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== PAYMENT TERMS ===== -->
+  <section class="doc-section" id="payment-terms">
+    <h2>3. Payment Terms</h2>
+
+    <h3>3.1 Service Rates</h3>
+    <p>Current pricing is published on our <a href="pricing_sheet.html">Pricing Sheet</a>. Rates may be updated from time to time; any increase will be communicated before the start of a new billing period.</p>
+
+    <h3>3.2 Invoicing</h3>
+    <p>Invoices are issued at the conclusion of each service session, at the end of each billing period for recurring services, or upon milestone completion for project work. Invoices are delivered by email.</p>
+
+    <h3>3.3 Payment Due Dates</h3>
+    <ul>
+      <li><strong>Hourly &amp; One-Off:</strong> Net 7 days from invoice issue date.</li>
+      <li><strong>Weekly Managed:</strong> Net 7 days from invoice issue date.</li>
+      <li><strong>Monthly Managed:</strong> Net 15 days from invoice issue date.</li>
+      <li><strong>Milestone / Project:</strong> Due upon invoice issue unless otherwise stated in the SOW.</li>
+    </ul>
+
+    <h3>3.4 Accepted Payment Methods</h3>
+    <p>PayPal is the preferred payment method. Payment can be submitted via our <a href="pay_invoice.html">Pay Invoice</a> page. For alternative payment arrangements, contact us directly.</p>
+
+    <h3>3.5 Late Payments</h3>
+    <p>Balances outstanding beyond the due date are subject to a <strong>1.5% monthly finance charge (18% APR)</strong>. Service may be suspended on accounts more than <strong>14 days past due</strong> without prior arrangement. We will provide notice before suspending service.</p>
+
+    <h3>3.6 Disputed Invoices</h3>
+    <p>Invoice discrepancies must be raised in writing within <strong>7 days</strong> of invoice issue. Undisputed portions remain due on the original schedule. Contact <a href="mailto:tyler.m.tevis@gmail.com">tyler.m.tevis@gmail.com</a> or call <a href="tel:8143845117">(814) 384-5117</a>.</p>
+
+    <h3>3.7 Refund Policy</h3>
+    <p>Due to the nature of time-based technical services, completed work is generally non-refundable. If you are unsatisfied with a service outcome, please contact us within 7 days of service completion and we will work to make it right, up to and including a re-attempt at no additional charge at our discretion.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== CONTACT ===== -->
+  <section class="doc-section" id="contact">
+    <h2>4. Contact Us</h2>
+    <p>If you have questions, concerns, or requests relating to these policies, please reach out:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:tyler.m.tevis@gmail.com">tyler.m.tevis@gmail.com</a></li>
+      <li><strong>Phone / Text:</strong> <a href="tel:8143845117">(814) 384-5117</a></li>
+      <li><strong>Location:</strong> Cleveland Heights, Ohio</li>
+      <li><strong>Support Ticket:</strong> <a href="make_ticket.html">Submit a Ticket</a></li>
+    </ul>
+  </section>
+
+  <footer class="doc-footer">
+    Tevis Engineering Solutions &nbsp;·&nbsp; Cleveland Heights, Ohio<br>
+    Veteran-Owned IT Support &amp; Custom Engineering<br>
+    <a href="index.html">Home</a> &nbsp;·&nbsp;
+    <a href="make_ticket.html">Submit a Ticket</a> &nbsp;·&nbsp;
+    <a href="pay_invoice.html">Pay Invoice</a> &nbsp;·&nbsp;
+    <a href="pricing_sheet.html">Pricing</a>
+  </footer>
+</div>
+</body>
+</html>

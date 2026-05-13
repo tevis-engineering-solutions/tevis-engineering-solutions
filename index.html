@@ -157,6 +157,30 @@
       filter: brightness(1.07);
       box-shadow: 0 14px 20px rgba(11, 117, 177, 0.34);
     }
+    .nav-login-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.58rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-login-btn:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -723,6 +747,10 @@
         padding: 0.52rem 0.78rem;
         font-size: 0.68rem;
       }
+      .nav-login-btn {
+        padding: 0.52rem 0.78rem;
+        font-size: 0.68rem;
+      }
       .nav-menu {
         right: 1rem;
       }
@@ -742,6 +770,7 @@
         </span>
       </a>
       <div class="nav-actions">
+        <a href="make_ticket.html" class="nav-login-btn">Login</a>
         <a href="pay_invoice.html" class="nav-pay-btn">Pay Invoice</a>
         <button class="hamburger" id="navToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="Open navigation menu" type="button">
           <span></span>
@@ -756,6 +785,7 @@
         <a href="knowledge_transfer.html">Knowledge Transfer</a>
         <a href="website_creation.html">Website Creation</a>
         <a href="pricing_sheet.html">Pricing Sheet</a>
+        <a href="make_ticket.html">Submit a Ticket</a>
         <a href="pay_invoice.html">Pay Invoice</a>
         <a href="#contact">Contact</a>
       </div>

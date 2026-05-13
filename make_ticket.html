@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit a Support Ticket | Tevis Engineering Solutions</title>
+  <meta name="description" content="Submit an IT support ticket to Tevis Engineering Solutions. We'll get back to you fast.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-soft: #0f1623;
+      --card: #131d2d;
+      --card-2: #17263d;
+      --border: #2a3d5f;
+      --text: #e8efff;
+      --muted: #b4c3dd;
+      --blue: #4fa2ff;
+      --teal: #64f0d2;
+      --good: #88e7a7;
+      --warn: #ffd08a;
+      --bad: #ff9ba8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(79,162,255,0.16), transparent 60%),
+        radial-gradient(900px 480px at 100% 0%, rgba(100,240,210,0.1), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    .page { max-width: 720px; margin: 0 auto; padding: 1.4rem 1rem 4rem; }
+
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; gap: 0.8rem; flex-wrap: wrap; }
+    .brand  { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; font-size: 0.96rem; color: #dceaff; }
+    .home-btn {
+      display: inline-flex; align-items: center; text-decoration: none; color: #e8f2ff;
+      background: rgba(79,162,255,0.16); border: 1px solid rgba(79,162,255,0.5);
+      border-radius: 999px; padding: 0.62rem 1rem; font-weight: 700; font-size: 0.9rem; transition: 0.2s ease;
+    }
+    .home-btn:hover { background: rgba(79,162,255,0.26); transform: translateY(-1px); }
+
+    .page-title {
+      font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      background: linear-gradient(90deg, #4fa2ff, #64f0d2);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.4rem;
+    }
+    .page-sub { color: var(--muted); font-size: 0.96rem; margin-bottom: 2rem; line-height: 1.6; }
+
+    /* Urgency callout */
+    .callout {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      background: rgba(79,162,255,0.08); border: 1px solid rgba(79,162,255,0.3);
+      border-radius: 12px; padding: 0.9rem 1rem; margin-bottom: 1.6rem; font-size: 0.88rem; color: var(--muted);
+    }
+    .callout i { color: var(--blue); margin-top: 2px; flex-shrink: 0; font-size: 1rem; }
+    .callout strong { color: var(--text); }
+
+    .is-hidden { display: none; }
+
+    /* Form card */
+    .form-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.8rem 1.6rem; margin-bottom: 1.5rem;
+    }
+    .form-card h2 {
+      font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+      border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; margin-bottom: 1.1rem;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: 0.32rem; }
+    .form-label { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+    .form-label .req { color: #ff6b7a; margin-left: 2px; }
+    .form-control {
+      background: var(--card-2); border: 1px solid var(--border); color: var(--text);
+      padding: 0.6rem 0.8rem; border-radius: 10px; font-size: 0.9rem; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-control::placeholder { color: #4a6080; }
+    .form-control:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(79,162,255,0.15); }
+    textarea.form-control { resize: vertical; min-height: 110px; }
+    select.form-control { cursor: pointer; }
+
+    /* Radio group */
+    .radio-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .radio-label {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: var(--card-2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.86rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .radio-label:hover { border-color: var(--blue); }
+    .radio-label input[type="radio"] { accent-color: var(--blue); }
+    .radio-label input[type="radio"]:checked + span { color: var(--blue); font-weight: 700; }
+    .radio-label:has(input:checked) { border-color: var(--blue); background: rgba(79,162,255,0.08); }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%; padding: 0.9rem 1rem; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #4fa2ff, #2f86ea); color: white;
+      font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer;
+      transition: filter 0.2s, transform 0.2s; margin-top: 0.5rem;
+    }
+    .submit-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .form-footer {
+      text-align: center; font-size: 0.82rem; color: var(--muted); margin-top: 1rem;
+      line-height: 1.6;
+    }
+    .form-footer a { color: var(--blue); text-decoration: none; }
+    .form-footer a:hover { text-decoration: underline; }
+
+    /* Success state */
+    .success-card {
+      background: rgba(136,231,167,0.07); border: 1px solid rgba(136,231,167,0.3);
+      border-radius: 16px; padding: 2.5rem 1.8rem; text-align: center; display: none;
+    }
+    .success-card.visible { display: block; }
+    .success-icon { font-size: 3rem; color: var(--good); margin-bottom: 1rem; }
+    .success-card h2 { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--good); margin-bottom: 0.5rem; }
+    .success-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+    @media (max-width: 540px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .form-card { padding: 1.2rem 1rem; }
+      .radio-group { flex-direction: column; }
+      .radio-label { width: 100%; }
+    }
+
+    /* ==================== CLIENT LOGIN GATE ==================== */
+    #loginGate {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(79,162,255,0.16), transparent 60%),
+        radial-gradient(900px 480px at 100% 0%, rgba(100,240,210,0.1), transparent 55%),
+        #070b12;
+      padding: 1rem;
+    }
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    }
+    .login-logo {
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .login-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #4fa2ff, #64f0d2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.35rem;
+    }
+    .login-sub {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+    .login-field {
+      width: 100%;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      margin-bottom: 0.85rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .login-field:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(79,162,255,0.15);
+    }
+    .login-field::placeholder { color: #4a6080; }
+    .login-btn {
+      width: 100%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4fa2ff, #2f86ea);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.2s;
+      margin-top: 0.2rem;
+    }
+    .login-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .login-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .login-error {
+      color: var(--bad);
+      font-size: 0.86rem;
+      margin-top: 0.75rem;
+      min-height: 1.2em;
+      line-height: 1.4;
+    }
+    .login-contact {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      color: #5a7090;
+      line-height: 1.5;
+    }
+    .login-contact a { color: var(--blue); text-decoration: none; }
+    .login-contact a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ============ CLIENT LOGIN GATE ============ -->
+<div id="loginGate">
+  <div class="login-card">
+    <p class="login-logo">Tevis Engineering Solutions</p>
+    <h1 class="login-title">Client Portal</h1>
+    <p class="login-sub">Sign in to access the support ticket system.</p>
+    <form id="loginForm" novalidate autocomplete="on">
+      <input id="loginUser" class="login-field" type="text" name="username"
+             placeholder="Username" autocomplete="username" required>
+      <input id="loginPass" class="login-field" type="password" name="password"
+             placeholder="Password" autocomplete="current-password" required>
+      <button id="loginBtn" class="login-btn" type="submit">Sign In</button>
+      <p id="loginError" class="login-error" role="alert" aria-live="assertive"></p>
+    </form>
+    <p class="login-contact">
+      Don't have credentials? <a href="index.html#contact">Contact us</a> to get set up.
+    </p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="topbar">
+    <span class="brand">Tevis Engineering Solutions</span>
+    <a href="index.html" class="home-btn"><i class="fa fa-arrow-left" style="margin-right:6px;"></i> Return Home</a>
+  </div>
+
+  <h1 class="page-title">Submit a Support Ticket</h1>
+  <p class="page-sub">Fill out the form below and we'll reach out to schedule your service or answer your question. Most requests receive a response within a few hours.</p>
+
+  <div class="callout">
+    <i class="fa-solid fa-circle-info"></i>
+    <div><strong>Need immediate help?</strong> For urgent issues, call or text <a href="tel:8143845117" style="color:var(--blue);">(814) 384-5117</a> or email <a href="mailto:support@tevisengineering.com" style="color:var(--blue);">support@tevisengineering.com</a>.</div>
+  </div>
+
+  <div id="formWrapper">
+    <form id="ticketForm" action="https://formspree.io/f/maqvanal" method="POST" onsubmit="handleSubmit(event)">
+
+      <!-- Contact Info -->
+      <div class="form-card">
+        <h2><i class="fa-solid fa-user" style="margin-right:6px;"></i> Your Contact Information</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input type="text" name="name" class="form-control" placeholder="Your full name" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company / Organization</label>
+            <input type="text" name="company" class="form-control" placeholder="Leave blank if personal" autocomplete="organization">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address <span class="req">*</span></label>
+            <input type="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" name="phone" class="form-control" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
+          </div>
+        </div>
+      </div>
+
+      <!-- Issue Details -->
+      <div class="form-card">
+        <h2><i class="fa-solid fa-wrench" style="margin-right:6px;"></i> Issue Details</h2>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label">Issue Type <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="issue_type" value="Hardware" required><span>🖥 Hardware</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="Software"><span>💾 Software</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="Network / Connectivity"><span>🌐 Network / Connectivity</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="General IT"><span>🔧 General IT</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="3D Printing"><span>🖨 3D Printing</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="Consulting / Quote"><span>💬 Consulting / Quote</span></label>
+              <label class="radio-label"><input type="radio" name="issue_type" value="Other"><span>📋 Other</span></label>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Urgency Level <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="urgency" value="Low — No immediate impact" required><span style="color:#88e7a7;">🟢 Low</span></label>
+              <label class="radio-label"><input type="radio" name="urgency" value="Medium — Affecting productivity"><span style="color:#ffd166;">🟡 Medium</span></label>
+              <label class="radio-label"><input type="radio" name="urgency" value="High — Operations impaired"><span style="color:#ffb347;">🟠 High</span></label>
+              <label class="radio-label"><input type="radio" name="urgency" value="Critical — System down / data risk"><span style="color:#ff6b7a;">🔴 Critical</span></label>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Service Location <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="service_location" value="Remote Support" required><span>💻 Remote Support</span></label>
+              <label class="radio-label"><input type="radio" name="service_location" value="On-Site (Cleveland Area)"><span>📍 On-Site (Cleveland Area)</span></label>
+              <label class="radio-label"><input type="radio" name="service_location" value="Drop-Off / Mail-In"><span>📦 Drop-Off / Mail-In</span></label>
+              <label class="radio-label"><input type="radio" name="service_location" value="Not Sure"><span>🤷 Not Sure</span></label>
+            </div>
+          </div>
+
+          <div class="form-group full is-hidden" id="onSiteAddressGroup">
+            <label class="form-label">On-Site Service Address <span class="req">*</span></label>
+            <input type="text" name="onsite_address" id="onSiteAddressInput" class="form-control" placeholder="Street address, city, state, ZIP">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Short Description / Subject <span class="req">*</span></label>
+            <input type="text" name="subject" class="form-control" placeholder="e.g. Laptop won't boot after Windows update" required maxlength="150">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Detailed Description <span class="req">*</span></label>
+            <textarea name="description" class="form-control" placeholder="Describe the issue in detail: What happened? When did it start? What have you already tried? Any error messages?" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Equipment / Device Affected</label>
+            <input type="text" name="device" class="form-control" placeholder="e.g. Dell XPS 15, Cisco router, HP printer">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Operating System / Software Version</label>
+            <input type="text" name="os_version" class="form-control" placeholder="e.g. Windows 11, macOS Sonoma, Ubuntu 24">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Preferred Contact Method / Availability</label>
+            <input type="text" name="availability" class="form-control" placeholder="e.g. Email preferred, available weekday evenings after 5pm">
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden metadata -->
+      <input type="hidden" name="_subject" id="emailSubject" value="New Support Ticket — Tevis Engineering Solutions">
+      <input type="hidden" name="_next" value="https://tevis-engineering-solutions.github.io/make_ticket.html?submitted=1">
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Support Ticket
+      </button>
+
+      <div class="form-footer">
+        By submitting, you agree to our
+        <a href="privacy_policy.html">Privacy Policy &amp; Terms of Service</a>.<br>
+        Your information is only used to respond to your request.
+      </div>
+    </form>
+  </div>
+
+  <!-- Success card (shown after redirect with ?submitted=1) -->
+  <div class="success-card" id="successCard">
+    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <h2>Ticket Submitted!</h2>
+    <p>Thanks — your support request has been received. We'll review it and reach out at the contact info you provided, usually within a few hours.<br><br>
+    In the meantime, feel free to call or text <strong>(814) 384-5117</strong> if your situation becomes more urgent.</p>
+    <a href="index.html" style="display:inline-block; margin-top:1.5rem; color:var(--blue); font-weight:700; text-decoration:none;">← Return to Homepage</a>
+  </div>
+</div>
+
+<script>
+  // ==================== CLIENT LOGIN GATE ====================
+  (function () {
+    var SESSION_KEY = 'tes_cl_auth';
+    var API_URL = 'https://script.google.com/macros/s/AKfycbxs8yH42RHdZ0YXhSWJlx6lH07nEjypK-dIliXTEcELx-aG45bKlpydS3KIqeacNb_o/exec?sheet=ClList';
+
+    var gate   = document.getElementById('loginGate');
+    var form   = document.getElementById('loginForm');
+    var errEl  = document.getElementById('loginError');
+    var btn    = document.getElementById('loginBtn');
+    var credentials = [];
+    var credentialsLoaded = false;
+
+    // Already authenticated this session — remove the gate immediately
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      gate.remove();
+      return;
+    }
+
+    function setUnavailable(message) {
+      credentialsLoaded = false;
+      btn.disabled = true;
+      btn.textContent = 'Sign In Unavailable';
+      errEl.textContent = message;
+    }
+
+    function extractCredentialPairs(rows) {
+      if (!Array.isArray(rows)) {
+        return [];
+      }
+
+      return rows
+        .map(function (row) {
+          if (Array.isArray(row)) {
+            return [String(row[0] || '').trim(), String(row[1] || '').trim()];
+          }
+          var values = Object.values(row || {});
+          return [String(values[0] || '').trim(), String(values[1] || '').trim()];
+        })
+        .filter(function (pair) {
+          if (!pair[0] || !pair[1]) {
+            return false;
+          }
+          return pair[0].toLowerCase() !== 'username' && pair[1].toLowerCase() !== 'password';
+        });
+    }
+
+    async function loadCredentials() {
+      btn.disabled = true;
+      btn.textContent = 'Loading...';
+      errEl.textContent = '';
+
+      try {
+        var resp = await fetch(API_URL, { cache: 'no-store' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var data = await resp.json();
+        var rows = extractCredentialPairs(data);
+
+        if (!rows.length) {
+          setUnavailable('Client login is temporarily unavailable (no username/password rows were returned for ClList).');
+          return;
+        }
+
+        credentials = rows;
+        credentialsLoaded = true;
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      } catch (err) {
+        setUnavailable('Login unavailable right now (unable to read ClList from Apps Script). Please try again or call (814) 384-5117.');
+      }
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      errEl.textContent = '';
+
+      var username = document.getElementById('loginUser').value.trim();
+      var password = document.getElementById('loginPass').value.trim();
+
+      if (!username || !password) {
+        errEl.textContent = 'Please enter your username and password.';
+        return;
+      }
+
+      if (!credentialsLoaded || !credentials.length) {
+        setUnavailable('Login unavailable right now (ClList data could not be loaded). Please try again or call (814) 384-5117.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Checking…';
+
+      var match = credentials.some(function (row) {
+        return String(row[0] || '').trim() === username &&
+               String(row[1] || '').trim() === password;
+      });
+
+      if (match) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        gate.remove();
+      } else {
+        errEl.textContent = 'Invalid username or password.';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    });
+
+    loadCredentials();
+  })();
+  // ===========================================================
+</script>
+
+<script>
+  // Show success card if redirected back with ?submitted=1
+  if (new URLSearchParams(location.search).get('submitted') === '1') {
+    document.getElementById('formWrapper').style.display = 'none';
+    document.getElementById('successCard').classList.add('visible');
+  }
+
+  // Update hidden subject field dynamically as user fills in name
+  const nameField = document.querySelector('input[name="name"]');
+  const issueTypes = document.querySelectorAll('input[name="issue_type"]');
+  const locationRadios = document.querySelectorAll('input[name="service_location"]');
+  const onSiteAddressGroup = document.getElementById('onSiteAddressGroup');
+  const onSiteAddressInput = document.getElementById('onSiteAddressInput');
+
+  function toggleOnSiteAddress() {
+    const selectedLocation = [...locationRadios].find(r => r.checked);
+    const isOnSite = selectedLocation && selectedLocation.value === 'On-Site (Cleveland Area)';
+
+    onSiteAddressGroup.classList.toggle('is-hidden', !isOnSite);
+    onSiteAddressInput.required = !!isOnSite;
+
+    if (!isOnSite) {
+      onSiteAddressInput.value = '';
+    }
+  }
+
+  locationRadios.forEach(r => r.addEventListener('change', toggleOnSiteAddress));
+  toggleOnSiteAddress();
+
+  function updateSubject() {
+    const name  = nameField ? nameField.value.trim() : '';
+    const issue = [...issueTypes].find(r => r.checked);
+    const issueText = issue ? issue.value : 'Support Request';
+    document.getElementById('emailSubject').value =
+      'New Ticket — ' + issueText + (name ? ' (' + name + ')' : '') + ' | TES';
+  }
+  if (nameField) nameField.addEventListener('input', updateSubject);
+  issueTypes.forEach(r => r.addEventListener('change', updateSubject));
+
+  function handleSubmit(e) {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Sending...';
+    // Form will POST to Formspree and redirect via _next field
+    // If JS redirect is needed, let Formspree handle it
+  }
+</script>
+</body>
+</html>
