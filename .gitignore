@@ -4,6 +4,9 @@ CLAUDE.md
 # Strategic roadmap — keep private (not for public repo)
 ROADMAP.md
 
+# Analysis, Bug Reports, and other documentation
+DOCUMENTATION.md
+
 # Environment / secrets
 .env
 .env.*

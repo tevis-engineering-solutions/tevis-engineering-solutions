@@ -8,5 +8,4 @@ The site handles: service marketing, pricing display, client ticket submission (
 
 **Deployments:** Every push to `main` deploys immediately — no CI, no build step.
 
-
 ---
