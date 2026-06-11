@@ -7,7 +7,7 @@
   <meta name="description" content="The page you're looking for doesn't exist. Return to Tevis Engineering Solutions.">
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://tevis-engineering-solutions.github.io/404.html">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -46,16 +46,11 @@
       width: 64px;
       height: 64px;
       border-radius: 14px;
-      background: linear-gradient(135deg, #4fa2ff, #64f0d2);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: #061223;
-      letter-spacing: 0.05em;
+      object-fit: contain;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       margin-bottom: 1.5rem;
+      display: block;
     }
     .brand {
       font-family: 'Montserrat', sans-serif;
@@ -130,7 +125,7 @@
   </style>
 </head>
 <body>
-  <div class="logo-slot" aria-hidden="true">TES</div>
+  <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-slot">
   <p class="brand">Tevis Engineering Solutions</p>
   <div class="code" aria-hidden="true">404</div>
   <h1>Page Not Found</h1>

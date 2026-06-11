@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="Preserve organizational knowledge through documented processes, training materials, and integrated knowledge bases. Business continuity for Cleveland-area SMBs.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevis-engineering-solutions.github.io/knowledge_transfer.html">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -78,18 +78,11 @@
       width: 56px;
       height: 56px;
       border-radius: 12px;
-      /* TODO: Replace with <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> */
-      background: linear-gradient(135deg, #4fa2ff, #64f0d2);
-      border: 1px solid rgba(79, 162, 255, 0.4);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      color: #06101f;
+      object-fit: contain;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       flex-shrink: 0;
+      display: block;
     }
     .logo-lockup {
       display: flex;
@@ -357,8 +350,7 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="index.html" aria-label="Back to Tevis Engineering Solutions home">
-        <!-- Replace with: <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> -->
-        <span class="logo-slot" aria-hidden="true">TES</span>
+        <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-slot">
         <span class="logo-lockup">
           <span class="logo-primary">Tevis Engineering</span>
           <span class="logo-secondary">Solutions</span>
