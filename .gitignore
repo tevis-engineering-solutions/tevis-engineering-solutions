@@ -1,6 +1,9 @@
 # Claude session context — not for public repo
 CLAUDE.md
 
+# Strategic roadmap — keep private (not for public repo)
+ROADMAP.md
+
 # Environment / secrets
 .env
 .env.*

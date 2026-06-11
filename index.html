@@ -11,15 +11,19 @@
   <meta property="og:url" content="https://tevis-engineering-solutions.github.io/">
   <meta property="og:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta property="og:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
-  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
   <!-- TODO: Create assets/og-image.png (1200x630) for social previews -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta name="twitter:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
-  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevis-engineering-solutions.github.io/">
   <!-- TODO: Update canonical URL when custom domain is acquired -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- S3/S4: CDN fonts/icons send visitor IPs to Google/Cloudflare. Self-host long-term. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -1298,6 +1302,33 @@
 
       ctaVisibilityObserver.observe(contactSection);
     }
+  </script>
+
+  <!-- Cookie consent notice — dismissal stored in sessionStorage (not localStorage) -->
+  <div id="cookieBanner" style="
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
+    background:rgba(11,17,26,0.97); border-top:1px solid #2a3d5f;
+    padding:0.75rem 1.5rem; font-size:0.85rem; color:#b4c3dd;
+    font-family:'Inter','Segoe UI',sans-serif;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+    <span>This site uses essential cookies only — no tracking or analytics.
+      <a href="privacy_policy.html" style="color:#4fa2ff; text-decoration:none;">Privacy Policy</a></span>
+    <button id="cookieDismiss" style="
+      background:rgba(79,162,255,0.18); border:1px solid rgba(79,162,255,0.5);
+      color:#e8efff; border-radius:999px; padding:0.4rem 1rem;
+      font-size:0.83rem; font-weight:700; cursor:pointer; white-space:nowrap;">Got it</button>
+  </div>
+  <script>
+    (function() {
+      var banner = document.getElementById('cookieBanner');
+      if (!sessionStorage.getItem('cookieOk')) {
+        banner.style.display = 'flex';
+      }
+      document.getElementById('cookieDismiss').addEventListener('click', function() {
+        sessionStorage.setItem('cookieOk', '1');
+        banner.style.display = 'none';
+      });
+    })();
   </script>
 </body>
 </html>

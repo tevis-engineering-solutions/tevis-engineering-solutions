@@ -10,13 +10,38 @@
   <meta property="og:url" content="https://tevis-engineering-solutions.github.io/pay_invoice.html">
   <meta property="og:title" content="Pay Invoice | Tevis Engineering Solutions">
   <meta property="og:description" content="Look up your invoice and pay securely via PayPal, or submit a billing support request.">
-  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Pay Invoice | Tevis Engineering Solutions">
   <meta name="twitter:description" content="Look up your invoice and pay securely via PayPal, or submit a billing support request.">
-  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevis-engineering-solutions.github.io/pay_invoice.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!--
+    S5 SECURITY HEADERS — GitHub Pages cannot set HTTP response headers.
+    When Cloudflare (or any CDN/proxy) is in front of this site, add these headers
+    via Cloudflare Transform Rules → Modify Response Headers:
+      X-Frame-Options: DENY
+      X-Content-Type-Options: nosniff
+      Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+      Referrer-Policy: strict-origin-when-cross-origin
+      Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
+        https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.paypal.com
+        https://www.google.com https://script.google.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com
+        https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com
+        https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'
+        https://formspree.io https://script.google.com; frame-ancestors 'none';
+    For Netlify/Cloudflare Pages, these are also in /_headers (repo root).
+  -->
+  <!-- S5: settable via <meta>, partial coverage only -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- S3/S4 NOTE: Google Fonts and Font Awesome CDN send visitor IPs to Google/Cloudflare.
+       Long-term fix: self-host fonts in assets/fonts/ using @font-face declarations.
+       Download Inter + Montserrat from https://fontsource.org or google-webfonts-helper.
+       Font Awesome can be downloaded and placed in assets/vendor/fontawesome/.
+       CDN is acceptable for now on a non-GDPR-regulated US small-business site. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -525,10 +550,21 @@
     <p class="footer-note">If your invoice is not found, submit the billing support form with your company name and payment timeline so we can resolve it quickly.</p>
   </div>
 
-  <!-- Hidden PayPal form for dynamic amount submission -->
+  <!--
+    PayPal Payments Standard (NVP) form — hidden, populated dynamically by JS.
+    S1 FIX: business email updated to professional account address.
+    S7 NOTE: This uses PayPal's legacy cgi-bin/webscr endpoint (Payments Standard, circa 2005).
+    PayPal has not deprecated it but it receives no new features. When migrating, replace this
+    entire form with the PayPal JS SDK:
+      <script src="https://www.paypal.com/sdk/js?client-id=CLIENT_ID&currency=USD"></script>
+    Alternatively, direct clients to the PayPal.me link:
+      https://www.paypal.com/ncp/payment/HKB3W4JJ92MH8
+    The SDK approach hides the business email from client-side HTML entirely.
+  -->
   <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: none;">
     <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="tyler.m.tevis@gmail.com">
+    <!-- S1 FIX: Use professional business email, not personal Gmail -->
+    <input type="hidden" name="business" value="tyler@tevisengineering.com">
     <input type="hidden" name="item_name" id="paypalItemName" value="">
     <input type="hidden" name="amount" id="paypalAmount" value="">
     <input type="hidden" name="currency_code" value="USD">
@@ -539,6 +575,11 @@
   </form>
 
   <script>
+    // S8: The Google Apps Script URL below is intentionally public (read-only GET endpoint).
+    // It returns invoice summary data (username, invoice number, amount, service type).
+    // NO sensitive fields (SSNs, full addresses, card data) exist in the backing sheet.
+    // The Apps Script deployment is set to "Execute as: Me" / "Who has access: Anyone"
+    // with no write permissions. This is acceptable for a public billing lookup tool.
     const API_URL = "https://script.google.com/macros/s/AKfycbzOqk9rjdEQ12A8m5VXIFbEWd-V79YA9J9Av_Zb_Qe478KR0QjXTcsdC3AwoyrlwFM4/exec";
     // M6: PAYPAL_LINK constant removed — was defined but never used. PayPal payments are
     // handled by the hidden #paypalForm (WebsitePaymentsStandard). If switching to the
@@ -666,7 +707,15 @@
       } else {
         payInvoiceBtn.disabled = false;
         const displayAmountForButton = (amountText && !String(amountText).startsWith("$")) ? "$" + amountText : amountText;
-        payInvoiceBtn.innerHTML = "Pay Invoice (" + displayAmountForButton + ") <i class='fab fa-paypal'></i>";
+        // S6 FIX: Use textContent + createElement instead of innerHTML to prevent XSS
+        // if the API response ever returns unexpected data.
+        payInvoiceBtn.textContent = "";
+        const btnLabel = document.createTextNode("Pay Invoice (" + displayAmountForButton + ") ");
+        const btnIcon = document.createElement("i");
+        btnIcon.className = "fab fa-paypal";
+        btnIcon.setAttribute("aria-hidden", "true");
+        payInvoiceBtn.appendChild(btnLabel);
+        payInvoiceBtn.appendChild(btnIcon);
         paypalMeta.textContent = "Amount prepared: " + displayAmountForButton + ". Click Pay Invoice to proceed to PayPal.";
       }
     }
@@ -767,6 +816,31 @@
 
     handleDirectLookupFromQuery();
     loadInvoiceData();
+
+    // Cookie consent banner
+    (function() {
+      var banner = document.getElementById('cookieBanner');
+      if (!sessionStorage.getItem('cookieOk')) { banner.style.display = 'flex'; }
+      document.getElementById('cookieDismiss').addEventListener('click', function() {
+        sessionStorage.setItem('cookieOk', '1');
+        banner.style.display = 'none';
+      });
+    })();
   </script>
+
+  <!-- Cookie consent notice -->
+  <div id="cookieBanner" style="
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
+    background:rgba(7,11,18,0.97); border-top:1px solid #2a3d5f;
+    padding:0.75rem 1.5rem; font-size:0.85rem; color:#b4c3dd;
+    font-family:'Inter','Segoe UI',sans-serif;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+    <span>This site uses essential cookies only — no tracking or analytics.
+      <a href="privacy_policy.html" style="color:#4fa2ff; text-decoration:none;">Privacy Policy</a></span>
+    <button id="cookieDismiss" style="
+      background:rgba(79,162,255,0.18); border:1px solid rgba(79,162,255,0.5);
+      color:#e8efff; border-radius:999px; padding:0.4rem 1rem;
+      font-size:0.83rem; font-weight:700; cursor:pointer; white-space:nowrap;">Got it</button>
+  </div>
 </body>
 </html>
