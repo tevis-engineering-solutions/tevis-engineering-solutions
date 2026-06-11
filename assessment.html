@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Readiness Assessment | Tevis Engineering Solutions</title>
+  <meta name="description" content="Take the free IT Readiness Assessment from Tevis Engineering Solutions. 7 questions, personalized results, and a clear next step — no fluff.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevisengineering.com/assessment.html">
+  <meta property="og:title" content="IT Readiness Assessment | Tevis Engineering Solutions">
+  <meta property="og:description" content="7 questions. Personalized result. Understand where your IT stands and what to do next.">
+  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IT Readiness Assessment | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="7 questions. Personalized result. Understand where your IT stands and what to do next.">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <link rel="canonical" href="https://tevisengineering.com/assessment.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- S3/S4: CDN fonts/icons send visitor IPs to Google/Cloudflare. Self-host long-term. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b111a;
+      --card: #121b27;
+      --text: #e6eefb;
+      --muted: #afbed6;
+      --line: #27364f;
+      --blue: #5ea5ff;
+      --accent: #ff5c7f;
+      --teal: #00d4ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #13253f 0%, var(--bg) 45%, #080d15 100%);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    .container {
+      width: min(720px, 92%);
+      margin: 0 auto;
+    }
+
+    /* ==================== TOPBAR ==================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: rgba(7, 11, 18, 0.82);
+      border-bottom: 1px solid rgba(94, 165, 255, 0.2);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.05rem 0;
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      min-height: 62px;
+      padding-right: 1rem;
+    }
+    .logo-slot {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+      display: block;
+    }
+    .logo-lockup {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-family: "Montserrat", sans-serif;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .logo-primary {
+      font-size: 1.26rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .logo-secondary {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: #d8e6ff;
+    }
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .link-row a {
+      color: #d4e5ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.94rem;
+      border: 1px solid rgba(94, 165, 255, 0.26);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      background: rgba(94, 165, 255, 0.08);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .link-row a:hover {
+      background: rgba(94, 165, 255, 0.18);
+      transform: translateY(-1px);
+    }
+    .link-row a[aria-current="page"] {
+      background: rgba(94, 165, 255, 0.22);
+      border-color: rgba(94, 165, 255, 0.55);
+      color: #ffffff;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      padding: 0 9px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* ==================== PAGE CHROME ==================== */
+    .page-header {
+      text-align: center;
+      padding: 3.5rem 0 2rem;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 0.32rem 0.85rem;
+      border: 1px solid rgba(94, 165, 255, 0.35);
+      border-radius: 999px;
+      color: #a4cfff;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: rgba(94, 165, 255, 0.08);
+    }
+    .page-header h1 {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
+      line-height: 1.15;
+      color: #edf4ff;
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ==================== WIZARD SHELL ==================== */
+    .wizard {
+      padding-bottom: 4rem;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      margin-bottom: 2rem;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+    .progress-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .progress-fraction {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .progress-track {
+      height: 5px;
+      background: rgba(94, 165, 255, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Step container */
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+      animation: stepIn 0.3s ease forwards;
+    }
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .step-question {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+      font-weight: 700;
+      color: #edf4ff;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    /* Answer cards */
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .answer-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    .answer-card:hover {
+      border-color: rgba(94, 165, 255, 0.45);
+      background: rgba(18, 27, 39, 0.9);
+      transform: translateX(3px);
+    }
+    .answer-card.selected {
+      border-color: var(--blue);
+      background: rgba(94, 165, 255, 0.1);
+    }
+    .answer-card.selected .answer-radio {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .answer-card.selected .answer-radio::after {
+      opacity: 1;
+    }
+    .answer-radio {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(94, 165, 255, 0.4);
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .answer-radio::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .answer-text {
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Nav buttons */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 165, 255, 0.25);
+      background: rgba(94, 165, 255, 0.07);
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .btn-back:hover {
+      background: rgba(94, 165, 255, 0.14);
+      color: var(--text);
+    }
+    .btn-back:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), #84c2ff);
+      color: #06101f;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: filter 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+    .btn-next:hover:not(:disabled) {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .btn-next:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    /* ==================== RESULTS ==================== */
+    .results {
+      display: none;
+      animation: stepIn 0.35s ease forwards;
+    }
+    .results.active {
+      display: block;
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .tier-reactive  { background: rgba(255, 92, 127, 0.15); color: #ff8fb0; border: 1px solid rgba(255,92,127,0.35); }
+    .tier-developing { background: rgba(255, 180, 50, 0.15); color: #ffca6a; border: 1px solid rgba(255,180,50,0.35); }
+    .tier-structured { background: rgba(94, 165, 255, 0.15); color: #84c6ff; border: 1px solid rgba(94,165,255,0.35); }
+    .tier-optimized  { background: rgba(80, 220, 120, 0.15); color: #6edca0; border: 1px solid rgba(80,220,120,0.35); }
+    .result-headline {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 800;
+      color: #edf4ff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .score-meter {
+      margin: 1.5rem 0;
+    }
+    .score-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.45rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .score-track {
+      height: 8px;
+      background: rgba(94, 165, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .score-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.8s ease;
+    }
+    .result-summary {
+      background: rgba(10, 20, 38, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+    .recommendation-block {
+      background: rgba(94, 165, 255, 0.05);
+      border: 1px solid rgba(94, 165, 255, 0.2);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 2rem;
+    }
+    .recommendation-block h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 0.65rem;
+    }
+    .recommendation-block p {
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .cta-block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .cta-block h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #edf4ff;
+      margin-bottom: 0.5rem;
+    }
+    .cta-block p {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 1.2rem;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.8rem 1.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), #84c2ff);
+      color: #06101f;
+    }
+    .btn-primary:hover { filter: brightness(1.07); }
+    .btn-secondary {
+      border-color: rgba(94, 165, 255, 0.35);
+      background: rgba(94, 165, 255, 0.1);
+      color: #d4e5ff;
+    }
+    .btn-secondary:hover { background: rgba(94, 165, 255, 0.18); }
+    .retake-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+      font-weight: 600;
+      background: none;
+      border: none;
+      padding: 4px 0;
+      margin: 1.25rem auto 0;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-bottom-color 0.2s ease;
+    }
+    .retake-link:hover {
+      color: var(--blue);
+      border-bottom-color: var(--muted);
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      text-align: center;
+      padding: 2rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--line);
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+    footer a { color: var(--blue); text-decoration: none; margin: 0 0.3rem; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ==================== MEGA-NAV ==================== */
+    .topbar-inner { position: relative; }
+    .nav-center {
+      position: relative;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.52rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 165, 255, 0.28);
+      background: rgba(94, 165, 255, 0.08);
+      color: #d4e5ff;
+      font-family: inherit;
+      font-size: 0.93rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .menu-btn:hover,
+    .menu-btn[aria-expanded="true"] { background: rgba(94, 165, 255, 0.18); }
+    .menu-btn .chevron { transition: transform 0.2s ease; flex-shrink: 0; display: block; }
+    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .mega-drop {
+      position: absolute;
+      top: calc(100% + 0.6rem);
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      width: min(680px, 94vw);
+      background: #0e1827;
+      border: 1px solid rgba(94, 165, 255, 0.22);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      padding: 1.35rem 1.35rem 1.05rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1.5rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .mega-drop::before {
+      content: '';
+      position: absolute;
+      top: -0.7rem;
+      left: 0; right: 0;
+      height: 0.7rem;
+    }
+    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .mega-col-head {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.67rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5ea5ff;
+      padding: 0 0.55rem 0.4rem;
+      margin-bottom: 0.2rem;
+      border-bottom: 1px solid rgba(94, 165, 255, 0.14);
+    }
+    .mega-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.5rem 0.55rem;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: background 0.14s ease;
+    }
+    .mega-link:hover { background: rgba(94, 165, 255, 0.09); }
+    .mega-link-icon {
+      width: 28px; height: 28px; min-width: 28px;
+      border-radius: 7px;
+      background: rgba(94, 165, 255, 0.1);
+      border: 1px solid rgba(94, 165, 255, 0.18);
+      display: flex; align-items: center; justify-content: center;
+      color: #5ea5ff;
+    }
+    .mega-link-icon svg { width: 13px; height: 13px; }
+    .mega-link-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .mega-link-title { font-size: 0.86rem; font-weight: 600; color: #e6eefb; line-height: 1.25; }
+    .mega-link-desc { font-size: 0.73rem; color: #6a8ba8; line-height: 1.3; }
+    .nav-right { display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0; }
+    .nav-support-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.54rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0f8bd8, #1aa36e);
+      color: #ffffff;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.77rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      transition: transform 0.2s ease, filter 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 0.22rem;
+      padding: 0.55rem 1rem 0.8rem;
+      border-top: 1px solid rgba(94, 165, 255, 0.12);
+      width: 100%;
+    }
+    .mobile-nav.is-open { display: flex; }
+    .mobile-nav a {
+      display: block;
+      padding: 0.64rem 0.82rem;
+      border-radius: 9px;
+      color: #d4e5ff;
+      text-decoration: none;
+      font-size: 0.93rem;
+      font-weight: 600;
+      transition: background 0.14s ease;
+    }
+    .mobile-nav a:hover { background: rgba(94, 165, 255, 0.1); }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-center { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+    @media (max-width: 480px) {
+      .nav-support-btn { display: none; }
+    }
+    @media (max-width: 480px) {
+      .btn-row { flex-direction: column; align-items: center; }
+      .step-nav { flex-direction: column-reverse; }
+      .btn-back, .btn-next { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="brand" aria-label="Tevis Engineering Solutions home">
+        <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-slot">
+        <span class="logo-lockup">
+          <span class="logo-primary">Tevis Engineering</span>
+          <span class="logo-secondary">Solutions</span>
+        </span>
+      </a>
+      <div class="nav-center">
+        <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
+          Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
+          <div class="mega-col">
+            <div class="mega-col-head">Services</div>
+            <a href="how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
+            <a href="pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
+            <a href="portfolio.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
+            <a href="assessment.html" class="mega-link" aria-current="page"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
+            <a href="website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
+            <a href="data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
+            <a href="knowledge_transfer.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+          </div>
+          <div class="mega-col">
+            <div class="mega-col-head">Company &amp; Tools</div>
+            <a href="make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
+            <a href="pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
+            <a href="index.html#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
+            <a href="privacy_policy.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
+        <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="how_support_works.html">How Support Works</a>
+      <a href="pricing_sheet.html">Pricing</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="assessment.html" aria-current="page">IT Assessment</a>
+      <a href="website_creation.html">Web &amp; App Design</a>
+      <a href="data_destruction.html">Data Destruction</a>
+      <a href="knowledge_transfer.html">Knowledge Transfer</a>
+      <a href="make_ticket.html">Submit a Ticket</a>
+      <a href="pay_invoice.html">Pay an Invoice</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="privacy_policy.html">Privacy &amp; Terms</a>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="container">
+    <div class="page-header">
+      <span class="eyebrow">Free Assessment</span>
+      <h1>IT Readiness Assessment</h1>
+      <p>7 questions. Honest result. No email required.</p>
+    </div>
+  </div>
+
+  <!-- WIZARD -->
+  <div class="container wizard" id="wizardContainer">
+
+    <!-- Progress bar -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-meta">
+        <span class="progress-label">Progress</span>
+        <span class="progress-fraction" id="progressFraction">Step 1 of 7</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 14.28%"></div>
+      </div>
+    </div>
+
+    <!-- Step 1: Company size -->
+    <div class="step active" id="step-1" data-step="1">
+      <p class="step-question">How many people work at your organization?</p>
+      <div class="answers" role="group" aria-label="Company size options">
+        <label class="answer-card" data-value="0">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Just me (1)</span>
+        </label>
+        <label class="answer-card" data-value="5">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Small team (2–10)</span>
+        </label>
+        <label class="answer-card" data-value="15">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Growing team (11–50)</span>
+        </label>
+        <label class="answer-card" data-value="25">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Established organization (50+)</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" disabled><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 2: IT coverage -->
+    <div class="step" id="step-2" data-step="2">
+      <p class="step-question">How is your IT currently handled?</p>
+      <div class="answers" role="group" aria-label="IT coverage options">
+        <label class="answer-card" data-value="0">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">I handle it myself</span>
+        </label>
+        <label class="answer-card" data-value="10">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">We have a part-time or occasional contractor</span>
+        </label>
+        <label class="answer-card" data-value="20">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">We have a managed service provider (MSP)</span>
+        </label>
+        <label class="answer-card" data-value="25">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">We have an in-house IT department</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 3: Pain point -->
+    <div class="step" id="step-3" data-step="3">
+      <p class="step-question">What's your most pressing IT concern?</p>
+      <div class="answers" role="group" aria-label="IT pain point options">
+        <label class="answer-card" data-value="0" data-key="slow">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Slow or unreliable computers/network</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="security">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Security — worried about viruses, ransomware, or data loss</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="backup">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">No real backup or disaster recovery plan</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="integration">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Software/systems that don't talk to each other</span>
+        </label>
+        <label class="answer-card" data-value="15" data-key="none">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">I don't have any major IT concerns right now</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 4: Engineering needs (drives recommendation text, not score) -->
+    <div class="step" id="step-4" data-step="4">
+      <p class="step-question">Do you have needs beyond standard IT support?</p>
+      <div class="answers" role="group" aria-label="Engineering needs options">
+        <label class="answer-card" data-value="0" data-key="software">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — custom software or automation</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="hardware">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — hardware, PCB, or embedded systems design</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="cad">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — CAD, mechanical design, or 3D printing</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="web">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — website design or online presence</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="none">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">No — standard IT support is all I need</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 5: Downtime tolerance -->
+    <div class="step" id="step-5" data-step="5">
+      <p class="step-question">How much unplanned downtime can your business tolerate?</p>
+      <div class="answers" role="group" aria-label="Downtime tolerance options">
+        <label class="answer-card" data-value="15">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Any downtime is a major problem — we operate continuously</span>
+        </label>
+        <label class="answer-card" data-value="10">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">A few hours is okay but disruptive</span>
+        </label>
+        <label class="answer-card" data-value="5">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">A day or two wouldn't be catastrophic</span>
+        </label>
+        <label class="answer-card" data-value="0">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Downtime doesn't significantly impact us</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 6: Data sensitivity -->
+    <div class="step" id="step-6" data-step="6">
+      <p class="step-question">Does your business handle sensitive data?</p>
+      <div class="answers" role="group" aria-label="Data sensitivity options">
+        <label class="answer-card" data-value="15" data-key="hipaa">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — healthcare / HIPAA</span>
+        </label>
+        <label class="answer-card" data-value="10" data-key="financial">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Yes — financial, legal, or confidential client records</span>
+        </label>
+        <label class="answer-card" data-value="5" data-key="some">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Some — internal documents and emails</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="none">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">No — nothing particularly sensitive</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 7: Timeline (drives recommendation, not score) -->
+    <div class="step" id="step-7" data-step="7">
+      <p class="step-question">When are you looking to address your IT or engineering needs?</p>
+      <div class="answers" role="group" aria-label="Timeline options">
+        <label class="answer-card" data-value="0" data-key="now">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Immediately — I have an active problem</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="soon">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Within the next 1–3 months</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="planning">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Planning ahead (3–6 months out)</span>
+        </label>
+        <label class="answer-card" data-value="0" data-key="exploring">
+          <span class="answer-radio" role="radio" aria-checked="false"></span>
+          <span class="answer-text">Just exploring options for now</span>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="btn-next" disabled>See Results <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results" id="resultsPanel" aria-live="polite">
+      <div id="tierBadge" class="tier-badge"></div>
+      <h2 class="result-headline" id="resultHeadline"></h2>
+
+      <div class="score-meter">
+        <div class="score-meta">
+          <span>IT Readiness Score</span>
+          <span id="scoreDisplay">0 / 100</span>
+        </div>
+        <div class="score-track">
+          <div class="score-fill" id="scoreFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="result-summary" id="resultSummary"></div>
+
+      <div class="recommendation-block" id="recommendationBlock">
+        <h3>Personalized Recommendation</h3>
+        <p id="recommendationText"></p>
+      </div>
+
+      <div class="cta-block">
+        <h3>Next Step</h3>
+        <p id="ctaSubtext">Ready to talk through what this means for your specific situation?</p>
+        <div class="btn-row">
+          <a href="https://calendar.proton.me/bookings#ZcJtL-cH_SdlYzW8UBilp1FtjftWdGzinYc-Os9IhGM="
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary">
+            <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            Book a Free 15-Min Consultation
+          </a>
+          <a href="make_ticket.html" class="btn btn-secondary">
+            Submit a Support Ticket
+          </a>
+        </div>
+      </div>
+
+      <button class="retake-link" id="retakeBtn" aria-label="Retake the assessment from the beginning">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M1 7a6 6 0 1 0 1.17-3.53"/><path d="M1 2.5V5h2.5"/></svg>
+        Retake Assessment
+      </button>
+    </div>
+
+  </div><!-- /wizard -->
+
+  <footer>
+    <a href="index.html">Home</a> &nbsp;·&nbsp;
+    <a href="portfolio.html">Portfolio</a> &nbsp;·&nbsp;
+    <a href="make_ticket.html">Submit a Ticket</a> &nbsp;·&nbsp;
+    <a href="pay_invoice.html">Pay Invoice</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">LinkedIn</a><br>
+    Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT &amp; Engineering Services
+  </footer>
+
+  <script>
+    // ---- Mega-nav ----
+    (function() {
+      var menuBtn   = document.getElementById('menuBtn');
+      var megaDrop  = document.getElementById('megaDrop');
+      var navToggle = document.getElementById('navToggle');
+      var mobileNav = document.getElementById('mobileNav');
+      var hoverTimer;
+      if (menuBtn && megaDrop) {
+        var nc = menuBtn.closest('.nav-center');
+        nc.addEventListener('mouseenter', function() {
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(function() {
+            megaDrop.classList.add('is-open');
+            menuBtn.setAttribute('aria-expanded', 'true');
+          }, 150);
+        });
+        nc.addEventListener('mouseleave', function() {
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(function() {
+            megaDrop.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }, 100);
+        });
+        menuBtn.addEventListener('click', function() {
+          var isOpen = megaDrop.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+        });
+        document.addEventListener('click', function(e) {
+          if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+        });
+      }
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', function() {
+          var isOpen = mobileNav.classList.toggle('is-open');
+          navToggle.classList.toggle('is-open', isOpen);
+          navToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+      }
+    })();
+
+    // ====================================================
+    // WIZARD ENGINE
+    // ====================================================
+    const TOTAL_STEPS = 7;
+
+    // answers[stepIndex] = { score, key }
+    const answers = new Array(TOTAL_STEPS).fill(null);
+
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const progressFill = document.getElementById('progressFill');
+    const progressFraction = document.getElementById('progressFraction');
+    const progressWrap = document.getElementById('progressWrap');
+    const resultsPanel = document.getElementById('resultsPanel');
+
+    let currentStep = 0; // 0-indexed
+
+    function updateProgress(stepIndex) {
+      const fraction = (stepIndex + 1) / TOTAL_STEPS;
+      progressFill.style.width = (fraction * 100).toFixed(2) + '%';
+      progressFraction.textContent = 'Step ' + (stepIndex + 1) + ' of ' + TOTAL_STEPS;
+    }
+
+    function showStep(index) {
+      steps.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      updateProgress(index);
+      currentStep = index;
+
+      // Restore previously selected answer on this step if any
+      const savedAnswer = answers[index];
+      const stepEl = steps[index];
+      const cards = stepEl.querySelectorAll('.answer-card');
+      cards.forEach(card => {
+        const isSelected = savedAnswer !== null && card.dataset.value === String(savedAnswer.value)
+          && (!savedAnswer.key || card.dataset.key === savedAnswer.key);
+        card.classList.toggle('selected', isSelected);
+        const radio = card.querySelector('.answer-radio');
+        if (radio) radio.setAttribute('aria-checked', String(isSelected));
+      });
+      const nextBtn = stepEl.querySelector('.btn-next');
+      if (nextBtn) nextBtn.disabled = (savedAnswer === null);
+    }
+
+    // Attach events to all steps
+    steps.forEach((stepEl, stepIndex) => {
+      const cards = stepEl.querySelectorAll('.answer-card');
+      const nextBtn = stepEl.querySelector('.btn-next');
+      const backBtn = stepEl.querySelector('.btn-back');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Deselect all
+          cards.forEach(c => {
+            c.classList.remove('selected');
+            const r = c.querySelector('.answer-radio');
+            if (r) r.setAttribute('aria-checked', 'false');
+          });
+          // Select this
+          card.classList.add('selected');
+          const radio = card.querySelector('.answer-radio');
+          if (radio) radio.setAttribute('aria-checked', 'true');
+          // Store answer
+          answers[stepIndex] = {
+            value: Number(card.dataset.value),
+            key: card.dataset.key || null,
+            text: card.querySelector('.answer-text').textContent.trim()
+          };
+          if (nextBtn) nextBtn.disabled = false;
+        });
+      });
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (stepIndex < TOTAL_STEPS - 1) {
+            showStep(stepIndex + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            showResults();
+          }
+        });
+      }
+
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          if (stepIndex > 0) {
+            showStep(stepIndex - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+        if (stepIndex === 0) backBtn.disabled = true;
+      }
+    });
+
+    // ====================================================
+    // SCORING + RESULTS
+    // ====================================================
+    function computeScore() {
+      // Steps that affect score: 0 (size), 1 (coverage), 2 (pain), 4 (downtime), 5 (data)
+      // Steps 3 (engineering) and 6 (timeline) → score value is 0, only used for rec text
+      let score = 0;
+      answers.forEach(a => { if (a) score += a.value; });
+      return Math.min(score, 100);
+    }
+
+    function getTier(score) {
+      if (score <= 25) return 'reactive';
+      if (score <= 50) return 'developing';
+      if (score <= 75) return 'structured';
+      return 'optimized';
+    }
+
+    const TIER_DATA = {
+      reactive: {
+        label: 'Reactive',
+        headline: 'IT Posture: Reactive',
+        badgeClass: 'tier-reactive',
+        summary: 'Your business is running on informal IT. That works — until it doesn\'t. One ransomware incident, a failed hard drive, or a sudden network outage can cost days of downtime and real money. Most small organizations stay in this category until they get hit by something preventable.',
+        scoreColor: 'linear-gradient(90deg, #ff5c7f, #ff8fb0)'
+      },
+      developing: {
+        label: 'Developing',
+        headline: 'IT Posture: Developing',
+        badgeClass: 'tier-developing',
+        summary: 'You\'ve got the basics covered but there are gaps. You\'re probably handling incidents as they come up rather than preventing them. A few targeted improvements — better backups, cleaner access management, a documented recovery plan — could significantly reduce your exposure.',
+        scoreColor: 'linear-gradient(90deg, #ff8c00, #ffca6a)'
+      },
+      structured: {
+        label: 'Structured',
+        headline: 'IT Posture: Structured',
+        badgeClass: 'tier-structured',
+        summary: 'You\'re thinking about IT the right way. Coverage is in place and you have awareness of your risks. A periodic outside review can catch blind spots your team might miss — configuration drift, unused licenses, undocumented processes, or aging hardware approaching end-of-life.',
+        scoreColor: 'linear-gradient(90deg, #5ea5ff, #84c6ff)'
+      },
+      optimized: {
+        label: 'Optimized',
+        headline: 'IT Posture: Optimized',
+        badgeClass: 'tier-optimized',
+        summary: 'Your IT posture is solid. The fundamentals are covered and you\'re thinking proactively. If there\'s work left to do, it\'s likely in specialized engineering, automation, or technology areas outside a typical IT scope — that\'s where we tend to add the most value for organizations at this level.',
+        scoreColor: 'linear-gradient(90deg, #50dc78, #6edca0)'
+      }
+    };
+
+    function buildRecommendation() {
+      const pain      = answers[2]; // pain point
+      const eng       = answers[3]; // engineering needs
+      const data      = answers[5]; // data sensitivity
+      const timeline  = answers[6]; // timeline
+
+      const parts = [];
+
+      // Pain-specific callouts
+      if (pain && pain.key === 'backup') {
+        parts.push('You flagged no backup or disaster recovery plan as your top concern — this is one of the highest-risk gaps a small business can have. A single hardware failure or ransomware infection without a tested backup can mean permanent data loss. Getting a reliable, automated backup process in place should be the first priority.');
+      } else if (pain && pain.key === 'security') {
+        parts.push('Security is your top concern, which is the right instinct. The most common entry points for small businesses are phishing emails, outdated software, and reused passwords — all fixable with process and tooling. A short security audit would identify your actual exposure vs. perceived risk.');
+      } else if (pain && pain.key === 'slow') {
+        parts.push('Slow or unreliable systems are often a symptom of deferred maintenance — aging hardware, fragmented storage, or network congestion. A structured audit usually turns up a clear fix within the first hour.');
+      } else if (pain && pain.key === 'integration') {
+        parts.push('System integration gaps are where automation and scripting tend to pay off fastest. Moving data between systems manually introduces errors and wastes hours per week. If this is your primary pain point, a scoped automation project could deliver a quick, measurable return.');
+      }
+
+      // Data sensitivity + pain combo callout
+      if (data && data.key === 'hipaa' && pain && pain.key === 'backup') {
+        parts.push('You\'re handling healthcare data and don\'t have a solid backup plan — that\'s a HIPAA compliance risk on top of an operational risk. Business associate agreements, audit logs, and documented recovery procedures are required under HIPAA, not optional.');
+      } else if (data && data.key === 'hipaa') {
+        parts.push('HIPAA-covered data requires documented policies, access controls, and breach notification procedures. Many small healthcare practices are out of compliance without knowing it. This is worth a dedicated conversation.');
+      } else if (data && data.key === 'financial') {
+        parts.push('Handling financial or legal records means you\'re likely subject to client confidentiality obligations. Encrypted storage, controlled access, and an incident response plan are worth having documented before you need them.');
+      }
+
+      // Engineering needs
+      if (eng && eng.key !== 'none') {
+        const engMap = {
+          software: 'custom software or automation work',
+          hardware: 'hardware or PCB design',
+          cad: 'CAD, mechanical design, or 3D printing',
+          web: 'a website or stronger online presence'
+        };
+        parts.push('You also indicated interest in ' + (engMap[eng.key] || 'engineering work') + '. That\'s outside the scope of typical IT support — TES handles both sides, so you don\'t need a separate vendor.');
+      }
+
+      // Timeline callout
+      if (timeline && timeline.key === 'now') {
+        parts.push('Since you have an active problem, the fastest path forward is a support ticket — that gets you into the queue immediately without waiting for a scheduled call.');
+      } else if (timeline && timeline.key === 'exploring') {
+        parts.push('If you\'re just exploring options, the free 15-minute consultation is a low-commitment way to get a second opinion on your setup and ask any questions before you decide to move forward.');
+      }
+
+      if (parts.length === 0) {
+        parts.push('Based on your answers, your situation doesn\'t have any obvious red flags. That said, every business has context that a short questionnaire can\'t capture. A 15-minute call is a practical next step if you want a second opinion on your setup.');
+      }
+
+      return parts.join(' ');
+    }
+
+    function showResults() {
+      const score = computeScore();
+      const tier = getTier(score);
+      const data = TIER_DATA[tier];
+
+      // Hide steps and progress
+      steps.forEach(s => s.classList.remove('active'));
+      progressWrap.style.display = 'none';
+
+      // Populate results
+      const tierBadgeEl = document.getElementById('tierBadge');
+      tierBadgeEl.textContent = data.label;
+      tierBadgeEl.className = 'tier-badge ' + data.badgeClass;
+
+      document.getElementById('resultHeadline').textContent = data.headline;
+      document.getElementById('resultSummary').textContent = data.summary;
+      document.getElementById('recommendationText').textContent = buildRecommendation();
+
+      const scoreFill = document.getElementById('scoreFill');
+      scoreFill.style.background = data.scoreColor;
+
+      // Animate score bar after paint
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          scoreFill.style.width = score + '%';
+          document.getElementById('scoreDisplay').textContent = score + ' / 100';
+        });
+      });
+
+      resultsPanel.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Retake
+    document.getElementById('retakeBtn').addEventListener('click', () => {
+      answers.fill(null);
+      resultsPanel.classList.remove('active');
+      progressWrap.style.display = '';
+      // Reset all card selections
+      document.querySelectorAll('.answer-card').forEach(card => {
+        card.classList.remove('selected');
+        const r = card.querySelector('.answer-radio');
+        if (r) r.setAttribute('aria-checked', 'false');
+      });
+      document.querySelectorAll('.btn-next').forEach(btn => { btn.disabled = true; });
+      showStep(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

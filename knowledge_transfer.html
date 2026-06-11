@@ -7,7 +7,7 @@
   <meta name="description" content="Preserve organizational knowledge and intellectual property through documented processes, training materials, and integrated knowledge bases tailored for business continuity.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/knowledge_transfer.html">
+  <meta property="og:url" content="https://tevisengineering.com/knowledge_transfer.html">
   <meta property="og:title" content="Knowledge Transfer Services | Tevis Engineering Solutions">
   <meta property="og:description" content="Preserve organizational knowledge through documented processes, training materials, and integrated knowledge bases. Business continuity for Cleveland-area SMBs.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
@@ -15,7 +15,7 @@
   <meta name="twitter:title" content="Knowledge Transfer Services | Tevis Engineering Solutions">
   <meta name="twitter:description" content="Preserve organizational knowledge through documented processes, training materials, and integrated knowledge bases. Business continuity for Cleveland-area SMBs.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
-  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/knowledge_transfer.html">
+  <link rel="canonical" href="https://tevisengineering.com/knowledge_transfer.html">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -97,27 +97,39 @@
     .logo-primary { font-size: 1.2rem; font-weight: 800; color: #ffffff; }
     .logo-secondary { font-size: 0.92rem; font-weight: 500; color: #d5e7ff; }
 
-    .nav-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #d6e8ff;
-      border: 1px solid rgba(99, 175, 255, 0.28);
-      border-radius: 999px;
-      padding: 0.42rem 0.78rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      background: rgba(99, 175, 255, 0.08);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-    .nav-links a:hover {
-      transform: translateY(-1px);
-      background: rgba(99, 175, 255, 0.18);
-    }
+    /* ==================== MEGA-NAV ==================== */
+    .topbar-inner { position: relative; }
+    .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
+    .menu-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .52rem 1.1rem; border-radius: 999px; border: 1px solid rgba(94,165,255,.28); background: rgba(94,165,255,.08); color: #d4e5ff; font-family: inherit; font-size: .93rem; font-weight: 600; cursor: pointer; transition: background .2s ease; white-space: nowrap; line-height: 1; }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { background: rgba(94,165,255,.18); }
+    .menu-btn .chevron { transition: transform .2s ease; flex-shrink: 0; display: block; }
+    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .mega-drop { position: absolute; top: calc(100% + .6rem); left: 50%; transform: translateX(-50%) translateY(-6px); width: min(680px,94vw); background: #0e1827; border: 1px solid rgba(94,165,255,.22); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.75); padding: 1.35rem 1.35rem 1.05rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .mega-drop::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
+    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .mega-col-head { font-family: "Montserrat",sans-serif; font-size: .67rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #5ea5ff; padding: 0 .55rem .4rem; margin-bottom: .2rem; border-bottom: 1px solid rgba(94,165,255,.14); }
+    .mega-link { display: flex; align-items: flex-start; gap: .65rem; padding: .5rem .55rem; border-radius: 9px; text-decoration: none; transition: background .14s ease; }
+    .mega-link:hover { background: rgba(94,165,255,.09); }
+    .mega-link-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; background: rgba(94,165,255,.1); border: 1px solid rgba(94,165,255,.18); display: flex; align-items: center; justify-content: center; color: #5ea5ff; }
+    .mega-link-icon svg { width: 13px; height: 13px; }
+    .mega-link-text { display: flex; flex-direction: column; gap: .1rem; }
+    .mega-link-title { font-size: .86rem; font-weight: 600; color: #e6eefb; line-height: 1.25; }
+    .mega-link-desc { font-size: .73rem; color: #6a8ba8; line-height: 1.3; }
+    .nav-right { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+    .nav-support-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .54rem 1rem; border-radius: 999px; background: linear-gradient(135deg,#0f8bd8,#1aa36e); color: #fff; font-family: "Montserrat",sans-serif; font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(255,255,255,.18); transition: transform .2s ease, filter .2s ease; white-space: nowrap; }
+    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.22); border-radius: 10px; background: rgba(0,0,0,.3); cursor: pointer; padding: 0 9px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 1rem .8rem; border-top: 1px solid rgba(94,165,255,.12); width: 100%; }
+    .mobile-nav.is-open { display: flex; }
+    .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4e5ff; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
+    .mobile-nav a:hover { background: rgba(94,165,255,.1); }
+    @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } }
+    @media (max-width: 480px) { .nav-support-btn { display: none; } }
 
     .hero {
       padding: 3.5rem 0 2rem;
@@ -305,40 +317,8 @@
     }
     footer a:hover { color: #63afff; }
 
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: 1px solid rgba(99, 175, 255, 0.35);
-      border-radius: 8px;
-      color: #d6e8ff;
-      padding: 0.4rem 0.6rem;
-      cursor: pointer;
-      font-size: 1.2rem;
-      line-height: 1;
-    }
-
     @media (max-width: 700px) {
-      .topbar-inner {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .nav-toggle { display: inline-flex; margin-left: auto; }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 0.4rem;
-        padding-bottom: 0.6rem;
-      }
-      .nav-links.is-open { display: flex; }
-      .nav-links a { text-align: center; }
-      .logo-slot {
-        width: 48px;
-        height: 48px;
-        font-size: 0.85rem;
-      }
+      .logo-slot { width: 48px; height: 48px; }
       .logo-primary { font-size: 1.02rem; }
       .logo-secondary { font-size: 0.8rem; }
       .hero { padding-top: 2.8rem; }
@@ -356,15 +336,50 @@
           <span class="logo-secondary">Solutions</span>
         </span>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
-      <nav class="nav-links" id="navLinks" aria-label="Quick links">
-        <a href="index.html">Home</a>
-        <a href="how_support_works.html">How Support Works</a>
-        <a href="make_ticket.html">Submit Ticket</a>
-        <a href="pay_invoice.html">Pay Invoice</a>
-        <a href="pricing_sheet.html">Pricing Sheet</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+      <div class="nav-center">
+        <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
+          Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
+          <div class="mega-col">
+            <div class="mega-col-head">Services</div>
+            <a href="how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
+            <a href="pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
+            <a href="portfolio.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
+            <a href="assessment.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
+            <a href="website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
+            <a href="data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
+            <a href="knowledge_transfer.html" class="mega-link" aria-current="page"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+          </div>
+          <div class="mega-col">
+            <div class="mega-col-head">Company &amp; Tools</div>
+            <a href="make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
+            <a href="pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
+            <a href="index.html#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
+            <a href="privacy_policy.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
+        <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="how_support_works.html">How Support Works</a>
+      <a href="pricing_sheet.html">Pricing</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="assessment.html">IT Assessment</a>
+      <a href="website_creation.html">Web &amp; App Design</a>
+      <a href="data_destruction.html">Data Destruction</a>
+      <a href="knowledge_transfer.html" aria-current="page">Knowledge Transfer</a>
+      <a href="make_ticket.html">Submit a Ticket</a>
+      <a href="pay_invoice.html">Pay an Invoice</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="privacy_policy.html">Privacy &amp; Terms</a>
     </div>
   </header>
 
@@ -535,12 +550,23 @@
   </footer>
 
   <script>
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', open);
-    });
+    // ---- Mega-nav ----
+    (function() {
+      var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
+      var navToggle = document.getElementById('navToggle'), mobileNav = document.getElementById('mobileNav');
+      var ht;
+      if (menuBtn && megaDrop) {
+        var nc = menuBtn.closest('.nav-center');
+        nc.addEventListener('mouseenter', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.add('is-open'); menuBtn.setAttribute('aria-expanded','true'); }, 150); });
+        nc.addEventListener('mouseleave', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); }, 100); });
+        menuBtn.addEventListener('click', function() { var o = megaDrop.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+        document.addEventListener('keydown', function(e) { if (e.key==='Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+        document.addEventListener('click', function(e) { if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+      }
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
+      }
+    })();
   </script>
 </body>
 </html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio & Case Studies | Tevis Engineering Solutions</title>
+  <meta name="description" content="Real-world IT, software, hardware, and engineering projects completed by Tevis Engineering Solutions. Cleveland-based, veteran-owned.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevisengineering.com/portfolio.html">
+  <meta property="og:title" content="Portfolio & Case Studies | Tevis Engineering Solutions">
+  <meta property="og:description" content="Real problems. Practical solutions. Built to last. See how TES has solved IT, software, and engineering challenges for small businesses.">
+  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portfolio & Case Studies | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Real problems. Practical solutions. Built to last. See how TES has solved IT, software, and engineering challenges for small businesses.">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <link rel="canonical" href="https://tevisengineering.com/portfolio.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- S3/S4: CDN fonts/icons send visitor IPs to Google/Cloudflare. Self-host long-term. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b111a;
+      --card: #121b27;
+      --text: #e6eefb;
+      --muted: #afbed6;
+      --line: #27364f;
+      --blue: #5ea5ff;
+      --accent: #ff5c7f;
+      --teal: #00d4ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #13253f 0%, var(--bg) 45%, #080d15 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .container {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+
+    /* ==================== TOPBAR ==================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: rgba(7, 11, 18, 0.82);
+      border-bottom: 1px solid rgba(94, 165, 255, 0.2);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.05rem 0;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      min-height: 62px;
+      padding-right: 1rem;
+    }
+    .logo-slot {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+      display: block;
+    }
+    .logo-lockup {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-family: "Montserrat", sans-serif;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .logo-primary {
+      font-size: 1.26rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .logo-secondary {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: #d8e6ff;
+    }
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .link-row a {
+      color: #d4e5ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.94rem;
+      border: 1px solid rgba(94, 165, 255, 0.26);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      background: rgba(94, 165, 255, 0.08);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .link-row a:hover {
+      background: rgba(94, 165, 255, 0.18);
+      transform: translateY(-1px);
+    }
+    .link-row a[aria-current="page"] {
+      background: rgba(94, 165, 255, 0.22);
+      border-color: rgba(94, 165, 255, 0.55);
+      color: #ffffff;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      padding: 0 9px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* ==================== HERO ==================== */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+      text-align: center;
+      background: linear-gradient(180deg, #0a1628 0%, var(--bg) 100%);
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 25% 60%, rgba(0, 119, 255, 0.2), transparent 55%),
+        radial-gradient(circle at 75% 30%, rgba(0, 212, 255, 0.12), transparent 50%);
+      z-index: 1;
+    }
+    .hero-circuit {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-circuit svg {
+      width: 100%;
+      height: 100%;
+    }
+    @keyframes traceFade {
+      0%, 100% { opacity: 0.055; }
+      50% { opacity: 0.11; }
+    }
+    @keyframes nodesPulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
+    }
+    .hero-circuit .h-trace {
+      animation: traceFade 10s ease-in-out infinite;
+    }
+    .hero-circuit .h-trace:nth-child(2n) { animation-delay: -4s; }
+    .hero-circuit .h-trace:nth-child(3n) { animation-delay: -7s; }
+    .hero-circuit .h-node {
+      animation: nodesPulse 8s ease-in-out infinite;
+    }
+    .hero-circuit .h-node:nth-child(2n) { animation-delay: -3.2s; }
+    .hero-circuit .h-node:nth-child(3n) { animation-delay: -5.8s; }
+    .hero-circuit .h-node:nth-child(5n) { animation-delay: -1.4s; }
+    .hero-content {
+      position: relative;
+      z-index: 5;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 0.32rem 0.85rem;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      border-radius: 999px;
+      color: #a8edff;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: rgba(0, 212, 255, 0.08);
+    }
+    .hero-section h1 {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1.12;
+      margin-bottom: 1rem;
+      color: #f0f7ff;
+    }
+    .hero-section .sub {
+      max-width: 640px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    /* ==================== FILTER BAR ==================== */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+      padding: 2.4rem 0 1rem;
+    }
+    .filter-pill {
+      display: inline-block;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 165, 255, 0.3);
+      background: rgba(94, 165, 255, 0.07);
+      color: #c4d9f8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    .filter-pill:hover {
+      background: rgba(94, 165, 255, 0.16);
+      transform: translateY(-1px);
+    }
+    .filter-pill.active {
+      background: linear-gradient(135deg, #1a5cb0, #0d8da8);
+      border-color: rgba(94, 165, 255, 0.6);
+      color: #ffffff;
+    }
+
+    /* ==================== CARDS GRID ==================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      padding: 1.2rem 0 3rem;
+    }
+    .case-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .case-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(94, 165, 255, 0.4);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    }
+    .case-card.hidden {
+      display: none;
+    }
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .case-card.visible {
+      animation: cardFadeIn 0.3s ease forwards;
+    }
+    .cat-tag {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      align-self: flex-start;
+    }
+    .cat-it     { background: rgba(94, 165, 255, 0.15); color: #84c6ff; border: 1px solid rgba(94,165,255,0.3); }
+    .cat-sw     { background: rgba(100, 240, 210, 0.12); color: #5fe0c0; border: 1px solid rgba(100,240,210,0.3); }
+    .cat-web    { background: rgba(255, 92, 127, 0.12); color: #ff8fb0; border: 1px solid rgba(255,92,127,0.3); }
+    .cat-hw     { background: rgba(255, 180, 50, 0.12); color: #ffca6a; border: 1px solid rgba(255,180,50,0.3); }
+    .cat-cad    { background: rgba(180, 130, 255, 0.12); color: #c8a0ff; border: 1px solid rgba(180,130,255,0.3); }
+    .cat-auto   { background: rgba(80, 220, 120, 0.12); color: #6edca0; border: 1px solid rgba(80,220,120,0.3); }
+    .case-card h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #edf4ff;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .client-type {
+      font-size: 0.83rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--blue);
+      margin-bottom: 0.15rem;
+    }
+    .card-text {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .outcome-block {
+      background: rgba(94, 165, 255, 0.07);
+      border: 1px solid rgba(94, 165, 255, 0.2);
+      border-radius: 10px;
+      padding: 0.7rem 0.85rem;
+    }
+    .outcome-stat {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #edf4ff;
+    }
+    .read-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .read-more-btn:hover {
+      color: #84c6ff;
+    }
+    .read-more-btn i {
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+    .read-more-btn.expanded i {
+      transform: rotate(180deg);
+    }
+    .detail-panel {
+      display: none;
+      background: rgba(10, 20, 38, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 0.25rem;
+    }
+    .detail-panel.open {
+      display: block;
+    }
+
+    /* ==================== CTA SECTION ==================== */
+    .cta-section {
+      background: rgba(11, 18, 30, 0.66);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .cta-section h2 {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: #edf4ff;
+      margin-bottom: 0.6rem;
+    }
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.8rem;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), #84c2ff);
+      color: #06101f;
+      box-shadow: 0 8px 22px rgba(94, 165, 255, 0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 12px 28px rgba(94, 165, 255, 0.42);
+      filter: brightness(1.06);
+    }
+    .btn-ghost {
+      border-color: rgba(94, 165, 255, 0.35);
+      background: rgba(94, 165, 255, 0.1);
+      color: #d4e5ff;
+    }
+    .btn-ghost:hover {
+      background: rgba(94, 165, 255, 0.18);
+    }
+    .btn-link {
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-size: 0.95rem;
+      padding: 0.85rem 0.5rem;
+    }
+    .btn-link:hover {
+      color: #84c6ff;
+      text-decoration: underline;
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      text-align: center;
+      padding: 2rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--blue); text-decoration: none; margin: 0 0.3rem; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ==================== MEGA-NAV ==================== */
+    .topbar-inner { position: relative; }
+    .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
+    .menu-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .52rem 1.1rem; border-radius: 999px; border: 1px solid rgba(94,165,255,.28); background: rgba(94,165,255,.08); color: #d4e5ff; font-family: inherit; font-size: .93rem; font-weight: 600; cursor: pointer; transition: background .2s ease; white-space: nowrap; line-height: 1; }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { background: rgba(94,165,255,.18); }
+    .menu-btn .chevron { transition: transform .2s ease; flex-shrink: 0; display: block; }
+    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .mega-drop { position: absolute; top: calc(100% + .6rem); left: 50%; transform: translateX(-50%) translateY(-6px); width: min(680px,94vw); background: #0e1827; border: 1px solid rgba(94,165,255,.22); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.75); padding: 1.35rem 1.35rem 1.05rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .mega-drop::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
+    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .mega-col-head { font-family: "Montserrat",sans-serif; font-size: .67rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #5ea5ff; padding: 0 .55rem .4rem; margin-bottom: .2rem; border-bottom: 1px solid rgba(94,165,255,.14); }
+    .mega-link { display: flex; align-items: flex-start; gap: .65rem; padding: .5rem .55rem; border-radius: 9px; text-decoration: none; transition: background .14s ease; }
+    .mega-link:hover { background: rgba(94,165,255,.09); }
+    .mega-link-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; background: rgba(94,165,255,.1); border: 1px solid rgba(94,165,255,.18); display: flex; align-items: center; justify-content: center; color: #5ea5ff; }
+    .mega-link-icon svg { width: 13px; height: 13px; }
+    .mega-link-text { display: flex; flex-direction: column; gap: .1rem; }
+    .mega-link-title { font-size: .86rem; font-weight: 600; color: #e6eefb; line-height: 1.25; }
+    .mega-link-desc { font-size: .73rem; color: #6a8ba8; line-height: 1.3; }
+    .nav-right { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+    .nav-support-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .54rem 1rem; border-radius: 999px; background: linear-gradient(135deg,#0f8bd8,#1aa36e); color: #fff; font-family: "Montserrat",sans-serif; font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(255,255,255,.18); transition: transform .2s ease, filter .2s ease; white-space: nowrap; }
+    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 1rem .8rem; border-top: 1px solid rgba(94,165,255,.12); width: 100%; }
+    .mobile-nav.is-open { display: flex; }
+    .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4e5ff; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
+    .mobile-nav a:hover { background: rgba(94,165,255,.1); }
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } }
+    @media (max-width: 580px) { .cards-grid { grid-template-columns: 1fr; } .hero-section { padding: 3.5rem 0 2.8rem; } .cta-section { padding: 2rem 1.2rem; } }
+    @media (max-width: 480px) { .nav-support-btn { display: none; } }
+    @media (max-width: 580px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero-section { padding: 3.5rem 0 2.8rem; }
+      .cta-section { padding: 2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a href="index.html" class="brand" aria-label="Tevis Engineering Solutions home">
+        <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-slot">
+        <span class="logo-lockup">
+          <span class="logo-primary">Tevis Engineering</span>
+          <span class="logo-secondary">Solutions</span>
+        </span>
+      </a>
+      <div class="nav-center">
+        <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
+          Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
+          <div class="mega-col">
+            <div class="mega-col-head">Services</div>
+            <a href="how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
+            <a href="pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
+            <a href="portfolio.html" class="mega-link" aria-current="page"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
+            <a href="assessment.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
+            <a href="website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
+            <a href="data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
+            <a href="knowledge_transfer.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+          </div>
+          <div class="mega-col">
+            <div class="mega-col-head">Company &amp; Tools</div>
+            <a href="make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
+            <a href="pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
+            <a href="index.html#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
+            <a href="privacy_policy.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
+        <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="how_support_works.html">How Support Works</a>
+      <a href="pricing_sheet.html">Pricing</a>
+      <a href="portfolio.html" aria-current="page">Portfolio</a>
+      <a href="assessment.html">IT Assessment</a>
+      <a href="website_creation.html">Web &amp; App Design</a>
+      <a href="data_destruction.html">Data Destruction</a>
+      <a href="knowledge_transfer.html">Knowledge Transfer</a>
+      <a href="make_ticket.html">Submit a Ticket</a>
+      <a href="pay_invoice.html">Pay an Invoice</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="privacy_policy.html">Privacy &amp; Terms</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero-section" aria-label="Portfolio hero">
+    <div class="hero-circuit" aria-hidden="true">
+      <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#00d4ff" stroke-width="0.9" stroke-linecap="round">
+          <polyline class="h-trace" points="0,60 160,60 160,110 320,110 320,60 520,60"/>
+          <polyline class="h-trace" points="640,60 800,60 800,30 1000,30 1000,60 1200,60"/>
+          <line class="h-trace" x1="520" y1="60" x2="640" y2="60"/>
+          <polyline class="h-trace" points="0,180 220,180 220,140 440,140 440,180 660,180"/>
+          <polyline class="h-trace" points="780,140 1000,140 1000,180 1200,180"/>
+          <line class="h-trace" x1="660" y1="180" x2="780" y2="180"/>
+          <line class="h-trace" x1="780" y1="180" x2="780" y2="140"/>
+          <polyline class="h-trace" points="0,300 140,300 140,260 360,260 360,300 600,300"/>
+          <polyline class="h-trace" points="720,260 920,260 920,300 1200,300"/>
+          <line class="h-trace" x1="600" y1="300" x2="720" y2="300"/>
+          <line class="h-trace" x1="720" y1="300" x2="720" y2="260"/>
+          <polyline class="h-trace" points="0,390 200,390 200,350 460,350"/>
+          <polyline class="h-trace" points="600,350 840,350 840,390 1200,390"/>
+          <line class="h-trace" x1="160" y1="60" x2="160" y2="0"/>
+          <line class="h-trace" x1="320" y1="110" x2="320" y2="180"/>
+          <line class="h-trace" x1="1000" y1="30" x2="1000" y2="0"/>
+          <line class="h-trace" x1="440" y1="180" x2="440" y2="260"/>
+          <line class="h-trace" x1="920" y1="260" x2="920" y2="180"/>
+          <line class="h-trace" x1="360" y1="300" x2="360" y2="390"/>
+        </g>
+        <g fill="#00d4ff">
+          <circle class="h-node" cx="160" cy="60" r="2.8"/>
+          <circle class="h-node" cx="320" cy="110" r="2.8"/>
+          <circle class="h-node" cx="320" cy="60" r="2.5"/>
+          <circle class="h-node" cx="800" cy="60" r="2.8"/>
+          <circle class="h-node" cx="1000" cy="30" r="2.8"/>
+          <circle class="h-node" cx="220" cy="180" r="2.8"/>
+          <circle class="h-node" cx="440" cy="140" r="2.5"/>
+          <circle class="h-node" cx="780" cy="140" r="2.8"/>
+          <circle class="h-node" cx="140" cy="300" r="2.8"/>
+          <circle class="h-node" cx="360" cy="260" r="2.5"/>
+          <circle class="h-node" cx="360" cy="300" r="2.8"/>
+          <circle class="h-node" cx="720" cy="260" r="2.8"/>
+          <circle class="h-node" cx="920" cy="260" r="2.5"/>
+          <circle class="h-node" cx="200" cy="390" r="2.8"/>
+          <circle class="h-node" cx="460" cy="350" r="2.5"/>
+          <circle class="h-node" cx="840" cy="350" r="2.5"/>
+          <circle class="h-node" cx="840" cy="390" r="2.8"/>
+        </g>
+        <g fill="#00d4ff">
+          <polygon class="h-node" transform="translate(600,60)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
+          <polygon class="h-node" transform="translate(660,180)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
+          <polygon class="h-node" transform="translate(600,300)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-content container">
+      <span class="eyebrow">Case Studies</span>
+      <h1>Portfolio &amp; Case Studies</h1>
+      <p class="sub">Real problems. Practical solutions. Built to last.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" role="group" aria-label="Filter case studies by category">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="it-support">IT Support</button>
+      <button class="filter-pill" data-filter="software">Software</button>
+      <button class="filter-pill" data-filter="web-design">Web Design</button>
+      <button class="filter-pill" data-filter="hardware">Hardware &amp; PCB</button>
+      <button class="filter-pill" data-filter="cad">CAD &amp; 3D Print</button>
+      <button class="filter-pill" data-filter="automation">Automation</button>
+    </div>
+
+    <!-- CASE STUDY CARDS -->
+    <div class="cards-grid" id="cardsGrid" aria-live="polite" aria-label="Case study cards">
+
+      <!-- IT Support -->
+      <article class="case-card visible" data-category="it-support" aria-label="IT Support case study">
+        <span class="cat-tag cat-it">IT Support</span>
+        <h3>Network Stabilization for a 12-Person Dental Office</h3>
+        <p class="client-type">Small Medical Practice</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">Recurring network outages were disrupting patient scheduling software multiple times per week, causing front-desk delays and staff frustration.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Replaced aging unmanaged switches with a VLAN-segmented managed network, separating clinical, administrative, and guest traffic.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">Zero network outages in 6 months post-install.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-it">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-it">
+          The practice had been running on consumer-grade hardware for over five years with no formal network diagram and no documented configuration. During the audit, we identified three switches daisy-chained without proper uplinks, a shared IP address conflict between the imaging workstation and a front-desk PC, and a Wi-Fi access point serving both guests and internal clinical systems. We installed a managed 24-port PoE switch, two access points with SSIDs mapped to separate VLANs, and a dedicated router with stateful firewall rules. Post-install, we ran a 30-day monitoring period and documented the complete network layout for the practice manager.
+        </div>
+      </article>
+
+      <!-- Software -->
+      <article class="case-card visible" data-category="software" aria-label="Software case study">
+        <span class="cat-tag cat-sw">Software</span>
+        <h3>Automated Inventory Sync for a Retail Distributor</h3>
+        <p class="client-type">Small Product Distributor</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">Staff spent four hours every week manually reconciling inventory spreadsheets pulled from two separate vendor portals with no consistent format.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Built a Python script that pulls live data from both vendor APIs, normalizes and merges the output, and emails a formatted CSV report each morning.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">Weekly reconciliation time cut from 4 hours to under 5 minutes.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-sw">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-sw">
+          One vendor provided a REST API with OAuth2 authentication; the other exposed data only through a CSV download on their portal. We automated the portal download using a headless browser session on a scheduled task, then built a unified ETL script that standardized SKU formats, matched records by UPC, flagged discrepancies, and output a single merged sheet. The script runs daily at 6:00 AM and sends the result to the purchasing manager. We also added a simple error-notification email so the client knows immediately if an upstream API changes its format.
+        </div>
+      </article>
+
+      <!-- Web Design -->
+      <article class="case-card visible" data-category="web-design" aria-label="Web Design case study">
+        <span class="cat-tag cat-web">Web Design</span>
+        <h3>Credibility Website for a Solo Contractor</h3>
+        <p class="client-type">Independent Trades Contractor</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">A licensed contractor with 12 years of experience had no online presence and was losing bid opportunities to competitors with basic websites.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Designed and launched a clean 5-page static site with a contact form, service list, and a photo gallery — live in under two weeks.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">First inbound inquiry received within 2 weeks of launch.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-web">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-web">
+          The client had photos on his phone but nothing organized or written up. We conducted a single 90-minute intake call, wrote all copy from that session, and built the site in plain HTML/CSS hosted on GitHub Pages for near-zero ongoing cost. The site includes a contact form backed by a form-handling service, Google Business Profile integration, and basic on-page SEO (meta descriptions, canonical tags, structured data). The client manages updates through a simple shared folder — no CMS login required.
+        </div>
+      </article>
+
+      <!-- Hardware & PCB -->
+      <article class="case-card visible" data-category="hardware" aria-label="Hardware and PCB case study">
+        <span class="cat-tag cat-hw">Hardware &amp; PCB</span>
+        <h3>Custom Sensor Interface Board for Lab Equipment</h3>
+        <p class="client-type">Small Research Laboratory</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">An off-the-shelf Arduino-based solution was introducing electrical noise into precision ADC readings, making measurement results inconsistent and unreliable.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Designed a 2-layer PCB with proper ground planes, decoupling capacitors, and filtered ADC input stages to replace the breadboard prototype.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">Signal noise reduced by over 90% vs. the Arduino prototype.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-hw">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-hw">
+          The root cause was shared ground paths between the power supply and the analog measurement circuitry, combined with no filtering on the ADC reference voltage rail. We scoped the incoming signal to characterize the noise profile, redesigned the layout with a split ground plane, added a low-dropout regulator for the analog supply, and included passive RC filters on each ADC channel. The final board was fabricated as a 2-layer 100mm × 60mm PCB. After testing, noise floor dropped from ±18mV to under ±1.5mV — within spec for the client's measurement requirements.
+        </div>
+      </article>
+
+      <!-- CAD & 3D Print -->
+      <article class="case-card visible" data-category="cad" aria-label="CAD and 3D Print case study">
+        <span class="cat-tag cat-cad">CAD &amp; 3D Print</span>
+        <h3>Replacement Housing for a Discontinued Device Component</h3>
+        <p class="client-type">Medical Equipment End User</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">A critical connector housing on a legacy medical device had cracked. The OEM part was discontinued with no replacement available and no CAD files on record.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Reverse-engineered the original part from the physical sample using calipers and reference measurements, modeled it in CAD, and printed the replacement in PETG.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">Client avoided a $4,000 OEM replacement unit. Part passed fitment and load testing.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-cad">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-cad">
+          The housing served as a structural mounting point and electrical connector guide, so both dimensional accuracy and mechanical strength were critical. We took over 30 measurements with digital calipers, documented every feature, and modeled the part in full 3D. PETG was selected for its balance of rigidity and slight flex tolerance — important for a snap-fit locking mechanism on the original design. Three print iterations were tested for fitment before finalizing print orientation and wall thickness. The client's engineering contact reviewed and signed off before the part was installed. We also delivered the CAD file so future replacements can be printed without re-engineering.
+        </div>
+      </article>
+
+      <!-- Automation -->
+      <article class="case-card visible" data-category="automation" aria-label="Automation case study">
+        <span class="cat-tag cat-auto">Automation</span>
+        <h3>PowerShell Onboarding Automation for an Azure AD Tenant</h3>
+        <p class="client-type">Professional Services Firm (15 employees)</p>
+        <div class="card-body">
+          <div>
+            <p class="card-label">Problem</p>
+            <p class="card-text">The IT manager was spending 45 minutes per new hire manually creating Active Directory accounts, assigning Microsoft 365 licenses, and sending welcome emails.</p>
+          </div>
+          <div>
+            <p class="card-label">Solution</p>
+            <p class="card-text">Built a PowerShell script triggered by a CSV drop that provisions the AD user, assigns the correct M365 license, and sends a templated welcome email — all in one run.</p>
+          </div>
+          <div class="outcome-block">
+            <p class="card-label">Outcome</p>
+            <p class="outcome-stat">New hire provisioning time reduced from 45 minutes to under 2 minutes.</p>
+          </div>
+        </div>
+        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-auto">
+          Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="detail-panel" id="detail-auto">
+          The script reads a structured CSV (name, department, manager, start date, license SKU) placed in a watched folder on the domain controller. It validates all fields before execution, creates the AD user with the correct OU placement based on department, calls the Microsoft Graph API to assign the appropriate M365 license, forces a password reset on first login, and sends a welcome email via the company's SMTP relay with IT contact info and onboarding checklist. Error handling logs failures to a timestamped text file and sends an alert to the IT manager's inbox. The client's team can now hand off onboarding to a non-technical HR coordinator for the initial CSV step.
+        </div>
+      </article>
+
+    </div><!-- /cards-grid -->
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+      <h2>Have a project in mind?</h2>
+      <p>Let's talk through the problem. No obligation — just a practical conversation about what you need.</p>
+      <div class="btn-row">
+        <a href="make_ticket.html" class="btn btn-primary">Start a Project</a>
+        <a href="assessment.html" class="btn btn-ghost">Take the IT Assessment</a>
+        <a href="pricing_sheet.html" class="btn btn-link">View Pricing →</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="index.html">Home</a> &nbsp;·&nbsp;
+      <a href="portfolio.html">Portfolio</a> &nbsp;·&nbsp;
+      <a href="make_ticket.html">Submit a Ticket</a> &nbsp;·&nbsp;
+      <a href="pay_invoice.html">Pay Invoice</a> &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">LinkedIn</a><br>
+      Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT &amp; Engineering Services
+    </footer>
+  </main>
+
+  <script>
+    // ---- Mega-nav ----
+    (function() {
+      var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
+      var navToggle = document.getElementById('navToggle'), mobileNav = document.getElementById('mobileNav');
+      var ht;
+      if (menuBtn && megaDrop) {
+        var nc = menuBtn.closest('.nav-center');
+        nc.addEventListener('mouseenter', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.add('is-open'); menuBtn.setAttribute('aria-expanded','true'); }, 150); });
+        nc.addEventListener('mouseleave', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); }, 100); });
+        menuBtn.addEventListener('click', function() { var o = megaDrop.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+        document.addEventListener('keydown', function(e) { if (e.key==='Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+        document.addEventListener('click', function(e) { if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+      }
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
+      }
+    })();
+
+    // ---- Filter pills ----
+    const pills = document.querySelectorAll('.filter-pill');
+    const cards = document.querySelectorAll('.case-card');
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const filter = pill.dataset.filter;
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          if (match) {
+            card.classList.remove('hidden');
+            // Re-trigger fade animation
+            card.classList.remove('visible');
+            void card.offsetWidth; // reflow
+            card.classList.add('visible');
+          } else {
+            card.classList.add('hidden');
+            card.classList.remove('visible');
+          }
+        });
+      });
+    });
+
+    // ---- Read More expand ----
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panelId = btn.getAttribute('aria-controls');
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+        const isOpen = panel.classList.toggle('open');
+        btn.classList.toggle('expanded', isOpen);
+        btn.setAttribute('aria-expanded', String(isOpen));
+        btn.firstChild.textContent = isOpen ? 'Show Less ' : 'Read More ';
+      });
+    });
+  </script>
+</body>
+</html>
