@@ -4,7 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pay Invoice | Tevis Engineering Solutions</title>
-  <meta name="description" content="Lookup your invoice and submit billing support requests for Tevis Engineering Solutions.">
+  <meta name="description" content="Look up your invoice and pay securely via PayPal, or submit a billing support request to Tevis Engineering Solutions.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/pay_invoice.html">
+  <meta property="og:title" content="Pay Invoice | Tevis Engineering Solutions">
+  <meta property="og:description" content="Look up your invoice and pay securely via PayPal, or submit a billing support request.">
+  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pay Invoice | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Look up your invoice and pay securely via PayPal, or submit a billing support request.">
+  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/pay_invoice.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -113,7 +125,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr 0.95fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 1rem;
       margin-top: 1rem;
     }
@@ -278,84 +290,6 @@
       gap: 0.72rem;
     }
 
-    .crypto-card {
-      border-color: rgba(100, 240, 210, 0.34);
-      background: linear-gradient(165deg, rgba(19, 32, 49, 0.96), rgba(16, 27, 41, 0.96));
-    }
-
-    .crypto-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      border: 1px solid rgba(100, 240, 210, 0.45);
-      border-radius: 999px;
-      padding: 0.35rem 0.65rem;
-      color: #d7fff4;
-      background: rgba(100, 240, 210, 0.08);
-      font-weight: 700;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.7rem;
-    }
-
-    .crypto-lead {
-      color: #c4d9f3;
-      font-size: 0.94rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .wallet-box {
-      border: 1px dashed rgba(100, 240, 210, 0.45);
-      border-radius: 14px;
-      background: rgba(10, 19, 30, 0.8);
-      padding: 0.8rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .wallet-label {
-      color: #9ddacb;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.35rem;
-      font-weight: 700;
-    }
-
-    .wallet-address {
-      display: block;
-      color: #eff7ff;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.9rem;
-      line-height: 1.45;
-      word-break: break-all;
-      overflow-wrap: anywhere;
-      letter-spacing: 0.01em;
-    }
-
-    .crypto-notes {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .crypto-notes li {
-      color: #c7dbf7;
-      font-size: 0.9rem;
-      padding-left: 1.25rem;
-      position: relative;
-    }
-
-    .crypto-notes li::before {
-      content: "\2022";
-      position: absolute;
-      left: 0;
-      color: #74e7ca;
-      font-size: 0.95rem;
-    }
-
     .support-form .small {
       font-size: 0.84rem;
       color: #9eb6d9;
@@ -421,12 +355,30 @@
       font-size: 0.84rem;
       text-align: center;
     }
-
-    @media (max-width: 1120px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
     }
+    .billing-success {
+      display: none;
+      background: rgba(136,231,167,0.07);
+      border: 1px solid rgba(136,231,167,0.3);
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: #88e7a7;
+    }
+    .billing-success.visible { display: block; }
+    .billing-success h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .billing-success p { color: #b4c3dd; font-size: 0.95rem; line-height: 1.6; }
 
     @media (max-width: 860px) {
       .grid {
@@ -457,7 +409,8 @@
         <p class="quick-pay-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Once your invoice is found, click <strong>Pay Invoice</strong> to be directed to PayPal immediately and complete payment.</p>
 
         <div class="lookup-row">
-          <input id="invoiceQuery" type="text" placeholder="" aria-label="Invoice number or admin username">
+          <label for="invoiceQuery" class="sr-only">Invoice number or admin username</label>
+          <input id="invoiceQuery" type="text" placeholder="e.g. TES-2026-001 or your admin username" aria-label="Invoice number or admin username">
           <button id="lookupBtn" class="btn btn-primary" type="button" disabled>Search</button>
         </div>
 
@@ -487,47 +440,63 @@
         <h2 id="billing-help-title">Billing Support Form</h2>
         <p class="lead">Use this form for invoice corrections, payment confirmation, failed transactions, and billing record updates.</p>
 
-        <form class="support-form" action="https://formspree.io/f/mzdoowdj" method="POST">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Email Address" required>
-          <input type="tel" name="phone" placeholder="Phone Number">
-          <input type="text" name="company" placeholder="Company / Organization" required>
-          <input type="text" name="invoice_reference" placeholder="Invoice Number or Admin Username" required>
-          <select name="billing_issue_type" required>
-            <option value="" selected disabled>Select Billing Issue Type</option>
-            <option>Invoice Request</option>
-            <option>Payment Confirmation</option>
-            <option>Incorrect Invoice Amount</option>
-            <option>Failed or Duplicate Charge</option>
-            <option>Update Billing Contact</option>
-            <option>General Billing Question</option>
-          </select>
-          <textarea name="message" rows="6" placeholder="Describe your billing issue, timeline, and any payment reference IDs." required></textarea>
+        <div id="billingFormWrapper">
+          <form class="support-form" action="https://formspree.io/f/mzdoowdj" method="POST">
+            <div>
+              <label for="bill-name" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Full Name <span style="color:#ff6a8e;">*</span></label>
+              <input id="bill-name" type="text" name="name" placeholder="Your full name" required autocomplete="name">
+            </div>
+            <div>
+              <label for="bill-email" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Email Address <span style="color:#ff6a8e;">*</span></label>
+              <input id="bill-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div>
+              <label for="bill-phone" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Phone Number</label>
+              <input id="bill-phone" type="tel" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
+            </div>
+            <div>
+              <label for="bill-company" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Company / Organization <span style="color:#ff6a8e;">*</span></label>
+              <input id="bill-company" type="text" name="company" placeholder="Company name or 'Personal'" required autocomplete="organization">
+            </div>
+            <div>
+              <label for="bill-invoice" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Invoice Number or Admin Username <span style="color:#ff6a8e;">*</span></label>
+              <input id="bill-invoice" type="text" name="invoice_reference" placeholder="e.g. TES-2026-001 or your username" required>
+            </div>
+            <div>
+              <label for="bill-issue-type" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Billing Issue Type <span style="color:#ff6a8e;">*</span></label>
+              <select id="bill-issue-type" name="billing_issue_type" required>
+                <option value="" selected disabled>Select issue type</option>
+                <option>Invoice Request</option>
+                <option>Payment Confirmation</option>
+                <option>Incorrect Invoice Amount</option>
+                <option>Failed or Duplicate Charge</option>
+                <option>Update Billing Contact</option>
+                <option>General Billing Question</option>
+              </select>
+            </div>
+            <div>
+              <label for="bill-message" style="display:block; font-size:0.8rem; font-weight:700; color:#b4c3dd; margin-bottom:0.25rem;">Details <span style="color:#ff6a8e;">*</span></label>
+              <textarea id="bill-message" name="message" rows="6" placeholder="Describe your billing issue, timeline, and any payment reference IDs." required></textarea>
+            </div>
 
-          <input type="hidden" name="_subject" value="Billing/Invoice Support Request - Tevis Engineering Solutions">
-          <input type="text" name="_honeypot" style="display:none;" tabindex="-1" autocomplete="off">
+            <input type="hidden" name="_subject" value="Billing/Invoice Support Request - Tevis Engineering Solutions">
+            <input type="hidden" name="_next" value="https://tevis-engineering-solutions.github.io/pay_invoice.html?billing_submitted=1">
+            <input type="text" name="_honeypot" style="display:none;" tabindex="-1" autocomplete="off">
 
-          <button class="btn btn-primary" type="submit">Submit Billing Request</button>
-          <p class="small">For billing issues, contact: billing@tevisengineering.com</p>
-        </form>
-      </section>
-
-      <section class="card crypto-card" aria-labelledby="crypto-pay-title">
-        <h2 id="crypto-pay-title">Crypto Payment Option</h2>
-        <span class="crypto-badge"><i class="fa-brands fa-bitcoin"></i> Proton Wallet</span>
-        <p class="crypto-lead">Contact us or pay by crypto if it better fits your workflow. Bitcoin payments are accepted through our Proton Wallet for invoice settlement.</p>
-
-        <div class="wallet-box" aria-label="Proton Wallet address">
-          <div class="wallet-label">BTC Wallet Address</div>
-          <span class="wallet-address">bc1qt8jcvy26h0lqwk6mgsfudj277hmdqrskajmnxr</span>
+            <button class="btn btn-primary" type="submit">Submit Billing Request</button>
+            <p class="small">For billing issues, contact: billing@tevisengineering.com</p>
+          </form>
         </div>
-
-        <ul class="crypto-notes">
-          <li>Include your invoice number in your payment note or email so we can match your transaction quickly.</li>
-          <li>After sending payment, submit the Billing Support Form with your transaction ID for confirmation.</li>
-          <li>Network fees and exchange rates are determined by your wallet/provider at the time of transfer.</li>
-        </ul>
+        <!-- Billing form success state (shown when ?billing_submitted=1 is in URL) -->
+        <div class="billing-success" id="billingSuccessCard">
+          <div style="font-size:2.5rem; margin-bottom:0.75rem;">✅</div>
+          <h3>Request Received</h3>
+          <p>Your billing support request has been submitted. We'll review it and follow up at the contact info you provided, usually within one business day.<br><br>
+          For urgent matters, email <strong>billing@tevisengineering.com</strong> or call <strong>(814) 384-5117</strong>.</p>
+          <a href="index.html" style="display:inline-block; margin-top:1.2rem; color:#4fa2ff; font-weight:700; text-decoration:none;">← Return to Homepage</a>
+        </div>
       </section>
+
     </div>
 
     <section class="contact-strip" aria-label="Contact details">
@@ -571,7 +540,17 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzOqk9rjdEQ12A8m5VXIFbEWd-V79YA9J9Av_Zb_Qe478KR0QjXTcsdC3AwoyrlwFM4/exec";
-    const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/HKB3W4JJ92MH8";
+    // M6: PAYPAL_LINK constant removed — was defined but never used. PayPal payments are
+    // handled by the hidden #paypalForm (WebsitePaymentsStandard). If switching to the
+    // newer PayPal.Me / payment link flow, use: https://www.paypal.com/ncp/payment/HKB3W4JJ92MH8
+
+    // M7: Show billing success state if redirected from Formspree
+    if (new URLSearchParams(location.search).get('billing_submitted') === '1') {
+      const wrapper = document.getElementById('billingFormWrapper');
+      const success = document.getElementById('billingSuccessCard');
+      if (wrapper) wrapper.style.display = 'none';
+      if (success) success.classList.add('visible');
+    }
 
     const invoiceQueryEl = document.getElementById("invoiceQuery");
     const lookupBtn = document.getElementById("lookupBtn");

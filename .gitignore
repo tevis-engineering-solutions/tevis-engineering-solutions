@@ -1,0 +1,32 @@
+# Claude session context — not for public repo
+CLAUDE.md
+
+# Environment / secrets
+.env
+.env.*
+*.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (not used by this project, but included as a safeguard)
+node_modules/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Editor metadata
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temp / build artifacts (none currently, but future-proof)
+dist/
+build/
+.cache/

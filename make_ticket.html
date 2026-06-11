@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit a Support Ticket | Tevis Engineering Solutions</title>
   <meta name="description" content="Submit an IT support ticket to Tevis Engineering Solutions. We'll get back to you fast.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/make_ticket.html">
+  <meta property="og:title" content="Submit a Support Ticket | Tevis Engineering Solutions">
+  <meta property="og:description" content="Submit an IT support ticket to Tevis Engineering Solutions. Most requests receive a response within a few hours.">
+  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Submit a Support Ticket | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Submit an IT support ticket to Tevis Engineering Solutions. Most requests receive a response within a few hours.">
+  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/make_ticket.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -143,129 +155,21 @@
       .radio-label { width: 100%; }
     }
 
-    /* ==================== CLIENT LOGIN GATE ==================== */
-    #loginGate {
-      position: fixed;
-      inset: 0;
-      z-index: 9000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(79,162,255,0.16), transparent 60%),
-        radial-gradient(900px 480px at 100% 0%, rgba(100,240,210,0.1), transparent 55%),
-        #070b12;
-      padding: 1rem;
-    }
-    .login-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-    }
-    .login-logo {
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 0.35rem;
-    }
-    .login-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #4fa2ff, #64f0d2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.35rem;
-    }
-    .login-sub {
-      color: var(--muted);
-      font-size: 0.88rem;
-      margin-bottom: 1.8rem;
-      line-height: 1.5;
-    }
-    .login-field {
-      width: 100%;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.7rem 0.9rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-family: inherit;
-      margin-bottom: 0.85rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .login-field:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(79,162,255,0.15);
-    }
-    .login-field::placeholder { color: #4a6080; }
-    .login-btn {
-      width: 100%;
-      padding: 0.85rem;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #4fa2ff, #2f86ea);
-      color: white;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      transition: filter 0.2s, transform 0.2s;
-      margin-top: 0.2rem;
-    }
-    .login-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .login-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    .login-error {
-      color: var(--bad);
-      font-size: 0.86rem;
-      margin-top: 0.75rem;
-      min-height: 1.2em;
-      line-height: 1.4;
-    }
-    .login-contact {
-      margin-top: 1.6rem;
-      font-size: 0.8rem;
-      color: #5a7090;
-      line-height: 1.5;
-    }
-    .login-contact a { color: var(--blue); text-decoration: none; }
-    .login-contact a:hover { text-decoration: underline; }
   </style>
+  <!--
+    H1 SECURITY FIX: The former "client login gate" fetched credentials from a Google Apps Script
+    URL and compared them in the browser — fully visible in DevTools. This provides no real security.
+    The login gate has been removed. The support ticket form is now publicly accessible.
+
+    TODO: When a real auth backend is available, implement one of these options:
+      - Cloudflare Access (zero-config, free tier available) in front of this page
+      - Netlify Identity / Supabase Auth with a JWT-gated API
+      - A server-side session (requires migrating off GitHub Pages to a host with server logic)
+    Until then, the form is intentionally public. Submitted tickets contain no sensitive data
+    that a bad actor couldn't learn from the contact form anyway.
+  -->
 </head>
 <body>
-
-<!-- ============ CLIENT LOGIN GATE ============ -->
-<div id="loginGate">
-  <div class="login-card">
-    <p class="login-logo">Tevis Engineering Solutions</p>
-    <h1 class="login-title">Client Portal</h1>
-    <p class="login-sub">Sign in to access the support ticket system.</p>
-    <form id="loginForm" novalidate autocomplete="on">
-      <input id="loginUser" class="login-field" type="text" name="username"
-             placeholder="Username" autocomplete="username" required>
-      <input id="loginPass" class="login-field" type="password" name="password"
-             placeholder="Password" autocomplete="current-password" required>
-      <button id="loginBtn" class="login-btn" type="submit">Sign In</button>
-      <p id="loginError" class="login-error" role="alert" aria-live="assertive"></p>
-    </form>
-    <p class="login-contact">
-      Don't have credentials? <a href="index.html#contact">Contact us</a> to get set up.
-    </p>
-  </div>
-</div>
 
 <div class="page">
   <div class="topbar">
@@ -401,118 +305,6 @@
     <a href="index.html" style="display:inline-block; margin-top:1.5rem; color:var(--blue); font-weight:700; text-decoration:none;">← Return to Homepage</a>
   </div>
 </div>
-
-<script>
-  // ==================== CLIENT LOGIN GATE ====================
-  (function () {
-    var SESSION_KEY = 'tes_cl_auth';
-    var API_URL = 'https://script.google.com/macros/s/AKfycbxs8yH42RHdZ0YXhSWJlx6lH07nEjypK-dIliXTEcELx-aG45bKlpydS3KIqeacNb_o/exec?sheet=ClList';
-
-    var gate   = document.getElementById('loginGate');
-    var form   = document.getElementById('loginForm');
-    var errEl  = document.getElementById('loginError');
-    var btn    = document.getElementById('loginBtn');
-    var credentials = [];
-    var credentialsLoaded = false;
-
-    // Already authenticated this session — remove the gate immediately
-    if (sessionStorage.getItem(SESSION_KEY) === '1') {
-      gate.remove();
-      return;
-    }
-
-    function setUnavailable(message) {
-      credentialsLoaded = false;
-      btn.disabled = true;
-      btn.textContent = 'Sign In Unavailable';
-      errEl.textContent = message;
-    }
-
-    function extractCredentialPairs(rows) {
-      if (!Array.isArray(rows)) {
-        return [];
-      }
-
-      return rows
-        .map(function (row) {
-          if (Array.isArray(row)) {
-            return [String(row[0] || '').trim(), String(row[1] || '').trim()];
-          }
-          var values = Object.values(row || {});
-          return [String(values[0] || '').trim(), String(values[1] || '').trim()];
-        })
-        .filter(function (pair) {
-          if (!pair[0] || !pair[1]) {
-            return false;
-          }
-          return pair[0].toLowerCase() !== 'username' && pair[1].toLowerCase() !== 'password';
-        });
-    }
-
-    async function loadCredentials() {
-      btn.disabled = true;
-      btn.textContent = 'Loading...';
-      errEl.textContent = '';
-
-      try {
-        var resp = await fetch(API_URL, { cache: 'no-store' });
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        var data = await resp.json();
-        var rows = extractCredentialPairs(data);
-
-        if (!rows.length) {
-          setUnavailable('Client login is temporarily unavailable (no username/password rows were returned for ClList).');
-          return;
-        }
-
-        credentials = rows;
-        credentialsLoaded = true;
-        btn.disabled = false;
-        btn.textContent = 'Sign In';
-      } catch (err) {
-        setUnavailable('Login unavailable right now (unable to read ClList from Apps Script). Please try again or call (814) 384-5117.');
-      }
-    }
-
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      errEl.textContent = '';
-
-      var username = document.getElementById('loginUser').value.trim();
-      var password = document.getElementById('loginPass').value.trim();
-
-      if (!username || !password) {
-        errEl.textContent = 'Please enter your username and password.';
-        return;
-      }
-
-      if (!credentialsLoaded || !credentials.length) {
-        setUnavailable('Login unavailable right now (ClList data could not be loaded). Please try again or call (814) 384-5117.');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Checking…';
-
-      var match = credentials.some(function (row) {
-        return String(row[0] || '').trim() === username &&
-               String(row[1] || '').trim() === password;
-      });
-
-      if (match) {
-        sessionStorage.setItem(SESSION_KEY, '1');
-        gate.remove();
-      } else {
-        errEl.textContent = 'Invalid username or password.';
-        btn.disabled = false;
-        btn.textContent = 'Sign In';
-      }
-    });
-
-    loadCredentials();
-  })();
-  // ===========================================================
-</script>
 
 <script>
   // Show success card if redirected back with ?submitted=1

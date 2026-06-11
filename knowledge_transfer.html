@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Knowledge Transfer Services | Tevis Engineering Solutions</title>
   <meta name="description" content="Preserve organizational knowledge and intellectual property through documented processes, training materials, and integrated knowledge bases tailored for business continuity.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/knowledge_transfer.html">
+  <meta property="og:title" content="Knowledge Transfer Services | Tevis Engineering Solutions">
+  <meta property="og:description" content="Preserve organizational knowledge through documented processes, training materials, and integrated knowledge bases. Business continuity for Cleveland-area SMBs.">
+  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Knowledge Transfer Services | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Preserve organizational knowledge through documented processes, training materials, and integrated knowledge bases. Business continuity for Cleveland-area SMBs.">
+  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/knowledge_transfer.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -62,10 +74,18 @@
       width: 56px;
       height: 56px;
       border-radius: 12px;
-      background: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: inset 0 0 0 1px rgba(8, 17, 34, 0.1);
-      display: inline-block;
+      /* TODO: Replace with <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> */
+      background: linear-gradient(135deg, #4fa2ff, #64f0d2);
+      border: 1px solid rgba(79, 162, 255, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: #06101f;
+      flex-shrink: 0;
     }
     .logo-lockup {
       display: flex;
@@ -273,15 +293,54 @@
       color: #8ca2c2;
       font-size: 0.92rem;
     }
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 0.55rem;
+    }
+    footer a {
+      color: #7a99c0;
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: #63afff; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid rgba(99, 175, 255, 0.35);
+      border-radius: 8px;
+      color: #d6e8ff;
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
 
     @media (max-width: 700px) {
       .topbar-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
       }
+      .nav-toggle { display: inline-flex; margin-left: auto; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding-bottom: 0.6rem;
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { text-align: center; }
       .logo-slot {
         width: 48px;
         height: 48px;
+        font-size: 0.85rem;
       }
       .logo-primary { font-size: 1.02rem; }
       .logo-secondary { font-size: 0.8rem; }
@@ -294,15 +353,19 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="index.html" aria-label="Back to Tevis Engineering Solutions home">
-        <span class="logo-slot" aria-hidden="true"></span>
+        <!-- Replace with: <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> -->
+        <span class="logo-slot" aria-hidden="true">TES</span>
         <span class="logo-lockup">
           <span class="logo-primary">Tevis Engineering</span>
           <span class="logo-secondary">Solutions</span>
         </span>
       </a>
-      <nav class="nav-links" aria-label="Quick links">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <nav class="nav-links" id="navLinks" aria-label="Quick links">
         <a href="index.html">Home</a>
         <a href="how_support_works.html">How Support Works</a>
+        <a href="make_ticket.html">Submit Ticket</a>
+        <a href="pay_invoice.html">Pay Invoice</a>
         <a href="pricing_sheet.html">Pricing Sheet</a>
         <a href="index.html#contact">Contact</a>
       </nav>
@@ -466,7 +529,22 @@
   </main>
 
   <footer>
-    Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT Services
+    <div>Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT Services</div>
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="make_ticket.html">Submit a Ticket</a>
+      <a href="pay_invoice.html">Pay Invoice</a>
+      <a href="https://www.linkedin.com/company/tevis-engineering-solutions" rel="noopener noreferrer">LinkedIn</a>
+    </nav>
   </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+  </script>
 </body>
 </html>

@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tevis Engineering Solutions | Cleveland IT Support</title>
   <meta name="description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/">
+  <meta property="og:title" content="Tevis Engineering Solutions | Cleveland IT Support">
+  <meta property="og:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
+  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <!-- TODO: Create assets/og-image.png (1200x630) for social previews -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tevis Engineering Solutions | Cleveland IT Support">
+  <meta name="twitter:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
+  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/">
+  <!-- TODO: Update canonical URL when custom domain is acquired -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -33,9 +48,12 @@
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-on-scroll {
+    /* L4 fix: cards start visible; observer adds animate-on-scroll only when entering viewport */
+    .will-animate {
       opacity: 0;
-      animation: fadeInUp 0.8s forwards;
+    }
+    .animate-on-scroll {
+      animation: fadeInUp 0.8s ease forwards;
     }
 
     /* ==================== HEADER WITH BLURRED BACKGROUND ==================== */
@@ -52,8 +70,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: url('https://i.imgur.com/iNOhNJv.jpeg') center/cover no-repeat;
-      filter: blur(5px) brightness(0.75) saturate(0.85);
+      /* TODO: Replace gradient with self-hosted image: background: url('assets/hero-bg.jpg') center/cover no-repeat; */
+      /* then restore: filter: blur(5px) brightness(0.75) saturate(0.85); */
+      background:
+        radial-gradient(circle at 20% 55%, rgba(0, 119, 255, 0.38), transparent 55%),
+        radial-gradient(circle at 78% 28%, rgba(255, 45, 85, 0.28), transparent 50%),
+        radial-gradient(circle at 55% 85%, rgba(0, 180, 140, 0.22), transparent 45%),
+        linear-gradient(135deg, #060e20 0%, #0a1835 50%, #0f081a 100%);
       transform: scale(1.08);
       z-index: 1;
     }
@@ -96,7 +119,17 @@
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
     }
     .logo-placeholder {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4fa2ff, #64f0d2) !important;
+      border-color: rgba(79, 162, 255, 0.5) !important;
+      color: #06101f;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      /* TODO: Replace this span with <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-img"> */
     }
     .logo-lockup {
       display: flex;
@@ -553,6 +586,22 @@
       max-width: 700px;
       margin: 0 auto;
     }
+    .contact-form .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0;
+    }
+    .contact-form label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #aaaaaa;
+      letter-spacing: 0.02em;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      margin-bottom: 1rem;
+    }
     .booking-callout {
       margin: 1.15rem 0 0.75rem;
       padding: 1rem 1.1rem;
@@ -756,6 +805,45 @@
       }
     }
   </style>
+  <!-- L3: LocalBusiness structured data for rich search results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Tevis Engineering Solutions",
+    "description": "Veteran-owned IT support, consulting, 3D printing, and engineering services for small businesses and individuals in Cleveland, Ohio.",
+    "url": "https://tevis-engineering-solutions.github.io",
+    "telephone": "+18143845117",
+    "email": "tyler@tevisengineering.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cleveland",
+      "addressRegion": "OH",
+      "addressCountry": "US"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Tyler Tevis"
+    },
+    "priceRange": "$80 – $1,560/month",
+    "sameAs": [
+      "https://linkedin.com/in/tylertevis/",
+      "https://github.com/tevis-engineering-solutions"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "IT Support and Engineering Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "IT Support and Troubleshooting"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Technical Consulting"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D Printing and Prototyping"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Data Destruction"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Knowledge Transfer and Documentation"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website Design and Development"}}
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
   <header>
@@ -763,14 +851,14 @@
       <a href="#" class="brand" aria-label="Tevis Engineering Solutions home">
         <!-- Logo slot kept white for now. Replace with an <img> at 60px x 60px (desktop), 52px x 52px (mobile). -->
         <!-- Example: <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-img"> -->
-        <span class="logo-img logo-placeholder" aria-hidden="true"></span>
+        <span class="logo-img logo-placeholder" aria-hidden="true">TES</span>
         <span class="logo-lockup">
           <span class="logo-primary">Tevis Engineering</span>
           <span class="logo-secondary">Solutions</span>
         </span>
       </a>
       <div class="nav-actions">
-        <a href="make_ticket.html" class="nav-login-btn">Login</a>
+        <a href="make_ticket.html" class="nav-login-btn">Client Portal</a>
         <a href="pay_invoice.html" class="nav-pay-btn">Pay Invoice</a>
         <button class="hamburger" id="navToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="Open navigation menu" type="button">
           <span></span>
@@ -828,7 +916,7 @@
   <section id="services" style="background:#111;">
     <h2>Services</h2>
     <div class="services-grid">
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Setup &amp; Deployment</h3>
         <ul>
           <li>Desktop, Laptop &amp; Windows 10/11 Deployments</li>
@@ -840,7 +928,7 @@
           <li>3D Printer Setup &amp; Demo</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Troubleshooting &amp; Repair</h3>
         <ul>
           <li>Slow PC Optimization &amp; Cleanup</li>
@@ -852,7 +940,7 @@
           <li>Password Reset Walkthrough</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Automation &amp; Efficiency</h3>
         <ul>
           <li>Custom Scripting &amp; PowerShell Automation</li>
@@ -863,7 +951,7 @@
           <li>Tedious Task Elimination</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>IT Consulting</h3>
         <ul>
           <li>Technology Strategy &amp; Roadmap Planning</li>
@@ -874,7 +962,7 @@
           <li>Small Business Tech Budget Planning</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>3D Printing Services</h3>
         <ul>
           <li>Custom 3D Design &amp; Prototyping</li>
@@ -884,7 +972,7 @@
           <li>Small Batch Production</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Cybersecurity &amp; Home Support</h3>
         <ul>
           <li>Antivirus, Backups &amp; Spam Protection</li>
@@ -894,7 +982,7 @@
           <li>Ongoing Monthly Support Plans</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Data Destruction</h3>
         <ul>
           <li>Chain-of-custody documentation from intake to completion</li>
@@ -903,7 +991,7 @@
           <li>Policy-aligned handling for regulated data environments</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Knowledge Transfer</h3>
         <ul>
           <li>Process documentation for recurring tasks and handoffs</li>
@@ -912,7 +1000,7 @@
           <li>Searchable knowledge base and policy reference structure</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <h3>Website Design</h3>
         <ul>
           <li>Non-commerce websites (brochure/informational) are lower complexity and typically lower cost</li>
@@ -951,7 +1039,7 @@
           </ul>
         </div>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <span class="plan-badge">Best for Busy Weeks or New Equipment</span>
         <h3>Weekly Service Rate</h3>
         <p><strong>$550/week</strong></p>
@@ -965,7 +1053,7 @@
         </ul>
         <small> Max 12 billable hours/week.</small>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <span class="plan-badge">Best for Ongoing Support</span>
         <h3>Monthly Managed Support</h3>
         <p><strong>$1,560/month</strong></p>
@@ -977,7 +1065,7 @@
           <li>Engineering design work is excluded and separately scoped, requiring technical consultation resulting in approved SOW</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <span class="plan-badge">Specialized Engineering</span>
         <h3>Engineering Projects</h3>
         <p><strong>Milestone priced</strong></p>
@@ -989,7 +1077,7 @@
           <li>Change requests handled through formal change orders</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <span class="plan-badge">Best for Planning</span>
         <h3>Technical Consultation</h3>
         <p><strong>$50 per billable hour</strong></p>
@@ -1001,7 +1089,7 @@
           <li>Written outcomes you can act on</li>
         </ul>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <span class="plan-badge">Support Agreement</span>
         <h3>Support Plan Boundaries</h3>
         <small>Scope of Regular Services Provided</small>
@@ -1019,7 +1107,7 @@
     <p style="text-align:center; margin-top:2rem;">
       <a href="pricing_sheet.html" class="btn">View Full Pricing Details Here</a>
     </p>
-    <div class="agreement-box animate-on-scroll">
+    <div class="agreement-box will-animate">
       <h3>Service Agreement Highlights</h3>
       <div class="agreement-grid">
         <div class="agreement-item">
@@ -1032,7 +1120,7 @@
         </div>
         <div class="agreement-item">
           <h4>Late Payments</h4>
-          <p>Friendly reminder at 5 days overdue, 5% late fee after 10 days, and active support pauses on accounts 30+ days past due.</p>
+          <p>Friendly reminder at 5 days overdue. Balances beyond the due date accrue a 1.5% monthly finance charge (18% APR). Service suspended on accounts 14+ days past due without prior arrangement.</p>
         </div>
         <div class="agreement-item">
           <h4>Monthly Hard Cap Rule</h4>
@@ -1053,15 +1141,15 @@
   <section id="testimonials" style="background:#111;">
     <h2>What Clients Are Saying</h2>
     <div class="testimonials-grid">
-      <div class="card animate-on-scroll">
-        <p style="font-style:italic; margin-bottom:1.5rem;">"Tyler helped us set up our RingCentral phone system in one day, sending our calls to the right deparments. Extremely professional and patient. Highly recommend!"</p>
+      <div class="card will-animate">
+        <p style="font-style:italic; margin-bottom:1.5rem;">"Tyler helped us set up our RingCentral phone system in one day, sending our calls to the right departments. Extremely professional and patient. Highly recommend!"</p>
         <p><strong>— Sarah M., Small Business Owner</strong></p>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <p style="font-style:italic; margin-bottom:1.5rem;">"Helped my elderly parents with their tech setup while I lived abroad. Very respectful and explained everything clearly. Worth every penny."</p>
         <p><strong>— Michael R., Cleveland</strong></p>
       </div>
-      <div class="card animate-on-scroll">
+      <div class="card will-animate">
         <p style="font-style:italic; margin-bottom:1.5rem;">"I've been putting off making back-ups of my hard drive... and then disaster struck. Luckily, Tyler was able to help me restore and educate me on better practices."</p>
         <p><strong>— David K., Local Contractor</strong></p>
       </div>
@@ -1091,11 +1179,26 @@
     <h2>Contact Us</h2>
     <div class="contact-form">
       <form action="https://formspree.io/f/maqvanal" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="tel" name="phone" placeholder="Phone Number">
-        <input type="text" name="company" placeholder="Company / Home (optional)">
-        <textarea name="message" rows="6" placeholder="How Can I Help You Today?" required></textarea>
+        <div class="field-group">
+          <label for="contact-name">Full Name <span style="color:#ff2d55;">*</span></label>
+          <input id="contact-name" type="text" name="name" placeholder="Your Name" required autocomplete="name">
+        </div>
+        <div class="field-group">
+          <label for="contact-email">Email Address <span style="color:#ff2d55;">*</span></label>
+          <input id="contact-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="field-group">
+          <label for="contact-phone">Phone Number</label>
+          <input id="contact-phone" type="tel" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
+        </div>
+        <div class="field-group">
+          <label for="contact-company">Company / Home</label>
+          <input id="contact-company" type="text" name="company" placeholder="Company name or 'Personal' (optional)" autocomplete="organization">
+        </div>
+        <div class="field-group">
+          <label for="contact-message">How Can I Help You? <span style="color:#ff2d55;">*</span></label>
+          <textarea id="contact-message" name="message" rows="6" placeholder="Describe your IT issue, project, or question in as much detail as you'd like." required></textarea>
+        </div>
         <input type="text" name="_honeypot" style="display:none;" tabindex="-1" autocomplete="off">
         <button type="submit">Send Message</button>
       </form>
@@ -1108,7 +1211,7 @@
       </div>
       <p style="text-align:center; margin-top:2rem; color:#aaa;">
         📍 Cleveland, Ohio<br>
-        📞 (814) 384-5117 • 📧 tyler@tevisengineering.com<br>
+        📞 (814) 384-5117 <span style="color:#888; font-size:0.88em;">(Erie-area number — serving Cleveland)</span> • 📧 tyler@tevisengineering.com<br>
         <strong>Sales inquiries:</strong> sales@tevisengineering.com | <strong>Billing issues:</strong> billing@tevisengineering.com
       </p>
     </div>
@@ -1117,10 +1220,10 @@
   <footer>
     <p>&copy; 2026 Tevis Engineering Solutions • Cleveland, OH</p>
     <div class="social-links">
-      <a href="https://linkedin.com/in/tylertevis/" target="_blank">
+      <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-linkedin"></i> LinkedIn
       </a>
-      <a href="https://github.com/tevis-engineering-solutions" target="_blank">
+      <a href="https://github.com/tevis-engineering-solutions" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i> GitHub
       </a>
       <a href="https://account.venmo.com/u/tyler-teee" target="_blank" rel="noopener noreferrer" aria-label="Venmo link placeholder">
@@ -1168,15 +1271,17 @@
       });
     }
 
+    // L4 fix: observe .will-animate elements and trigger animation on viewport entry
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.style.animationDelay = (Math.random() * 0.3) + 's';
           entry.target.classList.add('animate-on-scroll');
+          observer.unobserve(entry.target); // animate once only
         }
       });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.card, section').forEach(el => observer.observe(el));
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.will-animate').forEach(el => observer.observe(el));
 
     const contactSection = document.querySelector('#contact');
     const floatingCta = document.querySelector('.floating-btn');

@@ -4,7 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Support Works | Tevis Engineering Solutions</title>
-  <meta name="description" content="How Tevis Engineering Solutions support works: intake, triage, scope, delivery, billing, and service boundaries.">
+  <meta name="description" content="How Tevis Engineering Solutions IT support works: structured intake, clear scope boundaries, transparent billing, and predictable follow-through.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tevis-engineering-solutions.github.io/how_support_works.html">
+  <meta property="og:title" content="How Support Works | Tevis Engineering Solutions">
+  <meta property="og:description" content="Structured IT support with clear scope, transparent billing, and predictable delivery from a Cleveland-based veteran-owned firm.">
+  <meta property="og:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Support Works | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Structured IT support with clear scope, transparent billing, and predictable delivery from a Cleveland-based veteran-owned firm.">
+  <meta name="twitter:image" content="https://tevis-engineering-solutions.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://tevis-engineering-solutions.github.io/how_support_works.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -56,14 +68,20 @@
       padding-right: 1rem;
     }
     .logo-slot {
-      /* Final logo image target size: 56px x 56px */
+      /* TODO: Replace with <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> */
       width: 56px;
       height: 56px;
       border-radius: 12px;
-      background: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: inset 0 0 0 1px rgba(8, 17, 34, 0.12);
-      display: inline-block;
+      background: linear-gradient(135deg, #4fa2ff, #64f0d2);
+      border: 1px solid rgba(79, 162, 255, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #061223;
+      letter-spacing: 0.05em;
     }
     .logo-lockup {
       display: flex;
@@ -250,30 +268,41 @@
       color: #8ea3c4;
       font-size: 0.93rem;
     }
+    footer a { color: #5ea5ff; text-decoration: none; margin: 0 0.3rem; }
+    footer a:hover { text-decoration: underline; }
+    /* L10: mobile nav — hide link row behind hamburger on small screens */
+    .nav-hamburger {
+      display: none;
+      background: rgba(94,165,255,0.1);
+      border: 1px solid rgba(94,165,255,0.3);
+      border-radius: 10px;
+      width: 40px; height: 40px;
+      align-items: center; justify-content: center;
+      cursor: pointer; flex-direction: column; gap: 5px; padding: 8px;
+    }
+    .nav-hamburger span {
+      display: block; width: 100%; height: 2px;
+      background: #d4e5ff; border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
     @media (max-width: 640px) {
-      .topbar-inner {
+      .topbar-inner { flex-wrap: wrap; }
+      .brand { min-height: 52px; }
+      .logo-slot { width: 48px; height: 48px; font-size: 0.88rem; }
+      .logo-primary { font-size: 1.05rem; }
+      .logo-secondary { font-size: 0.8rem; }
+      .hero { padding-top: 2.8rem; }
+      .section { padding: 1.1rem; }
+      .nav-hamburger { display: flex; }
+      .link-row {
+        display: none;
+        width: 100%;
         flex-direction: column;
-        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.5rem 0 0.75rem;
       }
-      .brand {
-        min-height: 52px;
-      }
-      .logo-slot {
-        width: 48px;
-        height: 48px;
-      }
-      .logo-primary {
-        font-size: 1.05rem;
-      }
-      .logo-secondary {
-        font-size: 0.8rem;
-      }
-      .hero {
-        padding-top: 2.8rem;
-      }
-      .section {
-        padding: 1.1rem;
-      }
+      .link-row.is-open { display: flex; }
+      .link-row a { text-align: center; }
     }
   </style>
 </head>
@@ -283,16 +312,21 @@
       <a href="index.html" class="brand" aria-label="Back to Tevis Engineering Solutions home">
         <!-- White logo placeholder. Replace with <img> sized 56px x 56px (desktop), 48px x 48px (mobile). -->
         <!-- Example: <img src="assets/logo.png" alt="Tevis Engineering Solutions logo" class="logo-slot"> -->
-        <span class="logo-slot" aria-hidden="true"></span>
+        <span class="logo-slot" aria-hidden="true">TES</span>
         <span class="logo-lockup">
           <span class="logo-primary">Tevis Engineering</span>
           <span class="logo-secondary">Solutions</span>
         </span>
       </a>
-      <div class="link-row">
-        <a href="index.html#contact">Get Started</a>
-        <a href="index.html#pricing">View Pricing Options</a>
-        <a href="pricing_sheet.html">Full Pricing Sheet</a>
+      <button class="nav-hamburger" id="navToggle" aria-controls="mainLinkRow" aria-expanded="false" aria-label="Toggle navigation" type="button">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="link-row" id="mainLinkRow">
+        <a href="index.html">Home</a>
+        <a href="make_ticket.html">Submit Ticket</a>
+        <a href="pay_invoice.html">Pay Invoice</a>
+        <a href="pricing_sheet.html">Pricing Sheet</a>
+        <a href="index.html#contact">Contact</a>
       </div>
     </div>
   </div>
@@ -379,8 +413,23 @@
     </section>
 
     <footer>
-      Last updated 2026-05-11
+      <a href="index.html">Home</a> &nbsp;·&nbsp;
+      <a href="make_ticket.html">Submit a Ticket</a> &nbsp;·&nbsp;
+      <a href="pay_invoice.html">Pay Invoice</a> &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">LinkedIn</a><br>
+      Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT Services
     </footer>
   </main>
+  <script>
+    // L10: Mobile nav hamburger toggle
+    const navToggle = document.getElementById('navToggle');
+    const mainLinkRow = document.getElementById('mainLinkRow');
+    if (navToggle && mainLinkRow) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = mainLinkRow.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+  </script>
 </body>
 </html>
