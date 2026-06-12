@@ -357,7 +357,44 @@
     .mobile-nav a:hover { background: rgba(79,162,255,.1); }
     @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } .mega-drop { position: fixed; left: 0; right: 0; width: 100vw; transform: translateY(-6px); border-radius: 0 0 16px 16px; max-height: 80vh; overflow-y: auto; overflow-x: hidden; } .mega-drop.is-open { transform: translateY(0); } }
     @media (max-width: 480px) { .nav-support-btn { display: none; } .nav-lockup { display: none; } }
-    @media (max-width: 600px) { .topbar-inner { flex-wrap: wrap; } nav { flex-wrap: wrap; padding-left: 1rem; padding-right: 1rem; } .brand { width: 100%; padding-right: 0; } .nav-right { width: 100%; justify-content: space-between; } .nav-hamburger { display: flex; } .nav-support-btn { display: inline-flex; } body { overflow-x: hidden; } }
+    @media (max-width: 600px) { .topbar-inner { flex-wrap: wrap; } nav { flex-wrap: wrap; padding-left: 1rem; padding-right: 1rem; } .brand { width: 100%; padding-right: 0; } .nav-right { width: 100%; justify-content: space-between; } .nav-hamburger { display: flex; } .nav-support-btn { display: inline-flex; } .nav-lockup { display: flex; flex-direction: column; gap: 0.1rem; white-space: normal; align-items: flex-start; } body { overflow-x: hidden; } }
+
+    /* Mobile view: scale sheet to fit viewport, add print helper bar */
+    .mobile-print-bar { display: none; }
+    @media (max-width: 768px) {
+      html, body { overflow-x: hidden; }
+      .mobile-print-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.85rem 1rem 0.25rem;
+        background: #0b1120;
+      }
+      .mobile-print-btn {
+        width: 100%;
+        max-width: 480px;
+        padding: 0.85rem 1.5rem;
+        background: linear-gradient(135deg, #1a56db, #0e9f6e);
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        letter-spacing: 0.04em;
+      }
+      .mobile-print-btn:active { opacity: 0.85; }
+      .mobile-print-hint {
+        font-size: 0.78rem;
+        color: #6b7e99;
+        text-align: center;
+        margin: 0;
+      }
+      .sheet { zoom: 0.72; }
+    }
+    @media (min-width: 769px) { .mobile-print-bar { display: none; } }
 
     @media print {
       body {
@@ -365,12 +402,14 @@
         padding: 0;
       }
       .topbar { display: none; }
+      .mobile-print-bar { display: none; }
       .sheet {
         box-shadow: none;
         border: none;
         border-radius: 0;
         margin: 0;
         max-width: none;
+        zoom: 1;
       }
       .actions { display: none; }
       @page {
@@ -450,6 +489,10 @@
       <a href="privacy_policy.html">Privacy &amp; Terms</a>
     </div>
   </header>
+  <div class="mobile-print-bar">
+    <button class="mobile-print-btn" id="mobilePrintBtn">📄 Save / Print</button>
+    <p class="mobile-print-hint">For best results, use desktop view or save as PDF.</p>
+  </div>
   <main class="sheet">
     <section class="hero">
       <div class="topline">
@@ -571,6 +614,9 @@
     document.getElementById('printBtn').addEventListener('click', function() {
       window.print();
     });
+    // Mobile print button
+    var mpb = document.getElementById('mobilePrintBtn');
+    if (mpb) { mpb.addEventListener('click', function() { window.print(); }); }
     // ---- Mega-nav ----
     (function() {
       var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
