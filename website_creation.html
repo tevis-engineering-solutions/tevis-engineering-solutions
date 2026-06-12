@@ -66,7 +66,11 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1.05rem 5%;
+      width: 100%;
+      max-width: none;
+      box-sizing: border-box;
+      margin: 0;
     }
     .brand {
       display: inline-flex;
@@ -76,9 +80,9 @@
       text-decoration: none;
     }
     .logo-slot {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       object-fit: contain;
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -87,16 +91,15 @@
     }
     .logo-lockup {
       display: flex;
-      gap: 0.4rem;
-      align-items: baseline;
+      flex-direction: column;
+      gap: 0;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-family: "Montserrat", sans-serif;
       white-space: nowrap;
-      line-height: 1;
     }
-    .logo-primary { font-size: 1.2rem; font-weight: 800; color: #ffffff; }
-    .logo-secondary { font-size: 0.92rem; font-weight: 500; color: #d5e7ff; }
+    .logo-primary { font-size: 1rem; font-weight: 800; color: #ffffff; }
+    .logo-secondary { font-size: 0.72rem; font-weight: 500; color: #d5e7ff; }
 
     /* ==================== MEGA-NAV ==================== */
     .topbar-inner { position: relative; }
@@ -412,9 +415,6 @@
     footer a:hover { color: #5ea5ff; }
 
     @media (max-width: 700px) {
-      .logo-slot { width: 48px; height: 48px; }
-      .logo-primary { font-size: 1.02rem; }
-      .logo-secondary { font-size: 0.8rem; }
       .hero { padding-top: 2.8rem; }
       h1 { font-size: 2rem; }
       .section { padding: 1rem; }

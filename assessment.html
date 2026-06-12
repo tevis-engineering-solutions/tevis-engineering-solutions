@@ -63,9 +63,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 1.05rem 0;
-      width: min(1200px, 92%);
-      margin: 0 auto;
+      padding: 1.05rem 5%;
+      width: 100%;
+      max-width: none;
+      box-sizing: border-box;
+      margin: 0;
     }
     .brand {
       display: inline-flex;
@@ -73,13 +75,11 @@
       gap: 0.95rem;
       color: var(--text);
       text-decoration: none;
-      min-height: 62px;
-      padding-right: 1rem;
     }
     .logo-slot {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       object-fit: contain;
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -88,21 +88,20 @@
     }
     .logo-lockup {
       display: flex;
-      align-items: baseline;
-      gap: 0.4rem;
+      flex-direction: column;
+      gap: 0;
       font-family: "Montserrat", sans-serif;
-      line-height: 1;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       white-space: nowrap;
     }
     .logo-primary {
-      font-size: 1.26rem;
+      font-size: 1rem;
       font-weight: 800;
       color: #ffffff;
     }
     .logo-secondary {
-      font-size: 0.94rem;
+      font-size: 0.72rem;
       font-weight: 500;
       color: #d8e6ff;
     }
@@ -684,9 +683,6 @@
       .nav-right { width: 100%; justify-content: space-between; }
       .nav-hamburger { display: flex; }
       .nav-support-btn { display: inline-flex; }
-      .logo-lockup { flex-direction: column; gap: 0.1rem; white-space: normal; align-items: flex-start; }
-      .logo-primary { font-size: 1.05rem; }
-      .logo-secondary { font-size: 0.7rem; }
       body { overflow-x: hidden; }
     }
   </style>

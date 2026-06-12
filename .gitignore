@@ -7,6 +7,9 @@ ROADMAP.md
 # Analysis, Bug Reports, and other documentation
 DOCUMENTATION.md
 
+# Change Log Archive
+CHANGELOG.md
+
 # Environment / secrets
 .env
 .env.*

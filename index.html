@@ -64,7 +64,7 @@
       position: relative;
       color: white;
       text-align: center;
-      padding: 2rem 1rem 7rem;
+      padding: 0 0rem 0rem;
       min-height: 620px;
       overflow: hidden;
     }
@@ -93,12 +93,13 @@
     }
 
     /* ==================== MEGA-NAV ==================== */
-    nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2.2rem 2.3rem; position: relative; z-index: 40; }
-    .brand { display: flex; align-items: center; gap: 0.95rem; color: white; text-decoration: none; min-height: 64px; padding-right: 1.5rem; flex-shrink: 0; }
-    .logo-img { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; background: transparent; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 22px rgba(0,0,0,0.32); }
-    .logo-lockup { display: flex; align-items: baseline; gap: 0.4rem; font-family: 'Montserrat',sans-serif; line-height: 1; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
-    .logo-primary { font-size: 1.42rem; font-weight: 800; color: #ffffff; }
-    .logo-secondary { font-size: 1rem; font-weight: 500; color: #d8e6ff; }
+    .site-topbar { position: relative; z-index: 40; background: rgba(8,14,26,0.90); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(79,162,255,0.15); }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.05rem 5%; width: 100%; max-width: none; box-sizing: border-box; margin: 0; }
+    .brand { display: flex; align-items: center; gap: 0.9rem; color: white; text-decoration: none; flex-shrink: 0; }
+    .logo-img { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: transparent; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 22px rgba(0,0,0,0.32); }
+    .logo-lockup { display: flex; flex-direction: column; gap: 0; font-family: 'Montserrat',sans-serif; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    .logo-primary { font-size: 1rem; font-weight: 800; color: #ffffff; }
+    .logo-secondary { font-size: 0.72rem; font-weight: 500; color: #d8e6ff; }
     nav a { color: white; text-decoration: none; font-weight: 500; transition: color 0.3s; }
     nav a:hover { color: #7ac3ff; }
     .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
@@ -126,7 +127,7 @@
     .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 2.2rem .8rem; border-top: 1px solid rgba(255,255,255,.12); width: 100%; position: relative; z-index: 40; }
+    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 2.2rem .8rem; border-top: 1px solid rgba(255,255,255,.12); width: 100%; }
     .mobile-nav.is-open { display: flex; }
     .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4e5ff; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
     .mobile-nav a:hover { background: rgba(0,119,255,.14); }
@@ -1039,6 +1040,7 @@
         </g>
       </svg>
     </div>
+    <div class="site-topbar">
     <nav>
       <a href="#" class="brand" aria-label="Tevis Engineering Solutions home">
         <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-img">
@@ -1092,6 +1094,7 @@
       <a href="#contact">Contact</a>
       <a href="privacy_policy.html">Privacy &amp; Terms</a>
     </div>
+    </div><!-- /.site-topbar -->
     <div class="hero">
       <p style="font-size:1.0rem; margin-bottom:0.5rem; opacity:0.9;">Cleveland-Based • Air Force Veteran Owned</p>
       <h1>IT Support &amp; Custom Engineering Solutions</h1>
