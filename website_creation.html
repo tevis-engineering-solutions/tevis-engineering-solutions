@@ -425,6 +425,20 @@
       .cta-row .btn { text-align: center; }
       .grid { grid-template-columns: 1fr; }
     }
+
+    /* Newsletter signup */
+    .newsletter-section { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 3.5rem 5%; margin-top: 4rem; }
+    .newsletter-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .newsletter-heading { font-family: "Montserrat", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .newsletter-sub { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.75rem; }
+    .newsletter-form { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+    .newsletter-input { flex: 1 1 220px; max-width: 320px; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 0.95rem; font-family: "Inter", sans-serif; outline: none; transition: border-color 0.2s; }
+    .newsletter-input:focus { border-color: var(--blue); }
+    .newsletter-btn { padding: 0.7rem 1.5rem; border-radius: 8px; border: none; background: var(--blue); color: #fff; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.2s; }
+    .newsletter-btn:hover { opacity: 0.85; }
+    .newsletter-fine { margin-top: 1rem; font-size: 0.78rem; color: var(--muted); }
+    .newsletter-fine a { color: var(--muted); text-decoration: underline; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   </style>
 </head>
 <body>
@@ -661,6 +675,42 @@
     </section>
   </main>
 
+  <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->
+  <section class="newsletter-section" aria-label="Email newsletter signup">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2 class="newsletter-heading">IT Tips for Cleveland Small Businesses</h2>
+        <p class="newsletter-sub">Monthly practical advice — no spam, no upsells. Unsubscribe anytime.</p>
+      </div>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/tevisengineering"
+        method="post"
+        target="popupwindow"
+        class="newsletter-form"
+        id="newsletterForm"
+      >
+        <!-- BUTTONDOWN_USERNAME: replace tevisengineering in the action URL above -->
+        <input type="hidden" value="1" name="embed">
+        <label for="newsletterEmail" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="newsletterEmail"
+          name="email"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+          class="newsletter-input"
+        >
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+        <noscript><p style="margin-top:0.75rem;font-size:0.85rem;">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
+      </form>
+      <p class="newsletter-fine">
+        Powered by <a href="https://buttondown.com/refer/tevisengineering" target="_blank" rel="noopener noreferrer">Buttondown</a>.
+        Read our <a href="privacy_policy.html" rel="noopener">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
   <footer>
     <div>Tevis Engineering Solutions | Cleveland, Ohio | Veteran-Owned IT Services</div>
     <nav aria-label="Footer navigation">
@@ -687,6 +737,13 @@
       }
       if (navToggle && mobileNav) {
         navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
+      }
+      // Newsletter popup — BUTTONDOWN_USERNAME: replace tevisengineering below
+      var form = document.getElementById('newsletterForm');
+      if (form) {
+        form.addEventListener('submit', function() {
+          window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
+        });
       }
     })();
   </script>
