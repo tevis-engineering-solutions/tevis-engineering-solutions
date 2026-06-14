@@ -1,49 +1,49 @@
 {
-  "last_updated": "2026-06-13",
+  "last_updated": "2026-06-14",
   "tickets": [
     {
-      "id": "TES-001",
-      "client": "Martinez Dental",
-      "title": "Network switch replacement",
-      "description": "Replace aging unmanaged switch in server closet with managed PoE unit.",
-      "status": "Resolved",
+      "id": "TES-015",
+      "client": "Hendricks Hardware & Supply",
+      "title": "Persistent email spoofing / spam — reports from customers",
+      "description": "Multiple customers reporting receiving suspicious emails appearing to come from bob@hendrickshardware.com. SPF and DKIM records appear misconfigured. Potential spoofing.",
+      "status": "Open",
+      "priority": "Medium",
+      "opened": "2026-05-20",
+      "last_update": "2026-05-20",
+      "note": "Email / Communication"
+    },
+    {
+      "id": "TES-005",
+      "client": "Meridian Dental Group",
+      "title": "Network slowdown across office — post-expansion",
+      "description": "After adding two exam rooms with new workstations, staff reporting slow access to dental imaging software. Probable network congestion or switch bottleneck.",
+      "status": "In Progress",
       "priority": "Medium",
       "opened": "2026-05-28",
       "last_update": "2026-06-10",
-      "note": "Completed. New Netgear GS308EP installed and configured."
+      "note": "Network"
     },
     {
-      "id": "TES-002",
-      "client": "Lakewood Home Services",
-      "title": "Workstation imaging — 3 units",
-      "description": "Fresh Windows 11 Pro install with standard software package on 3 replacement PCs.",
+      "id": "TES-008",
+      "client": "Coastal Property Management LLC",
+      "title": "WiFi dead zones in Building C — access point deployment",
+      "description": "Signal mapping identified 4 dead zones in Building C. Need to deploy 4 Cisco Meraki MR46 APs on ceiling mounts. Cabling already run.",
       "status": "In Progress",
-      "priority": "Medium",
-      "opened": "2026-06-05",
-      "last_update": "2026-06-12",
-      "note": "Units 1 and 2 complete. Unit 3 in progress."
-    },
-    {
-      "id": "TES-003",
-      "client": "Northeast Ohio Nonprofit Network",
-      "title": "Email migration to Microsoft 365",
-      "description": "Migrate 8 mailboxes from legacy hosting to M365 Business Basic.",
-      "status": "Pending Client",
       "priority": "High",
-      "opened": "2026-06-09",
-      "last_update": "2026-06-13",
-      "note": "Awaiting admin credentials from client IT contact."
+      "opened": "2026-05-15",
+      "last_update": "2026-05-15",
+      "note": "Network"
     },
     {
       "id": "TES-004",
-      "client": "Prospect — Steele Fabrication",
-      "title": "Initial IT assessment",
-      "description": "On-site assessment of network infrastructure and endpoint inventory for new managed services proposal.",
-      "status": "Open",
-      "priority": "Low",
-      "opened": "2026-06-13",
-      "last_update": "2026-06-13",
-      "note": ""
+      "client": "Meridian Dental Group",
+      "title": "HIPAA compliance documentation review — annual refresh",
+      "description": "Annual review of HIPAA technical safeguards documentation. Verify access control policies, audit log settings, encryption status, and backup validation records.",
+      "status": "In Progress",
+      "priority": "Medium",
+      "opened": "2026-04-15",
+      "last_update": "2026-04-15",
+      "note": "Compliance"
     }
   ]
 }
