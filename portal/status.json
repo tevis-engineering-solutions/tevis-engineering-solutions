@@ -1,0 +1,49 @@
+{
+  "last_updated": "2026-06-13",
+  "tickets": [
+    {
+      "id": "TES-001",
+      "client": "Martinez Dental",
+      "title": "Network switch replacement",
+      "description": "Replace aging unmanaged switch in server closet with managed PoE unit.",
+      "status": "Resolved",
+      "priority": "Medium",
+      "opened": "2026-05-28",
+      "last_update": "2026-06-10",
+      "note": "Completed. New Netgear GS308EP installed and configured."
+    },
+    {
+      "id": "TES-002",
+      "client": "Lakewood Home Services",
+      "title": "Workstation imaging — 3 units",
+      "description": "Fresh Windows 11 Pro install with standard software package on 3 replacement PCs.",
+      "status": "In Progress",
+      "priority": "Medium",
+      "opened": "2026-06-05",
+      "last_update": "2026-06-12",
+      "note": "Units 1 and 2 complete. Unit 3 in progress."
+    },
+    {
+      "id": "TES-003",
+      "client": "Northeast Ohio Nonprofit Network",
+      "title": "Email migration to Microsoft 365",
+      "description": "Migrate 8 mailboxes from legacy hosting to M365 Business Basic.",
+      "status": "Pending Client",
+      "priority": "High",
+      "opened": "2026-06-09",
+      "last_update": "2026-06-13",
+      "note": "Awaiting admin credentials from client IT contact."
+    },
+    {
+      "id": "TES-004",
+      "client": "Prospect — Steele Fabrication",
+      "title": "Initial IT assessment",
+      "description": "On-site assessment of network infrastructure and endpoint inventory for new managed services proposal.",
+      "status": "Open",
+      "priority": "Low",
+      "opened": "2026-06-13",
+      "last_update": "2026-06-13",
+      "note": ""
+    }
+  ]
+}

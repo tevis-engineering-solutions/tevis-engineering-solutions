@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Status — TES Client Portal</title>
+  <meta name="description" content="Current status of active Tevis Engineering Solutions engagements.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://tevisengineering.com/portal/status.html">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- S3/S4: CDN fonts/icons leak visitor IPs to Google/Cloudflare. Self-host long-term. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-soft: #0f1623;
+      --card: #131d2d;
+      --card-2: #17263d;
+      --border: #2a3d5f;
+      --text: #e8efff;
+      --muted: #b4c3dd;
+      --blue: #4fa2ff;
+      --teal: #64f0d2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(79,162,255,0.16), transparent 60%),
+        radial-gradient(900px 480px at 100% 0%, rgba(100,240,210,0.1), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    .page { max-width: 800px; margin: 0 auto; padding: 1.6rem 1rem 5rem; }
+
+    /* ==================== MEGA-NAV ==================== */
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: rgba(7,11,18,0.88); border-bottom: 1px solid rgba(79,162,255,0.2); }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.05rem 5%; width: 100%; box-sizing: border-box; position: relative; }
+    .brand { display: inline-flex; align-items: center; gap: 0.9rem; color: var(--text); text-decoration: none; flex-shrink: 0; }
+    .logo-slot { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: transparent; border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0; display: block; }
+    .logo-lockup { display: flex; flex-direction: column; gap: 0; font-family: "Montserrat",sans-serif; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    .logo-primary { font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.15; }
+    .logo-secondary { font-size: 0.72rem; font-weight: 500; color: #b4c3dd; line-height: 1.15; }
+    .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
+    .menu-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .52rem 1.1rem; border-radius: 999px; border: 1px solid rgba(79,162,255,.28); background: rgba(79,162,255,.08); color: #d4e5ff; font-family: inherit; font-size: .93rem; font-weight: 600; cursor: pointer; transition: background .2s ease; white-space: nowrap; line-height: 1; }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { background: rgba(79,162,255,.18); }
+    .menu-btn .chevron { transition: transform .2s ease; flex-shrink: 0; display: block; }
+    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .mega-drop { position: absolute; top: calc(100% + .6rem); left: 50%; transform: translateX(-50%) translateY(-6px); width: min(680px,94vw); background: #0e1827; border: 1px solid rgba(79,162,255,.22); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.75); padding: 1.35rem 1.35rem 1.05rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .mega-drop::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
+    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .mega-col-head { font-family: "Montserrat",sans-serif; font-size: .67rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #4fa2ff; padding: 0 .55rem .4rem; margin-bottom: .2rem; border-bottom: 1px solid rgba(79,162,255,.14); }
+    .mega-link { display: flex; align-items: flex-start; gap: .65rem; padding: .5rem .55rem; border-radius: 9px; text-decoration: none; transition: background .14s ease; }
+    .mega-link:hover { background: rgba(79,162,255,.09); }
+    .mega-link-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; background: rgba(79,162,255,.1); border: 1px solid rgba(79,162,255,.18); display: flex; align-items: center; justify-content: center; color: #4fa2ff; }
+    .mega-link-icon svg { width: 13px; height: 13px; }
+    .mega-link-text { display: flex; flex-direction: column; gap: .1rem; }
+    .mega-link-title { font-size: .86rem; font-weight: 600; color: #e8efff; line-height: 1.25; }
+    .mega-link-desc { font-size: .73rem; color: #6a8ba8; line-height: 1.3; }
+    .nav-right { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+    .nav-support-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .54rem 1rem; border-radius: 999px; background: linear-gradient(135deg,#0f8bd8,#1aa36e); color: #fff; font-family: "Montserrat",sans-serif; font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(255,255,255,.18); transition: transform .2s ease, filter .2s ease; white-space: nowrap; }
+    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.22); border-radius: 10px; background: rgba(0,0,0,.3); cursor: pointer; padding: 0 9px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 1rem .8rem; border-top: 1px solid rgba(79,162,255,.12); width: 100%; position: relative; z-index: 40; }
+    .mobile-nav.is-open { display: flex; }
+    .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4e5ff; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
+    .mobile-nav a:hover { background: rgba(79,162,255,.1); }
+    @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } .mega-drop { position: fixed; left: 0; right: 0; width: 100vw; transform: translateY(-6px); border-radius: 0 0 16px 16px; max-height: 80vh; overflow-y: auto; overflow-x: hidden; } .mega-drop.is-open { transform: translateY(0); } }
+    @media (max-width: 480px) { .nav-support-btn { display: none; } .logo-lockup { display: none; } }
+    @media (max-width: 600px) { .topbar-inner { flex-wrap: wrap; } .brand { width: 100%; } .nav-right { width: 100%; justify-content: space-between; } .nav-hamburger { display: flex; } .nav-support-btn { display: inline-flex; } .logo-lockup { display: flex; flex-direction: column; gap: 0.1rem; white-space: normal; align-items: flex-start; } .logo-primary { font-size: 1.05rem; } .logo-secondary { font-size: 0.7rem; } body { overflow-x: hidden; } }
+
+    /* ==================== PAGE HERO ==================== */
+    .page-hero { padding: 2rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1.6rem; }
+    .page-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      background: linear-gradient(90deg, #4fa2ff, #64f0d2);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .page-sub { color: var(--muted); font-size: 0.96rem; line-height: 1.6; margin-bottom: 0.6rem; }
+    .last-updated { font-size: 0.8rem; color: #4a6a8a; }
+    .last-updated span { color: var(--muted); font-weight: 600; }
+
+    /* ==================== FILTER BAR ==================== */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.6rem; }
+    .filter-pill {
+      padding: 0.38rem 0.9rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--card); color: var(--muted); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .filter-pill:hover { border-color: var(--blue); color: var(--text); }
+    .filter-pill.active { border-color: var(--blue); background: rgba(79,162,255,0.12); color: #fff; }
+
+    /* ==================== TICKET CARDS ==================== */
+    .tickets-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .ticket-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.35rem 1.4rem; transition: border-color 0.2s ease;
+    }
+    .ticket-card:hover { border-color: rgba(79,162,255,0.4); }
+
+    .ticket-top {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .ticket-id {
+      font-family: 'Courier New', Courier, monospace; font-size: 0.78rem;
+      color: #4a6a8a; background: rgba(255,255,255,0.04); border: 1px solid #1e2e42;
+      border-radius: 5px; padding: 0.18rem 0.5rem; flex-shrink: 0;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.72rem; font-weight: 700; border-radius: 999px;
+      padding: 0.2rem 0.65rem; border: 1px solid transparent;
+      text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0;
+    }
+    /* Status badges */
+    .badge-open { color: #4fa2ff; background: rgba(79,162,255,0.12); border-color: rgba(79,162,255,0.3); }
+    .badge-in-progress { color: #f59e0b; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+    .badge-pending-client { color: #fb923c; background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); }
+    .badge-resolved { color: #22c55e; background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); }
+    /* Priority badges */
+    .badge-low { color: #6a8ba8; background: rgba(106,139,168,0.1); border-color: rgba(106,139,168,0.25); }
+    .badge-medium { color: #4fa2ff; background: rgba(79,162,255,0.1); border-color: rgba(79,162,255,0.25); }
+    .badge-high { color: #fb923c; background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.25); }
+    .badge-critical { color: #ef4444; background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); }
+
+    .ticket-title { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 0.22rem; line-height: 1.3; }
+    .ticket-client { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.7rem; }
+    .ticket-desc { font-size: 0.9rem; color: #9aafcc; line-height: 1.6; margin-bottom: 0.8rem; }
+
+    .ticket-note {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(79,162,255,0.12);
+      border-left: 3px solid rgba(79,162,255,0.4);
+      border-radius: 0 8px 8px 0; padding: 0.6rem 0.85rem;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.55;
+      margin-bottom: 0.8rem;
+    }
+    .ticket-note-label { font-size: 0.72rem; font-weight: 700; color: #4fa2ff; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 0.25rem; }
+
+    .ticket-footer {
+      display: flex; flex-wrap: wrap; gap: 0.8rem;
+      font-size: 0.77rem; color: #4a6a8a; border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 0.7rem; margin-top: 0.2rem;
+    }
+    .ticket-footer span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+    /* ==================== LOADING / EMPTY ==================== */
+    .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1rem; gap: 1rem; color: var(--muted); }
+    .loading-spinner { width: 36px; height: 36px; border: 3px solid rgba(79,162,255,0.15); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state { text-align: center; padding: 3.5rem 1rem; color: var(--muted); }
+    .empty-state .empty-icon { font-size: 2.2rem; margin-bottom: 0.8rem; opacity: 0.5; }
+    .empty-state p { font-size: 0.94rem; }
+
+    /* ==================== CTA SECTION ==================== */
+    .cta-section {
+      margin-top: 3rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem 1.6rem; text-align: center;
+    }
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.04em; color: var(--text); margin-bottom: 0.5rem;
+    }
+    .cta-section p { color: var(--muted); font-size: 0.91rem; margin-bottom: 1.2rem; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.65rem 1.4rem; border-radius: 999px;
+      background: linear-gradient(135deg, #4fa2ff, #2f86ea);
+      color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.83rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      text-decoration: none; transition: filter 0.2s ease, transform 0.2s ease;
+    }
+    .cta-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html" aria-label="Tevis Engineering Solutions home">
+      <img src="../assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-slot">
+      <span class="logo-lockup">
+        <span class="logo-primary">Tevis Engineering</span>
+        <span class="logo-secondary">Solutions</span>
+      </span>
+    </a>
+    <div class="nav-center">
+      <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
+        Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
+        <div class="mega-col">
+          <div class="mega-col-head">Services</div>
+          <a href="../how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
+          <a href="../pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
+          <a href="../portfolio.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
+          <a href="../assessment.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
+          <a href="../website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
+          <a href="../data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
+          <a href="../knowledge_transfer.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+        </div>
+        <div class="mega-col">
+          <div class="mega-col-head">Company &amp; Tools</div>
+          <a href="../blog/index.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Blog / Knowledge Base</span><span class="mega-link-desc">IT tips and guides for small businesses</span></span></a>
+          <a href="../make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
+          <a href="status.html" class="mega-link" aria-current="page"><span class="mega-link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portal Status</span><span class="mega-link-desc">View the status of your open tickets</span></span></a>
+          <a href="../pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
+          <a href="../index.html#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
+          <a href="../privacy_policy.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a href="../make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
+      <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <a href="../index.html">Home</a>
+    <a href="../how_support_works.html">How Support Works</a>
+    <a href="../pricing_sheet.html">Pricing</a>
+    <a href="../portfolio.html">Portfolio</a>
+    <a href="../assessment.html">IT Assessment</a>
+    <a href="../website_creation.html">Web &amp; App Design</a>
+    <a href="../data_destruction.html">Data Destruction</a>
+    <a href="../knowledge_transfer.html">Knowledge Transfer</a>
+    <a href="../blog/index.html">Blog / Knowledge Base</a>
+    <a href="../make_ticket.html">Submit a Ticket</a>
+    <a href="status.html" aria-current="page">Portal Status</a>
+    <a href="../pay_invoice.html">Pay an Invoice</a>
+    <a href="../index.html#contact">Contact</a>
+    <a href="../privacy_policy.html">Privacy &amp; Terms</a>
+  </div>
+</header>
+
+<div class="page">
+  <div class="page-hero">
+    <h1 class="page-title">Ticket Status</h1>
+    <p class="page-sub">Current status of active TES engagements. Updated manually as work progresses.</p>
+    <p class="last-updated" id="lastUpdated">Loading…</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar" role="group" aria-label="Filter tickets by status">
+    <button class="filter-pill active" data-filter="all">All</button>
+    <button class="filter-pill" data-filter="Open">Open</button>
+    <button class="filter-pill" data-filter="In Progress">In Progress</button>
+    <button class="filter-pill" data-filter="Pending Client">Pending Client</button>
+    <button class="filter-pill" data-filter="Resolved">Resolved</button>
+  </div>
+
+  <div id="ticketContainer">
+    <div class="loading-wrap" id="loadingState">
+      <div class="loading-spinner"></div>
+      <p>Loading tickets…</p>
+    </div>
+    <div class="tickets-list" id="ticketsList" style="display:none;"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="empty-icon">📋</div>
+      <p>No tickets in this status.</p>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Need to submit a new request?</h2>
+    <p>Open a support ticket and we'll get back to you within a few hours.</p>
+    <a href="../make_ticket.html" class="cta-btn">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg>
+      Submit a Ticket
+    </a>
+  </div>
+</div>
+
+<script>
+  // ---- Status badge class map ----
+  var statusClass = {
+    'Open': 'badge-open',
+    'In Progress': 'badge-in-progress',
+    'Pending Client': 'badge-pending-client',
+    'Resolved': 'badge-resolved'
+  };
+
+  // ---- Priority badge class map ----
+  var priorityClass = {
+    'Low': 'badge-low',
+    'Medium': 'badge-medium',
+    'High': 'badge-high',
+    'Critical': 'badge-critical'
+  };
+
+  // ---- Status dot icons ----
+  var statusIcon = {
+    'Open': '<i class="fa-solid fa-circle" style="font-size:0.55em;"></i>',
+    'In Progress': '<i class="fa-solid fa-rotate" style="font-size:0.8em;"></i>',
+    'Pending Client': '<i class="fa-solid fa-clock" style="font-size:0.8em;"></i>',
+    'Resolved': '<i class="fa-solid fa-circle-check" style="font-size:0.8em;"></i>'
+  };
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    var parts = iso.split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function buildCard(t) {
+    var statusCls = statusClass[t.status] || 'badge-open';
+    var priorityCls = priorityClass[t.priority] || 'badge-low';
+    var icon = statusIcon[t.status] || '';
+
+    var noteHtml = '';
+    if (t.note && t.note.trim() !== '') {
+      noteHtml = '<div class="ticket-note"><span class="ticket-note-label">📋 Update</span>' +
+        escapeHtml(t.note) + '</div>';
+    }
+
+    return '<div class="ticket-card" data-status="' + escapeAttr(t.status) + '">' +
+      '<div class="ticket-top">' +
+        '<span class="ticket-id">' + escapeHtml(t.id) + '</span>' +
+        '<span class="badge ' + statusCls + '">' + icon + ' ' + escapeHtml(t.status) + '</span>' +
+        '<span class="badge ' + priorityCls + '">' + escapeHtml(t.priority) + '</span>' +
+      '</div>' +
+      '<div class="ticket-title">' + escapeHtml(t.title) + '</div>' +
+      '<div class="ticket-client">' + escapeHtml(t.client) + '</div>' +
+      '<div class="ticket-desc">' + escapeHtml(t.description) + '</div>' +
+      noteHtml +
+      '<div class="ticket-footer">' +
+        '<span><i class="fa-regular fa-calendar" style="color:#4fa2ff;"></i> Opened: ' + formatDate(t.opened) + '</span>' +
+        '<span><i class="fa-regular fa-clock" style="color:#64f0d2;"></i> Last update: ' + formatDate(t.last_update) + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function escapeAttr(str) {
+    return String(str).replace(/"/g, '&quot;');
+  }
+
+  // ---- Filter logic ----
+  var allTickets = [];
+  var currentFilter = 'all';
+
+  function renderTickets() {
+    var list = document.getElementById('ticketsList');
+    var empty = document.getElementById('emptyState');
+    var filtered = currentFilter === 'all'
+      ? allTickets
+      : allTickets.filter(function(t) { return t.status === currentFilter; });
+
+    if (filtered.length === 0) {
+      list.style.display = 'none';
+      empty.style.display = 'block';
+    } else {
+      empty.style.display = 'none';
+      list.innerHTML = filtered.map(buildCard).join('');
+      list.style.display = 'flex';
+    }
+  }
+
+  // Filter pill clicks
+  document.getElementById('filterBar').addEventListener('click', function(e) {
+    var pill = e.target.closest('.filter-pill');
+    if (!pill) return;
+    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+    pill.classList.add('active');
+    currentFilter = pill.getAttribute('data-filter');
+    renderTickets();
+  });
+
+  // ---- Load data ----
+  fetch('status.json')
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      document.getElementById('loadingState').style.display = 'none';
+
+      var updated = data.last_updated ? formatDate(data.last_updated) : 'unknown';
+      document.getElementById('lastUpdated').innerHTML =
+        'Last updated: <span>' + escapeHtml(updated) + '</span>';
+
+      allTickets = Array.isArray(data.tickets) ? data.tickets : [];
+      renderTickets();
+    })
+    .catch(function(err) {
+      document.getElementById('loadingState').innerHTML =
+        '<div style="text-align:center; color:#ff9ba8; padding:2rem;">' +
+        '<i class="fa-solid fa-triangle-exclamation" style="font-size:1.8rem; margin-bottom:0.75rem; display:block;"></i>' +
+        '<p>Could not load ticket data. Please try again later.</p></div>';
+    });
+
+  // ---- Mega-nav ----
+  (function() {
+    var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
+    var navToggle = document.getElementById('navToggle'), mobileNav = document.getElementById('mobileNav');
+    var ht;
+    if (menuBtn && megaDrop) {
+      var nc = menuBtn.closest('.nav-center');
+      nc.addEventListener('mouseenter', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.add('is-open'); menuBtn.setAttribute('aria-expanded','true'); }, 150); });
+      nc.addEventListener('mouseleave', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); }, 100); });
+      menuBtn.addEventListener('click', function() { var o = megaDrop.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+      document.addEventListener('click', function(e) { if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
+    }
+    if (navToggle && mobileNav) {
+      navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
+    }
+  })();
+</script>
+</body>
+</html>

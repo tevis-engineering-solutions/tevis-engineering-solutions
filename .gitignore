@@ -7,8 +7,14 @@ ROADMAP.md
 # Recurring maintenance ops doc — keep private (not for public repo)
 RECURRING_TASKS.md
 
+# Internal ops docs
+BUTTONDOWN.md
+
 # Analysis, Bug Reports, and other documentation
 DOCUMENTATION.md
+
+# Clouflare Setup - Cleaner walkthrough format - don't care to share
+CLOUDFLARE.md
 
 # Change Log Archive
 CHANGELOG.md
