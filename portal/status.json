@@ -6,10 +6,10 @@
       "client": "Meridian Dental Group",
       "title": "Network slowdown across office - post-expansion",
       "description": "After adding two exam rooms with new workstations, staff reporting slow access to dental imaging software. Probable network congestion or switch bottleneck.",
-      "status": "In Progress",
+      "status": "Open",
       "priority": "Medium",
       "opened": "2026-05-28",
-      "last_update": "2026-06-10",
+      "last_update": "2026-06-15",
       "note": "Network"
     },
     {
@@ -50,7 +50,7 @@
       "client": "The Grove Restaurant Group",
       "title": "POS terminal offline during dinner service - Location 1",
       "description": "Register 2 at Grove location 1 offline during peak hours. Toast POS showing \"offline mode\" - not syncing orders to kitchen. Possible network dropout.",
-      "status": "In Progress",
+      "status": "Resolved",
       "priority": "Critical",
       "opened": "2025-11-18",
       "last_update": "2026-06-15",
