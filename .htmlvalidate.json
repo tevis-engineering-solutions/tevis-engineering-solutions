@@ -20,6 +20,8 @@
     "wcag/h37": "warn",
     "wcag/h63": "off",
     "wcag/h67": "off",
-    "long-title": "off"
+    "long-title": "off",
+    "no-utf8-bom": "off",
+    "empty-heading": "off"
   }
 }

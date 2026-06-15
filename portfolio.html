@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio & Case Studies | Tevis Engineering Solutions</title>
+  <title>Portfolio &amp; Case Studies | Tevis Engineering Solutions</title>
   <meta name="description" content="Real-world IT, software, hardware, and engineering projects completed by Tevis Engineering Solutions. Cleveland-based, veteran-owned.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
@@ -896,17 +896,17 @@
 
     <!-- FILTER BAR -->
     <div class="filter-bar" role="group" aria-label="Filter case studies by category">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="it-support">IT Support</button>
-      <button class="filter-pill" data-filter="software">Software</button>
-      <button class="filter-pill" data-filter="web-design">Web Design</button>
-      <button class="filter-pill" data-filter="hardware">Hardware &amp; PCB</button>
-      <button class="filter-pill" data-filter="cad">CAD &amp; 3D Print</button>
-      <button class="filter-pill" data-filter="automation">Automation</button>
+      <button type="button" class="filter-pill active" data-filter="all">All</button>
+      <button type="button" class="filter-pill" data-filter="it-support">IT Support</button>
+      <button type="button" class="filter-pill" data-filter="software">Software</button>
+      <button type="button" class="filter-pill" data-filter="web-design">Web Design</button>
+      <button type="button" class="filter-pill" data-filter="hardware">Hardware &amp; PCB</button>
+      <button type="button" class="filter-pill" data-filter="cad">CAD &amp; 3D Print</button>
+      <button type="button" class="filter-pill" data-filter="automation">Automation</button>
     </div>
 
     <!-- CASE STUDY CARDS -->
-    <div class="cards-grid" id="cardsGrid" aria-live="polite" aria-label="Case study cards">
+    <div class="cards-grid" id="cardsGrid" role="region" aria-live="polite" aria-label="Case study cards">
 
       <!-- IT Support -->
       <article class="case-card visible" data-category="it-support" aria-label="IT Support case study">
@@ -927,7 +927,7 @@
             <p class="outcome-stat">Zero network outages in 6 months post-install.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-it">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-it">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-it">
@@ -954,7 +954,7 @@
             <p class="outcome-stat">Weekly reconciliation time cut from 4 hours to under 5 minutes.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-sw">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-sw">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-sw">
@@ -981,7 +981,7 @@
             <p class="outcome-stat">First inbound inquiry received within 2 weeks of launch.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-web">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-web">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-web">
@@ -1008,7 +1008,7 @@
             <p class="outcome-stat">Signal noise reduced by over 90% vs. the Arduino prototype.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-hw">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-hw">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-hw">
@@ -1035,7 +1035,7 @@
             <p class="outcome-stat">Client avoided a $4,000 OEM replacement unit. Part passed fitment and load testing.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-cad">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-cad">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-cad">
@@ -1062,7 +1062,7 @@
             <p class="outcome-stat">New hire provisioning time reduced from 45 minutes to under 2 minutes.</p>
           </div>
         </div>
-        <button class="read-more-btn" aria-expanded="false" aria-controls="detail-auto">
+        <button type="button" class="read-more-btn" aria-expanded="false" aria-controls="detail-auto">
           Read More <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="detail-panel" id="detail-auto">
@@ -1086,7 +1086,7 @@
         </p>
       </div>
 
-      <div class="gh-controls" id="ghControls" aria-label="Filter and sort repositories">
+      <div class="gh-controls" id="ghControls" role="group" aria-label="Filter and sort repositories">
         <div class="gh-filter-group" role="group" aria-label="Filter repositories by topic">
           <button class="gh-filter-btn active" data-gh-filter="all" type="button">All Repos</button>
           <button class="gh-filter-btn" data-gh-filter="featured" type="button">&#9733; Featured</button>
@@ -1098,12 +1098,12 @@
         </select>
       </div>
 
-      <div id="ghLoading" class="gh-loading" aria-live="polite" aria-label="Loading repositories">
+      <div id="ghLoading" class="gh-loading" role="status" aria-live="polite" aria-label="Loading repositories">
         <div class="gh-loading-spinner" aria-hidden="true"></div>
         <span>Loading GitHub repositories…</span>
       </div>
       <div id="ghStatusMsg" class="gh-status-msg" hidden></div>
-      <div class="gh-grid" id="ghGrid" aria-label="GitHub repository cards"></div>
+      <div class="gh-grid" id="ghGrid" role="region" aria-label="GitHub repository cards"></div>
       <button class="gh-show-more" id="ghShowMore" hidden type="button">Show More Repositories</button>
     </section>
 
