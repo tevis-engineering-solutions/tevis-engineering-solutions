@@ -46,6 +46,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <!-- PayPal JS SDK — migrated from NVP form in Session 14 -->
+  <script src="https://www.paypal.com/sdk/js?client-id=Ab_dnVs8tumZ0eMkFfSuR9eR5ut5xYKPmEbgCRODAyopaxWByLowbaOpY9pgZJKAa_nliulcrbPBQ9IC&currency=USD&components=buttons&intent=capture" defer></script>
   <style>
     :root {
       --bg: #070b12;
@@ -246,22 +248,6 @@
       color: white;
     }
 
-    .btn-pay {
-      background: linear-gradient(135deg, #0077cc, #0056a4);
-      color: white;
-      width: 100%;
-      margin-top: 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-    }
-
-    .btn-pay i {
-      font-size: 1.8rem;
-      margin-left: 0.3rem;
-    }
-
     .status {
       min-height: 1.3rem;
       margin-top: 0.35rem;
@@ -308,8 +294,37 @@
       margin-bottom: 0.55rem;
     }
 
-    #paypal-container-HKB3W4JJ92MH8 {
-      min-height: 42px;
+    #paypal-button-container {
+      max-width: 400px;
+      margin: 1.5rem auto 0;
+    }
+    .payment-success {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+    .success-icon {
+      font-size: 2.5rem;
+      color: #22c55e;
+      margin: 0 0 0.5rem;
+    }
+    .success-heading {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem;
+    }
+    .success-detail {
+      color: var(--muted);
+      margin: 0 0 0.75rem;
+    }
+    .success-order {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: monospace;
     }
 
     .support-form {
@@ -516,10 +531,9 @@
             <span class="v" id="resultAmount">-</span>
           </div>
 
-          <button id="payInvoiceBtn" class="btn btn-pay" type="button" disabled>Pay Invoice</button>
-
           <div class="paypal-area">
-            <p class="paypal-meta" id="paypalMeta">Click Pay Invoice to proceed to PayPal checkout with your amount pre-filled.</p>
+            <p class="paypal-meta" id="paypalMeta"></p>
+            <div id="paypal-button-container"></div>
           </div>
         </div>
       </section>
@@ -613,29 +627,6 @@
     <p class="footer-note">If your invoice is not found, submit the billing support form with your company name and payment timeline so we can resolve it quickly.</p>
   </div>
 
-  <!--
-    PayPal Payments Standard (NVP) form — hidden, populated dynamically by JS.
-    S1 FIX: business email updated to professional account address.
-    S7 NOTE: This uses PayPal's legacy cgi-bin/webscr endpoint (Payments Standard, circa 2005).
-    PayPal has not deprecated it but it receives no new features. When migrating, replace this
-    entire form with the PayPal JS SDK:
-      <script src="https://www.paypal.com/sdk/js?client-id=CLIENT_ID&currency=USD"></script>
-    Alternatively, direct clients to the PayPal.me link:
-      https://www.paypal.com/ncp/payment/HKB3W4JJ92MH8
-    The SDK approach hides the business email from client-side HTML entirely.
-  -->
-  <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: none;">
-    <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="tyler@tevisengineering.com">
-    <input type="hidden" name="item_name" id="paypalItemName" value="">
-    <input type="hidden" name="amount" id="paypalAmount" value="">
-    <input type="hidden" name="currency_code" value="USD">
-    <input type="hidden" name="invoice" id="paypalInvoice" value="">
-    <input type="hidden" name="return" id="paypalReturn" value="">
-    <input type="hidden" name="cancel_return" id="paypalCancelReturn" value="">
-    <input type="hidden" name="no_shipping" value="2">
-  </form>
-
   <!-- Cookie consent notice -->
   <div id="cookieBanner" style="
     display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
@@ -658,10 +649,6 @@
     // The Apps Script deployment is set to "Execute as: Me" / "Who has access: Anyone"
     // with no write permissions. This is acceptable for a public billing lookup tool.
     const API_URL = "https://script.google.com/macros/s/AKfycbzOqk9rjdEQ12A8m5VXIFbEWd-V79YA9J9Av_Zb_Qe478KR0QjXTcsdC3AwoyrlwFM4/exec";
-    // M6: PAYPAL_LINK constant removed — was defined but never used. PayPal payments are
-    // handled by the hidden #paypalForm (WebsitePaymentsStandard). If switching to the
-    // newer PayPal.Me / payment link flow, use: https://www.paypal.com/ncp/payment/HKB3W4JJ92MH8
-
     // M7: Show billing success state if redirected from Formspree
     if (new URLSearchParams(location.search).get('billing_submitted') === '1') {
       const wrapper = document.getElementById('billingFormWrapper');
@@ -674,7 +661,6 @@
     const lookupBtn = document.getElementById("lookupBtn");
     const lookupStatus = document.getElementById("lookupStatus");
     const invoiceResult = document.getElementById("invoiceResult");
-    const payInvoiceBtn = document.getElementById("payInvoiceBtn");
     const paypalMeta = document.getElementById("paypalMeta");
 
     const resultUsername = document.getElementById("resultUsername");
@@ -779,21 +765,13 @@
       invoiceResult.classList.add("visible");
 
       if (numericAmount === null || numericAmount <= 0) {
-        payInvoiceBtn.disabled = true;
+        document.getElementById('paypal-button-container').innerHTML = '';
         paypalMeta.textContent = "Invoice amount is missing or invalid. Submit the billing support form for correction.";
       } else {
-        payInvoiceBtn.disabled = false;
-        const displayAmountForButton = (amountText && !String(amountText).startsWith("$")) ? "$" + amountText : amountText;
-        // S6 FIX: Use textContent + createElement instead of innerHTML to prevent XSS
-        // if the API response ever returns unexpected data.
-        payInvoiceBtn.textContent = "";
-        const btnLabel = document.createTextNode("Pay Invoice (" + displayAmountForButton + ") ");
-        const btnIcon = document.createElement("i");
-        btnIcon.className = "fab fa-paypal";
-        btnIcon.setAttribute("aria-hidden", "true");
-        payInvoiceBtn.appendChild(btnLabel);
-        payInvoiceBtn.appendChild(btnIcon);
-        paypalMeta.textContent = "Amount prepared: " + displayAmountForButton + ". Click Pay Invoice to proceed to PayPal.";
+        const invoiceId = String(row.LatestInvoice || "").trim();
+        const description = "Invoice " + invoiceId + " — Tevis Engineering Solutions";
+        paypalMeta.textContent = "";
+        initPayPalButtons(numericAmount, description, invoiceId);
       }
     }
 
@@ -821,36 +799,50 @@
       setStatus("Invoice located. Review details and continue to payment.", "good");
     }
 
-    function onPayInvoice() {
-      if (!selectedInvoice) {
-        setStatus("Lookup an invoice before attempting payment.", "warn");
-        return;
-      }
+    function initPayPalButtons(amount, description, invoiceId) {
+      document.getElementById('paypal-button-container').innerHTML = '';
 
-      const invoiceAmount = String(selectedInvoice.InvoiceAmount || "").trim();
-      const invoiceNumber = String(selectedInvoice.LatestInvoice || "").trim();
-      const amountNumeric = toCurrencyNumber(invoiceAmount);
-
-      if (amountNumeric === null || amountNumeric <= 0) {
-        setStatus("Invoice amount is invalid. Please submit a billing request.", "bad");
-        return;
-      }
-
-      submitToPayPal(amountNumeric.toFixed(2), invoiceNumber);
-    }
-
-    function submitToPayPal(amountFixed, invoiceNumber) {
-      const safeInvoice = invoiceNumber || "Direct Invoice";
-
-      // Populate the hidden PayPal form with dynamic values
-      document.getElementById("paypalItemName").value = "Invoice " + safeInvoice;
-      document.getElementById("paypalAmount").value = amountFixed;
-      document.getElementById("paypalInvoice").value = safeInvoice;
-      document.getElementById("paypalReturn").value = window.location.href;
-      document.getElementById("paypalCancelReturn").value = window.location.href;
-      
-      // Submit the form
-      document.getElementById("paypalForm").submit();
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color:  'blue',
+          shape:  'rect',
+          label:  'pay',
+          height: 45
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: amount.toFixed(2),
+                currency_code: 'USD'
+              },
+              description: description,
+              custom_id: invoiceId
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            document.getElementById('paypal-button-container').innerHTML =
+              '<div class="payment-success">' +
+              '<p class="success-icon">✓</p>' +
+              '<p class="success-heading">Payment Complete</p>' +
+              '<p class="success-detail">Thank you, ' + details.payer.name.given_name + '. ' +
+              'Your payment of $' + amount.toFixed(2) + ' has been received.</p>' +
+              '<p class="success-order">PayPal Order ID: ' + data.orderID + '</p>' +
+              '</div>';
+          });
+        },
+        onError: function(err) {
+          document.getElementById('paypal-button-container').innerHTML =
+            '<p class="error-msg">Payment could not be completed. Please try again or contact billing@tevisengineering.com.</p>';
+          console.error('PayPal error:', err);
+        },
+        onCancel: function() {
+          // User closed the PayPal popup — buttons remain
+        }
+      }).render('#paypal-button-container');
     }
 
     function handleDirectLookupFromQuery() {
@@ -882,7 +874,6 @@
     }
 
     lookupBtn.addEventListener("click", onLookup);
-    payInvoiceBtn.addEventListener("click", onPayInvoice);
 
     invoiceQueryEl.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
