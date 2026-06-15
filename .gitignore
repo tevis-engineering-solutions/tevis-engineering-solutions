@@ -1,23 +1,11 @@
-# Claude session context — not for public repo
+# Claude session context — not for public repo (lives at repo root)
 CLAUDE.md
 
-# Strategic roadmap — keep private (not for public repo)
-ROADMAP.md
-
-# Recurring maintenance ops doc — keep private (not for public repo)
-RECURRING_TASKS.md
-
-# Internal ops docs
-BUTTONDOWN.md
+# Private ops docs folder (roadmap, recurring tasks, service guides)
+_ops/
 
 # Analysis, Bug Reports, and other documentation
 DOCUMENTATION.md
-
-# Clouflare Setup - Cleaner walkthrough format - don't care to share
-CLOUDFLARE.md
-
-# Change Log Archive
-CHANGELOG.md
 
 # Environment / secrets
 .env

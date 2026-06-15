@@ -931,39 +931,160 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Tevis Engineering Solutions",
-    "description": "Veteran-owned IT support, consulting, 3D printing, and engineering services for small businesses and individuals in Cleveland, Ohio.",
-    "url": "https://tevisengineering.com",
-    "telephone": "+18143845117",
-    "email": "tyler@tevisengineering.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Cleveland",
-      "addressRegion": "OH",
-      "addressCountry": "US"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Tyler Tevis"
-    },
-    "priceRange": "$80 – $1,560/month",
-    "sameAs": [
-      "https://linkedin.com/in/tylertevis/",
-      "https://github.com/tevis-engineering-solutions"
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "IT Support and Engineering Services",
-      "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "IT Support and Troubleshooting"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Technical Consulting"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D Printing and Prototyping"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Data Destruction"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Knowledge Transfer and Documentation"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website Design and Development"}}
-      ]
-    }
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@id": "https://tevisengineering.com/#business",
+        "name": "Tevis Engineering Solutions",
+        "alternateName": "TES",
+        "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio and Northeast Ohio. Specializing in managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
+        "url": "https://tevisengineering.com",
+        "logo": "https://tevisengineering.com/assets/logo-mark.svg",
+        "image": "https://tevisengineering.com/assets/og-image.svg",
+        "telephone": "+18143845117",
+        "email": "tyler@tevisengineering.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cleveland",
+          "addressRegion": "OH",
+          "addressCountry": "US"
+        },
+        "areaServed": [
+          {"@type": "City", "name": "Cleveland", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Cleveland Heights", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Lakewood", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Parma", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Strongsville", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Beachwood", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "City", "name": "Westlake", "containedInPlace": {"@type": "State", "name": "Ohio"}},
+          {"@type": "GeoCircle", "geoMidpoint": {"@type": "GeoCoordinates", "latitude": 41.4993, "longitude": -81.6944}, "geoRadius": "50000"}
+        ],
+        "serviceType": [
+          "Managed IT Services",
+          "IT Support",
+          "Help Desk Support",
+          "Network Administration",
+          "Custom Software Development",
+          "PowerShell Automation",
+          "PCB Design",
+          "Circuit Board Design",
+          "CAD Design",
+          "3D Printing Services",
+          "Web Design",
+          "Web Development",
+          "Data Destruction",
+          "NIST Media Sanitization",
+          "Knowledge Transfer",
+          "IT Documentation"
+        ],
+        "priceRange": "$$",
+        "currenciesAccepted": "USD",
+        "paymentAccepted": "PayPal, Venmo, Check",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "foundingDate": "2025",
+        "slogan": "Expert IT and Engineering Solutions for Small Business",
+        "knowsAbout": [
+          "Managed IT Services",
+          "Small Business IT",
+          "Network Infrastructure",
+          "PCB Design",
+          "Embedded Systems",
+          "CAD Engineering",
+          "3D Printing",
+          "Web Development",
+          "IT Automation",
+          "Data Security"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "TES Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Managed IT Support",
+                "description": "Flat-rate monthly IT management for small businesses in Cleveland, Ohio. Includes monitoring, help desk, patch management, and network administration.",
+                "url": "https://tevisengineering.com/how_support_works.html",
+                "areaServed": "Cleveland, Ohio"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "PCB and Circuit Board Design",
+                "description": "Custom PCB design for hardware startups and small manufacturers. Schematic capture, layout, Gerber file delivery.",
+                "url": "https://tevisengineering.com"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Web Design and Development",
+                "description": "Professional website design for small businesses. Fast, mobile-friendly, SEO-optimized static and dynamic sites.",
+                "url": "https://tevisengineering.com/website_creation.html"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Data Destruction and Media Sanitization",
+                "description": "NIST 800-88 compliant media sanitization for hard drives and storage devices. Certificate of destruction provided.",
+                "url": "https://tevisengineering.com/data_destruction.html"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Knowledge Transfer and IT Documentation",
+                "description": "Technical documentation, runbook creation, and structured knowledge transfer for IT handoffs and staff transitions.",
+                "url": "https://tevisengineering.com/knowledge_transfer.html"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "3D Printing and Prototype Manufacturing",
+                "description": "FDM and resin 3D printing for product prototypes, replacement parts, and custom enclosures.",
+                "url": "https://tevisengineering.com"
+              }
+            }
+          ]
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/tevis-engineering-solutions",
+          "https://github.com/tevis-engineering-solutions"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tevisengineering.com/#website",
+        "url": "https://tevisengineering.com",
+        "name": "Tevis Engineering Solutions",
+        "description": "IT managed services and engineering solutions for small businesses in Cleveland, Ohio.",
+        "publisher": {"@id": "https://tevisengineering.com/#business"},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://tevisengineering.com/blog/index.html?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
   }
   </script>
 </head>
