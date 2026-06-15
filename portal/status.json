@@ -55,28 +55,6 @@
       "opened": "2025-11-18",
       "last_update": "2026-06-15",
       "note": "POS / Payment Systems · Remote"
-    },
-    {
-      "id": "TES-L006",
-      "client": "Coastal Property Management LLC",
-      "title": "New Laptop",
-      "description": "Setup new laptop for John Smith",
-      "status": "In Progress",
-      "priority": "High",
-      "opened": "2026-06-15",
-      "last_update": "2026-06-15",
-      "note": "Hardware · On-site"
-    },
-    {
-      "id": "TES-L007",
-      "client": "Blue Ridge Analytics",
-      "title": "Laptop Issue",
-      "description": "Windows acting stupid",
-      "status": "In Progress",
-      "priority": "Medium",
-      "opened": "2026-06-15",
-      "last_update": "2026-06-15",
-      "note": "Software · On-site"
     }
   ]
 }
