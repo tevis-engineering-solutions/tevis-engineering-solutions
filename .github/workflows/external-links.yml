@@ -1,0 +1,35 @@
+name: External Link Check
+
+on:
+  schedule:
+    # Every Monday at 08:00 UTC
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-external-links:
+    name: Check External Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check external links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Checks real HTTP/HTTPS URLs. Accepts 429 (rate limit) as valid
+          # so CDN/Google/PayPal throttling doesn't cause false failures.
+          args: >
+            --no-progress
+            --accept 200..=429
+            --exclude-path "_ops"
+            --exclude "^mailto:"
+            --exclude "^tel:"
+            --exclude "^#"
+            --timeout 30
+            '*.html'
+            'blog/*.html'
+            'portal/*.html'
+          fail: true

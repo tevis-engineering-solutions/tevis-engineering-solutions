@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# ─── Job 1: HTML Validation ──────────────────────────────────────────────────
+jobs:
+  validate-html:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install html-validate
+        run: npm install -g html-validate
+
+      - name: Validate all HTML files
+        run: |
+          find . -name "*.html" \
+            -not -path "./_ops/*" \
+            -not -path "./node_modules/*" \
+            | xargs html-validate
+
+# ─── Job 2: Broken Internal Link Check ───────────────────────────────────────
+  check-links:
+    name: Check Internal Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check internal links (offline)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --offline: only checks local file references, skips all HTTP/HTTPS URLs.
+          # This catches dead internal hrefs (e.g. a renamed page, deleted asset)
+          # without flaky network calls. External URL checking runs separately
+          # on a weekly schedule (see external-links.yml).
+          args: >
+            --offline
+            --no-progress
+            --exclude-path "_ops"
+            --exclude "^mailto:"
+            --exclude "^tel:"
+            --exclude "^#"
+            '*.html'
+            'blog/*.html'
+            'portal/*.html'
+          fail: true
+
+# ─── Job 3: Lighthouse Score Gate ────────────────────────────────────────────
+  lighthouse:
+    name: Lighthouse Score Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse CI
+        # Fails if homepage performance < 80 or accessibility < 90.
+        # pay_invoice.html is excluded — the PayPal JS SDK loads external
+        # scripts that inflate load time in a CI sandbox environment.
+        run: lhci autorun

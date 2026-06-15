@@ -395,6 +395,243 @@
       display: block;
     }
 
+    /* ==================== GITHUB PROJECTS ==================== */
+    .gh-section {
+      padding: 3rem 0 2rem;
+      border-top: 1px solid var(--line);
+      margin-top: 1rem;
+    }
+    .gh-section-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+    .gh-section-header h2 {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: #edf4ff;
+      margin: 0.5rem 0;
+    }
+    .gh-section-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .gh-section-header a { color: var(--blue); text-decoration: none; }
+    .gh-section-header a:hover { text-decoration: underline; }
+    .gh-section-header code {
+      font-family: "Courier New", monospace;
+      font-size: 0.88em;
+      background: rgba(94,165,255,0.1);
+      border: 1px solid rgba(94,165,255,0.2);
+      border-radius: 4px;
+      padding: 0.05em 0.35em;
+      color: #7ab8ff;
+    }
+    .gh-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+    .gh-filter-group {
+      display: flex;
+      border: 1px solid rgba(94,165,255,0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(94,165,255,0.05);
+    }
+    .gh-filter-btn {
+      padding: 0.42rem 1.05rem;
+      background: none;
+      border: none;
+      color: #a0b8d8;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .gh-filter-btn.active {
+      background: linear-gradient(135deg, #1a5cb0, #0d8da8);
+      color: #fff;
+      border-radius: 999px;
+    }
+    .gh-sort-select {
+      background: rgba(18,27,39,0.9);
+      border: 1px solid rgba(94,165,255,0.25);
+      color: #a0b8d8;
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      outline: none;
+    }
+    .gh-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .gh-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.2rem 1.35rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .gh-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(94,165,255,0.45);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.38);
+    }
+    .gh-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .gh-repo-name {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .gh-stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .gh-stars svg { width: 12px; height: 12px; fill: #e3a21a; }
+    .gh-featured-badge {
+      display: inline-block;
+      padding: 0.13rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: rgba(0,212,255,0.1);
+      color: #64f0d2;
+      border: 1px solid rgba(0,212,255,0.28);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      align-self: flex-start;
+    }
+    .gh-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+    .gh-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .gh-topic {
+      display: inline-block;
+      padding: 0.12rem 0.48rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      background: rgba(94,165,255,0.09);
+      color: #7ab8ff;
+      border: 1px solid rgba(94,165,255,0.18);
+    }
+    .gh-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .gh-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.77rem;
+      color: var(--muted);
+    }
+    .gh-lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .gh-updated { font-size: 0.73rem; color: #6a8ba8; }
+    .gh-account-tag {
+      font-size: 0.68rem;
+      color: #4a6080;
+      font-family: "Courier New", monospace;
+    }
+    .gh-loading {
+      text-align: center;
+      padding: 3rem 0;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .gh-loading-spinner {
+      width: 34px;
+      height: 34px;
+      border: 3px solid rgba(94,165,255,0.18);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: ghSpin 0.75s linear infinite;
+    }
+    @keyframes ghSpin { to { transform: rotate(360deg); } }
+    .gh-status-msg {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-size: 0.93rem;
+    }
+    .gh-status-msg a { color: var(--blue); }
+    .gh-show-more {
+      display: block;
+      margin: 1.2rem auto 0;
+      padding: 0.58rem 1.8rem;
+      background: none;
+      border: 1px solid rgba(94,165,255,0.3);
+      border-radius: 999px;
+      color: var(--blue);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .gh-show-more:hover {
+      background: rgba(94,165,255,0.1);
+      border-color: rgba(94,165,255,0.5);
+    }
+    @media (max-width: 900px) { .gh-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .gh-grid { grid-template-columns: 1fr; } }
+
     /* ==================== CTA SECTION ==================== */
     .cta-section {
       background: rgba(11, 18, 30, 0.66);
@@ -835,6 +1072,41 @@
 
     </div><!-- /cards-grid -->
 
+    <!-- GITHUB PROJECTS -->
+    <section class="gh-section" id="github-projects" aria-label="GitHub open source projects">
+      <div class="gh-section-header">
+        <span class="eyebrow">Open Source</span>
+        <h2>GitHub Projects</h2>
+        <p>
+          Public repositories from
+          <a href="https://github.com/tmtevis" target="_blank" rel="noopener noreferrer">tmtevis</a>
+          and
+          <a href="https://github.com/tevis-engineering-solutions" target="_blank" rel="noopener noreferrer">tevis-engineering-solutions</a>.
+          Add the <code>tes-portfolio</code> topic to a repo to feature it here.
+        </p>
+      </div>
+
+      <div class="gh-controls" id="ghControls" aria-label="Filter and sort repositories">
+        <div class="gh-filter-group" role="group" aria-label="Filter repositories by topic">
+          <button class="gh-filter-btn active" data-gh-filter="all" type="button">All Repos</button>
+          <button class="gh-filter-btn" data-gh-filter="featured" type="button">&#9733; Featured</button>
+        </div>
+        <select class="gh-sort-select" id="ghSortSelect" aria-label="Sort repositories">
+          <option value="updated">Recently Active</option>
+          <option value="stars">Most Stars</option>
+          <option value="name">A – Z</option>
+        </select>
+      </div>
+
+      <div id="ghLoading" class="gh-loading" aria-live="polite" aria-label="Loading repositories">
+        <div class="gh-loading-spinner" aria-hidden="true"></div>
+        <span>Loading GitHub repositories…</span>
+      </div>
+      <div id="ghStatusMsg" class="gh-status-msg" hidden></div>
+      <div class="gh-grid" id="ghGrid" aria-label="GitHub repository cards"></div>
+      <button class="gh-show-more" id="ghShowMore" hidden type="button">Show More Repositories</button>
+    </section>
+
     <!-- CTA SECTION -->
     <div class="cta-section">
       <h2>Have a project in mind?</h2>
@@ -948,6 +1220,206 @@
         btn.firstChild.textContent = isOpen ? 'Show Less ' : 'Read More ';
       });
     });
+
+    // ---- GitHub Projects ----
+    (function() {
+      var ACCOUNTS = ['tmtevis', 'tevis-engineering-solutions'];
+      var EXCLUDED_REPOS = ['tevis-engineering-solutions.github.io'];
+      var FEATURED_TOPIC = 'tes-portfolio';
+      var INITIAL_SHOW = 9;
+      var PAGE_SIZE = 9;
+      var CACHE_KEY = 'tes_gh_repos_v2';
+      var CACHE_TTL = 60 * 60 * 1000; // 1 hour
+      var FETCH_TIMEOUT = 8000;
+
+      var LANG_COLORS = {
+        'Python':'#3572A5','JavaScript':'#f1e05a','TypeScript':'#2b7489',
+        'HTML':'#e34c26','CSS':'#563d7c','Shell':'#89e051',
+        'PowerShell':'#2671be','C':'#555555','C++':'#f34b7d',
+        'C#':'#178600','Java':'#b07219','Go':'#00ADD8',
+        'Rust':'#dea584','Ruby':'#701516','PHP':'#4F5D95',
+        'Swift':'#ffac45','R':'#198CE7','MATLAB':'#e16737',
+        'Jupyter Notebook':'#DA5B0B','Makefile':'#427819',
+        'Dockerfile':'#384d54','VHDL':'#adb2cb','TeX':'#3D6117',
+        'Batchfile':'#C1F12E','Assembly':'#6E4C13','Lua':'#000080',
+        'Perl':'#0298c3','Scala':'#c22d40','Haskell':'#5e5086'
+      };
+
+      function esc(str) {
+        var d = document.createElement('div');
+        d.textContent = str == null ? '' : String(str);
+        return d.innerHTML;
+      }
+
+      function safeHref(url) {
+        if (!url) return '#';
+        return /^https:\/\/github\.com\//i.test(url) ? url : '#';
+      }
+
+      function relTime(dateStr) {
+        if (!dateStr) return '';
+        var diff = Date.now() - new Date(dateStr).getTime();
+        var days = Math.floor(diff / 86400000);
+        if (days === 0) return 'today';
+        if (days === 1) return 'yesterday';
+        if (days < 30) return days + ' days ago';
+        var months = Math.floor(days / 30);
+        if (months < 12) return months + ' month' + (months > 1 ? 's' : '') + ' ago';
+        var years = Math.floor(months / 12);
+        return years + ' year' + (years > 1 ? 's' : '') + ' ago';
+      }
+
+      function renderCard(repo) {
+        var topics = repo.topics || [];
+        var isFeatured = topics.indexOf(FEATURED_TOPIC) !== -1;
+        var visibleTopics = topics.filter(function(t){ return t !== FEATURED_TOPIC; }).slice(0, 3);
+        var desc = repo.description
+          ? esc(repo.description)
+          : '<em style="color:#4a6080">No description</em>';
+        var langColor = repo.language ? (LANG_COLORS[repo.language] || '#8b949e') : null;
+        var langHtml = langColor
+          ? '<span class="gh-lang"><span class="gh-lang-dot" style="background:' + esc(langColor) + '" aria-hidden="true"></span>' + esc(repo.language) + '</span>'
+          : '<span class="gh-lang" style="color:#4a6080">—</span>';
+        var topicsHtml = visibleTopics.length
+          ? '<div class="gh-topics">' + visibleTopics.map(function(t){ return '<span class="gh-topic">' + esc(t) + '</span>'; }).join('') + '</div>'
+          : '';
+        var featuredHtml = isFeatured ? '<span class="gh-featured-badge">Featured</span>' : '';
+
+        return '<a href="' + safeHref(repo.html_url) + '" target="_blank" rel="noopener noreferrer" class="gh-card" aria-label="' + esc(repo.name) + ' GitHub repository">'
+          + '<div class="gh-card-header">'
+          +   '<span class="gh-repo-name">' + esc(repo.name) + '</span>'
+          +   '<span class="gh-stars" aria-label="' + esc(repo.stargazers_count) + ' stars">'
+          +     '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 11.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>'
+          +     esc(repo.stargazers_count)
+          +   '</span>'
+          + '</div>'
+          + featuredHtml
+          + '<p class="gh-desc">' + desc + '</p>'
+          + topicsHtml
+          + '<div class="gh-card-footer">'
+          +   langHtml
+          +   '<span class="gh-updated">Updated ' + esc(relTime(repo.pushed_at)) + '</span>'
+          + '</div>'
+          + '<span class="gh-account-tag">' + esc(repo.owner && repo.owner.login) + '</span>'
+          + '</a>';
+      }
+
+      var allRepos = [];
+      var currentFilter = 'all';
+      var currentSort = 'updated';
+      var showCount = INITIAL_SHOW;
+
+      var loadingEl   = document.getElementById('ghLoading');
+      var statusMsg   = document.getElementById('ghStatusMsg');
+      var grid        = document.getElementById('ghGrid');
+      var controls    = document.getElementById('ghControls');
+      var showMoreBtn = document.getElementById('ghShowMore');
+      var sortSelect  = document.getElementById('ghSortSelect');
+
+      function getFiltered() {
+        var repos = currentFilter === 'featured'
+          ? allRepos.filter(function(r){ return (r.topics || []).indexOf(FEATURED_TOPIC) !== -1; })
+          : allRepos;
+        return repos.slice().sort(function(a, b) {
+          if (currentSort === 'stars') return b.stargazers_count - a.stargazers_count;
+          if (currentSort === 'name')  return a.name.localeCompare(b.name);
+          return new Date(b.pushed_at) - new Date(a.pushed_at);
+        });
+      }
+
+      function renderRepos() {
+        var repos = getFiltered();
+        statusMsg.hidden = true;
+        if (repos.length === 0) {
+          grid.innerHTML = '';
+          showMoreBtn.hidden = true;
+          statusMsg.innerHTML = 'No featured repositories yet. <a href="https://github.com/tmtevis" target="_blank" rel="noopener noreferrer">View all on GitHub &rarr;</a>';
+          statusMsg.hidden = false;
+          return;
+        }
+        grid.innerHTML = repos.slice(0, showCount).map(renderCard).join('');
+        showMoreBtn.hidden = repos.length <= showCount;
+      }
+
+      function fetchAccount(username) {
+        return fetch(
+          'https://api.github.com/users/' + encodeURIComponent(username) + '/repos?sort=pushed&per_page=100&type=public',
+          { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } }
+        ).then(function(r) { return r.ok ? r.json() : []; })
+         .catch(function() { return []; });
+      }
+
+      function loadRepos() {
+        try {
+          var cached = sessionStorage.getItem(CACHE_KEY);
+          if (cached) {
+            var obj = JSON.parse(cached);
+            if (Date.now() - obj.ts < CACHE_TTL) {
+              allRepos = obj.data;
+              loadingEl.hidden = true;
+              controls.hidden = false;
+              renderRepos();
+              return;
+            }
+          }
+        } catch(e) {}
+
+        var timeoutRace = new Promise(function(_, reject) {
+          setTimeout(function() { reject(new Error('timeout')); }, FETCH_TIMEOUT);
+        });
+
+        Promise.race([Promise.all(ACCOUNTS.map(fetchAccount)), timeoutRace]).then(function(results) {
+          var seen = {};
+          allRepos = [];
+          results.forEach(function(list) {
+            (list || []).forEach(function(r) {
+              if (!seen[r.full_name] && !r.fork && EXCLUDED_REPOS.indexOf(r.name) === -1) {
+                seen[r.full_name] = true;
+                allRepos.push(r);
+              }
+            });
+          });
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: allRepos, ts: Date.now() }));
+          } catch(e) {}
+          loadingEl.hidden = true;
+          controls.hidden = false;
+          renderRepos();
+        }).catch(function() {
+          loadingEl.hidden = true;
+          statusMsg.innerHTML = 'Could not load GitHub repositories. <a href="https://github.com/tmtevis" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>';
+          statusMsg.hidden = false;
+        });
+      }
+
+      document.querySelectorAll('[data-gh-filter]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          currentFilter = this.dataset.ghFilter;
+          showCount = INITIAL_SHOW;
+          document.querySelectorAll('[data-gh-filter]').forEach(function(b) {
+            b.classList.toggle('active', b === btn);
+          });
+          renderRepos();
+        });
+      });
+
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+          currentSort = this.value;
+          showCount = INITIAL_SHOW;
+          renderRepos();
+        });
+      }
+
+      if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', function() {
+          showCount += PAGE_SIZE;
+          renderRepos();
+        });
+      }
+
+      loadRepos();
+    })();
 
     // Newsletter popup — BUTTONDOWN_USERNAME: replace tevisengineering below
     (function() {

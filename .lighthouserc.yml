@@ -1,0 +1,30 @@
+ci:
+  collect:
+    # Serves the repo root as a static site on a random port.
+    # lhci substitutes the port into all localhost URLs automatically.
+    staticDistDir: '.'
+    numberOfRuns: 1
+    url:
+      - http://localhost/index.html
+      - http://localhost/how_support_works.html
+      - http://localhost/data_destruction.html
+
+  assert:
+    # "pessimistic" = use the lowest score if numberOfRuns > 1.
+    # Threshold values match the task spec: perf ≥ 80, a11y ≥ 90.
+    assertMatrix:
+      - matchingUrlPattern: '.*'
+        assertions:
+          'categories:performance':
+            - error
+            - minScore: 0.8
+              aggregationMethod: pessimistic
+          'categories:accessibility':
+            - error
+            - minScore: 0.9
+              aggregationMethod: pessimistic
+
+  upload:
+    # Stores results for 30 days on Google's free LHCI storage.
+    # No token required. Reports are linked in the Actions run summary.
+    target: temporary-public-storage
