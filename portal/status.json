@@ -2,7 +2,7 @@
   "last_updated": "2026-06-15",
   "tickets": [
     {
-      "id": "TES-005",
+      "id": "MDG-005",
       "client": "Meridian Dental Group",
       "title": "Network slowdown across office — post-expansion",
       "description": "After adding two exam rooms with new workstations, staff reporting slow access to dental imaging software. Probable network congestion or switch bottleneck.",
@@ -13,7 +13,7 @@
       "note": "Network · Remote"
     },
     {
-      "id": "TES-015",
+      "id": "HHS-003",
       "client": "Hendricks Hardware & Supply",
       "title": "Persistent email spoofing / spam — reports from customers",
       "description": "Multiple customers reporting receiving suspicious emails appearing to come from bob@hendrickshardware.com. SPF and DKIM records appear misconfigured. Potential spoofing.",
@@ -24,7 +24,7 @@
       "note": "Email / Communication · Remote"
     },
     {
-      "id": "TES-008",
+      "id": "CPM-003",
       "client": "Coastal Property Management LLC",
       "title": "WiFi dead zones in Building C — access point deployment",
       "description": "Signal mapping identified 4 dead zones in Building C. Need to deploy 4 Cisco Meraki MR46 APs on ceiling mounts. Cabling already run.",
@@ -35,7 +35,7 @@
       "note": "Network · Remote"
     },
     {
-      "id": "TES-004",
+      "id": "MDG-004",
       "client": "Meridian Dental Group",
       "title": "HIPAA compliance documentation review — annual refresh",
       "description": "Annual review of HIPAA technical safeguards documentation. Verify access control policies, audit log settings, encryption status, and backup validation records.",
@@ -46,7 +46,7 @@
       "note": "Compliance · Remote"
     },
     {
-      "id": "TES-009",
+      "id": "GRG-001",
       "client": "The Grove Restaurant Group",
       "title": "POS terminal offline during dinner service — Location 1",
       "description": "Register 2 at Grove location 1 offline during peak hours. Toast POS showing \"offline mode\" — not syncing orders to kitchen. Possible network dropout.",
