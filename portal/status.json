@@ -3,91 +3,91 @@
   "tickets": [
     {
       "id": "TES-005",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Meridian Dental Group",
+      "title": "Network slowdown across office — post-expansion",
+      "description": "After adding two exam rooms with new workstations, staff reporting slow access to dental imaging software. Probable network congestion or switch bottleneck.",
       "status": "In Progress",
       "priority": "Medium",
       "opened": "2026-05-28",
       "last_update": "2026-06-10",
-      "note": ""
+      "note": "Network · Remote"
     },
     {
       "id": "TES-015",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Hendricks Hardware & Supply",
+      "title": "Persistent email spoofing / spam — reports from customers",
+      "description": "Multiple customers reporting receiving suspicious emails appearing to come from bob@hendrickshardware.com. SPF and DKIM records appear misconfigured. Potential spoofing.",
       "status": "Open",
       "priority": "Medium",
       "opened": "2026-05-20",
       "last_update": "2026-05-20",
-      "note": ""
+      "note": "Email / Communication · Remote"
     },
     {
       "id": "TES-008",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Coastal Property Management LLC",
+      "title": "WiFi dead zones in Building C — access point deployment",
+      "description": "Signal mapping identified 4 dead zones in Building C. Need to deploy 4 Cisco Meraki MR46 APs on ceiling mounts. Cabling already run.",
       "status": "In Progress",
       "priority": "High",
       "opened": "2026-05-15",
       "last_update": "2026-05-15",
-      "note": ""
+      "note": "Network · Remote"
     },
     {
       "id": "TES-004",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Meridian Dental Group",
+      "title": "HIPAA compliance documentation review — annual refresh",
+      "description": "Annual review of HIPAA technical safeguards documentation. Verify access control policies, audit log settings, encryption status, and backup validation records.",
       "status": "In Progress",
       "priority": "Medium",
       "opened": "2026-04-15",
       "last_update": "2026-04-15",
-      "note": ""
+      "note": "Compliance · Remote"
     },
     {
       "id": "TES-009",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "The Grove Restaurant Group",
+      "title": "POS terminal offline during dinner service — Location 1",
+      "description": "Register 2 at Grove location 1 offline during peak hours. Toast POS showing \"offline mode\" — not syncing orders to kitchen. Possible network dropout.",
       "status": "In Progress",
       "priority": "Critical",
       "opened": "2025-11-18",
       "last_update": "2026-06-15",
-      "note": ""
+      "note": "POS / Payment Systems · Remote"
     },
     {
       "id": "TES-L006",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Meridian Dental Group",
+      "title": "Repair Network",
+      "description": "Outage Reported 6/15/2026",
       "status": "Open",
       "priority": "Critical",
       "opened": "2026-06-15",
       "last_update": "2026-06-15",
-      "note": ""
+      "note": "Network · On-site"
     },
     {
       "id": "TES-L007",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Coastal Property Management LLC",
+      "title": "New Laptop",
+      "description": "Setup new laptop for John Smith",
       "status": "In Progress",
       "priority": "High",
       "opened": "2026-06-15",
       "last_update": "2026-06-15",
-      "note": ""
+      "note": "Hardware · On-site"
     },
     {
       "id": "TES-L008",
-      "client": "Unknown",
-      "title": "(No subject)",
-      "description": "",
+      "client": "Blue Ridge Analytics",
+      "title": "Laptop Issue",
+      "description": "Windows acting stupid",
       "status": "In Progress",
       "priority": "Medium",
       "opened": "2026-06-15",
       "last_update": "2026-06-15",
-      "note": ""
+      "note": "Software · On-site"
     }
   ]
 }
