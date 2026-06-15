@@ -73,11 +73,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 20% 55%, rgba(0, 119, 255, 0.38), transparent 55%),
-        radial-gradient(circle at 78% 28%, rgba(255, 45, 85, 0.28), transparent 50%),
-        radial-gradient(circle at 55% 85%, rgba(0, 180, 140, 0.22), transparent 45%),
-        linear-gradient(135deg, #060e20 0%, #0a1835 50%, #0f081a 100%);
+      background: url('assets/hero-bg.jpg') center center / cover no-repeat;
+      filter: blur(5px);
       transform: scale(1.08);
       z-index: 1;
     }
@@ -86,7 +83,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(rgba(0, 20, 50, 0.82), rgba(0, 20, 50, 0.88));
+      background: linear-gradient(
+        to bottom,
+        rgba(4, 8, 18, 0.62) 0%,
+        rgba(4, 8, 18, 0.70) 60%,
+        rgba(4, 8, 18, 0.80) 100%
+      );
       z-index: 2;
     }
 
@@ -648,37 +650,6 @@
       transform: translateY(-2px);
     }
 
-    /* ==================== HERO CIRCUIT BACKGROUND ==================== */
-    @keyframes nodesPulse {
-      0%, 100% { opacity: 0.45; }
-      50% { opacity: 1; }
-    }
-    @keyframes traceFade {
-      0%, 100% { opacity: 0.055; }
-      50% { opacity: 0.11; }
-    }
-    .hero-circuit {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .hero-circuit svg {
-      width: 100%;
-      height: 100%;
-    }
-    .hero-circuit .h-trace {
-      animation: traceFade 10s ease-in-out infinite;
-    }
-    .hero-circuit .h-trace:nth-child(2n) { animation-delay: -4s; }
-    .hero-circuit .h-trace:nth-child(3n) { animation-delay: -7s; }
-    .hero-circuit .h-node {
-      animation: nodesPulse 8s ease-in-out infinite;
-    }
-    .hero-circuit .h-node:nth-child(2n) { animation-delay: -3.2s; }
-    .hero-circuit .h-node:nth-child(3n) { animation-delay: -5.8s; }
-    .hero-circuit .h-node:nth-child(5n) { animation-delay: -1.4s; }
 
     /* ==================== TRUST BADGE STRIP ==================== */
     .trust-strip {
@@ -1088,84 +1059,6 @@
 </head>
 <body>
   <header>
-    <!-- Animated PCB circuit trace background texture — z-index:3 sits between overlay (z:2) and hero content (z:5) -->
-    <div class="hero-circuit" aria-hidden="true">
-      <svg viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <!-- Circuit traces — sparse PCB-style routing -->
-        <g fill="none" stroke="#00d4ff" stroke-width="0.9" stroke-linecap="round">
-          <!-- Top band traces -->
-          <polyline class="h-trace" points="0,70 160,70 160,120 320,120 320,70 520,70"/>
-          <polyline class="h-trace" points="640,70 800,70 800,40 1000,40 1000,70 1200,70"/>
-          <line class="h-trace" x1="520" y1="70" x2="640" y2="70"/>
-          <!-- Upper-mid traces -->
-          <polyline class="h-trace" points="0,200 220,200 220,160 440,160 440,200 660,200"/>
-          <polyline class="h-trace" points="780,160 1000,160 1000,200 1200,200"/>
-          <line class="h-trace" x1="660" y1="200" x2="780" y2="200"/>
-          <line class="h-trace" x1="780" y1="200" x2="780" y2="160"/>
-          <!-- Mid traces -->
-          <polyline class="h-trace" points="0,320 140,320 140,280 360,280 360,320 600,320"/>
-          <polyline class="h-trace" points="720,280 920,280 920,320 1200,320"/>
-          <line class="h-trace" x1="600" y1="320" x2="720" y2="320"/>
-          <line class="h-trace" x1="720" y1="320" x2="720" y2="280"/>
-          <!-- Lower traces -->
-          <polyline class="h-trace" points="0,440 180,440 180,400 420,400 420,440 680,440"/>
-          <polyline class="h-trace" points="800,400 1060,400 1060,440 1200,440"/>
-          <line class="h-trace" x1="680" y1="440" x2="800" y2="440"/>
-          <line class="h-trace" x1="800" y1="440" x2="800" y2="400"/>
-          <!-- Bottom traces -->
-          <polyline class="h-trace" points="0,560 200,560 200,520 460,520"/>
-          <polyline class="h-trace" points="600,520 840,520 840,560 1200,560"/>
-          <!-- Short vertical connectors -->
-          <line class="h-trace" x1="160" y1="70" x2="160" y2="0"/>
-          <line class="h-trace" x1="320" y1="120" x2="320" y2="200"/>
-          <line class="h-trace" x1="1000" y1="40" x2="1000" y2="0"/>
-          <line class="h-trace" x1="440" y1="200" x2="440" y2="280"/>
-          <line class="h-trace" x1="920" y1="280" x2="920" y2="200"/>
-          <line class="h-trace" x1="360" y1="320" x2="360" y2="400"/>
-          <line class="h-trace" x1="1060" y1="400" x2="1060" y2="320"/>
-          <line class="h-trace" x1="200" y1="560" x2="200" y2="620"/>
-          <line class="h-trace" x1="840" y1="560" x2="840" y2="620"/>
-        </g>
-        <!-- Nodes at key intersections -->
-        <g fill="#00d4ff">
-          <circle class="h-node" cx="160" cy="70" r="2.8"/>
-          <circle class="h-node" cx="320" cy="120" r="2.8"/>
-          <circle class="h-node" cx="320" cy="70" r="2.5"/>
-          <circle class="h-node" cx="800" cy="70" r="2.8"/>
-          <circle class="h-node" cx="1000" cy="40" r="2.8"/>
-          <circle class="h-node" cx="1000" cy="70" r="2.5"/>
-          <circle class="h-node" cx="220" cy="200" r="2.8"/>
-          <circle class="h-node" cx="440" cy="160" r="2.5"/>
-          <circle class="h-node" cx="440" cy="200" r="2.8"/>
-          <circle class="h-node" cx="780" cy="160" r="2.8"/>
-          <circle class="h-node" cx="1000" cy="160" r="2.5"/>
-          <circle class="h-node" cx="140" cy="320" r="2.8"/>
-          <circle class="h-node" cx="360" cy="280" r="2.5"/>
-          <circle class="h-node" cx="360" cy="320" r="2.8"/>
-          <circle class="h-node" cx="720" cy="280" r="2.8"/>
-          <circle class="h-node" cx="920" cy="280" r="2.5"/>
-          <circle class="h-node" cx="920" cy="320" r="2.8"/>
-          <circle class="h-node" cx="180" cy="440" r="2.8"/>
-          <circle class="h-node" cx="420" cy="400" r="2.5"/>
-          <circle class="h-node" cx="420" cy="440" r="2.8"/>
-          <circle class="h-node" cx="800" cy="400" r="2.8"/>
-          <circle class="h-node" cx="1060" cy="400" r="2.5"/>
-          <circle class="h-node" cx="200" cy="560" r="2.8"/>
-          <circle class="h-node" cx="460" cy="520" r="2.5"/>
-          <circle class="h-node" cx="840" cy="520" r="2.5"/>
-          <circle class="h-node" cx="840" cy="560" r="2.8"/>
-        </g>
-        <!-- Star nodes — mark special junctions with 5-pointed stars -->
-        <g fill="#00d4ff">
-          <!-- Top center star -->
-          <polygon class="h-node" transform="translate(600,70)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
-          <!-- Mid right star -->
-          <polygon class="h-node" transform="translate(660,200)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
-          <!-- Lower star -->
-          <polygon class="h-node" transform="translate(600,320)" points="0,-4.5 1.33,-1.82 4.28,-1.4 2.14,0.7 2.64,3.64 0,2.2 -2.64,3.64 -2.14,0.7 -4.28,-1.4 -1.33,-1.82"/>
-        </g>
-      </svg>
-    </div>
     <div class="site-topbar">
     <nav aria-label="Primary">
       <a href="#" class="brand" aria-label="Tevis Engineering Solutions home">
