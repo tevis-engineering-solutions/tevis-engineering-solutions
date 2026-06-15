@@ -13,6 +13,17 @@
       "note": "Email / Communication"
     },
     {
+      "id": "TES-009",
+      "client": "The Grove Restaurant Group",
+      "title": "POS terminal offline during dinner service — Location 1",
+      "description": "Register 2 at Grove location 1 offline during peak hours. Toast POS showing \"offline mode\" — not syncing orders to kitchen. Possible network dropout.",
+      "status": "In Progress",
+      "priority": "Critical",
+      "opened": "2025-11-18",
+      "last_update": "2026-06-15",
+      "note": "POS / Payment Systems"
+    },
+    {
       "id": "TES-005",
       "client": "Meridian Dental Group",
       "title": "Network slowdown across office — post-expansion",
