@@ -8,7 +8,7 @@
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tevisengineering.com/portfolio.html">
-  <meta property="og:title" content="Portfolio & Case Studies | Tevis Engineering Solutions">
+  <meta property="og:title" content="Portfolio &amp; Case Studies | Tevis Engineering Solutions">
   <meta property="og:description" content="Real problems. Practical solutions. Built to last. See how TES has solved IT, software, and engineering challenges for small businesses.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -1356,7 +1356,7 @@
             var obj = JSON.parse(cached);
             if (Date.now() - obj.ts < CACHE_TTL) {
               allRepos = obj.data;
-              loadingEl.hidden = true;
+              loadingEl.style.display = 'none';
               controls.hidden = false;
               renderRepos();
               return;
@@ -1382,11 +1382,11 @@
           try {
             sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: allRepos, ts: Date.now() }));
           } catch(e) {}
-          loadingEl.hidden = true;
+          loadingEl.style.display = 'none';
           controls.hidden = false;
           renderRepos();
         }).catch(function() {
-          loadingEl.hidden = true;
+          loadingEl.style.display = 'none';
           statusMsg.innerHTML = 'Could not load GitHub repositories. <a href="https://github.com/tmtevis" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>';
           statusMsg.hidden = false;
         });
