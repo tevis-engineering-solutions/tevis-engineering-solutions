@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevisengineering.com/">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -885,6 +885,8 @@
     /* ==================== NEWSLETTER SIGNUP ==================== */
     .newsletter-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3.5rem 5%; margin-top: 4rem; }
     .newsletter-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .newsletter-logo-wrap { display: inline-block; background: #edf3ff; border-radius: 14px; padding: 1.1rem 2rem; margin: 0 auto 2rem; border: 1px solid rgba(0,119,255,0.15); }
+    .newsletter-logo { display: block; width: 100%; max-width: 300px; height: auto; }
     .newsletter-heading { font-family: "Montserrat", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
     .newsletter-sub { color: var(--text-light); font-size: 0.95rem; margin: 0 0 1.75rem; }
     .newsletter-form { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
@@ -908,7 +910,7 @@
         "alternateName": "TES",
         "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio and Northeast Ohio. Specializing in managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
         "url": "https://tevisengineering.com",
-        "logo": "https://tevisengineering.com/assets/logo-mark.svg",
+        "logo": "https://tevisengineering.com/assets/logo-mark.png",
         "image": "https://tevisengineering.com/assets/og-image.svg",
         "telephone": "+18143845117",
         "email": "tyler@tevisengineering.com",
@@ -1062,7 +1064,7 @@
     <div class="site-topbar">
     <nav aria-label="Primary">
       <a href="#" class="brand" aria-label="Tevis Engineering Solutions home">
-        <img src="assets/logo-mark.svg" alt="Tevis Engineering Solutions" class="logo-img">
+        <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions" class="logo-img">
         <span class="logo-lockup">
           <span class="logo-primary">Tevis Engineering</span>
           <span class="logo-secondary">Solutions</span>
@@ -1545,6 +1547,9 @@
   <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->
   <section class="newsletter-section" aria-label="Email newsletter signup">
     <div class="newsletter-inner">
+      <div class="newsletter-logo-wrap">
+        <img src="assets/TES LG1.png" alt="Tevis Engineering Solutions" class="newsletter-logo">
+      </div>
       <div class="newsletter-text">
         <h2 class="newsletter-heading">IT Tips for Cleveland Small Businesses</h2>
         <p class="newsletter-sub">Monthly practical advice — no spam, no upsells. Unsubscribe anytime.</p>
