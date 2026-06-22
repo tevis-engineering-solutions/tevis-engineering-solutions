@@ -106,7 +106,7 @@
     padding:1.4rem; display:grid; grid-template-columns:1fr 1fr 0.85fr; gap:1.1rem; opacity:0; visibility:hidden; pointer-events:none;
     transform:translateX(-50%) translateY(8px); transition:opacity .22s var(--ease-out), transform .22s var(--ease-out); z-index:60; }
   .tnav-mega::before { content:''; position:absolute; top:-22px; left:0; right:0; height:24px; }
-  .tnav-wrap:hover .tnav-mega, .tnav-mega.is-open { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+  .tnav-mega.is-open { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
   .tnav-col-head { font-family:var(--font-display); font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; color:var(--brand-accent); margin:0 0 0.55rem; padding-left:0.45rem; }
   .tnav-link { display:flex; gap:0.7rem; align-items:flex-start; padding:0.5rem; border-radius:var(--radius-md); cursor:pointer; text-decoration:none; transition:background .18s,transform .18s; }
   .tnav-link:hover { background:var(--surface-raised); transform:translateX(3px); }
@@ -122,7 +122,7 @@
   .tnav-right { display:flex; align-items:center; gap:0.9rem; }
   @media (max-width:860px) {
     .tnav-mega { top:68px; left:4vw; right:4vw; width:auto; grid-template-columns:1fr; max-height:calc(100vh - 84px); transform:translateY(8px); }
-    .tnav-wrap:hover .tnav-mega, .tnav-mega.is-open { transform:translateY(0); }
+    .tnav-mega.is-open { transform:translateY(0); }
     .tnav-cta, .tnav-brand .bn { display:none; }
   }
   @media (max-width:460px) {
@@ -572,7 +572,7 @@
     var wrap = document.getElementById('navWrap');
     var trigger = document.getElementById('navTrigger');
     var mega = document.getElementById('navMega');
-    function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); if (window.innerWidth <= 860 && typeof Tawk_API !== 'undefined') { o ? Tawk_API.hideWidget() : Tawk_API.showWidget(); } }
     var closeTimer;
     trigger.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!mega.classList.contains('is-open')); });
     wrap.addEventListener('mouseenter', function () { clearTimeout(closeTimer); setOpen(true); });
