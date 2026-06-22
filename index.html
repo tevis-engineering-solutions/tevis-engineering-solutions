@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tevis Engineering Solutions | Cleveland IT Support</title>
-  <meta name="description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland.">
+  <title>Tevis Engineering Solutions | Cleveland IT Support &amp; Engineering</title>
+  <meta name="description" content="Veteran-Owned IT Support, Consulting, Engineering, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
@@ -12,2029 +12,637 @@
   <meta property="og:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta property="og:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
-  <!-- TODO: Create assets/og-image.png (1200x630) for social previews -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta name="twitter:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevisengineering.com/">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <!-- S5: partial coverage via <meta> — full headers require Cloudflare/CDN (see /_headers) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <!-- S3/S4: CDN fonts/icons send visitor IPs to Google/Cloudflare. Self-host long-term. -->
+  <!-- Fonts + icons (CDN — same as the rest of the site). Self-host long-term. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
   <style>
-    :root {
-      --bg:      #0d1710;
-      --card:    #142019;
-      --card-2:  #1c2e22;
-      --border:  #2c4232;
-      --text:    #e4ede5;
-      --muted:   #8aa48d;
-      --text-light: #8aa48d;
-      --blue:    #4aac65;
-      --accent:  #c89830;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-    html { scroll-behavior: smooth; }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* L4 fix: cards start visible; observer adds animate-on-scroll only when entering viewport */
-    .will-animate {
-      opacity: 0;
-    }
-    .animate-on-scroll {
-      animation: fadeInUp 0.8s ease forwards;
-    }
-
-    /* ==================== HEADER WITH BLURRED BACKGROUND ==================== */
-    header {
-      position: relative;
-      color: white;
-      text-align: center;
-      padding: 0 0rem 0rem;
-      min-height: 620px;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('assets/hero-bg.jpg') center center / cover no-repeat;
-      filter: blur(5px);
-      transform: scale(1.08);
-      z-index: 1;
-    }
-
-    header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(4, 14, 8, 0.62) 0%,
-        rgba(4, 14, 8, 0.70) 60%,
-        rgba(4, 14, 8, 0.80) 100%
-      );
-      z-index: 2;
-    }
-
-    /* ==================== MEGA-NAV ==================== */
-    .site-topbar { position: relative; z-index: 40; background: rgba(10,20,14,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(74,172,101,0.18); }
-    nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 5%; width: 100%; max-width: none; box-sizing: border-box; margin: 0; }
-    .brand { display: flex; align-items: center; gap: 0.95rem; color: white; text-decoration: none; flex-shrink: 0; }
-    .logo-img { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: transparent; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 22px rgba(0,0,0,0.32); }
-    .logo-lockup { display: flex; flex-direction: column; gap: 0; font-family: 'Montserrat',sans-serif; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; text-align: left; }
-    .logo-primary { font-size: 1rem; font-weight: 800; color: #ffffff; line-height: 1.15; }
-    .logo-secondary { font-size: 0.72rem; font-weight: 500; color: #d8e6ff; line-height: 1.15; }
-    nav a { color: white; text-decoration: none; font-weight: 500; transition: color 0.3s; }
-    nav a:hover { color: #7ac3ff; }
-    .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
-    .menu-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .52rem 1.1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); color: #fff; font-family: inherit; font-size: .93rem; font-weight: 600; cursor: pointer; transition: background .2s ease; white-space: nowrap; line-height: 1; }
-    .menu-btn:hover, .menu-btn[aria-expanded="true"] { background: rgba(255,255,255,.15); }
-    .menu-btn .chevron { transition: transform .2s ease; flex-shrink: 0; display: block; }
-    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-    .mega-drop { position: absolute; top: calc(100% + .6rem); left: 50%; transform: translateX(-50%) translateY(-6px); width: min(680px,94vw); background: #112018; border: 1px solid rgba(74,172,101,.22); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.85); padding: 1.35rem 1.35rem 1.05rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; text-align: left; }
-    .mega-drop::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
-    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
-    .mega-col-head { font-family: "Montserrat",sans-serif; font-size: .67rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #c89830; padding: 0 .55rem .4rem; margin-bottom: .2rem; border-bottom: 1px solid rgba(74,172,101,.14); }
-    .mega-link { display: flex; align-items: flex-start; gap: .65rem; padding: .5rem .55rem; border-radius: 9px; text-decoration: none; transition: background .14s ease; }
-    .mega-link:hover { background: rgba(74,172,101,.09); }
-    .mega-link-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; background: rgba(74,172,101,.1); border: 1px solid rgba(74,172,101,.18); display: flex; align-items: center; justify-content: center; color: #c89830; }
-    .mega-link-icon svg { width: 13px; height: 13px; }
-    .mega-link-text { display: flex; flex-direction: column; gap: .1rem; }
-    .mega-link-title { font-size: .86rem; font-weight: 600; color: #e6eefb; line-height: 1.25; }
-    .mega-link-desc { font-size: .73rem; color: #6a8ba8; line-height: 1.3; }
-    .nav-right { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
-    .nav-support-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .54rem 1rem; border-radius: 999px; background: linear-gradient(135deg,#c89830,#e0b840); color: #fff; font-family: "Montserrat",sans-serif; font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(255,255,255,.35); box-shadow: 0 10px 18px rgba(160,116,32,0.28); transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; white-space: nowrap; }
-    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.07); box-shadow: 0 14px 20px rgba(160,116,32,0.34); }
-    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
-    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; background: rgba(0,0,0,.35); cursor: pointer; padding: 0 10px; flex-shrink: 0; }
-    .nav-hamburger span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
-    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 2.2rem .8rem; border-top: 1px solid rgba(255,255,255,.12); width: 100%; }
-    .mobile-nav.is-open { display: flex; }
-    .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4edd7; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
-    .mobile-nav a:hover { background: rgba(0,119,255,.14); }
-    @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } .mega-drop { position: fixed; left: 0; right: 0; width: 100vw; transform: translateY(-6px); border-radius: 0 0 16px 16px; max-height: 80vh; overflow-y: auto; overflow-x: hidden; } .mega-drop.is-open { transform: translateY(0); } }
-    @media (max-width: 480px) { .nav-support-btn { display: none; } }
-    @media (max-width: 600px) { nav { flex-wrap: wrap; padding-left: 1rem; padding-right: 1rem; } .brand { width: 100%; padding-right: 0; } .nav-right { width: 100%; justify-content: space-between; } .nav-hamburger { display: flex; } .nav-support-btn { display: inline-flex; } .logo-lockup { flex-direction: column; gap: 0.1rem; white-space: normal; align-items: flex-start; } .logo-primary { font-size: 1.05rem; } .logo-secondary { font-size: 0.7rem; } body { overflow-x: hidden; } }
-
-    .hero {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      position: relative;
-      z-index: 5;
-    }
-    .hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      font-size: 3.4rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-    .tagline {
-      font-size: 1.4rem;
-      color: #a0c4ff;
-      margin-bottom: 2rem;
-    }
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 16px 40px;
-      font-size: 1.15rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 25px rgba(255, 45, 85, 0.3);
-    }
-    .btn:hover {
-      background: #ff4d6b;
-      transform: translateY(-5px) scale(1.05);
-    }
-
-    section {
-      padding: 80px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h2 {
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 3.5rem;
-      color: white;
-    }
-    h2:after {
-      content: '';
-      width: 80px;
-      height: 3px;
-      background: var(--blue);
-      display: block;
-      margin: 12px auto;
-      border-radius: 2px;
-    }
-    .services-grid, .pricing-grid, .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.2rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-      border-radius: 0 0 20px 20px;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--blue);
-      box-shadow: 0 12px 28px rgba(0, 119, 255, 0.18);
-    }
-    .card:hover::after {
-      transform: scaleX(1);
-    }
-    .card h3 {
-      font-family: 'Montserrat', sans-serif;
-      color: var(--blue);
-      margin-bottom: 1.3rem;
-      font-size: 1.45rem;
-    }
-    ul { list-style: none; }
-    li {
-      padding: 8px 0;
-      color: var(--text-light);
-      position: relative;
-      padding-left: 1.6rem;
-    }
-    li:before {
-      content: "→";
-      color: var(--accent);
-      position: absolute;
-      left: 0;
-    }
-    .veteran-badge {
-      background: linear-gradient(135deg, #2d6a3f, #3d8a55);
-      color: white;
-      padding: 12px 28px;
-      border-radius: 50px;
-      display: inline-block;
-      font-weight: 600;
-      margin: 2rem 0;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 20px rgba(200, 16, 46, 0.4);
-    }
-    .trust-bar {
-      background: #111;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .trust-bar div {
-      display: inline-block;
-      margin: 0 20px;
-      font-weight: 600;
-      color: var(--text-light);
-    }
-    .pricing-grid .card {
-      text-align: center;
-    }
-    .pricing-intro {
-      max-width: 820px;
-      margin: 0 auto 2rem;
-      text-align: center;
-      color: var(--text-light);
-      font-size: 1.08rem;
-    }
-    .pricing-note {
-      max-width: 900px;
-      margin: 0 auto 2.25rem;
-      padding: 1rem 1.2rem;
-      border: 1px solid rgba(0, 119, 255, 0.28);
-      border-radius: 14px;
-      background: rgba(0, 119, 255, 0.1);
-      color: #d7e7ff;
-      font-size: 1rem;
-      line-height: 1.7;
-      text-align: center;
-    }
-    .pricing-discount-note {
-      max-width: 900px;
-      margin: -0.8rem auto 2.25rem;
-      padding: 1rem 1.2rem;
-      border: 1px solid rgba(255, 45, 85, 0.35);
-      border-radius: 14px;
-      background: rgba(255, 45, 85, 0.1);
-      color: #ffd9e3;
-      font-size: 0.98rem;
-      line-height: 1.7;
-      text-align: center;
-    }
-    .contact-discount-note {
-      max-width: 760px;
-      margin: 0 auto 1.4rem;
-      padding: 0.85rem 1rem;
-      border: 1px solid rgba(255, 45, 85, 0.28);
-      border-radius: 12px;
-      background: rgba(255, 45, 85, 0.08);
-      color: #ffd9e3;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      text-align: center;
-    }
-    .plan-meta {
-      margin-top: 0.9rem;
-      color: #c8d7ea;
-      font-size: 0.98rem;
-    }
-    .plan-details {
-      margin-top: 1rem;
-      text-align: left;
-      color: #c9d8ef;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      list-style: none;
-      padding-left: 0;
-    }
-    .plan-details li {
-      padding: 5px 0;
-      color: #c9d8ef;
-      padding-left: 1.4rem;
-    }
-    .plan-details li:before {
-      content: "•";
-      color: #66a9ff;
-      left: 0;
-    }
-    .pricing-breakdown {
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(0, 119, 255, 0.2);
-      text-align: left;
-      color: #c9d8ef;
-      font-size: 0.93rem;
-    }
-    .pricing-breakdown p {
-      color: #a0b5d8;
-      font-size: 0.88rem;
-      margin-bottom: 0.8rem;
-      font-weight: 500;
-    }
-    .pricing-breakdown ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-    .pricing-breakdown li {
-      padding: 6px 0;
-      color: #c9d8ef;
-      padding-left: 1.4rem;
-    }
-    .pricing-breakdown li:before {
-      content: "→";
-      color: #5eb3ff;
-      left: 0;
-      position: absolute;
-    }
-    .plan-badge {
-      display: inline-block;
-      margin-bottom: 1rem;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(0, 119, 255, 0.14);
-      color: #b7d7ff;
-      border: 1px solid rgba(0, 119, 255, 0.3);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .pricing-grid .featured {
-      border-color: rgba(0, 119, 255, 0.65);
-      box-shadow: 0 22px 40px rgba(0, 119, 255, 0.18);
-      transform: translateY(-4px);
-    }
-    .pricing-grid strong {
-      font-size: 2.1rem;
-      color: var(--blue);
-      display: block;
-      margin: 1rem 0;
-    }
-    .pricing-reassurance {
-      max-width: 820px;
-      margin: 2rem auto 0;
-      text-align: center;
-      color: #cfcfcf;
-      font-size: 1.05rem;
-    }
-    .agreement-box {
-      margin: 2.5rem auto 0;
-      max-width: 1100px;
-      background: #121212;
-      border: 1px solid #2b2b2b;
-      border-radius: 18px;
-      padding: 2rem;
-    }
-    .agreement-box h3 {
-      font-family: 'Montserrat', sans-serif;
-      color: #e7f0ff;
-      text-align: center;
-      font-size: 1.55rem;
-      margin-bottom: 1.4rem;
-    }
-    .agreement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.1rem;
-    }
-    .agreement-item {
-      background: #191919;
-      border: 1px solid #2f2f2f;
-      border-radius: 14px;
-      padding: 1rem 1rem 0.9rem;
-    }
-    .agreement-item h4 {
-      font-family: 'Montserrat', sans-serif;
-      color: #8bc0ff;
-      margin-bottom: 0.55rem;
-      font-size: 1rem;
-    }
-    .agreement-item p {
-      color: #c7c7c7;
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-    footer {
-      background: #050505;
-      color: #777;
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-      border-top: 1px solid #222;
-    }
-    .social-links a {
-      color: #aaa;
-      text-decoration: none;
-      margin: 0 20px;
-      font-size: 1.4rem;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .social-links a:hover {
-      color: var(--blue);
-      transform: translateY(-3px);
-    }
-    .contact-form {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .contact-form .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-bottom: 0;
-    }
-    .contact-form label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #aaaaaa;
-      letter-spacing: 0.02em;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      margin-bottom: 1rem;
-    }
-    .booking-callout {
-      margin: 1.15rem 0 0.75rem;
-      padding: 1rem 1.1rem;
-      border: 1px solid rgba(26, 163, 110, 0.4);
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(9, 26, 13, 0.9), rgba(13, 40, 20, 0.88));
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-      text-align: center;
-    }
-    .booking-callout p {
-      margin: 0;
-      color: #d9ebff;
-      font-size: 0.98rem;
-      line-height: 1.6;
-    }
-    .booking-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      padding: 0.66rem 1.05rem;
-      border-radius: 999px;
-      border: 1px solid rgba(164, 255, 223, 0.4);
-      color: #ecfff6;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      background: linear-gradient(135deg, #c89830, #e0b840);
-      box-shadow: 0 10px 20px rgba(26, 163, 110, 0.25);
-      transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
-    }
-    .booking-link:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 14px 24px rgba(26, 163, 110, 0.3);
-    }
-    .payment-methods {
-      margin: 1.2rem auto 0;
-      max-width: 860px;
-      padding: 1.1rem 1.1rem 1rem;
-      border: 1px solid rgba(0, 119, 255, 0.22);
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(74,172,101,0.1), rgba(200,152,48,0.06));
-    }
-    .payment-methods h3 {
-      margin: 0 0 0.75rem;
-      font-family: 'Montserrat', sans-serif;
-      color: #e7f0ff;
-      font-size: 1.04rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      text-align: center;
-    }
-    .payment-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 0.6rem;
-    }
-    .payment-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.65rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(8, 20, 38, 0.72);
-      border: 1px solid rgba(144, 186, 255, 0.25);
-      color: #d9e8ff;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .payment-chip i {
-      color: #4aac65;
-      font-size: 1rem;
-    }
-    .payment-chip.paypal i {
-      color: #7ac3ff;
-    }
-    .payment-chip.venmo i {
-      color: #56b8ff;
-    }
-    .payment-chip.cash i,
-    .payment-chip.check i {
-      color: #8fdba7;
-    }
-    .payment-note {
-      margin-top: 0.8rem;
-      text-align: center;
-      color: #b8cce8;
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-    input, textarea {
-      width: 100%;
-      background: #1f1f1f;
-      border: 1px solid #444;
-      color: white;
-      padding: 15px 18px;
-      border-radius: 12px;
-      margin-bottom: 1.2rem;
-      font-size: 1rem;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.2);
-    }
-    button[type="submit"] {
-      width: 100%;
-      padding: 18px;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, var(--blue), #6dc882);
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s;
-    }
-    button[type="submit"]:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(0, 119, 255, 0.4);
-    }
-    .floating-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: white;
-      padding: 14px 24px;
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(255,45,85,0.4);
-      z-index: 1000;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-    .floating-btn.is-hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-    }
-    .process-bridge {
-      display: flex; align-items: center; gap: 1.25rem;
-      background: var(--card); border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 14px; padding: 1.1rem 1.4rem; margin-bottom: 2.5rem;
-    }
-    .process-bridge-icon {
-      width: 42px; height: 42px; flex-shrink: 0; border-radius: 10px;
-      background: rgba(200,152,48,0.1); border: 1px solid rgba(200,152,48,0.22);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent); font-size: 1.1rem;
-    }
-    .process-bridge-text { flex: 1; min-width: 0; }
-    .process-bridge-text strong { font-family: 'Montserrat',sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.15rem; }
-    .process-bridge-text span { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
-    .process-bridge-link {
-      flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.45rem;
-      background: rgba(200,152,48,0.1); border: 1px solid rgba(200,152,48,0.28);
-      color: var(--accent); padding: 0.55rem 1rem; border-radius: 8px;
-      font-family: 'Montserrat',sans-serif; font-size: 0.78rem; font-weight: 700;
-      letter-spacing: 0.04em; text-decoration: none; white-space: nowrap;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .process-bridge-link:hover { background: rgba(200,152,48,0.18); transform: translateX(3px); }
-    @media (max-width: 600px) {
-      .process-bridge { flex-wrap: wrap; }
-      .process-bridge-link { width: 100%; justify-content: center; }
-    }
-
-
-    /* ==================== TRUST BADGE STRIP ==================== */
-    .trust-strip {
-      background: #0d0d0d;
-      border-bottom: 1px solid #222;
-      padding: 18px 20px;
-    }
-    .trust-strip-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem 1.8rem;
-    }
-    .trust-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(0, 119, 255, 0.22);
-      border-radius: 999px;
-      background: rgba(0, 119, 255, 0.07);
-      color: #c8d8f0;
-      font-size: 0.88rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-    }
-    .trust-badge svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-    @media (max-width: 600px) {
-      .trust-strip-inner { gap: 0.6rem 1rem; }
-      .trust-badge { font-size: 0.8rem; padding: 0.45rem 0.8rem; }
-    }
-
-    /* ==================== CTA HIERARCHY ==================== */
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem 1rem;
-      margin-top: 2rem;
-    }
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: white;
-      padding: 16px 40px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 50px;
-      border: 2px solid rgba(255, 255, 255, 0.45);
-      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-    }
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.75);
-      transform: translateY(-3px);
-    }
-    .btn-tertiary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: #7ac3ff;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      padding: 4px 0;
-      border-bottom: 1px solid transparent;
-      transition: color 0.2s ease, border-bottom-color 0.2s ease;
-    }
-    .btn-tertiary:hover {
-      color: #a8d8ff;
-      border-bottom-color: #7ac3ff;
-    }
-    @media (max-width: 640px) {
-      .hero-cta-group { flex-direction: column; }
-      .btn-secondary { width: 100%; text-align: center; }
-    }
-
-    /* ==================== TESTIMONIALS CAROUSEL ==================== */
-    .carousel-wrap {
-      position: relative;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 0 2.5rem;
-    }
-    .carousel-track {
-      position: relative;
-      min-height: 280px;
-    }
-    .carousel-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-    .carousel-slide.active {
-      opacity: 1;
-      pointer-events: auto;
-      position: relative;
-    }
-    .carousel-quote-mark {
-      font-size: 5rem;
-      line-height: 0.55;
-      color: var(--blue);
-      font-family: Georgia, serif;
-      opacity: 0.3;
-      margin-bottom: 0.6rem;
-      display: block;
-      text-align: left;
-    }
-    .carousel-stars {
-      display: flex;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 1.1rem;
-    }
-    .carousel-stars svg {
-      width: 18px;
-      height: 18px;
-      fill: #fbbf24;
-    }
-    .carousel-quote {
-      font-style: italic;
-      font-size: 1.08rem;
-      line-height: 1.8;
-      color: #d8e4f2;
-      margin-bottom: 1.5rem;
-    }
-    .carousel-client {
-      font-weight: 700;
-      color: #ffffff;
-      font-size: 0.95rem;
-    }
-    .carousel-company {
-      color: var(--text-light);
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
-    }
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-60%);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, border-color 0.2s ease;
-      z-index: 5;
-      padding: 0;
-      line-height: 1;
-    }
-    .carousel-arrow:hover {
-      background: rgba(0, 119, 255, 0.22);
-      border-color: rgba(0, 119, 255, 0.45);
-    }
-    .carousel-prev { left: 0; }
-    .carousel-next { right: 0; }
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 2rem;
-    }
-    .carousel-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255, 255, 255, 0.22);
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-    .carousel-dot.active {
-      background: var(--blue);
-      transform: scale(1.35);
-    }
-    @media (max-width: 600px) {
-      .carousel-wrap { padding: 0 2rem; }
-      .carousel-quote { font-size: 0.98rem; }
-    }
-
-    /* ==================== MOBILE RESPONSIVE ==================== */
-    @media (max-width: 768px) {
-      header { min-height: 500px; }
-      .hero h1 { font-size: 2.4rem; }
-      .tagline { font-size: 1.15rem; }
-      h2 { font-size: 2rem; margin-bottom: 2.5rem; }
-      section { padding: 50px 16px; }
-      .agreement-box { padding: 1.2rem 1rem; }
-      .pricing-intro, .pricing-reassurance { font-size: 0.98rem; }
-    }
-    @media (max-width: 480px) {
-      header { min-height: 380px; padding-bottom: 3rem; }
-      .hero { padding: 1.5rem 0.75rem; }
-      .hero h1 { font-size: 1.9rem; }
-      .tagline { font-size: 0.95rem; margin-bottom: 1.5rem; }
-      h2 { font-size: 1.65rem; margin-bottom: 1.8rem; }
-      section { padding: 36px 12px; }
-      .carousel-track { min-height: auto; }
-      .carousel-arrow { width: 44px; height: 44px; font-size: 1.1rem; }
-      .carousel-dot { width: 12px; height: 12px; }
-      .floating-btn { right: 14px; bottom: 20px; padding: 11px 16px; font-size: 0.88rem; }
-      .payment-grid { grid-template-columns: repeat(2, 1fr); }
-      .trust-strip { padding: 14px 10px; }
-      .agreement-box { padding: 0.9rem 0.75rem; }
-      .btn { padding: 14px 28px; font-size: 1rem; }
-      .btn-secondary { padding: 14px 28px; font-size: 1rem; }
-      .card { padding: 1.6rem; }
-      .pricing-grid strong { font-size: 1.7rem; }
-    }
-
-    /* ==================== NEWSLETTER SIGNUP ==================== */
-    .newsletter-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3.5rem 5%; margin-top: 4rem; }
-    .newsletter-inner { max-width: 640px; margin: 0 auto; text-align: center; }
-    .newsletter-logo-wrap { display: inline-block; background: #edf3ff; border-radius: 14px; padding: 1.1rem 2rem; margin: 0 auto 2rem; border: 1px solid rgba(0,119,255,0.15); }
-    .newsletter-logo { display: block; width: 100%; max-width: 300px; height: auto; }
-    .newsletter-heading { font-family: "Montserrat", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
-    .newsletter-sub { color: var(--text-light); font-size: 0.95rem; margin: 0 0 1.75rem; }
-    .newsletter-form { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
-    .newsletter-input { flex: 1 1 220px; max-width: 320px; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.95rem; font-family: "Inter", sans-serif; outline: none; transition: border-color 0.2s; }
-    .newsletter-input:focus { border-color: var(--blue); }
-    .newsletter-btn { padding: 0.7rem 1.5rem; border-radius: 8px; border: none; background: var(--blue); color: #fff; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.2s; }
-    .newsletter-btn:hover { opacity: 0.85; }
-    .newsletter-fine { margin-top: 1rem; font-size: 0.78rem; color: var(--text-light); }
-    .newsletter-fine a { color: var(--text-light); text-decoration: underline; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-
-    /* ==================== SERVICES SCROLL TRACK ==================== */
-    #services { background: var(--bg); }
-    .svc-subtitle { text-align: center; color: var(--muted); font-size: 1rem; margin: -0.5rem auto 2.25rem; max-width: 560px; line-height: 1.65; }
-    .svc-track-wrap { display: flex; align-items: center; gap: 0.75rem; }
-    .svc-track {
-      flex: 1; min-width: 0;
-      display: flex; gap: 1.25rem;
-      overflow-x: auto; scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
-      scrollbar-width: none; padding: 0.5rem 0.25rem 1rem; cursor: grab;
-    }
-    .svc-track::-webkit-scrollbar { display: none; }
-    .svc-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
-    .svc-card {
-      flex: 0 0 300px; scroll-snap-align: start;
-      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-      padding: 1.75rem 1.5rem; display: flex; flex-direction: column;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative; overflow: hidden; user-select: none;
-    }
-    .svc-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease;
-    }
-    .svc-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 12px 28px rgba(74,172,101,0.14); }
-    .svc-card:hover::after { transform: scaleX(1); }
-    .svc-icon {
-      width: 42px; height: 42px; background: rgba(74,172,101,0.1); border: 1px solid rgba(74,172,101,0.2);
-      border-radius: 11px; display: flex; align-items: center; justify-content: center;
-      color: var(--blue); font-size: 1.15rem; margin-bottom: 1rem; flex-shrink: 0;
-    }
-    .svc-title { font-family: 'Montserrat',sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 0 0 0.85rem; line-height: 1.25; }
-    .svc-list { list-style: none; padding: 0; margin: 0 0 1.1rem; flex: 1; }
-    .svc-list li { font-size: 0.875rem; color: var(--muted); padding: 4px 0 4px 1.3rem; position: relative; line-height: 1.45; }
-    .svc-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.78rem; top: 5px; }
-    .svc-price {
-      display: inline-flex; align-items: center; align-self: flex-start;
-      background: rgba(200,152,48,0.1); border: 1px solid rgba(200,152,48,0.22); color: var(--accent);
-      font-family: 'Montserrat',sans-serif; font-size: 0.76rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.04em;
-    }
-    .svc-arrow {
-      flex-shrink: 0; width: 40px; height: 40px; background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--text); font-size: 1.3rem; line-height: 1;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-    .svc-arrow:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
-    .svc-progress-bar { width: 100%; height: 3px; background: var(--border); border-radius: 2px; margin-top: 1rem; overflow: hidden; }
-    .svc-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 11%; transition: width 0.15s linear; }
-    @media (max-width: 768px) { .svc-arrow { display: none; } }
-    @media (max-width: 480px) { .svc-card { flex: 0 0 260px; } }
-
-    /* ==================== PRICING REDESIGN ==================== */
-    .pr-intro { max-width: 680px; margin: 0 auto 1.5rem; text-align: center; color: var(--muted); font-size: 1rem; line-height: 1.7; }
-    .pr-notice {
-      max-width: 840px; margin: 0 auto 0.85rem;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0.5rem; text-align: center;
-      border-radius: 12px; padding: 0.9rem 1.4rem;
-      font-size: 0.875rem; color: var(--muted); line-height: 1.6;
-    }
-    .pr-notice.gold { background: rgba(200,152,48,0.07); border: 1px solid rgba(200,152,48,0.22); }
-    .pr-notice.green { background: rgba(74,172,101,0.07); border: 1px solid rgba(74,172,101,0.2); margin-bottom: 2rem; }
-    .pr-notice i { font-size: 0.95rem; }
-    .pr-notice.gold i { color: var(--accent); }
-    .pr-notice.green i { color: var(--blue); }
-    .pr-core-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
-    .pr-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-      padding: 1.85rem 1.6rem; text-align: center;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative; overflow: hidden;
-    }
-    .pr-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease;
-    }
-    .pr-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 12px 28px rgba(74,172,101,0.14); }
-    .pr-card:hover::after { transform: scaleX(1); }
-    .pr-card.featured { border-color: rgba(200,152,48,0.5); box-shadow: 0 6px 22px rgba(200,152,48,0.1); }
-    .pr-badge {
-      display: inline-block; margin-bottom: 1.1rem;
-      background: rgba(74,172,101,0.1); border: 1px solid rgba(74,172,101,0.2);
-      color: var(--blue); font-family: 'Montserrat',sans-serif;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 50px;
-    }
-    .pr-badge.gold { background: rgba(200,152,48,0.1); border-color: rgba(200,152,48,0.28); color: var(--accent); }
-    .pr-icon {
-      width: 46px; height: 46px; background: rgba(74,172,101,0.1); border: 1px solid rgba(74,172,101,0.2);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      color: var(--blue); font-size: 1.2rem; margin: 0 auto 1rem;
-    }
-    .pr-price { font-family: 'Montserrat',sans-serif; font-size: 2.3rem; font-weight: 800; color: var(--text); line-height: 1; margin: 0.2rem 0 0.15rem; }
-    .pr-price-unit { font-size: 1rem; font-weight: 500; color: var(--muted); }
-    .pr-name { font-family: 'Montserrat',sans-serif; font-size: 1.02rem; font-weight: 700; color: var(--text); margin: 0.7rem 0 0.4rem; }
-    .pr-sub { font-size: 0.8rem; color: var(--muted); margin: 0 0 1.1rem; }
-    .pr-list { list-style: none; padding: 0; margin: 0; text-align: left; }
-    .pr-list li { font-size: 0.875rem; color: var(--muted); padding: 6px 0 6px 1.3rem; position: relative; line-height: 1.45; border-top: 1px solid var(--border); }
-    .pr-list li:first-child { border-top: none; padding-top: 0; }
-    .pr-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.78rem; top: 7px; }
-    /* Ongoing plans divider */
-    .pr-divider {
-      display: flex; align-items: center; gap: 0.9rem;
-      font-family: 'Montserrat',sans-serif; font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
-      margin: 0.5rem 0 1rem;
-    }
-    .pr-divider::before, .pr-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    /* Expandable rows */
-    .pr-expand-row {
-      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; margin-bottom: 0.75rem; transition: border-color 0.2s;
-    }
-    .pr-expand-row.is-open { border-color: rgba(74,172,101,0.35); }
-    .pr-expand-trigger {
-      width: 100%; background: none; border: none; cursor: pointer;
-      display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.4rem;
-      text-align: left; color: inherit; transition: background 0.15s;
-    }
-    .pr-expand-trigger:hover { background: rgba(74,172,101,0.04); }
-    .pr-expand-eicon {
-      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
-      background: rgba(74,172,101,0.1); border: 1px solid rgba(74,172,101,0.18);
-      display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 1rem;
-    }
-    .pr-expand-head { flex: 1; min-width: 0; }
-    .pr-expand-name { font-family: 'Montserrat',sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text); margin: 0 0 0.15rem; }
-    .pr-expand-tag { font-size: 0.82rem; color: var(--muted); margin: 0; }
-    .pr-expand-right { text-align: right; flex-shrink: 0; }
-    .pr-expand-amt { font-family: 'Montserrat',sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--text); display: block; }
-    .pr-expand-unit { font-size: 0.72rem; color: var(--muted); }
-    .pr-chevron { width: 26px; height: 26px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.85rem; transition: transform 0.25s ease, color 0.2s; }
-    .pr-expand-row.is-open .pr-chevron { transform: rotate(180deg); color: var(--blue); }
-    .pr-expand-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-    .pr-expand-inner { border-top: 1px solid var(--border); padding: 1.2rem 1.4rem 1.4rem; }
-    .pr-expand-inner ul { list-style: none; padding: 0; margin: 0 0 0.75rem; }
-    .pr-expand-inner li { font-size: 0.875rem; color: var(--muted); padding: 5px 0 5px 1.3rem; position: relative; line-height: 1.5; }
-    .pr-expand-inner li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.78rem; top: 6px; }
-    .pr-expand-note { font-size: 0.83rem; color: var(--muted); background: rgba(74,172,101,0.06); border: 1px solid rgba(74,172,101,0.15); border-radius: 8px; padding: 0.6rem 0.85rem; margin-top: 0.75rem; }
-    /* Agreement box — reskin to match theme */
-    .agreement-box { background: var(--card) !important; border: 1px solid var(--border) !important; }
-    .agreement-box h3 { color: var(--text) !important; }
-    .agreement-item { background: var(--card-2) !important; border: 1px solid var(--border) !important; }
-    .agreement-item h4 { color: var(--blue) !important; }
-    .agreement-item p { color: var(--muted) !important; }
-    @media (max-width: 768px) { .pr-core-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 600px) { .pr-expand-right { display: none; } .pr-expand-trigger { padding: 1rem; gap: 0.75rem; } .pr-expand-inner { padding: 1rem; } }
-  </style>
-  <!-- L3: LocalBusiness structured data for rich search results -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": ["LocalBusiness", "ProfessionalService"],
-        "@id": "https://tevisengineering.com/#business",
-        "name": "Tevis Engineering Solutions",
-        "alternateName": "TES",
-        "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio and Northeast Ohio. Specializing in managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
-        "url": "https://tevisengineering.com",
-        "logo": "https://tevisengineering.com/assets/logo-mark.png",
-        "image": "https://tevisengineering.com/assets/og-image.svg",
-        "telephone": "+18143845117",
-        "email": "tyler@tevisengineering.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Cleveland",
-          "addressRegion": "OH",
-          "addressCountry": "US"
-        },
-        "areaServed": [
-          {"@type": "City", "name": "Cleveland", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Cleveland Heights", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Lakewood", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Parma", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Strongsville", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Beachwood", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "City", "name": "Westlake", "containedInPlace": {"@type": "State", "name": "Ohio"}},
-          {"@type": "GeoCircle", "geoMidpoint": {"@type": "GeoCoordinates", "latitude": 41.4993, "longitude": -81.6944}, "geoRadius": "50000"}
-        ],
-        "serviceType": [
-          "Managed IT Services",
-          "IT Support",
-          "Help Desk Support",
-          "Network Administration",
-          "Custom Software Development",
-          "PowerShell Automation",
-          "PCB Design",
-          "Circuit Board Design",
-          "CAD Design",
-          "3D Printing Services",
-          "Web Design",
-          "Web Development",
-          "Data Destruction",
-          "NIST Media Sanitization",
-          "Knowledge Transfer",
-          "IT Documentation"
-        ],
-        "priceRange": "$$",
-        "currenciesAccepted": "USD",
-        "paymentAccepted": "PayPal, Venmo, Check",
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "08:00",
-            "closes": "18:00"
-          }
-        ],
-        "foundingDate": "2025",
-        "slogan": "Expert IT and Engineering Solutions for Small Business",
-        "knowsAbout": [
-          "Managed IT Services",
-          "Small Business IT",
-          "Network Infrastructure",
-          "PCB Design",
-          "Embedded Systems",
-          "CAD Engineering",
-          "3D Printing",
-          "Web Development",
-          "IT Automation",
-          "Data Security"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "TES Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Managed IT Support",
-                "description": "Flat-rate monthly IT management for small businesses in Cleveland, Ohio. Includes monitoring, help desk, patch management, and network administration.",
-                "url": "https://tevisengineering.com/how_support_works.html",
-                "areaServed": "Cleveland, Ohio"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "PCB and Circuit Board Design",
-                "description": "Custom PCB design for hardware startups and small manufacturers. Schematic capture, layout, Gerber file delivery.",
-                "url": "https://tevisengineering.com"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Web Design and Development",
-                "description": "Professional website design for small businesses. Fast, mobile-friendly, SEO-optimized static and dynamic sites.",
-                "url": "https://tevisengineering.com/website_creation.html"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Data Destruction and Media Sanitization",
-                "description": "NIST 800-88 compliant media sanitization for hard drives and storage devices. Certificate of destruction provided.",
-                "url": "https://tevisengineering.com/data_destruction.html"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Knowledge Transfer and IT Documentation",
-                "description": "Technical documentation, runbook creation, and structured knowledge transfer for IT handoffs and staff transitions.",
-                "url": "https://tevisengineering.com/knowledge_transfer.html"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "3D Printing and Prototype Manufacturing",
-                "description": "FDM and resin 3D printing for product prototypes, replacement parts, and custom enclosures.",
-                "url": "https://tevisengineering.com"
-              }
-            }
-          ]
-        },
-        "sameAs": [
-          "https://www.linkedin.com/company/tevis-engineering-solutions",
-          "https://github.com/tevis-engineering-solutions"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://tevisengineering.com/#website",
-        "url": "https://tevisengineering.com",
-        "name": "Tevis Engineering Solutions",
-        "description": "IT managed services and engineering solutions for small businesses in Cleveland, Ohio.",
-        "publisher": {"@id": "https://tevisengineering.com/#business"},
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://tevisengineering.com/blog/index.html?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      }
-    ]
+  /* ============================================================
+     Tevis Engineering Solutions — homepage (self-contained)
+     Tokens inlined from the TES design system. Vanilla HTML/CSS/JS.
+     ============================================================ */
+  :root {
+    --tes-bg:#0d1710; --tes-surface:#142019; --tes-surface-2:#1c2e22; --tes-border:#2c4232; --tes-overlay:#050b07;
+    --tes-green-100:#d6f0dd; --tes-green-300:#8fd6a3; --tes-green-500:#4aac65; --tes-green-600:#3d8a55; --tes-green-700:#2d6a3f;
+    --tes-gold-100:#f6e6bf; --tes-gold-300:#e0b840; --tes-gold-500:#c89830; --tes-gold-600:#a87a20;
+    --text:#e4ede5; --text-soft:#c2d2c5; --muted:#8aa48d; --on-accent:#0d1710;
+    --surface-page:var(--tes-bg); --surface-card:var(--tes-surface); --surface-raised:var(--tes-surface-2); --surface-well:var(--tes-overlay);
+    --border-default:var(--tes-border);
+    --text-strong:var(--text); --text-body:var(--text-soft); --text-muted:var(--muted); --text-on-accent:var(--on-accent);
+    --brand-primary:var(--tes-green-500); --brand-accent:var(--tes-gold-500);
+    --wash-green:rgba(74,172,101,0.10); --wash-green-border:rgba(74,172,101,0.22);
+    --wash-gold:rgba(200,152,48,0.10); --wash-gold-border:rgba(200,152,48,0.24);
+    --font-display:'Montserrat','Segoe UI',system-ui,sans-serif; --font-body:'Inter','Segoe UI',system-ui,sans-serif;
+    --radius-sm:8px; --radius-md:12px; --radius-lg:18px; --radius-xl:20px;
+    --shadow-sm:0 4px 12px rgba(0,0,0,0.28); --shadow-md:0 12px 28px rgba(0,0,0,0.35); --shadow-lg:0 24px 60px rgba(0,0,0,0.55);
+    --shadow-green:0 12px 28px rgba(74,172,101,0.18); --shadow-gold:0 10px 20px rgba(200,152,48,0.28);
+    --ease-out:cubic-bezier(0.22,1,0.36,1); --dur-base:0.2s;
+    --container:1200px; --container-wide:1280px;
   }
-  </script>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:var(--font-body); background:var(--surface-page); color:var(--text-strong); line-height:1.7; }
+  a { color:inherit; }
+  img { display:block; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:var(--border-default); border-radius:6px; }
+
+  /* ---------- Buttons ---------- */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:var(--font-display);
+    font-weight:700; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border-radius:999px;
+    cursor:pointer; border:1px solid transparent; line-height:1; padding:13px 30px; font-size:0.95rem;
+    transition:transform var(--dur-base) var(--ease-out), filter var(--dur-base), box-shadow var(--dur-base); }
+  .btn--sm { padding:8px 18px; font-size:0.78rem; }
+  .btn--lg { padding:16px 40px; font-size:1.1rem; }
+  .btn--primary { background:linear-gradient(135deg,var(--tes-gold-500),var(--tes-gold-300)); color:var(--text-on-accent); border-color:rgba(255,255,255,0.25); box-shadow:var(--shadow-gold); }
+  .btn--secondary { background:transparent; color:var(--text-strong); border:2px solid rgba(255,255,255,0.45); }
+  .btn--submit { background:linear-gradient(135deg,var(--tes-green-500),var(--tes-green-300)); color:#06120a; box-shadow:var(--shadow-green); }
+  .btn--tertiary { background:transparent; color:var(--brand-primary); text-transform:none; letter-spacing:0; border-radius:0; padding:4px 0; box-shadow:none; }
+  .btn--primary:hover, .btn--submit:hover { transform:translateY(-2px); filter:brightness(1.06); }
+  .btn--secondary:hover { transform:translateY(-2px); border-color:#fff; }
+  .btn--tertiary:hover { filter:brightness(1.15); }
+
+  /* ---------- Badges / trust pills ---------- */
+  .badge { display:inline-flex; align-items:center; gap:0.45rem; font-family:var(--font-display); font-size:0.78rem;
+    font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; line-height:1; }
+  .badge--green { background:var(--wash-green); border:1px solid var(--wash-green-border); color:var(--brand-primary); }
+  .badge--gold { background:var(--wash-gold); border:1px solid var(--wash-gold-border); color:var(--brand-accent); }
+  .badge--veteran { background:linear-gradient(135deg,var(--tes-green-700),var(--tes-green-600)); border:1px solid rgba(255,255,255,0.18); color:#fff; }
+  .trust { display:inline-flex; align-items:center; gap:0.55rem; padding:0.5rem 1rem; border-radius:999px;
+    border:1px solid var(--wash-green-border); background:var(--wash-green); color:var(--text-body); font-size:0.9rem; font-weight:600; white-space:nowrap; }
+  .trust i { color:var(--brand-accent); font-size:0.9rem; }
+
+  /* ---------- Section heading ---------- */
+  .sh { text-align:center; }
+  .sh .eyebrow { font-family:var(--font-display); font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-accent); margin:0 0 0.75rem; }
+  .sh h2 { font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.02em; font-size:2.5rem; color:var(--text-strong); margin:0; line-height:1.15; }
+  .sh .rule { display:block; width:80px; height:3px; border-radius:2px; background:var(--brand-primary); margin:14px auto 0; }
+
+  /* ---------- NAV ---------- */
+  .tnav-bar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.9); backdrop-filter:blur(12px); border-bottom:1px solid var(--wash-green-border); }
+  .tnav-inner { display:flex; align-items:center; gap:1.25rem; padding:0.8rem 5%; max-width:var(--container-wide); margin:0 auto; }
+  .tnav-brand { display:flex; align-items:center; gap:0.8rem; cursor:pointer; text-decoration:none; }
+  .tnav-brand img { width:44px; height:44px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); box-shadow:var(--shadow-sm); }
+  .tnav-brand .bn { display:flex; flex-direction:column; font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.08em; line-height:1.15; }
+  .tnav-brand .bn b { font-size:1rem; font-weight:800; color:#fff; }
+  .tnav-brand .bn s { font-size:0.7rem; font-weight:500; color:var(--text-muted); text-decoration:none; }
+  .tnav-wrap { position:relative; }
+  .tnav-trigger { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.06em; font-weight:700; font-size:0.85rem; color:var(--text-body); background:transparent; border:1px solid transparent; padding:0.6rem 1rem; border-radius:999px; cursor:pointer; transition:color .2s,background .2s,border-color .2s; }
+  .tnav-wrap:hover .tnav-trigger, .tnav-trigger[aria-expanded="true"] { color:#fff; background:var(--wash-green); border-color:var(--wash-green-border); }
+  .tnav-chev { transition:transform .25s var(--ease-out); }
+  .tnav-wrap:hover .tnav-chev, .tnav-trigger[aria-expanded="true"] .tnav-chev { transform:rotate(180deg); }
+  .tnav-mega { position:fixed; top:72px; left:50%; width:min(840px,calc(100vw - 32px)); max-height:calc(100vh - 92px); overflow-y:auto;
+    background:var(--surface-card); border:1px solid var(--border-default); border-radius:var(--radius-xl); box-shadow:var(--shadow-lg);
+    padding:1.4rem; display:grid; grid-template-columns:1fr 1fr 0.85fr; gap:1.1rem; opacity:0; visibility:hidden; pointer-events:none;
+    transform:translateX(-50%) translateY(8px); transition:opacity .22s var(--ease-out), transform .22s var(--ease-out); z-index:60; }
+  .tnav-mega::before { content:''; position:absolute; top:-22px; left:0; right:0; height:24px; }
+  .tnav-wrap:hover .tnav-mega, .tnav-mega.is-open { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+  .tnav-col-head { font-family:var(--font-display); font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; color:var(--brand-accent); margin:0 0 0.55rem; padding-left:0.45rem; }
+  .tnav-link { display:flex; gap:0.7rem; align-items:flex-start; padding:0.5rem; border-radius:var(--radius-md); cursor:pointer; text-decoration:none; transition:background .18s,transform .18s; }
+  .tnav-link:hover { background:var(--surface-raised); transform:translateX(3px); }
+  .tnav-ic { width:34px; height:34px; flex-shrink:0; border-radius:9px; background:var(--wash-green); border:1px solid var(--wash-green-border); color:var(--brand-primary); display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:background .18s,color .18s; }
+  .tnav-link:hover .tnav-ic { background:var(--brand-primary); color:var(--surface-page); }
+  .tnav-tt { font-family:var(--font-display); font-weight:700; font-size:0.85rem; color:var(--text-strong); line-height:1.2; display:block; }
+  .tnav-dd { font-size:0.73rem; color:var(--text-muted); margin-top:2px; line-height:1.3; display:block; }
+  .tnav-cta { background:radial-gradient(110% 120% at 50% 0%,rgba(74,172,101,0.16),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid var(--wash-green-border); border-radius:var(--radius-lg); padding:1.3rem 1.1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.5rem; }
+  .tnav-cta .star { color:var(--brand-accent); font-size:1.3rem; filter:drop-shadow(0 0 8px rgba(224,184,64,0.5)); }
+  .tnav-cta h4 { font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.04em; font-size:0.95rem; color:#fff; margin:0.2rem 0 0; }
+  .tnav-cta p { font-size:0.76rem; color:var(--text-muted); margin:0 0 0.6rem; line-height:1.45; }
+  .tnav-spacer { flex:1; }
+  .tnav-right { display:flex; align-items:center; gap:0.9rem; }
+  @media (max-width:860px) {
+    .tnav-mega { top:68px; left:4vw; right:4vw; width:auto; grid-template-columns:1fr; max-height:calc(100vh - 84px); transform:translateY(8px); }
+    .tnav-wrap:hover .tnav-mega, .tnav-mega.is-open { transform:translateY(0); }
+    .tnav-cta, .tnav-brand .bn { display:none; }
+  }
+  @media (max-width:460px) {
+    .tnav-inner { gap:0.6rem; padding:0.7rem 4%; }
+    .tnav-trigger { padding:0.55rem 0.75rem; }
+    .tnav-right .btn span.lbl { display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero { position:relative; color:#fff; text-align:center; overflow:hidden; padding:clamp(3rem,9vw,5rem) 1.25rem clamp(2.75rem,8vw,4.5rem); }
+  .hero-bg { position:absolute; inset:0; background:url('assets/hero-bg.jpg') center/cover; filter:blur(5px); transform:scale(1.08); z-index:1; }
+  .hero-scrim { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(4,14,8,0.62) 0%,rgba(4,14,8,0.70) 60%,rgba(4,14,8,0.80) 100%); z-index:2; }
+  .hero-inner { position:relative; z-index:5; max-width:900px; margin:0 auto; }
+  .hero-eyebrow { font-family:var(--font-display); font-size:0.95rem; opacity:0.9; margin-bottom:0.5rem; }
+  .hero h1 { font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.02em; font-size:clamp(1.95rem,7vw,3.4rem); font-weight:700; line-height:1.1; margin:0 0 0.5rem; text-shadow:0 4px 18px rgba(0,0,0,0.5); }
+  .hero-sub { font-size:clamp(1.05rem,3.5vw,1.4rem); color:#a0c4ff; margin-bottom:2rem; }
+  .hero-cta { display:flex; gap:0.9rem; justify-content:center; flex-wrap:wrap; align-items:center; }
+
+  /* ---------- Trust strip ---------- */
+  .trust-strip { background:var(--surface-well); border-bottom:1px solid var(--border-default); padding:1.1rem 5%; }
+  .trust-strip-inner { max-width:1000px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.8rem 1.2rem; }
+
+  /* ---------- Section scaffolding ---------- */
+  .section { max-width:var(--container); margin:0 auto; padding:5rem 5%; }
+  .section .lead, .pricing-sec .lead { text-align:center; color:var(--text-muted); max-width:680px; margin:1.25rem auto 2.25rem; line-height:1.7; }
+  .band { background:var(--surface-card); border-top:1px solid var(--border-default); border-bottom:1px solid var(--border-default); }
+
+  /* ---------- Scroll reveal ---------- */
+  .rv { opacity:1; }
+  .rv.is-in { animation:rvUp 0.6s var(--ease-out) both; }
+  @keyframes rvUp { from { transform:translateY(24px); } to { transform:none; } }
+
+  /* ---------- Animated gold circuit accent line ---------- */
+  .mh-cl { max-width:360px; margin:0.9rem auto 0; height:18px; }
+  .mh-cl svg { width:100%; height:100%; overflow:visible; }
+  .mh-cl-trace { fill:none; stroke:var(--tes-gold-500); stroke-width:2; stroke-linecap:round; stroke-dasharray:22 200; opacity:0.7; filter:drop-shadow(0 0 3px rgba(200,152,48,0.5)); animation:clFlow 4.5s linear infinite; }
+  @keyframes clFlow { from { stroke-dashoffset:222; } to { stroke-dashoffset:0; } }
+  .mh-cl-node { fill:var(--tes-gold-300); transform-box:fill-box; transform-origin:center; filter:drop-shadow(0 0 5px rgba(224,184,64,0.85)); animation:clPulse 3s ease-in-out infinite; }
+  @keyframes clPulse { 0%,100% { opacity:0.4; transform:scale(0.7); } 50% { opacity:1; transform:scale(1.25); } }
+
+  /* ---------- SERVICES — cohesive uniform grid ---------- */
+  .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-default); border:1px solid var(--border-default); border-radius:var(--radius-xl); overflow:hidden; }
+  .svc-cell { background:var(--surface-card); padding:1.75rem; display:flex; flex-direction:column; position:relative; transition:background var(--dur-base); height:100%; width:100%; }
+  .svc-grid .rv { display:flex; }
+  .svc-cell::after { content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--brand-accent); transform:scaleX(0); transform-origin:left; transition:transform var(--dur-base) var(--ease-out); }
+  .svc-cell:hover { background:var(--surface-raised); }
+  .svc-cell:hover::after { transform:scaleX(1); }
+  .svc-ic { width:46px; height:46px; flex-shrink:0; border-radius:var(--radius-md); display:inline-flex; align-items:center; justify-content:center; font-size:1.2rem; background:var(--wash-green); border:1px solid var(--wash-green-border); color:var(--brand-accent); margin-bottom:1.1rem; }
+  .svc-cell-title { font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--text-strong); margin:0 0 0.9rem; line-height:1.25; }
+  .svc-cell-list { list-style:none; padding:0; margin:0 0 1.4rem; flex:1; }
+  .svc-cell-list li { position:relative; padding:5px 0 5px 1.3rem; color:var(--text-muted); font-size:0.88rem; line-height:1.5; }
+  .svc-cell-list li::before { content:'\2192'; position:absolute; left:0; top:5px; color:var(--brand-accent); font-size:0.8rem; }
+  .svc-price { font-family:var(--font-display); font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--brand-accent); background:var(--wash-gold); border:1px solid var(--wash-gold-border); padding:5px 12px; border-radius:999px; white-space:nowrap; align-self:flex-start; }
+  @media (max-width:860px) { .svc-grid { grid-template-columns:1fr; } }
+
+  /* ---------- About ---------- */
+  .about { max-width:840px; margin:0 auto; padding:2rem 5% 3rem; text-align:center; }
+  .about p.a1 { color:var(--text-body); font-size:1.12rem; line-height:1.8; margin:0 auto 1.25rem; }
+  .about p.a2 { color:var(--text-muted); font-size:1.05rem; line-height:1.8; margin-bottom:1.75rem; }
+
+  /* ---------- Pricing ---------- */
+  .pricing-sec { max-width:var(--container); margin:0 auto; padding:4rem 5% 5rem; }
+  .mh-price-row { display:flex; gap:1.25rem; align-items:stretch; overflow-x:auto; overflow-y:hidden; padding:1.65rem 0.25rem 1.5rem;
+    scroll-snap-type:x proximity; scrollbar-width:thin; scrollbar-color:var(--tes-gold-500) rgba(255,255,255,0.06); }
+  .mh-price-row > .rv { scroll-snap-align:start; flex:0 0 280px; }
+  .mh-price-row::-webkit-scrollbar { height:9px; }
+  .mh-price-row::-webkit-scrollbar-track { background:rgba(255,255,255,0.05); border-radius:999px; }
+  .mh-price-row::-webkit-scrollbar-thumb { background:linear-gradient(90deg,var(--tes-green-600),var(--tes-gold-500)); border-radius:999px; border:2px solid transparent; background-clip:padding-box; }
+  .mh-price-row::-webkit-scrollbar-thumb:hover { background:linear-gradient(90deg,var(--tes-green-500),var(--tes-gold-300)); }
+  .pcard { position:relative; height:100%; background:var(--surface-card); border:1px solid var(--border-default); border-radius:var(--radius-xl); padding:24px; text-align:center; transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base),box-shadow var(--dur-base); }
+  .pcard:hover { transform:translateY(-4px); border-color:var(--brand-primary); box-shadow:var(--shadow-green); }
+  .pcard.is-feat { border-color:var(--wash-gold-border); animation:featGlow 3.4s ease-in-out infinite; }
+  @keyframes featGlow { 0%,100% { box-shadow:0 0 0 0 rgba(200,152,48,0); } 50% { box-shadow:0 0 30px 2px rgba(200,152,48,0.22); } }
+  .pcard .pc-badge { margin-bottom:1.1rem; }
+  .pcard .pc-ic { width:46px; height:46px; margin:0 auto 1rem; border-radius:var(--radius-md); background:var(--wash-green); border:1px solid var(--wash-green-border); display:flex; align-items:center; justify-content:center; color:var(--brand-primary); font-size:1.2rem; }
+  .pcard .pc-price { font-family:var(--font-display); font-size:2.3rem; font-weight:800; color:var(--text-strong); line-height:1; margin:0.2rem 0 0.15rem; }
+  .pcard .pc-price span { font-size:1rem; font-weight:500; color:var(--text-muted); }
+  .pcard .pc-name { font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--text-strong); margin:0.7rem 0 0.4rem; }
+  .pcard .pc-sub { font-size:0.9rem; color:var(--text-muted); margin:0 0 1.1rem; }
+  .pcard .pc-list { list-style:none; padding:0; margin:0; text-align:left; }
+  .pcard .pc-list li { font-size:0.9rem; color:var(--text-muted); padding:6px 0 6px 1.3rem; position:relative; line-height:1.45; border-top:1px solid var(--border-default); }
+  .pcard .pc-list li:first-child { border-top:none; }
+  .pcard .pc-list li::before { content:'\2192'; position:absolute; left:0; top:7px; color:var(--brand-accent); font-size:0.78rem; }
+
+  /* ---------- Engineering ad ---------- */
+  .eng-ad { position:relative; overflow:hidden; border:1px solid var(--wash-gold-border); border-radius:26px;
+    background:radial-gradient(120% 150% at 88% -10%,rgba(200,152,48,0.16),transparent 52%),radial-gradient(110% 130% at 0% 110%,rgba(74,172,101,0.13),transparent 55%),linear-gradient(160deg,#17281e,#0e1b13);
+    padding:2.6rem; display:grid; grid-template-columns:1.05fr 0.95fr; gap:2.25rem; align-items:center; margin-top:2.5rem; }
+  .eng-traces { position:absolute; inset:0; opacity:0.1; pointer-events:none;
+    background:repeating-linear-gradient(90deg,transparent 0 48px,var(--tes-gold-500) 48px 49px),repeating-linear-gradient(0deg,transparent 0 48px,var(--tes-gold-500) 48px 49px); }
+  .eng-traces::after { content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 49px 49px,var(--tes-gold-500) 0 2.5px,transparent 3px),radial-gradient(circle at 241px 145px,var(--tes-gold-500) 0 2.5px,transparent 3px),radial-gradient(circle at 433px 97px,var(--tes-gold-500) 0 2.5px,transparent 3px); }
+  .eng-l { position:relative; z-index:2; }
+  .eng-eyebrow { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-display); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.12em; color:var(--brand-accent); margin:0 0 0.8rem; }
+  .eng-h { font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.02em; font-weight:800; font-size:1.85rem; line-height:1.12; color:#fff; margin:0 0 0.9rem; }
+  .eng-pill { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-display); font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-on-accent); background:linear-gradient(135deg,var(--tes-gold-500),var(--tes-gold-300)); padding:6px 14px; border-radius:999px; box-shadow:var(--shadow-gold); margin-bottom:1.1rem; }
+  .eng-p { color:var(--text-body); font-size:0.96rem; line-height:1.7; margin:0 0 0.9rem; }
+  .eng-note { color:var(--text-muted); font-size:0.84rem; line-height:1.55; margin:0 0 1.5rem; }
+  .eng-note strong { color:var(--text-strong); }
+  .eng-cta { display:flex; gap:0.7rem; flex-wrap:wrap; }
+  .eng-r { position:relative; z-index:2; background:rgba(8,16,11,0.55); border:1px solid var(--border-default); border-radius:18px; padding:1.4rem; backdrop-filter:blur(2px); }
+  .eng-r-head { font-family:var(--font-display); font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.12em; color:var(--brand-accent); margin:0 0 0.9rem; }
+  .eng-chips { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
+  .eng-chip { display:flex; align-items:center; gap:0.6rem; padding:0.65rem 0.75rem; background:var(--surface-card); border:1px solid var(--border-default); border-radius:11px; transition:border-color .18s,transform .18s,background .18s; }
+  .eng-chip:hover { border-color:var(--wash-gold-border); transform:translateY(-2px); background:var(--surface-raised); }
+  .eng-chip i { color:var(--brand-primary); width:18px; text-align:center; font-size:0.95rem; }
+  .eng-chip span { font-size:0.83rem; color:var(--text-body); font-weight:600; }
+  .pricing-foot { text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:2rem; }
+  @media (max-width:880px) { .eng-ad { grid-template-columns:1fr; padding:2rem; } }
+
+  /* ---------- Newsletter ---------- */
+  .tnl { background:radial-gradient(120% 110% at 50% 0%,rgba(74,172,101,0.09),transparent 62%),var(--surface-well); border-top:1px solid var(--border-default); border-bottom:1px solid var(--border-default); padding:3.75rem 5%; }
+  .tnl-inner { max-width:660px; margin:0 auto; text-align:center; }
+  .tnl-brand { display:inline-flex; align-items:center; gap:1rem; margin-bottom:1.6rem; }
+  .tnl-mark { width:58px; height:58px; border-radius:14px; border:1px solid rgba(255,255,255,0.16); box-shadow:var(--shadow-sm); }
+  .tnl-wordmark { display:flex; flex-direction:column; align-items:flex-start; font-family:var(--font-display); text-transform:uppercase; line-height:1.12; }
+  .tnl-wordmark b { font-size:1.15rem; font-weight:800; color:#fff; letter-spacing:0.05em; }
+  .tnl-wordmark s { font-size:0.78rem; font-weight:500; color:var(--text-body); letter-spacing:0.24em; text-decoration:none; margin-top:2px; }
+  .tnl-eyebrow { font-family:var(--font-display); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.12em; color:var(--brand-accent); margin:0 0 0.6rem; }
+  .tnl-h { font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.03em; font-weight:800; font-size:1.55rem; color:#fff; margin:0 0 0.45rem; }
+  .tnl-sub { color:var(--text-muted); font-size:0.98rem; margin:0 0 1.7rem; }
+  .tnl-form { display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap; }
+  .tnl-input { flex:1 1 260px; max-width:340px; padding:0.85rem 1.1rem; border-radius:var(--radius-sm); border:1px solid var(--border-default); background:var(--surface-raised); color:var(--text-strong); font-size:0.95rem; font-family:var(--font-body); outline:none; transition:border-color .2s,box-shadow .2s; }
+  .tnl-input::placeholder { color:var(--text-muted); }
+  .tnl-input:focus { border-color:var(--brand-primary); box-shadow:0 0 0 4px var(--wash-green); }
+  .tnl-btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.85rem 1.7rem; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); background:linear-gradient(135deg,var(--tes-gold-500),var(--tes-gold-300)); color:var(--text-on-accent); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.04em; font-size:0.85rem; cursor:pointer; box-shadow:var(--shadow-gold); transition:filter .2s,transform .2s; }
+  .tnl-btn:hover { filter:brightness(1.06); transform:translateY(-1px); }
+  .tnl-fine { margin-top:1rem; font-size:0.76rem; color:var(--text-muted); }
+  .tnl-fine a { color:var(--brand-primary); text-decoration:underline; }
+  .tnl-done { display:none; align-items:center; gap:0.6rem; background:var(--wash-green); border:1px solid var(--wash-green-border); color:var(--brand-primary); font-family:var(--font-display); font-weight:700; text-transform:uppercase; letter-spacing:0.04em; font-size:0.9rem; padding:0.85rem 1.6rem; border-radius:var(--radius-sm); }
+
+  /* ---------- Footer ---------- */
+  .tfoot { background:var(--surface-well); border-top:1px solid var(--border-default); padding:3rem 5% 2rem; }
+  .tfoot-grid { max-width:var(--container-wide); margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:2rem; }
+  .tfoot-brand { display:flex; align-items:center; gap:0.7rem; margin-bottom:1rem; cursor:pointer; text-decoration:none; }
+  .tfoot-brand img { width:40px; height:40px; border-radius:9px; }
+  .tfoot-brand b { font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#fff; font-size:0.95rem; }
+  .tfoot-blurb { color:var(--text-muted); font-size:0.9rem; line-height:1.7; max-width:34ch; margin:0 0 1rem; }
+  .tfoot-col h5 { font-family:var(--font-display); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-accent); margin-bottom:0.9rem; }
+  .tfoot-col a { display:block; color:var(--text-muted); text-decoration:none; font-size:0.88rem; padding:0.3rem 0; transition:color var(--dur-base),transform var(--dur-base); }
+  .tfoot-col a:hover { color:var(--brand-primary); transform:translateX(3px); }
+  .tfoot-bar { max-width:var(--container-wide); margin:2rem auto 0; padding-top:1.5rem; border-top:1px solid var(--border-default); display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; align-items:center; }
+  .tfoot-bar span { color:var(--text-muted); font-size:0.82rem; }
+  .tfoot-social { display:flex; gap:1.2rem; }
+  .tfoot-social a { color:var(--text-muted); font-size:1.1rem; transition:color var(--dur-base); }
+  .tfoot-social a:hover { color:var(--brand-primary); }
+  @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
+
+  /* ---------- About section heading ---------- */
+  .about .sh { margin-bottom:1.75rem; }
+
+  /* ---------- Process bridge (before pricing cards) ---------- */
+  .process-bridge { display:flex; align-items:center; gap:1.25rem; background:var(--surface-card); border:1px solid var(--border-default); border-left:3px solid var(--brand-accent); border-radius:14px; padding:1.1rem 1.4rem; margin-bottom:2rem; }
+  .process-bridge-icon { width:42px; height:42px; flex-shrink:0; border-radius:10px; background:var(--wash-gold); border:1px solid var(--wash-gold-border); display:flex; align-items:center; justify-content:center; color:var(--brand-accent); font-size:1.1rem; }
+  .process-bridge-text { flex:1; min-width:0; }
+  .process-bridge-text strong { font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:var(--text-strong); display:block; margin-bottom:0.15rem; }
+  .process-bridge-text span { font-size:0.84rem; color:var(--text-muted); line-height:1.5; }
+  .process-bridge-link { flex-shrink:0; display:inline-flex; align-items:center; gap:0.45rem; background:var(--wash-gold); border:1px solid var(--wash-gold-border); color:var(--brand-accent); padding:0.55rem 1rem; border-radius:8px; font-family:var(--font-display); font-size:0.78rem; font-weight:700; letter-spacing:0.04em; text-decoration:none; white-space:nowrap; transition:background var(--dur-base),transform var(--dur-base); }
+  .process-bridge-link:hover { background:rgba(200,152,48,0.18); transform:translateX(3px); }
+
+  /* ---------- Booking / contact section ---------- */
+  .booking-sec { max-width:var(--container); margin:0 auto; padding:3rem 5% 2rem; text-align:center; }
+  .booking-callout { margin:1.75rem auto 0; max-width:560px; padding:1.25rem 1.5rem; border:1px solid var(--wash-green-border); border-radius:14px; background:linear-gradient(135deg,rgba(9,26,13,0.9),rgba(13,40,20,0.88)); box-shadow:var(--shadow-md); }
+  .booking-callout p { margin:0 0 0.75rem; color:var(--text-body); font-size:0.98rem; line-height:1.6; }
+  .booking-link { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.72rem 1.5rem; border-radius:999px; border:1px solid rgba(255,255,255,0.2); color:var(--text-on-accent); text-decoration:none; font-family:var(--font-display); font-weight:700; letter-spacing:0.02em; background:linear-gradient(135deg,var(--tes-gold-500),var(--tes-gold-300)); box-shadow:var(--shadow-gold); transition:transform var(--dur-base) var(--ease-out),filter var(--dur-base); }
+  .booking-link:hover { transform:translateY(-2px); filter:brightness(1.06); }
+  .contact-info { margin-top:1.5rem; font-size:0.92rem; color:var(--text-muted); line-height:2.1; }
+  .contact-info a { color:var(--text-muted); text-decoration:none; transition:color var(--dur-base); }
+  .contact-info a:hover { color:var(--brand-primary); }
+  .contact-info strong { color:var(--text-body); }
+
+  @media (max-width:600px) {
+    .process-bridge { flex-wrap:wrap; }
+    .process-bridge-link { width:100%; justify-content:center; }
+    .section { padding:3.25rem 5% 1rem; }
+    .pricing-sec { padding-top:2.75rem; }
+    .mh-cl { max-width:240px; }
+    .sh h2 { font-size:2rem; }
+    .eng-ad { padding:1.6rem; }
+    .eng-h { font-size:1.5rem; }
+    .eng-chips { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .rv, .rv.is-in { opacity:1; transform:none; animation:none; }
+    .mh-cl-trace, .mh-cl-node, .pcard.is-feat { animation:none; }
+    html { scroll-behavior:auto; }
+  }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="site-topbar">
-    <nav aria-label="Primary">
-      <a href="#" class="brand" aria-label="Tevis Engineering Solutions home">
-        <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions" class="logo-img">
-        <span class="logo-lockup">
-          <span class="logo-primary">Tevis Engineering</span>
-          <span class="logo-secondary">Solutions</span>
-        </span>
+
+  <!-- ============ NAV ============ -->
+  <div class="tnav-bar">
+    <div class="tnav-inner">
+      <a class="tnav-brand" href="index.html">
+        <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="bn"><b>Tevis Engineering</b><s>Solutions</s></span>
       </a>
-      <div class="nav-center">
-        <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
-          Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+      <div class="tnav-spacer"></div>
+      <div class="tnav-wrap" id="navWrap">
+        <button class="tnav-trigger" type="button" aria-haspopup="true" aria-expanded="false" id="navTrigger">
+          Menu
+          <svg class="tnav-chev" width="11" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
-          <div class="mega-col">
-            <div class="mega-col-head">Services</div>
-            <a href="how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
-            <a href="pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
-            <a href="portfolio.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
-            <a href="assessment.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
-            <a href="website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
-            <a href="data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
-            <a href="knowledge_transfer.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+        <div class="tnav-mega" id="navMega" role="navigation" aria-label="Site navigation">
+          <div>
+            <div class="tnav-col-head">Services</div>
+            <a class="tnav-link" href="how_support_works.html"><span class="tnav-ic"><i class="fa-regular fa-circle-question"></i></span><span><span class="tnav-tt">How Support Works</span><span class="tnav-dd">Intake, scope, delivery, and billing</span></span></a>
+            <a class="tnav-link" href="pricing_sheet.html"><span class="tnav-ic"><i class="fa-solid fa-tag"></i></span><span><span class="tnav-tt">Pricing</span><span class="tnav-dd">Flat rates, hourly, and retainer plans</span></span></a>
+            <a class="tnav-link" href="portfolio.html"><span class="tnav-ic"><i class="fa-solid fa-briefcase"></i></span><span><span class="tnav-tt">Portfolio</span><span class="tnav-dd">Case studies across IT and engineering</span></span></a>
+            <a class="tnav-link" href="assessment.html"><span class="tnav-ic"><i class="fa-solid fa-chart-simple"></i></span><span><span class="tnav-tt">IT Assessment</span><span class="tnav-dd">Free 7-question readiness quiz</span></span></a>
+            <a class="tnav-link" href="website_creation.html"><span class="tnav-ic"><i class="fa-solid fa-globe"></i></span><span><span class="tnav-tt">Web &amp; App Design</span><span class="tnav-dd">Sites, tools, and digital presence</span></span></a>
+            <a class="tnav-link" href="data_destruction.html"><span class="tnav-ic"><i class="fa-solid fa-shield-halved"></i></span><span><span class="tnav-tt">Data Destruction</span><span class="tnav-dd">NIST-aligned secure media sanitization</span></span></a>
+            <a class="tnav-link" href="knowledge_transfer.html"><span class="tnav-ic"><i class="fa-solid fa-file-lines"></i></span><span><span class="tnav-tt">Knowledge Transfer</span><span class="tnav-dd">Documentation and process handoffs</span></span></a>
           </div>
-          <div class="mega-col">
-            <div class="mega-col-head">Company &amp; Tools</div>
-            <a href="blog/index.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Blog / Knowledge Base</span><span class="mega-link-desc">IT tips and guides for small businesses</span></span></a>
-            <a href="make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
-            <a href="portal/status.html" class="mega-link"><span class="mega-link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Ticket Status</span><span class="mega-link-desc">View the status of your open tickets</span></span></a>
-            <a href="pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
-            <a href="#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
-            <a href="privacy_policy.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+          <div>
+            <div class="tnav-col-head">Company &amp; Tools</div>
+            <a class="tnav-link" href="blog/index.html"><span class="tnav-ic"><i class="fa-solid fa-newspaper"></i></span><span><span class="tnav-tt">Blog / Knowledge Base</span><span class="tnav-dd">IT tips and guides for small businesses</span></span></a>
+            <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-headset"></i></span><span><span class="tnav-tt">Submit a Ticket</span><span class="tnav-dd">Get into the support queue now</span></span></a>
+            <a class="tnav-link" href="portal/status.html"><span class="tnav-ic"><i class="fa-solid fa-table-columns"></i></span><span><span class="tnav-tt">Ticket Status</span><span class="tnav-dd">View the status of your open tickets</span></span></a>
+            <a class="tnav-link" href="pay_invoice.html"><span class="tnav-ic"><i class="fa-solid fa-credit-card"></i></span><span><span class="tnav-tt">Pay an Invoice</span><span class="tnav-dd">Look up and pay your balance online</span></span></a>
+            <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
+            <a class="tnav-link" href="privacy_policy.html"><span class="tnav-ic"><i class="fa-solid fa-file-shield"></i></span><span><span class="tnav-tt">Privacy &amp; Terms</span><span class="tnav-dd">Payment terms and data policy</span></span></a>
+          </div>
+          <div class="tnav-cta">
+            <span class="star">&#9733;</span>
+            <h4>Need help now?</h4>
+            <p>Talk straight to the engineer &mdash; no call center, one-business-day reply.</p>
+            <a class="btn btn--primary btn--sm" href="make_ticket.html"><i class="fa-solid fa-headset"></i> Get Support</a>
           </div>
         </div>
       </div>
-      <div class="nav-right">
-        <a href="make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
-        <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
-          <span></span><span></span><span></span>
-        </button>
+
+      <div class="tnav-spacer"></div>
+      <div class="tnav-right">
+        <a class="btn btn--secondary btn--sm" href="make_ticket.html"><i class="fa-solid fa-headset"></i> <span class="lbl">Get Support</span></a>
       </div>
-    </nav>
-    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="how_support_works.html">How Support Works</a>
-      <a href="pricing_sheet.html">Pricing</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="assessment.html">IT Assessment</a>
-      <a href="website_creation.html">Web &amp; App Design</a>
-      <a href="data_destruction.html">Data Destruction</a>
-      <a href="knowledge_transfer.html">Knowledge Transfer</a>
-      <a href="blog/index.html">Blog / Knowledge Base</a>
-      <a href="make_ticket.html">Submit a Ticket</a>
-      <a href="portal/status.html">Ticket Status</a>
-      <a href="pay_invoice.html">Pay an Invoice</a>
-      <a href="#contact">Contact</a>
-      <a href="privacy_policy.html">Privacy &amp; Terms</a>
     </div>
-    </div><!-- /.site-topbar -->
-    <div class="hero">
-      <p style="font-size:1.0rem; margin-bottom:0.5rem; opacity:0.9;">Cleveland-Based • Air Force Veteran Owned</p>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Cleveland-Based &middot; Air Force Veteran Owned</p>
       <h1>IT Support &amp; Custom Engineering Solutions</h1>
-      <p class="tagline">Military-Grade Reliability for Small Businesses and Individuals</p>
-      <div class="hero-cta-group">
-        <a href="make_ticket.html" class="btn">Get IT Support</a>
-        <a href="#contact" class="btn-secondary">Start a Project</a>
-        <a href="pricing_sheet.html" class="btn-tertiary">View Pricing →</a>
+      <p class="hero-sub">Military-Grade Reliability for Small Businesses and Individuals</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary btn--lg" href="make_ticket.html"><i class="fa-solid fa-headset"></i> Get IT Support</a>
+        <a class="btn btn--secondary btn--lg" href="make_ticket.html">Start a Project</a>
+        <a class="btn btn--tertiary" href="#pricing">View Pricing <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </header>
 
-  <!-- Trust badge strip — just below the hero -->
+  <!-- ============ TRUST STRIP ============ -->
   <div class="trust-strip">
     <div class="trust-strip-inner">
-      <span class="trust-badge">
-        <!-- 5-pointed star — veteran ownership signal, echoes the logo's star node motif -->
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <polygon points="10,1.5 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15" fill="#c89830" opacity="0.9"/>
-        </svg>
-        Veteran-Owned Business
-      </span>
-      <span class="trust-badge">
-        <!-- Map pin -->
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M10 1.5C7.24 1.5 5 3.74 5 6.5C5 10.25 10 18.5 10 18.5C10 18.5 15 10.25 15 6.5C15 3.74 12.76 1.5 10 1.5Z" fill="#c89830" opacity="0.85"/>
-          <circle cx="10" cy="6.5" r="2" fill="#0a0f1e"/>
-        </svg>
-        Local Cleveland Business
-      </span>
-      <span class="trust-badge">
-        <!-- Checkmark in rounded square -->
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#c89830" opacity="0.85"/>
-          <polyline points="5,10.5 8.5,14 15,7" stroke="#0a0f1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Satisfaction Guaranteed
-      </span>
-      <span class="trust-badge">
-        <!-- Lock -->
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="3" y="9" width="14" height="10" rx="2.5" fill="#c89830" opacity="0.85"/>
-          <path d="M6.5 9V6.5C6.5 4.57 8.07 3 10 3C11.93 3 13.5 4.57 13.5 6.5V9" stroke="#c89830" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.85"/>
-          <circle cx="10" cy="13.5" r="1.4" fill="#0a0f1e"/>
-        </svg>
-        Secure &amp; Confidential
-      </span>
+      <span class="trust"><i class="fa-solid fa-star"></i> Veteran-Owned Business</span>
+      <span class="trust"><i class="fa-solid fa-location-dot"></i> Local Cleveland Business</span>
+      <span class="trust"><i class="fa-solid fa-circle-check"></i> Satisfaction Guaranteed</span>
+      <span class="trust"><i class="fa-solid fa-lock"></i> Secure &amp; Confidential</span>
     </div>
   </div>
 
-  <section id="about">
-    <h2>About Tevis Engineering Solutions</h2>
-    <p style="max-width:800px; margin:0 auto 2rem; text-align:center; font-size:1.15rem;">
-      Founded by Tyler Tevis, an Air Force Veteran and professional computer engineer with a successful career in research and 7 years of experience 
-      in engineering design and IT support, Tevis Engineering Solutions is a versatile technology-forward company dedicated to providing elite technology services.
-
-      With such extensive experience in prototype design across engineering disciplines, solving complex problems is second nature. 
-    </p>
-    <p style="max-width:800px; margin:0 auto 2rem; text-align:center; font-size:1.15rem;">
-      Providing reliable local and remote IT support, engineering and tangential solutions in the Cleveland area, Tevis Engineering Solutions offers scaled-to-fit 
-      solutions that don't break the bank. We deliver military-grade precision along with practical, actionable consulting and 3D printing solutions. 
-      Truly a one-stop-shop for your technology needs at an affordable rate.
-    </p>
-    <p style="max-width:800px; margin:0 auto 2rem; text-align:center; font-size:1.15rem;">
-      Contact us to see how we can improve antiquated processes, expand your network, deploy those workstations and/or harness the technology that's
-      out there to take your productivity to the next level - or restore it to its former glory!
-    </p>
-    <div style="text-align:center;">
+  <!-- ============ SERVICES ============ -->
+  <section class="section">
+    <div class="sh"><p class="eyebrow">What we do</p><h2>Services</h2><span class="rule"></span></div>
+    <div class="mh-cl"><svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="mh-cl-trace" d="M0,20 H150 L180,8 H470 L500,32 H760 L790,12 H1020 L1050,20 H1200"/><circle cx="180" cy="8" r="4" class="mh-cl-node" style="animation-delay:0s"/><circle cx="470" cy="32" r="4" class="mh-cl-node" style="animation-delay:.5s"/><circle cx="760" cy="12" r="4" class="mh-cl-node" style="animation-delay:1s"/><circle cx="1020" cy="20" r="4" class="mh-cl-node" style="animation-delay:1.5s"/></svg></div>
+    <p class="lead">From quick repairs to full-scale engineering projects &mdash; every engagement is scoped, priced, and delivered with precision.</p>
+    <div class="svc-grid">
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-laptop-code"></i></span><h3 class="svc-cell-title">Web &amp; App Design</h3><ul class="svc-cell-list"><li>Brochure sites, e-commerce &amp; custom web apps</li><li>SEO, analytics &amp; booking integrations</li><li>Ongoing maintenance plans available</li></ul><span class="svc-price">From $750</span></article></div>
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-gears"></i></span><h3 class="svc-cell-title">Automation &amp; Efficiency</h3><ul class="svc-cell-list"><li>PowerShell, Python &amp; VBA scripting</li><li>Multi-step workflow automation</li><li>AI tool selection &amp; deployment</li></ul><span class="svc-price">From $200</span></article></div>
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-shield-halved"></i></span><h3 class="svc-cell-title">Monthly Support Plans</h3><ul class="svc-cell-list"><li>Fixed monthly rate, no surprise invoices</li><li>Priority scheduling &amp; proactive coverage</li><li>Remote &amp; on-site support included</li></ul><span class="svc-price">From $150/mo</span></article></div>
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-server"></i></span><h3 class="svc-cell-title">Setup &amp; Deployment</h3><ul class="svc-cell-list"><li>Windows 10/11, Azure &amp; Microsoft 365</li><li>Network config &amp; multi-device rollouts</li><li>VoIP / RingCentral phone systems</li></ul><span class="svc-price">From $160</span></article></div>
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-microchip"></i></span><h3 class="svc-cell-title">PCB &amp; CAD Design</h3><ul class="svc-cell-list"><li>Schematic capture &amp; board layout</li><li>Gerber file delivery</li><li>Enclosure &amp; mechanical CAD</li></ul><span class="svc-price">Quote</span></article></div>
+      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-cube"></i></span><h3 class="svc-cell-title">3D Printing</h3><ul class="svc-cell-list"><li>FDM &amp; resin prototypes</li><li>Replacement parts &amp; fixtures</li><li>Custom enclosures</li></ul><span class="svc-price">From $40</span></article></div>
     </div>
   </section>
 
-  <div class="trust-bar">
-    <div>Automation • System Administration • Hardware Support</div>
-    <div>3D Design • Prototyping • 3D Printing</div>
-    <div>Cleveland-Based • Remote Support Available</div>
+  <!-- ============ ABOUT ============ -->
+  <section class="about">
+    <div class="sh"><p class="eyebrow">Who we are</p><h2>About Tevis Engineering</h2><span class="rule"></span></div>
+    <p class="a1">Founded by Tyler Tevis, an Air Force Veteran and professional computer engineer with a successful career in research and 7 years of experience in engineering design and IT support, Tevis Engineering Solutions is a versatile technology-forward company dedicated to providing elite technology services. With such extensive experience in prototype design across engineering disciplines, solving complex problems is second nature.</p>
+    <p class="a2">Providing reliable local and remote IT support, engineering and tangential solutions in the Cleveland area, Tevis Engineering Solutions offers scaled-to-fit solutions that don't break the bank. We deliver military-grade precision along with practical, actionable consulting and 3D printing solutions. Truly a one-stop-shop for your technology needs at an affordable rate.</p>
+    <p class="a2">Contact us to see how we can improve antiquated processes, expand your network, deploy those workstations and/or harness the technology that's out there to take your productivity to the next level &mdash; or restore it to its former glory!</p>
+    <span class="badge badge--veteran">Precision &middot; Integrity &middot; Results</span>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <div class="band">
+    <section class="pricing-sec" id="pricing">
+      <div class="sh"><p class="eyebrow">Transparent rates</p><h2>Pricing</h2><span class="rule"></span></div>
+      <div class="mh-cl"><svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="mh-cl-trace" d="M0,20 H150 L180,8 H470 L500,32 H760 L790,12 H1020 L1050,20 H1200"/><circle cx="180" cy="8" r="4" class="mh-cl-node" style="animation-delay:0s"/><circle cx="470" cy="32" r="4" class="mh-cl-node" style="animation-delay:.5s"/><circle cx="760" cy="12" r="4" class="mh-cl-node" style="animation-delay:1s"/><circle cx="1020" cy="20" r="4" class="mh-cl-node" style="animation-delay:1.5s"/></svg></div>
+      <p class="lead">Scaled-to-fit plans with no surprise invoices. Every engagement is scoped and priced up front &mdash; you always know what you're paying before we start.</p>
+
+      <div class="process-bridge">
+        <div class="process-bridge-icon" aria-hidden="true"><i class="fa-solid fa-route"></i></div>
+        <div class="process-bridge-text">
+          <strong>Wondering how it all works?</strong>
+          <span>From first call to delivered results &mdash; the TES support process is straightforward, transparent, and fully documented.</span>
+        </div>
+        <a href="how_support_works.html" class="process-bridge-link">How Support Works <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="mh-price-row">
+        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Most Flexible</span></div><div class="pc-ic"><i class="fa-regular fa-clock"></i></div><div class="pc-price">$80<span>/hr</span></div><div class="pc-name">Hourly Rate</div><p class="pc-sub">1-hour minimum &middot; 10-min increments after</p><ul class="pc-list"><li>Remote and on-site support available</li><li>No long-term commitment required</li><li>After-hours work billed at premium rate</li></ul></div></div>
+        <div class="rv"><div class="pcard is-feat"><div class="pc-badge"><span class="badge badge--gold">100% Credited to Project</span></div><div class="pc-ic"><i class="fa-solid fa-lightbulb"></i></div><div class="pc-price">$50<span>/hr</span></div><div class="pc-name">Technical Consultation</div><p class="pc-sub">Deliverable-backed &middot; Scope draft included</p><ul class="pc-list"><li>Written plan of action &amp; recommendations</li><li>Full fee credited toward accepted project</li><li>Best for scoping before committing</li></ul></div></div>
+        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Best for Rollouts</span></div><div class="pc-ic"><i class="fa-regular fa-calendar-check"></i></div><div class="pc-price">$550<span>/wk</span></div><div class="pc-name">Weekly Service Rate</div><p class="pc-sub">Up to 7 hrs included &middot; 12 hr max/week</p><ul class="pc-list"><li>Ideal for hardware rollouts &amp; deployments</li><li>Overages at $100/hr in half-hour increments</li><li>Unused hours don't roll over</li></ul></div></div>
+        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Ongoing Coverage</span></div><div class="pc-ic"><i class="fa-solid fa-shield-halved"></i></div><div class="pc-price">$1,560<span>/mo</span></div><div class="pc-name">Monthly Managed Support</div><p class="pc-sub">Up to 24 hrs/month included</p><ul class="pc-list"><li>Support availability up to 6 hrs/week</li><li>Device upkeep, admin tasks &amp; automation</li><li>Effective rate $65/hr &mdash; best per-hour value</li><li>Engineering work excluded (separate SOW)</li></ul></div></div>
+      </div>
+
+      <!-- Engineering ad -->
+      <div class="eng-ad">
+        <div class="eng-traces" aria-hidden="true"></div>
+        <div class="eng-l">
+          <p class="eng-eyebrow"><span style="color:var(--brand-accent)">&#9733;</span> Beyond support plans</p>
+          <h2 class="eng-h">Engineering Projects &amp; Specialized Work</h2>
+          <span class="eng-pill"><i class="fa-solid fa-diagram-project"></i> Milestone priced per SOW</span>
+          <p class="eng-p">Formally scoped design &amp; build work &mdash; circuit design, board layout, build &amp; test &mdash; with acceptance criteria agreed before we start. Billing is 50/50 under $5k, or a 40/30/30 milestone split over $5k.</p>
+          <p class="eng-note"><strong>Not included in support plans.</strong> Requires a separate statement of work and a technical consultation first.</p>
+          <div class="eng-cta">
+            <a class="btn btn--primary" href="make_ticket.html"><i class="fa-solid fa-drafting-compass"></i> Scope a Project</a>
+            <a class="btn btn--secondary" href="make_ticket.html">Request a Quote</a>
+          </div>
+        </div>
+        <div class="eng-r">
+          <p class="eng-r-head">Other specialized work</p>
+          <div class="eng-chips">
+            <div class="eng-chip"><i class="fa-solid fa-microchip"></i><span>PCB &amp; CAD Design</span></div>
+            <div class="eng-chip"><i class="fa-solid fa-cube"></i><span>3D Printing</span></div>
+            <div class="eng-chip"><i class="fa-solid fa-shield-halved"></i><span>Data Destruction</span></div>
+            <div class="eng-chip"><i class="fa-solid fa-file-lines"></i><span>Knowledge Transfer</span></div>
+            <div class="eng-chip"><i class="fa-solid fa-globe"></i><span>Web &amp; App Design</span></div>
+            <div class="eng-chip"><i class="fa-solid fa-gears"></i><span>Automation</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="pricing-foot">Cleveland area on-site or remote &nbsp;&middot;&nbsp; transparent scope boundaries &nbsp;&middot;&nbsp; free 15-minute intro call</p>
+    </section>
   </div>
 
-  <section id="services">
-    <h2>Services</h2>
-    <p class="svc-subtitle">From quick repairs to full-scale engineering projects — every engagement is scoped, priced, and delivered with precision.</p>
-
-    <div class="svc-track-wrap">
-      <button class="svc-arrow" id="svcPrev" aria-label="Scroll services left" type="button">&#8249;</button>
-      <div class="svc-track" id="svcTrack">
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-laptop-code"></i></div>
-          <h3 class="svc-title">Web &amp; App Design</h3>
-          <ul class="svc-list">
-            <li>Brochure sites, e-commerce &amp; custom web apps</li>
-            <li>SEO, analytics &amp; booking integrations</li>
-            <li>Ongoing maintenance plans available</li>
-          </ul>
-          <span class="svc-price">From $1,500</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-gears"></i></div>
-          <h3 class="svc-title">Automation &amp; Efficiency</h3>
-          <ul class="svc-list">
-            <li>PowerShell, Python &amp; VBA scripting</li>
-            <li>Multi-step workflow &amp; process automation</li>
-            <li>AI tool selection &amp; deployment</li>
-          </ul>
-          <span class="svc-price">From $200</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3 class="svc-title">Monthly Support Plans</h3>
-          <ul class="svc-list">
-            <li>Fixed monthly rate, no surprise invoices</li>
-            <li>Priority scheduling &amp; proactive coverage</li>
-            <li>Remote &amp; on-site support included</li>
-          </ul>
-          <span class="svc-price">From $150/mo</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-server"></i></div>
-          <h3 class="svc-title">Setup &amp; Deployment</h3>
-          <ul class="svc-list">
-            <li>Windows 10/11, Azure &amp; Microsoft 365</li>
-            <li>Network config &amp; multi-device rollouts</li>
-            <li>VoIP / RingCentral phone systems</li>
-          </ul>
-          <span class="svc-price">From $160</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></div>
-          <h3 class="svc-title">IT Consulting</h3>
-          <ul class="svc-list">
-            <li>Technology strategy &amp; roadmap planning</li>
-            <li>Cloud migration planning &amp; guidance</li>
-            <li>Workflow efficiency audits</li>
-          </ul>
-          <span class="svc-price">From $300</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-          <h3 class="svc-title">Troubleshooting &amp; Repair</h3>
-          <ul class="svc-list">
-            <li>Slow PC, malware &amp; connectivity issues</li>
-            <li>Data backup &amp; restore</li>
-            <li>Hardware &amp; software diagnosis</li>
-          </ul>
-          <span class="svc-price">From $80 (1-hr min)</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-book-open"></i></div>
-          <h3 class="svc-title">Knowledge Transfer</h3>
-          <ul class="svc-list">
-            <li>SOPs, runbooks &amp; onboarding guides</li>
-            <li>IT environment documentation packages</li>
-            <li>Knowledge base setup (Notion, SharePoint)</li>
-          </ul>
-          <span class="svc-price">From $200</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-hard-drive"></i></div>
-          <h3 class="svc-title">Data Destruction</h3>
-          <ul class="svc-list">
-            <li>NIST SP 800-88 aligned sanitization</li>
-            <li>Certificate of destruction included</li>
-            <li>HIPAA &amp; SOC2-aware environments</li>
-          </ul>
-          <span class="svc-price">From $80/drive</span>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-icon" aria-hidden="true"><i class="fa-solid fa-cubes"></i></div>
-          <h3 class="svc-title">3D Printing &amp; CAD</h3>
-          <ul class="svc-list">
-            <li>Custom parts, enclosures &amp; prototypes</li>
-            <li>Functional components &amp; reverse engineering</li>
-            <li>Small batch production runs</li>
-          </ul>
-          <span class="svc-price">From $40 + material</span>
-        </div>
-
-      </div>
-      <button class="svc-arrow" id="svcNext" aria-label="Scroll services right" type="button">&#8250;</button>
-    </div>
-
-    <div class="svc-progress-bar" role="progressbar" aria-label="Services scroll position" aria-valuemin="0" aria-valuemax="100">
-      <div class="svc-progress-fill" id="svcProgress"></div>
-    </div>
-  </section>
-
-  <section id="pricing">
-    <div class="process-bridge">
-      <div class="process-bridge-icon" aria-hidden="true"><i class="fa-solid fa-route"></i></div>
-      <div class="process-bridge-text">
-        <strong>Wondering how it all works?</strong>
-        <span>From first call to delivered results — the TES support process is straightforward, transparent, and fully documented.</span>
-      </div>
-      <a href="how_support_works.html" class="process-bridge-link">
-        How Support Works <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  <!-- ============ CONTACT / BOOKING ============ -->
+  <section class="booking-sec" id="contact">
+    <div class="sh"><p class="eyebrow">Get in touch</p><h2>Book a Free Consultation</h2><span class="rule"></span></div>
+    <div class="booking-callout">
+      <p><strong>Book Your Free Consultation Directly Below</strong></p>
+      <a class="booking-link" href="https://calendar.proton.me/bookings#ZcJtL-cH_SdlYzW8UBilp1FtjftWdGzinYc-Os9IhGM=" target="_blank" rel="noopener noreferrer" aria-label="Book a consultation in Proton Calendar">
+        <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+        Tevis Engineering Solutions Calendar
       </a>
     </div>
-    <h2>Pricing & Support Structure</h2>
-    <p class="pr-intro">Transparent pricing built for small businesses — no enterprise contracts, no hidden fees, and clear scope boundaries on every engagement.</p>
-
-    <div class="pr-notice gold">
-      <!-- <i class="fa-regular fa-calendar-check" aria-hidden="true"></i> -->
-      <span><strong>Free 15-minute intro call</strong> to discuss goals and fit — no charge, no commitment. A paid technical consultation ($50/hr, fully credited toward your project) is separate and produces a written scope draft, plan of action, and recommendations you can act on immediately.</span>
-    </div>
-    <div class="pr-notice green">
-      <i class="fa-solid fa-star" aria-hidden="true"></i>
-      <span><strong>Veteran and senior discounts available</strong> — amounts vary by service type and scope. Contact us for details. To all veterans: thank you for your service.</span>
-    </div>
-
-    <div class="pr-core-grid">
-      <div class="pr-card">
-        <div class="pr-badge">Most Flexible</div>
-        <div class="pr-icon" aria-hidden="true"><i class="fa-regular fa-clock"></i></div>
-        <div class="pr-price">$80<span class="pr-price-unit">/hr</span></div>
-        <h3 class="pr-name">Hourly Rate</h3>
-        <p class="pr-sub">1-hour minimum &nbsp;·&nbsp; 10-min increments after</p>
-        <ul class="pr-list">
-          <li>Remote and on-site support available</li>
-          <li>No long-term commitment required</li>
-          <li>After-hours work billed at premium rate</li>
-        </ul>
-      </div>
-
-      <div class="pr-card featured">
-        <div class="pr-badge gold">100% Credited to Project</div>
-        <div class="pr-icon" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></div>
-        <div class="pr-price">$50<span class="pr-price-unit">/hr</span></div>
-        <h3 class="pr-name">Technical Consultation</h3>
-        <p class="pr-sub">Deliverable-backed &nbsp;·&nbsp; Scope draft included</p>
-        <ul class="pr-list">
-          <li>Written plan of action &amp; recommendations</li>
-          <li>Full fee credited toward accepted project</li>
-          <li>Best for scoping before committing</li>
-        </ul>
-      </div>
-
-      <div class="pr-card">
-        <div class="pr-badge">Best for Rollouts</div>
-        <div class="pr-icon" aria-hidden="true"><i class="fa-regular fa-calendar-check"></i></div>
-        <div class="pr-price">$550<span class="pr-price-unit">/wk</span></div>
-        <h3 class="pr-name">Weekly Service Rate</h3>
-        <p class="pr-sub">Up to 7 hrs included &nbsp;·&nbsp; 12 hr max/week</p>
-        <ul class="pr-list">
-          <li>Ideal for hardware rollouts &amp; deployments</li>
-          <li>Overages at $100/hr in half-hour increments</li>
-          <li>Unused hours don't roll over</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pr-divider">Ongoing plans</div>
-
-    <div class="pr-expand-row" id="planMonthly">
-      <button class="pr-expand-trigger" type="button" aria-expanded="false" aria-controls="planMonthlyBody">
-        <div class="pr-expand-eicon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
-        <div class="pr-expand-head">
-          <p class="pr-expand-name">Monthly Managed Support</p>
-          <p class="pr-expand-tag">Best for ongoing coverage &mdash; up to 24&nbsp;hrs/month included</p>
-        </div>
-        <div class="pr-expand-right">
-          <span class="pr-expand-amt">$1,560</span>
-          <span class="pr-expand-unit">/month</span>
-        </div>
-        <div class="pr-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></div>
-      </button>
-      <div class="pr-expand-body" id="planMonthlyBody" role="region" aria-labelledby="planMonthly">
-        <div class="pr-expand-inner">
-          <ul>
-            <li>Support availability up to 6 hours/week</li>
-            <li>Password resets, device upkeep, admin tasks, procurement coordination, process improvement, and routine automation</li>
-            <li>Hours 25&ndash;28 require written approval, billed at $100/hr overage rate</li>
-            <li>Engineering design work is excluded — requires a separate SOW</li>
-          </ul>
-          <div class="pr-expand-note">
-            <strong>Effective rate: $65/hr</strong> on billable time — the best per-hour rate for regular support.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pr-expand-row" id="planEngineering">
-      <button class="pr-expand-trigger" type="button" aria-expanded="false" aria-controls="planEngineeringBody">
-        <div class="pr-expand-eicon" aria-hidden="true"><i class="fa-solid fa-microchip"></i></div>
-        <div class="pr-expand-head">
-          <p class="pr-expand-name">Engineering Projects</p>
-          <p class="pr-expand-tag">Specialized design &amp; build work &mdash; formally scoped, milestone-priced</p>
-        </div>
-        <div class="pr-expand-right">
-          <span class="pr-expand-amt">Milestone</span>
-          <span class="pr-expand-unit">priced per SOW</span>
-        </div>
-        <div class="pr-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></div>
-      </button>
-      <div class="pr-expand-body" id="planEngineeringBody" role="region" aria-labelledby="planEngineering">
-        <div class="pr-expand-inner">
-          <ul>
-            <li>Circuit design, board layout, build &amp; test — deliverables defined upfront</li>
-            <li>Acceptance criteria agreed before work begins</li>
-            <li>Change requests handled through formal change orders</li>
-            <li>Billing: 50/50 split under $5k; 40/30/30 milestone split over $5k</li>
-          </ul>
-          <div class="pr-expand-note">
-            <strong>Not included in support plans.</strong> Requires a separate statement of work (SOW) and technical consultation first.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p class="pricing-reassurance" style="margin-top:2rem;">
-      Cleveland area on-site or remote &nbsp;·&nbsp; transparent scope boundaries &nbsp;·&nbsp; free 15-minute intro call
-    </p>
-    <p style="text-align:center; margin-top:1.25rem;">
-      <a href="pricing_sheet.html" class="btn-tertiary" style="font-size:1.05rem;">View Full Pricing Details →</a>
-    </p>
-
-    <div class="agreement-box will-animate">
-      <h3>Service Agreement Highlights</h3>
-      <div class="agreement-grid">
-        <div class="agreement-item">
-          <h4>Deposits &amp; Milestones</h4>
-          <p>Projects up to $5,000 use 50% kickoff and 50% delivery billing. Larger projects use milestone billing (40% kickoff, 30% midpoint, 30% delivery).</p>
-        </div>
-        <div class="agreement-item">
-          <h4>Payment Terms</h4>
-          <p>Weekly invoices are net 7 days. Monthly support invoices are net 15 days. Project milestone invoices are due on issue.</p>
-        </div>
-        <div class="agreement-item">
-          <h4>Late Payments</h4>
-          <p>Friendly reminder at 5 days overdue. Balances beyond the due date accrue a 1.5% monthly finance charge (18% APR). Service suspended at 14+ days past due without prior arrangement.</p>
-        </div>
-        <div class="agreement-item">
-          <h4>Monthly Hard Cap</h4>
-          <p>Monthly support includes up to 24 billable hours, capped at 28. Hours 25&ndash;28 require written approval at $100/hr overage rate.</p>
-        </div>
-        <div class="agreement-item">
-          <h4>Scope Change Process</h4>
-          <p>New requirements are handled through a written change order showing added scope, estimated effort, and updated price before work begins.</p>
-        </div>
-        <div class="agreement-item">
-          <h4>Support vs. Engineering</h4>
-          <p>Support plans cover maintenance and admin operations. Engineering design, custom build/test, and formal deliverables require a separate project SOW.</p>
-        </div>
-      </div>
+    <div class="contact-info">
+      📍 Cleveland, Ohio<br>
+      📞 <a href="tel:+18143845117">(814)&nbsp;384&#8209;5117</a> &nbsp;&bull;&nbsp; 📧 <a href="mailto:tyler@tevisengineering.com">tyler@tevisengineering.com</a><br>
+      <strong>Sales inquiries:</strong> <a href="mailto:sales@tevisengineering.com">sales@tevisengineering.com</a> &nbsp;|&nbsp; <strong>Billing issues:</strong> <a href="mailto:billing@tevisengineering.com">billing@tevisengineering.com</a>
     </div>
   </section>
 
-  <!-- Results may vary — client names are placeholders until replaced with verified testimonials -->
-  <section id="testimonials" style="background:#111;">
-    <h2>What Clients Are Saying</h2>
-    <div class="carousel-wrap" id="testimonialsCarousel" role="region" aria-live="polite" aria-label="Client testimonials">
-      <div class="carousel-track" id="carouselTrack">
-
-        <div class="carousel-slide active" role="group" aria-label="Testimonial 1 of 3">
-          <span class="carousel-quote-mark" aria-hidden="true">&ldquo;</span>
-          <div class="carousel-stars" role="img" aria-label="5 star rating">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-          </div>
-          <p class="carousel-quote">"Tevis Engineering resolved our server outage in under two hours. Responsive, professional, and priced fairly — exactly what a small business needs in a crisis."</p>
-          <p class="carousel-client">J. Martinez</p>
-          <p class="carousel-company">Owner — Martinez Dental Associates</p>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Testimonial 2 of 3">
-          <span class="carousel-quote-mark" aria-hidden="true">&ldquo;</span>
-          <div class="carousel-stars" role="img" aria-label="5 star rating">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-          </div>
-          <p class="carousel-quote">"We needed a complete workstation rollout for eight new employees on a tight timeline. Tyler had everything configured and ready in two days. Zero issues post-deployment."</p>
-          <p class="carousel-client">K. Sullivan</p>
-          <p class="carousel-company">Operations Manager — Lakewood Home Services</p>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Testimonial 3 of 3">
-          <span class="carousel-quote-mark" aria-hidden="true">&ldquo;</span>
-          <div class="carousel-stars" role="img" aria-label="5 star rating">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 12.47,7.15 18.66,7.64 14.13,11.51 15.56,17.56 10,14.25 4.44,17.56 5.87,11.51 1.34,7.64 7.53,7.15"/></svg>
-          </div>
-          <p class="carousel-quote">"Tyler documented our entire IT setup — policies, runbooks, the works. When our full-time tech left, we weren't lost. The knowledge transfer engagement paid for itself within a month."</p>
-          <p class="carousel-client">R. Okonkwo</p>
-          <p class="carousel-company">Director — Northeast Ohio Nonprofit Network</p>
-        </div>
-
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="tnl" aria-label="Email newsletter signup">
+    <div class="tnl-inner">
+      <div class="tnl-brand">
+        <img class="tnl-mark" src="assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="tnl-wordmark"><b>Tevis Engineering</b><s>Solutions</s></span>
       </div>
-
-      <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous testimonial" type="button">&#8249;</button>
-      <button class="carousel-arrow carousel-next" id="carouselNext" aria-label="Next testimonial" type="button">&#8250;</button>
-
-      <div class="carousel-dots" role="tablist" aria-label="Select testimonial">
-        <button class="carousel-dot active" data-index="0" role="tab" aria-selected="true" aria-label="Testimonial 1" type="button"></button>
-        <button class="carousel-dot" data-index="1" role="tab" aria-selected="false" aria-label="Testimonial 2" type="button"></button>
-        <button class="carousel-dot" data-index="2" role="tab" aria-selected="false" aria-label="Testimonial 3" type="button"></button>
-      </div>
-    </div>
-  </section>
-
-  <section style="background:#111; text-align:center; padding:90px 20px;">
-    <h2>Why Choose Tevis Engineering Solutions?</h2>
-    <p style="max-width:820px; margin:0 auto; font-size:1.25rem; color:#ccc; line-height:1.8;">
-      <strong>Results-Driven IT Support from a Cleveland-Based Air Force Veteran.</strong><br><br>
-      With military-honed precision, disciplined execution, and ample real-world experience in systems administration,
-      cloud infrastructure, engineering, and prototype development, Tevis Engineering delivers dependable solutions that actually move the needle.
-    </p>
-    <p style="max-width:820px; margin:25px auto 0; font-size:1.2rem; color:#bbb;">
-      From streamlining operations and automating repetitive tasks to solving complex technical challenges and bringing ideas to life with 3D printing —
-      clients trust Tevis Engineering Solutions to reduce downtime, strengthen security, lower costs, and give them back valuable time.
-    </p>
-    <p style="max-width:820px; margin:25px auto 0; font-size:1.2rem; color:#bbb;">
-      Let Tevis Engineering Solutions give you the white glove service and support that will make us your trusted IT service provider in your home, every day life or small business.
-    </p>
-    <div style="margin-top: 3rem;">
-      <span class="veteran-badge">Precision • Integrity • Results</span>
-    </div>
-  </section>
-
-  <section id="contact" style="background:#0d1710;">
-    <h2>Contact Us</h2>
-    <div class="contact-form">
-      <form action="https://formspree.io/f/maqvanal" method="POST">
-        <div class="field-group">
-          <label for="contact-name">Full Name <span style="color:#ff2d55;">*</span></label>
-          <input id="contact-name" type="text" name="name" placeholder="Your Name" required autocomplete="name">
-        </div>
-        <div class="field-group">
-          <label for="contact-email">Email Address <span style="color:#ff2d55;">*</span></label>
-          <input id="contact-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
-        </div>
-        <div class="field-group">
-          <label for="contact-phone">Phone Number</label>
-          <input id="contact-phone" type="tel" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
-        </div>
-        <div class="field-group">
-          <label for="contact-company">Company / Home</label>
-          <input id="contact-company" type="text" name="company" placeholder="Company name or 'Personal' (optional)" autocomplete="organization">
-        </div>
-        <div class="field-group">
-          <label for="contact-message">How Can I Help You? <span style="color:#ff2d55;">*</span></label>
-          <textarea id="contact-message" name="message" rows="6" placeholder="Describe your IT issue, project, or question in as much detail as you'd like." required></textarea>
-        </div>
-        <input type="text" name="_honeypot" style="display:none;" tabindex="-1" autocomplete="off">
-        <button type="submit">Send Message</button>
+      <p class="tnl-eyebrow">Free Monthly Newsletter</p>
+      <h2 class="tnl-h">IT Tips for Individuals & Small Businesses</h2>
+      <p class="tnl-sub">Monthly practical advice &mdash; no spam, no upsells. Unsubscribe anytime.</p>
+      <form class="tnl-form" id="nlForm">
+        <label for="nlEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+        <input id="nlEmail" class="tnl-input" type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+        <button type="submit" class="tnl-btn"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
       </form>
-      <div class="booking-callout">
-        <p><strong>Book Your Free Consultation Directly Below</strong></p>
-        <a class="booking-link" href="https://calendar.proton.me/bookings#ZcJtL-cH_SdlYzW8UBilp1FtjftWdGzinYc-Os9IhGM=" target="_blank" rel="noopener noreferrer" aria-label="Book a consultation in Proton Calendar">
-          <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-          Tevis Engineering Solutions Calendar
-        </a>
-      </div>
-      <p style="text-align:center; margin-top:2rem; color:#aaa;">
-        📍 Cleveland, Ohio<br>
-        📞 (814) 384-5117 <span style="color:#888; font-size:0.88em;"></span> • 📧 tyler@tevisengineering.com<br>
-        <strong>Sales inquiries:</strong> sales@tevisengineering.com | <strong>Billing issues:</strong> billing@tevisengineering.com
-      </p>
+      <div class="tnl-done" id="nlDone"><i class="fa-solid fa-circle-check"></i> You're subscribed &mdash; check your inbox</div>
+      <p class="tnl-fine">Powered by Buttondown. Read our <a href="privacy_policy.html">privacy policy</a>.</p>
     </div>
   </section>
 
-  <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->
-  <section class="newsletter-section" aria-label="Email newsletter signup">
-    <div class="newsletter-inner">
-      <div class="newsletter-logo-wrap">
-        <img src="assets/TES LG1.png" alt="Tevis Engineering Solutions" class="newsletter-logo">
+  <!-- ============ FOOTER ============ -->
+  <footer class="tfoot">
+    <div class="tfoot-grid">
+      <div>
+        <a class="tfoot-brand" href="index.html"><img src="assets/logo-mark.png" alt="TES"><b>Tevis Engineering</b></a>
+        <p class="tfoot-blurb">Veteran-owned IT support, engineering, and 3D printing for small businesses in Cleveland, Ohio.</p>
+        <span class="badge badge--veteran"><i class="fa-solid fa-star"></i> Air Force Veteran Owned</span>
       </div>
-      <div class="newsletter-text">
-        <h2 class="newsletter-heading">IT Tips for Cleveland Small Businesses</h2>
-        <p class="newsletter-sub">Monthly practical advice — no spam, no upsells. Unsubscribe anytime.</p>
+      <div class="tfoot-col">
+        <h5>Services</h5>
+        <a href="pricing_sheet.html">Managed IT Support</a>
+        <a href="website_creation.html">Web &amp; App Design</a>
+        <a href="portfolio.html">PCB &amp; CAD Design</a>
+        <a href="portfolio.html">3D Printing</a>
+        <a href="data_destruction.html">Data Destruction</a>
       </div>
-      <form
-        action="https://buttondown.com/api/emails/embed-subscribe/tevisengineering"
-        method="post"
-        target="popupwindow"
-        class="newsletter-form"
-        id="newsletterForm"
-      >
-        <!-- BUTTONDOWN_USERNAME: replace tevisengineering in the action URL above -->
-        <input type="hidden" value="1" name="embed">
-        <label for="newsletterEmail" class="sr-only">Email address</label>
-        <input
-          type="email"
-          id="newsletterEmail"
-          name="email"
-          placeholder="your@email.com"
-          required
-          autocomplete="email"
-          class="newsletter-input"
-        >
-        <button type="submit" class="newsletter-btn">Subscribe</button>
-        <noscript><p style="margin-top:0.75rem;font-size:0.85rem;color:#aaa;">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
-      </form>
-      <p class="newsletter-fine">
-        Powered by <a href="https://buttondown.com/refer/tevisengineering" target="_blank" rel="noopener noreferrer">Buttondown</a>.
-        Read our <a href="privacy_policy.html" rel="noopener">privacy policy</a>.
-      </p>
+      <div class="tfoot-col">
+        <h5>Company</h5>
+        <a href="how_support_works.html">How Support Works</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="pricing_sheet.html">Pricing</a>
+        <a href="make_ticket.html">Contact</a>
+      </div>
+      <div class="tfoot-col">
+        <h5>Get Started</h5>
+        <a href="make_ticket.html">Make a Ticket</a>
+        <a href="pay_invoice.html">Pay Invoice</a>
+        <a href="assessment.html">IT Assessment</a>
+        <a href="how_support_works.html">How Support Works</a>
+      </div>
     </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 Tevis Engineering Solutions • Cleveland, OH</p>
-    <div class="social-links">
-      <a href="https://linkedin.com/in/tylertevis/" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-      <a href="https://github.com/tevis-engineering-solutions" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-      <a href="https://account.venmo.com/u/tyler-teee" target="_blank" rel="noopener noreferrer" aria-label="Venmo link placeholder">
-        <i class="fa-brands fa-venmo"></i> Venmo
-      </a>
-      <a href="https://www.paypal.biz/tevisengineeringsolutions" target="_blank" rel="noopener noreferrer" aria-label="PayPal link placeholder">
-        <i class="fa-brands fa-paypal"></i> PayPal
-      </a>
+    <div class="tfoot-bar">
+      <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+      <div class="tfoot-social">
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/tevis-engineering-solutions" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="make_ticket.html" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
     </div>
   </footer>
 
-  <a href="#contact" class="floating-btn">
-    💬 Get a Free 15 Minute Consultation
-  </a>
+  <!-- ============ STRUCTURED DATA (carried from current site) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@id": "https://tevisengineering.com/#business",
+    "name": "Tevis Engineering Solutions",
+    "alternateName": "TES",
+    "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio. Managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
+    "url": "https://tevisengineering.com",
+    "logo": "https://tevisengineering.com/assets/logo-mark.png",
+    "telephone": "+18143845117",
+    "email": "tyler@tevisengineering.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Cleveland", "addressRegion": "OH", "addressCountry": "US" },
+    "areaServed": { "@type": "GeoCircle", "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 41.4993, "longitude": -81.6944 }, "geoRadius": "50000" }
+  }
+  </script>
 
+  <!-- ============ INTERACTIONS (vanilla JS) ============ -->
   <script>
-    // ---- Mega-nav ----
-    (function() {
-      var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
-      var navToggle = document.getElementById('navToggle'), mobileNav = document.getElementById('mobileNav');
-      var ht;
-      if (menuBtn && megaDrop) {
-        var nc = menuBtn.closest('.nav-center');
-        nc.addEventListener('mouseenter', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.add('is-open'); menuBtn.setAttribute('aria-expanded','true'); }, 150); });
-        nc.addEventListener('mouseleave', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); }, 100); });
-        menuBtn.addEventListener('click', function() { var o = megaDrop.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', String(o)); });
-        document.addEventListener('keydown', function(e) { if (e.key==='Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
-        document.addEventListener('click', function(e) { if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
-      }
-      if (navToggle && mobileNav) {
-        navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
-      }
-    })();
+  (function () {
+    // --- Mega-menu: hover opens via CSS; click toggles for touch/keyboard ---
+    var wrap = document.getElementById('navWrap');
+    var trigger = document.getElementById('navTrigger');
+    var mega = document.getElementById('navMega');
+    function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    var closeTimer;
+    trigger.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!mega.classList.contains('is-open')); });
+    wrap.addEventListener('mouseenter', function () { clearTimeout(closeTimer); setOpen(true); });
+    wrap.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { setOpen(false); }, 150); });
+    mega.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+    mega.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { setOpen(false); }, 150); });
+    document.addEventListener('click', function (e) { if (!wrap.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    mega.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
 
-    // L4 fix: observe .will-animate elements and trigger animation on viewport entry
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationDelay = (Math.random() * 0.3) + 's';
-          entry.target.classList.add('animate-on-scroll');
-          observer.unobserve(entry.target); // animate once only
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.will-animate').forEach(el => observer.observe(el));
-
-    const contactSection = document.querySelector('#contact');
-    const floatingCta = document.querySelector('.floating-btn');
-
-    if (contactSection && floatingCta) {
-      const ctaVisibilityObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          floatingCta.classList.toggle('is-hidden', entry.isIntersecting);
+    // --- Scroll reveal ---
+    var items = document.querySelectorAll('.rv');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en, i) {
+          if (en.isIntersecting) { en.target.style.animationDelay = (en.target.dataset.delay || 0) + 'ms'; en.target.classList.add('is-in'); io.unobserve(en.target); }
         });
-      }, {
-        threshold: 0,
-        rootMargin: "0px 0px 140px 0px"
-      });
-
-      ctaVisibilityObserver.observe(contactSection);
+      }, { threshold: 0.15 });
+      items.forEach(function (el, i) { el.dataset.delay = (i % 6) * 70; io.observe(el); });
+      // Safety: reveal anything still hidden after 1.4s
+      setTimeout(function () { items.forEach(function (el) { el.classList.add('is-in'); }); }, 1400);
+    } else {
+      items.forEach(function (el) { el.classList.add('is-in'); });
     }
+
+    // --- Newsletter submit ---
+    var form = document.getElementById('nlForm');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      form.style.display = 'none';
+      var done = document.getElementById('nlDone');
+      done.style.display = 'inline-flex';
+    });
+  })();
   </script>
-
-  <!-- Testimonials carousel — vanilla JS, no dependencies -->
-  <script>
-    (function () {
-      var slides = document.querySelectorAll('#carouselTrack .carousel-slide');
-      var dots = document.querySelectorAll('#testimonialsCarousel .carousel-dot');
-      var prevBtn = document.getElementById('carouselPrev');
-      var nextBtn = document.getElementById('carouselNext');
-      if (!slides.length) return;
-
-      var current = 0;
-      var total = slides.length;
-      var autoTimer = null;
-      var isPaused = false;
-
-      function goTo(index) {
-        slides[current].classList.remove('active');
-        dots[current].classList.remove('active');
-        dots[current].setAttribute('aria-selected', 'false');
-        current = (index + total) % total;
-        slides[current].classList.add('active');
-        dots[current].classList.add('active');
-        dots[current].setAttribute('aria-selected', 'true');
-      }
-
-      function startAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(function () {
-          if (!isPaused) goTo(current + 1);
-        }, 6000);
-      }
-
-      prevBtn.addEventListener('click', function () { goTo(current - 1); startAuto(); });
-      nextBtn.addEventListener('click', function () { goTo(current + 1); startAuto(); });
-
-      dots.forEach(function (dot) {
-        dot.addEventListener('click', function () {
-          goTo(parseInt(dot.dataset.index, 10));
-          startAuto();
-        });
-      });
-
-      var wrap = document.getElementById('testimonialsCarousel');
-      wrap.addEventListener('mouseenter', function () { isPaused = true; });
-      wrap.addEventListener('mouseleave', function () { isPaused = false; });
-
-      // Touch swipe support
-      var touchStartX = 0;
-      wrap.addEventListener('touchstart', function (e) { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-      wrap.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
-      }, { passive: true });
-
-      startAuto();
-    })();
-  </script>
-
-  <!-- Pricing accordion -->
-  <script>
-    (function() {
-      document.querySelectorAll('.pr-expand-row').forEach(function(row) {
-        var trigger = row.querySelector('.pr-expand-trigger');
-        var body = row.querySelector('.pr-expand-body');
-        var inner = row.querySelector('.pr-expand-inner');
-        if (!trigger || !body || !inner) return;
-        trigger.addEventListener('click', function() {
-          var open = row.classList.toggle('is-open');
-          trigger.setAttribute('aria-expanded', String(open));
-          body.style.maxHeight = open ? inner.offsetHeight + 'px' : '0';
-        });
-      });
-    })();
-  </script>
-
-  <!-- Services scroll track -->
-  <script>
-    (function() {
-      var track = document.getElementById('svcTrack');
-      var fill = document.getElementById('svcProgress');
-      if (!track) return;
-      var cards = track.querySelectorAll('.svc-card');
-
-      function cardW() { return (cards[0] ? cards[0].offsetWidth : 300) + 20; }
-
-      document.getElementById('svcPrev').addEventListener('click', function() {
-        track.scrollBy({ left: -cardW(), behavior: 'smooth' });
-      });
-      document.getElementById('svcNext').addEventListener('click', function() {
-        track.scrollBy({ left: cardW(), behavior: 'smooth' });
-      });
-
-      function updateProgress() {
-        if (!fill) return;
-        var max = track.scrollWidth - track.clientWidth;
-        var pct = max > 0 ? (track.scrollLeft / max) * (100 - (100 / cards.length)) + (100 / cards.length) : 100 / cards.length;
-        fill.style.width = pct.toFixed(1) + '%';
-        var ariaVal = max > 0 ? Math.round((track.scrollLeft / max) * 100) : 0;
-        fill.parentElement.setAttribute('aria-valuenow', ariaVal);
-      }
-
-      track.addEventListener('scroll', updateProgress, { passive: true });
-      updateProgress();
-
-      var isDown = false, startX, startScroll;
-      track.addEventListener('mousedown', function(e) {
-        isDown = true; track.classList.add('is-dragging');
-        startX = e.pageX - track.offsetLeft; startScroll = track.scrollLeft;
-      });
-      window.addEventListener('mouseup', function() { isDown = false; track.classList.remove('is-dragging'); });
-      track.addEventListener('mousemove', function(e) {
-        if (!isDown) return;
-        e.preventDefault();
-        track.scrollLeft = startScroll - (e.pageX - track.offsetLeft - startX);
-      });
-    })();
-  </script>
-
-  <!-- Cookie consent notice — dismissal stored in sessionStorage (not localStorage) -->
-  <div id="cookieBanner" style="
-    display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
-    background:rgba(11,17,26,0.97); border-top:1px solid #2a3d5f;
-    padding:0.75rem 1.5rem; font-size:0.85rem; color:#b4c3dd;
-    font-family:'Inter','Segoe UI',sans-serif;
-    align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-    <span>This site uses essential cookies only — no tracking or analytics.
-      <a href="privacy_policy.html" style="color:#4aac65; text-decoration:none;">Privacy Policy</a></span>
-    <button type="button" id="cookieDismiss" style="
-      background:rgba(74,172,101,0.18); border:1px solid rgba(74,172,101,0.5);
-      color:#e8efff; border-radius:999px; padding:0.4rem 1rem;
-      font-size:0.83rem; font-weight:700; cursor:pointer; white-space:nowrap;">Got it</button>
+  <!-- Cookie consent notice — dismissal stored in sessionStorage -->
+  <div id="cookieBanner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(11,17,26,0.97); border-top:1px solid rgba(74,172,101,0.22); padding:0.75rem 1.5rem; font-size:0.85rem; color:var(--muted,#8aa48d); font-family:'Inter','Segoe UI',sans-serif; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+    <span>This site uses essential cookies only — no tracking or analytics. <a href="privacy_policy.html" style="color:#4aac65; text-decoration:none;">Privacy Policy</a></span>
+    <button type="button" id="cookieDismiss" style="background:rgba(74,172,101,0.18); border:1px solid rgba(74,172,101,0.5); color:#e8efff; border-radius:999px; padding:0.4rem 1rem; font-size:0.83rem; font-weight:700; cursor:pointer; white-space:nowrap;">Got it</button>
   </div>
   <script>
-    (function() {
-      var banner = document.getElementById('cookieBanner');
-      var floatingBtn = document.querySelector('.floating-btn');
-      if (!sessionStorage.getItem('cookieOk')) {
-        banner.style.display = 'flex';
-        requestAnimationFrame(function() {
-          var h = banner.getBoundingClientRect().height;
-          document.body.style.paddingBottom = h + 'px';
-          if (floatingBtn) floatingBtn.style.bottom = (h + 30) + 'px';
-        });
-      } else {
-        banner.style.display = 'none';
-      }
-      document.getElementById('cookieDismiss').addEventListener('click', function() {
-        sessionStorage.setItem('cookieOk', '1');
-        banner.style.display = 'none';
-        document.body.style.paddingBottom = '';
-        if (floatingBtn) floatingBtn.style.bottom = '';
+  (function () {
+    var banner = document.getElementById('cookieBanner');
+    if (!sessionStorage.getItem('cookieOk')) {
+      banner.style.display = 'flex';
+      requestAnimationFrame(function () {
+        document.body.style.paddingBottom = banner.getBoundingClientRect().height + 'px';
       });
-    })();
-
-    // Newsletter popup — BUTTONDOWN_USERNAME: replace tevisengineering below
-    (function() {
-      var form = document.getElementById('newsletterForm');
-      if (form) {
-        form.addEventListener('submit', function() {
-          window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
-        });
-      }
-    })();
+    }
+    document.getElementById('cookieDismiss').addEventListener('click', function () {
+      sessionStorage.setItem('cookieOk', '1');
+      banner.style.display = 'none';
+      document.body.style.paddingBottom = '';
+    });
+  })();
   </script>
 
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a2d769e0f46281c35cc68ee/1jr0pemhe';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+  <!-- Tawk.to live chat -->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a2d769e0f46281c35cc68ee/1jr0pemhe';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+
 </body>
 </html>

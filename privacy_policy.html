@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     :root {
       --bg: #0d1710;
@@ -46,46 +47,59 @@
       line-height: 1.75;
     }
     .page { max-width: 820px; margin: 0 auto; padding: 1.4rem 1rem 5rem; }
-    /* ==================== MEGA-NAV ==================== */
-    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: rgba(10,20,14,0.92); border-bottom: 1px solid rgba(74,172,101,0.22); }
-    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.05rem 5%; width: 100%; box-sizing: border-box; position: relative; }
-    .brand { display: inline-flex; align-items: center; gap: 0.9rem; color: var(--text); text-decoration: none; flex-shrink: 0; }
-    .logo-slot { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: transparent; border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0; display: block; }
-    .logo-lockup { display: flex; flex-direction: column; gap: 0; font-family: "Montserrat",sans-serif; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
-    .logo-primary { font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.15; }
-    .logo-secondary { font-size: 0.72rem; font-weight: 500; color: #8aa48d; line-height: 1.15; }
-    .nav-center { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; }
-    .menu-btn { display: inline-flex; align-items: center; gap: .45rem; padding: .52rem 1.1rem; border-radius: 999px; border: 1px solid rgba(74,172,101,.28); background: rgba(74,172,101,.08); color: #d4edd7; font-family: inherit; font-size: .93rem; font-weight: 600; cursor: pointer; transition: background .2s ease; white-space: nowrap; line-height: 1; }
-    .menu-btn:hover, .menu-btn[aria-expanded="true"] { background: rgba(74,172,101,.18); }
-    .menu-btn .chevron { transition: transform .2s ease; flex-shrink: 0; display: block; }
-    .menu-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-    .mega-drop { position: absolute; top: calc(100% + .6rem); left: 50%; transform: translateX(-50%) translateY(-6px); width: min(680px,94vw); background: #112018; border: 1px solid rgba(74,172,101,.22); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.75); padding: 1.35rem 1.35rem 1.05rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
-    .mega-drop::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
-    .mega-drop.is-open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
-    .mega-col-head { font-family: "Montserrat",sans-serif; font-size: .67rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #c89830; padding: 0 .55rem .4rem; margin-bottom: .2rem; border-bottom: 1px solid rgba(74,172,101,.14); }
-    .mega-link { display: flex; align-items: flex-start; gap: .65rem; padding: .5rem .55rem; border-radius: 9px; text-decoration: none; transition: background .14s ease; }
-    .mega-link:hover { background: rgba(74,172,101,.09); }
-    .mega-link-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; background: rgba(74,172,101,.1); border: 1px solid rgba(74,172,101,.18); display: flex; align-items: center; justify-content: center; color: #c89830; }
-    .mega-link-icon svg { width: 13px; height: 13px; }
-    .mega-link-text { display: flex; flex-direction: column; gap: .1rem; }
-    .mega-link-title { font-size: .86rem; font-weight: 600; color: #e8efff; line-height: 1.25; }
-    .mega-link-desc { font-size: .73rem; color: #6a8ba8; line-height: 1.3; }
-    .nav-right { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
-    .nav-support-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .54rem 1rem; border-radius: 999px; background: linear-gradient(135deg,#c89830,#e0b840); color: #fff; font-family: "Montserrat",sans-serif; font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(255,255,255,.18); transition: transform .2s ease, filter .2s ease; white-space: nowrap; }
-    .nav-support-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
-    .nav-support-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
-    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.22); border-radius: 10px; background: rgba(0,0,0,.3); cursor: pointer; padding: 0 9px; flex-shrink: 0; }
-    .nav-hamburger span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
-    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-nav { display: none; flex-direction: column; gap: .22rem; padding: .55rem 1rem .8rem; border-top: 1px solid rgba(74,172,101,.12); width: 100%; position: relative; z-index: 40; }
-    .mobile-nav.is-open { display: flex; }
-    .mobile-nav a { display: block; padding: .64rem .82rem; border-radius: 9px; color: #d4edd7; text-decoration: none; font-size: .93rem; font-weight: 600; transition: background .14s ease; }
-    .mobile-nav a:hover { background: rgba(74,172,101,.1); }
-    @media (max-width: 768px) { .nav-center { display: none; } .nav-hamburger { display: flex; } .mega-drop { position: fixed; left: 0; right: 0; width: 100vw; transform: translateY(-6px); border-radius: 0 0 16px 16px; max-height: 80vh; overflow-y: auto; overflow-x: hidden; } .mega-drop.is-open { transform: translateY(0); } }
-    @media (max-width: 480px) { .nav-support-btn { display: none; } .logo-lockup { display: none; } .page { padding-left: 0.75rem; padding-right: 0.75rem; } }
-    @media (max-width: 600px) { .topbar-inner { flex-wrap: wrap; } nav { flex-wrap: wrap; padding-left: 1rem; padding-right: 1rem; } .brand { width: 100%; padding-right: 0; } .nav-right { width: 100%; justify-content: space-between; } .nav-hamburger { display: flex; } .nav-support-btn { display: inline-flex; } .logo-lockup { display: flex; flex-direction: column; gap: 0.1rem; white-space: normal; align-items: flex-start; } .logo-primary { font-size: 1.05rem; } .logo-secondary { font-size: 0.7rem; } body { overflow-x: hidden; } }
+        /* ===== TES NAV ===== */
+    .tnav-bar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.9); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .tnav-inner { display:flex; align-items:center; gap:1.25rem; padding:0.8rem 5%; max-width:1280px; margin:0 auto; }
+    .tnav-brand { display:flex; align-items:center; gap:0.8rem; cursor:pointer; text-decoration:none; }
+    .tnav-brand img { width:44px; height:44px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); }
+    .tnav-brand .bn { display:flex; flex-direction:column; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.08em; line-height:1.15; }
+    .tnav-brand .bn b { font-size:1rem; font-weight:800; color:#fff; }
+    .tnav-brand .bn s { font-size:0.7rem; font-weight:500; color:#8aa48d; text-decoration:none; }
+    .tnav-spacer { flex:1; }
+    .tnav-wrap { position:relative; }
+    .tnav-trigger { display:inline-flex; align-items:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; font-size:0.85rem; color:#c2d2c5; background:transparent; border:1px solid transparent; padding:0.6rem 1rem; border-radius:999px; cursor:pointer; transition:color .2s,background .2s,border-color .2s; }
+    .tnav-wrap:hover .tnav-trigger,.tnav-trigger[aria-expanded="true"] { color:#fff; background:rgba(74,172,101,0.10); border-color:rgba(74,172,101,0.22); }
+    .tnav-chev { transition:transform .25s cubic-bezier(0.22,1,0.36,1); }
+    .tnav-wrap:hover .tnav-chev,.tnav-trigger[aria-expanded="true"] .tnav-chev { transform:rotate(180deg); }
+    .tnav-mega { position:fixed; top:72px; left:50%; width:min(840px,calc(100vw - 32px)); max-height:calc(100vh - 92px); overflow-y:auto; background:#142019; border:1px solid #2c4232; border-radius:20px; box-shadow:0 24px 60px rgba(0,0,0,0.55); padding:1.4rem; display:grid; grid-template-columns:1fr 1fr 0.85fr; gap:1.1rem; opacity:0; visibility:hidden; pointer-events:none; transform:translateX(-50%) translateY(8px); transition:opacity .22s cubic-bezier(0.22,1,0.36,1),transform .22s cubic-bezier(0.22,1,0.36,1); z-index:60; }
+    .tnav-mega::before { content:''; position:absolute; top:-22px; left:0; right:0; height:24px; }
+    .tnav-wrap:hover .tnav-mega,.tnav-mega.is-open { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .tnav-col-head { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; color:#c89830; margin:0 0 0.55rem; padding-left:0.45rem; }
+    .tnav-link { display:flex; gap:0.7rem; align-items:flex-start; padding:0.5rem; border-radius:12px; cursor:pointer; text-decoration:none; transition:background .18s,transform .18s; }
+    .tnav-link:hover { background:#1c2e22; transform:translateX(3px); }
+    .tnav-ic { width:34px; height:34px; flex-shrink:0; border-radius:9px; background:rgba(74,172,101,0.10); border:1px solid rgba(74,172,101,0.22); color:#4aac65; display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:background .18s,color .18s; }
+    .tnav-link:hover .tnav-ic { background:#4aac65; color:#0d1710; }
+    .tnav-tt { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; font-size:0.85rem; color:#e4ede5; line-height:1.2; display:block; }
+    .tnav-dd { font-size:0.73rem; color:#8aa48d; margin-top:2px; line-height:1.3; display:block; }
+    .tnav-cta { background:radial-gradient(110% 120% at 50% 0%,rgba(74,172,101,0.16),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.22); border-radius:18px; padding:1.3rem 1.1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.5rem; }
+    .tnav-cta .star { color:#c89830; font-size:1.3rem; }
+    .tnav-cta h4 { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:0.95rem; color:#fff; margin:0.2rem 0 0; }
+    .tnav-cta p { font-size:0.76rem; color:#8aa48d; margin:0 0 0.6rem; line-height:1.45; }
+    .tnav-right { display:flex; align-items:center; gap:0.9rem; }
+    .tnav-sup-btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border-radius:999px; cursor:pointer; border:2px solid rgba(255,255,255,0.45); padding:8px 18px; font-size:0.78rem; color:#e4ede5; background:transparent; transition:transform 0.2s,border-color 0.2s; }
+    .tnav-sup-btn:hover { transform:translateY(-2px); border-color:#fff; }
+    .tnav-cta-btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border-radius:999px; cursor:pointer; border:1px solid rgba(255,255,255,0.25); padding:8px 18px; font-size:0.78rem; color:#0d1710; background:linear-gradient(135deg,#c89830,#e0b840); box-shadow:0 10px 20px rgba(200,152,48,0.28); transition:transform 0.2s,filter 0.2s; }
+    .tnav-cta-btn:hover { transform:translateY(-2px); filter:brightness(1.06); }
+    @media (max-width:860px) { .tnav-mega { top:68px; left:4vw; right:4vw; width:auto; grid-template-columns:1fr; max-height:calc(100vh - 84px); transform:translateY(8px); } .tnav-wrap:hover .tnav-mega,.tnav-mega.is-open { transform:translateY(0); } .tnav-cta,.tnav-brand .bn { display:none; } }
+    @media (max-width:460px) { .tnav-inner { gap:0.6rem; padding:0.7rem 4%; } .tnav-trigger { padding:0.55rem 0.75rem; } .tnav-sup-btn span.lbl { display:none; } }
+    /* ===== TES FOOTER ===== */
+    .tfoot { background:#050b07; border-top:1px solid #2c4232; padding:3rem 5% 2rem; }
+    .tfoot-grid { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:2rem; }
+    .tfoot-brand { display:flex; align-items:center; gap:0.7rem; margin-bottom:1rem; cursor:pointer; text-decoration:none; }
+    .tfoot-brand img { width:40px; height:40px; border-radius:9px; }
+    .tfoot-brand b { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#fff; font-size:0.95rem; }
+    .tfoot-blurb { color:#8aa48d; font-size:0.9rem; line-height:1.7; max-width:34ch; margin:0 0 1rem; }
+    .tfoot-col h5 { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:#c89830; margin-bottom:0.9rem; }
+    .tfoot-col a { display:block; color:#8aa48d; text-decoration:none; font-size:0.88rem; padding:0.3rem 0; transition:color 0.2s,transform 0.2s; }
+    .tfoot-col a:hover { color:#4aac65; transform:translateX(3px); }
+    .tfoot-bar { max-width:1280px; margin:2rem auto 0; padding-top:1.5rem; border-top:1px solid #2c4232; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; align-items:center; }
+    .tfoot-bar span { color:#8aa48d; font-size:0.82rem; }
+    .tfoot-social { display:flex; gap:1.2rem; }
+    .tfoot-social a { color:#8aa48d; font-size:1.1rem; transition:color 0.2s; }
+    .tfoot-social a:hover { color:#4aac65; }
+    .tfoot-veteran { display:inline-flex; align-items:center; gap:0.45rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; line-height:1; background:linear-gradient(135deg,#2d6a3f,#3d8a55); border:1px solid rgba(255,255,255,0.18); color:#fff; }
+    @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
     .page-title {
       font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem);
       font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
@@ -134,65 +148,54 @@
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="index.html" aria-label="Tevis Engineering Solutions home">
-      <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions" class="logo-slot">
-      <span class="logo-lockup">
-        <span class="logo-primary">Tevis Engineering</span>
-        <span class="logo-secondary">Solutions</span>
-      </span>
+<!-- ===== NAV ===== -->
+<div class="tnav-bar">
+  <div class="tnav-inner">
+    <a class="tnav-brand" href="index.html">
+      <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions">
+      <span class="bn"><b>Tevis Engineering</b><s>Solutions</s></span>
     </a>
-    <div class="nav-center">
-      <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="megaDrop">
-        Menu <svg class="chevron" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true" focusable="false"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="tnav-spacer"></div>
+    <div class="tnav-wrap" id="navWrap">
+      <button class="tnav-trigger" type="button" aria-haspopup="true" aria-expanded="false" id="navTrigger">
+        Menu
+        <svg class="tnav-chev" width="11" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="mega-drop" id="megaDrop" role="navigation" aria-label="Site navigation">
-        <div class="mega-col">
-          <div class="mega-col-head">Services</div>
-          <a href="how_support_works.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M6.3 6.3a2 2 0 1 1 2.5 1.9c-.3.1-.8.4-.8.8v.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">How Support Works</span><span class="mega-link-desc">Intake, scope, delivery, and billing</span></span></a>
-          <a href="pricing_sheet.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2H4.5a2 2 0 0 0-2 2v4.5a1 1 0 0 0 .3.7l5.2 5.2 5.2-5.2a1 1 0 0 0 .3-.7V4a2 2 0 0 0-2-2H8z" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r=".85" fill="currentColor" stroke="none"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pricing</span><span class="mega-link-desc">Flat rates, hourly, and retainer plans</span></span></a>
-          <a href="portfolio.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="5" width="13" height="9.5" rx="1.5" stroke-linejoin="round"/><path d="M5.5 5V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1M1.5 9h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Portfolio</span><span class="mega-link-desc">Case studies across IT and engineering</span></span></a>
-          <a href="assessment.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 13V9m4 4V6m4 7V3m4 10V7" stroke-linecap="round"/><path d="M1 13.5h14" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">IT Assessment</span><span class="mega-link-desc">Free 7-question readiness quiz</span></span></a>
-          <a href="website_creation.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.5" ry="6.5"/><path d="M1.5 6h13M1.5 10h13" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Web &amp; App Design</span><span class="mega-link-desc">Sites, tools, and digital presence</span></span></a>
-          <a href="data_destruction.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 1.5L2 4v4c0 3.5 2.5 5.8 6 7 3.5-1.2 6-3.5 6-7V4L8 1.5z" stroke-linejoin="round"/><path d="M5.5 8l1.5 1.5L10.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Data Destruction</span><span class="mega-link-desc">NIST-aligned secure media sanitization</span></span></a>
-          <a href="knowledge_transfer.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M5.5 7h5M5.5 9.5h3.5" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Knowledge Transfer</span><span class="mega-link-desc">Documentation and process handoffs</span></span></a>
+      <div class="tnav-mega" id="navMega" role="navigation" aria-label="Site navigation">
+        <div>
+          <div class="tnav-col-head">Services</div>
+          <a class="tnav-link" href="how_support_works.html"><span class="tnav-ic"><i class="fa-regular fa-circle-question"></i></span><span><span class="tnav-tt">How Support Works</span><span class="tnav-dd">Intake, scope, delivery, and billing</span></span></a>
+          <a class="tnav-link" href="pricing_sheet.html"><span class="tnav-ic"><i class="fa-solid fa-tag"></i></span><span><span class="tnav-tt">Pricing</span><span class="tnav-dd">Flat rates, hourly, and retainer plans</span></span></a>
+          <a class="tnav-link" href="portfolio.html"><span class="tnav-ic"><i class="fa-solid fa-briefcase"></i></span><span><span class="tnav-tt">Portfolio</span><span class="tnav-dd">Case studies across IT and engineering</span></span></a>
+          <a class="tnav-link" href="assessment.html"><span class="tnav-ic"><i class="fa-solid fa-chart-simple"></i></span><span><span class="tnav-tt">IT Assessment</span><span class="tnav-dd">Free 7-question readiness quiz</span></span></a>
+          <a class="tnav-link" href="website_creation.html"><span class="tnav-ic"><i class="fa-solid fa-globe"></i></span><span><span class="tnav-tt">Web &amp; App Design</span><span class="tnav-dd">Sites, tools, and digital presence</span></span></a>
+          <a class="tnav-link" href="data_destruction.html"><span class="tnav-ic"><i class="fa-solid fa-shield-halved"></i></span><span><span class="tnav-tt">Data Destruction</span><span class="tnav-dd">NIST-aligned secure media sanitization</span></span></a>
+          <a class="tnav-link" href="knowledge_transfer.html"><span class="tnav-ic"><i class="fa-solid fa-file-lines"></i></span><span><span class="tnav-tt">Knowledge Transfer</span><span class="tnav-dd">Documentation and process handoffs</span></span></a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-head">Company &amp; Tools</div>
-          <a href="blog/index.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Blog / Knowledge Base</span><span class="mega-link-desc">IT tips and guides for small businesses</span></span></a>
-          <a href="make_ticket.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/><path d="M14.5 12v.5a1 1 0 0 1-1 1h-2" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Submit a Ticket</span><span class="mega-link-desc">Get into the support queue now</span></span></a>
-          <a href="portal/status.html" class="mega-link"><span class="mega-link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Ticket Status</span><span class="mega-link-desc">View the status of your open tickets</span></span></a>
-          <a href="pay_invoice.html" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 7h13" stroke-linecap="square"/><path d="M4 10h2m2 0h1" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Pay an Invoice</span><span class="mega-link-desc">Look up and pay your balance online</span></span></a>
-          <a href="index.html#contact" class="mega-link"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l5.5 4a1.5 1.5 0 0 0 2 0l5.5-4" stroke-linecap="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Contact</span><span class="mega-link-desc">Send a message or request a quote</span></span></a>
-          <a href="privacy_policy.html" class="mega-link" aria-current="page"><span class="mega-link-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 2h7l3 3v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M10 2v3h3M6 8.5l1.5 1.5L11 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mega-link-text"><span class="mega-link-title">Privacy &amp; Terms</span><span class="mega-link-desc">Payment terms and data policy</span></span></a>
+        <div>
+          <div class="tnav-col-head">Company &amp; Tools</div>
+          <a class="tnav-link" href="blog/index.html"><span class="tnav-ic"><i class="fa-solid fa-newspaper"></i></span><span><span class="tnav-tt">Blog / Knowledge Base</span><span class="tnav-dd">IT tips and guides for small businesses</span></span></a>
+          <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-headset"></i></span><span><span class="tnav-tt">Submit a Ticket</span><span class="tnav-dd">Get into the support queue now</span></span></a>
+          <a class="tnav-link" href="portal/status.html"><span class="tnav-ic"><i class="fa-solid fa-table-columns"></i></span><span><span class="tnav-tt">Ticket Status</span><span class="tnav-dd">View the status of your open tickets</span></span></a>
+          <a class="tnav-link" href="pay_invoice.html"><span class="tnav-ic"><i class="fa-solid fa-credit-card"></i></span><span><span class="tnav-tt">Pay an Invoice</span><span class="tnav-dd">Look up and pay your balance online</span></span></a>
+          <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
+          <a class="tnav-link" href="privacy_policy.html"><span class="tnav-ic"><i class="fa-solid fa-file-shield"></i></span><span><span class="tnav-tt">Privacy &amp; Terms</span><span class="tnav-dd">Payment terms and data policy</span></span></a>
+        </div>
+        <div class="tnav-cta">
+          <span class="star">&#9733;</span>
+          <h4>Need help now?</h4>
+          <p>Talk straight to the engineer &mdash; no call center, one-business-day reply.</p>
+          <a class="tnav-cta-btn" href="make_ticket.html"><i class="fa-solid fa-headset"></i> Get Support</a>
         </div>
       </div>
     </div>
-    <div class="nav-right">
-      <a href="make_ticket.html" class="nav-support-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3.5 8a4.5 4.5 0 0 1 9 0" stroke-linecap="round"/><rect x="1.5" y="8" width="2.5" height="4" rx="1.25"/><rect x="12" y="8" width="2.5" height="4" rx="1.25"/></svg> Get Support</a>
-      <button class="nav-hamburger" id="navToggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNav">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="tnav-spacer"></div>
+    <div class="tnav-right">
+      <a class="tnav-sup-btn" href="make_ticket.html"><i class="fa-solid fa-headset"></i> <span class="lbl">Get Support</span></a>
     </div>
   </div>
-  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="how_support_works.html">How Support Works</a>
-    <a href="pricing_sheet.html">Pricing</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="assessment.html">IT Assessment</a>
-    <a href="website_creation.html">Web &amp; App Design</a>
-    <a href="data_destruction.html">Data Destruction</a>
-    <a href="knowledge_transfer.html">Knowledge Transfer</a>
-    <a href="blog/index.html">Blog / Knowledge Base</a>
-    <a href="make_ticket.html">Submit a Ticket</a>
-    <a href="portal/status.html">Ticket Status</a>
-    <a href="pay_invoice.html">Pay an Invoice</a>
-    <a href="index.html#contact">Contact</a>
-    <a href="privacy_policy.html" aria-current="page">Privacy &amp; Terms</a>
-  </div>
-</header>
+</div>
+
 <div class="page">
 
   <h1 class="page-title">Privacy Policy &amp; Terms of Service</h1>
@@ -361,13 +364,46 @@
     </ul>
   </section>
 
-  <footer class="doc-footer">
-    Tevis Engineering Solutions &nbsp;·&nbsp; Cleveland, Ohio<br>
-    Veteran-Owned IT Support &amp; Custom Engineering<br>
-    <a href="index.html">Home</a> &nbsp;·&nbsp;
-    <a href="make_ticket.html">Submit a Ticket</a> &nbsp;·&nbsp;
-    <a href="pay_invoice.html">Pay Invoice</a> &nbsp;·&nbsp;
-    <a href="pricing_sheet.html">Pricing</a>
+  <!-- ===== FOOTER ===== -->
+  <footer class="tfoot">
+    <div class="tfoot-grid">
+      <div>
+        <a class="tfoot-brand" href="index.html"><img src="assets/logo-mark.png" alt="TES"><b>Tevis Engineering</b></a>
+        <p class="tfoot-blurb">Veteran-owned IT support, engineering, and 3D printing for small businesses in Cleveland, Ohio.</p>
+        <span class="tfoot-veteran"><i class="fa-solid fa-star"></i> Air Force Veteran Owned</span>
+      </div>
+      <div class="tfoot-col">
+        <h5>Services</h5>
+        <a href="pricing_sheet.html">Managed IT Support</a>
+        <a href="website_creation.html">Web &amp; App Design</a>
+        <a href="portfolio.html">PCB &amp; CAD Design</a>
+        <a href="portfolio.html">3D Printing</a>
+        <a href="data_destruction.html">Data Destruction</a>
+      </div>
+      <div class="tfoot-col">
+        <h5>Company</h5>
+        <a href="how_support_works.html">How Support Works</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="pricing_sheet.html">Pricing</a>
+        <a href="make_ticket.html">Contact</a>
+      </div>
+      <div class="tfoot-col">
+        <h5>Get Started</h5>
+        <a href="make_ticket.html">Make a Ticket</a>
+        <a href="pay_invoice.html">Pay Invoice</a>
+        <a href="assessment.html">IT Assessment</a>
+        <a href="how_support_works.html">How Support Works</a>
+      </div>
+    </div>
+    <div class="tfoot-bar">
+      <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+      <div class="tfoot-social">
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/tevis-engineering-solutions" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="make_ticket.html" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
   </footer>
 </div>
 <script>

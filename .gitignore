@@ -6,6 +6,7 @@ _ops/
 
 # Analysis, Bug Reports, and other documentation
 DOCUMENTATION.md
+FUNCTION.md
 
 # Environment / secrets
 .env
