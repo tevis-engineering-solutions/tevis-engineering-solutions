@@ -1039,7 +1039,6 @@
         nextBtn.addEventListener('click', () => {
           if (stepIndex < TOTAL_STEPS - 1) {
             showStep(stepIndex + 1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
           } else {
             showResults();
           }
@@ -1050,7 +1049,6 @@
         backBtn.addEventListener('click', () => {
           if (stepIndex > 0) {
             showStep(stepIndex - 1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         });
         if (stepIndex === 0) backBtn.disabled = true;

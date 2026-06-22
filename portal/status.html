@@ -421,20 +421,19 @@
 
   // ---- Mega-nav ----
   (function() {
-    var menuBtn = document.getElementById('menuBtn'), megaDrop = document.getElementById('megaDrop');
-    var navToggle = document.getElementById('navToggle'), mobileNav = document.getElementById('mobileNav');
-    var ht;
-    if (menuBtn && megaDrop) {
-      var nc = menuBtn.closest('.nav-center');
-      nc.addEventListener('mouseenter', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.add('is-open'); menuBtn.setAttribute('aria-expanded','true'); }, 150); });
-      nc.addEventListener('mouseleave', function() { clearTimeout(ht); ht = setTimeout(function() { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); }, 100); });
-      menuBtn.addEventListener('click', function() { var o = megaDrop.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', String(o)); });
-      document.addEventListener('keydown', function(e) { if (e.key==='Escape') { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
-      document.addEventListener('click', function(e) { if (!nc.contains(e.target)) { megaDrop.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); } });
-    }
-    if (navToggle && mobileNav) {
-      navToggle.addEventListener('click', function() { var o = mobileNav.classList.toggle('is-open'); navToggle.classList.toggle('is-open',o); navToggle.setAttribute('aria-expanded',String(o)); });
-    }
+    var wrap = document.getElementById('navWrap');
+    var trigger = document.getElementById('navTrigger');
+    var mega = document.getElementById('navMega');
+    function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    var closeTimer;
+    trigger.addEventListener('click', function(e) { e.stopPropagation(); setOpen(!mega.classList.contains('is-open')); });
+    wrap.addEventListener('mouseenter', function() { clearTimeout(closeTimer); setOpen(true); });
+    wrap.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+    mega.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+    mega.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+    document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
+    mega.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setOpen(false); }); });
   })();
 </script>
 </body>
