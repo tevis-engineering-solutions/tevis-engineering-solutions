@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Website Creation Services | Tevis Engineering Solutions</title>
-  <meta name="description" content="Professional web design for Cleveland small businesses. Fast, mobile-friendly websites built to convert visitors into clients. Veteran-owned, locally focused.">
+  <meta name="description" content="Professional web design and ongoing website maintenance for Cleveland small businesses. Fast, mobile-friendly sites built to convert — plus monthly care plans with a loyalty discount on sites we build. Veteran-owned, locally focused.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tevisengineering.com/website_creation.html">
   <meta property="og:title" content="Website Creation Services | Tevis Engineering Solutions">
-  <meta property="og:description" content="Custom website design and development for service businesses, artists, and startups. Strategic platform selection, multi-page functionality, and e-commerce integration.">
+  <meta property="og:description" content="Custom website design plus ongoing maintenance plans for service businesses, artists, and startups. Strategic platform selection, e-commerce, and a loyalty discount on sites built by TES.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Website Creation Services | Tevis Engineering Solutions">
-  <meta name="twitter:description" content="Custom website design and development for service businesses, artists, and startups. Strategic platform selection, multi-page functionality, and e-commerce integration.">
+  <meta name="twitter:description" content="Custom website design plus ongoing maintenance plans for service businesses, artists, and startups. Strategic platform selection, e-commerce, and a loyalty discount on sites built by TES.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
   <link rel="canonical" href="https://tevisengineering.com/website_creation.html">
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -27,16 +27,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     :root {
-      --bg: #0a0f1a;
-      --panel: #121b2e;
-      --panel-soft: #0f1624;
-      --text: #e8f0fd;
-      --muted: #afc0dd;
-      --line: #273051;
+      --bg: #0d1710;
+      --card: #142019;
+      --card-2: #1c2e22;
+      --panel: #142019;
+      --panel-soft: #111b15;
+      --text: #e4ede5;
+      --muted: #8aa48d;
+      --line: #2c4232;
+      --border: #2c4232;
       --blue: #4aac65;
-      --accent-primary: #ff6b9d;
-      --accent-secondary: #ffa500;
-      --accent-tertiary: #7ee8d8;
+      --accent: #c89830;
+      --accent-primary: #4aac65;
+      --accent-secondary: #c89830;
+      --accent-tertiary: #6dc882;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -44,10 +48,10 @@
       font-family: "Inter", "Segoe UI", system-ui, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 20%, rgba(255, 107, 157, 0.15), transparent 40%),
-        radial-gradient(circle at 90% 5%, rgba(74, 172, 101, 0.12), transparent 30%),
-        radial-gradient(circle at 60% 85%, rgba(126, 232, 216, 0.1), transparent 35%),
-        linear-gradient(180deg, #0d1220 0%, #08090f 100%);
+        radial-gradient(circle at 12% 12%, rgba(74, 172, 101, 0.14), transparent 42%),
+        radial-gradient(circle at 88% 6%, rgba(200, 152, 48, 0.10), transparent 34%),
+        radial-gradient(circle at 60% 88%, rgba(74, 172, 101, 0.08), transparent 38%),
+        linear-gradient(180deg, #0d1710 0%, #080d09 100%);
       line-height: 1.65;
     }
     .container {
@@ -109,30 +113,31 @@
     @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
 
     .hero {
-      padding: 3.5rem 0 2rem;
+      padding: 4rem 0 2.2rem;
       text-align: left;
+      position: relative;
     }
     .eyebrow {
       display: inline-block;
-      border: 1px solid rgba(255, 107, 157, 0.5);
+      border: 1px solid rgba(200, 152, 48, 0.45);
       border-radius: 999px;
-      padding: 0.32rem 0.72rem;
-      font-size: 0.82rem;
+      padding: 0.32rem 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, rgba(255, 107, 157, 0.15), rgba(255, 165, 0, 0.12));
-      color: #ffd6e8;
-      margin-bottom: 0.9rem;
+      letter-spacing: 0.1em;
+      background: linear-gradient(90deg, rgba(74, 172, 101, 0.16), rgba(200, 152, 48, 0.12));
+      color: #e8d6a8;
+      margin-bottom: 1.1rem;
     }
     h1 {
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      font-size: clamp(2rem, 6vw, 3.3rem);
-      line-height: 1.12;
-      margin-bottom: 0.9rem;
-      background: linear-gradient(120deg, #ff6b9d, #ffa500, #7ee8d8);
+      letter-spacing: 0.01em;
+      font-size: clamp(2.1rem, 6vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(120deg, #e4ede5 0%, #6dc882 45%, #c89830 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -140,10 +145,10 @@
     .hero p {
       max-width: 920px;
       color: var(--muted);
-      font-size: 1.05rem;
+      font-size: 1.08rem;
     }
     .cta-row {
-      margin-top: 1.4rem;
+      margin-top: 1.6rem;
       display: flex;
       gap: 0.8rem;
       flex-wrap: wrap;
@@ -151,62 +156,78 @@
     .btn {
       text-decoration: none;
       border-radius: 999px;
-      padding: 0.78rem 1.05rem;
+      padding: 0.82rem 1.3rem;
+      font-family: "Montserrat", sans-serif;
       font-weight: 700;
+      letter-spacing: 0.02em;
       border: 1px solid transparent;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       transition: all 0.2s ease;
     }
     .btn-primary {
-      background: linear-gradient(120deg, var(--accent-primary), var(--accent-secondary));
-      color: #ffffff;
+      background: linear-gradient(135deg, #c89830, #e0b840);
+      color: #0d1710;
+      box-shadow: 0 10px 22px rgba(200, 152, 48, 0.26);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(255, 107, 157, 0.3);
+      filter: brightness(1.06);
+      box-shadow: 0 14px 28px rgba(200, 152, 48, 0.34);
     }
     .btn-secondary {
-      border-color: rgba(74, 172, 101, 0.35);
+      border-color: rgba(74, 172, 101, 0.4);
       background: rgba(74, 172, 101, 0.12);
-      color: #d9eaff;
+      color: #d6ecdb;
     }
     .btn-secondary:hover {
       background: rgba(74, 172, 101, 0.22);
+      transform: translateY(-2px);
     }
 
     .section {
-      margin-top: 1.25rem;
-      background: rgba(11, 18, 30, 0.7);
+      margin-top: 1.5rem;
+      background: rgba(20, 32, 25, 0.72);
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 1.3rem;
+      border-radius: 18px;
+      padding: 1.6rem;
     }
     .section h2 {
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      font-size: 1.35rem;
-      margin-bottom: 0.85rem;
-      color: #f1f7ff;
+      font-size: 1.4rem;
+      margin-bottom: 0.9rem;
+      color: #f1faf2;
     }
-    .section p {
+    .section > p {
       color: var(--muted);
       margin-bottom: 0.7rem;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 0.95rem;
-      margin-top: 0.85rem;
+      gap: 1rem;
+      margin-top: 0.9rem;
     }
     .card {
-      background: var(--panel);
-      border: 1px solid #2f4468;
-      border-radius: 14px;
-      padding: 1.1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
       transition: all 0.3s ease;
       position: relative;
+      overflow: hidden;
     }
     .card::before {
       content: '';
@@ -215,29 +236,29 @@
       left: 0;
       right: 0;
       height: 3px;
-      border-radius: 14px 14px 0 0;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      background: linear-gradient(90deg, var(--blue), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
     }
     .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 107, 157, 0.4);
-      box-shadow: 0 12px 28px rgba(255, 107, 157, 0.15);
+      transform: translateY(-5px);
+      border-color: rgba(74, 172, 101, 0.45);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
     }
     .card:hover::before {
-      opacity: 1;
+      transform: scaleX(1);
     }
     .card h3 {
       font-family: "Montserrat", sans-serif;
       font-size: 1.05rem;
       margin-bottom: 0.6rem;
-      color: #f0f5ff;
+      color: #eef7ef;
     }
     .card p,
     .card li {
       font-size: 0.94rem;
-      color: #c5d5eb;
+      color: #c2d5c6;
     }
     ul {
       list-style: none;
@@ -245,15 +266,15 @@
     }
     li {
       position: relative;
-      padding-left: 1.2rem;
+      padding-left: 1.3rem;
       margin-bottom: 0.5rem;
     }
     li::before {
-      content: "→";
+      content: "\2192";
       position: absolute;
       left: 0;
       top: 0;
-      color: var(--accent-primary);
+      color: var(--blue);
       font-weight: bold;
     }
 
@@ -261,65 +282,77 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
-      margin-top: 0.9rem;
+      margin-top: 1rem;
     }
     .showcase-card {
-      background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(255, 165, 0, 0.08));
-      border: 1px solid rgba(255, 107, 157, 0.25);
-      border-radius: 14px;
-      padding: 1.2rem;
+      background: linear-gradient(150deg, rgba(74, 172, 101, 0.09), rgba(200, 152, 48, 0.05));
+      border: 1px solid rgba(74, 172, 101, 0.22);
+      border-radius: 16px;
+      padding: 1.3rem;
       transition: all 0.3s ease;
     }
     .showcase-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(255, 165, 0, 0.4);
-      background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(255, 165, 0, 0.12));
+      border-color: rgba(200, 152, 48, 0.4);
+      background: linear-gradient(150deg, rgba(74, 172, 101, 0.14), rgba(200, 152, 48, 0.09));
+    }
+    .showcase-card .sc-ic {
+      width: 40px; height: 40px;
+      border-radius: 11px;
+      display: grid; place-items: center;
+      background: rgba(74, 172, 101, 0.14);
+      border: 1px solid rgba(74, 172, 101, 0.28);
+      color: var(--accent);
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
     }
     .showcase-card strong {
       display: block;
-      color: var(--accent-primary);
+      color: #eef7ef;
+      font-family: "Montserrat", sans-serif;
       margin-bottom: 0.4rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
     .showcase-card p {
-      color: #c5d5eb;
-      font-size: 0.94rem;
+      color: #c2d5c6;
+      font-size: 0.93rem;
     }
 
     .complexity-section {
       margin-top: 1.2rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 0.8rem;
+      gap: 0.85rem;
     }
     .complexity-card {
       background: var(--panel-soft);
-      border: 1px solid #2a3d5f;
-      border-radius: 12px;
-      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem;
     }
     .complexity-card h4 {
-      color: var(--accent-secondary);
+      color: var(--accent);
+      font-family: "Montserrat", sans-serif;
       margin-bottom: 0.5rem;
       font-size: 0.95rem;
     }
     .complexity-card p {
-      color: #b5c8e0;
-      font-size: 0.93rem;
+      color: #b4c8b8;
+      font-size: 0.92rem;
     }
 
     .process-flow {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.7rem;
-      margin-top: 0.8rem;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
       counter-reset: flow-counter;
     }
     .process-step {
-      background: var(--panel);
-      border: 1px solid #2f4468;
-      border-radius: 12px;
-      padding: 0.95rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.05rem;
       position: relative;
     }
     .process-step::before {
@@ -335,35 +368,178 @@
       place-items: center;
       font-size: 0.8rem;
       font-weight: 800;
-      color: #0a0f1a;
-      background: linear-gradient(120deg, var(--accent-secondary), var(--accent-primary));
+      color: #0d1710;
+      background: linear-gradient(135deg, var(--accent), #e0b840);
     }
     .process-step strong {
       display: block;
-      color: #d6e7ff;
+      color: #d8ecdc;
+      font-family: "Montserrat", sans-serif;
       margin-bottom: 0.35rem;
       font-size: 0.95rem;
     }
     .process-step p {
       font-size: 0.92rem;
-      color: #b5c8e0;
+      color: #b4c8b8;
     }
 
     .highlight-box {
-      margin-top: 0.95rem;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 107, 157, 0.3);
-      background: rgba(255, 107, 157, 0.08);
-      padding: 0.9rem 1rem;
-      color: #f0d5e2;
+      margin-top: 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(200, 152, 48, 0.3);
+      background: rgba(200, 152, 48, 0.07);
+      padding: 1rem 1.1rem;
+      color: #e7dcc2;
       font-size: 0.95rem;
     }
+    .highlight-box strong { color: #f3e6c6; }
 
     .mini-note {
       margin-top: 0.7rem;
       font-size: 0.9rem;
-      color: #8fa3bf;
+      color: #8aa48d;
     }
+
+    /* ===== Maintenance plans ===== */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+    .plan {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.4rem 1.3rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .plan:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+    }
+    .plan.featured {
+      border-color: rgba(200, 152, 48, 0.6);
+      background: linear-gradient(170deg, rgba(200, 152, 48, 0.08), var(--card) 55%);
+      box-shadow: 0 10px 30px rgba(200, 152, 48, 0.12);
+    }
+    .plan-tag {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0d1710;
+      background: linear-gradient(135deg, var(--accent), #e0b840);
+      padding: 4px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .plan h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.1rem;
+      color: #eef7ef;
+      margin-bottom: 0.2rem;
+    }
+    .plan .plan-for {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+      min-height: 2.4em;
+    }
+    .plan .plan-price {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .plan .plan-price small {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .plan .plan-note {
+      font-size: 0.74rem;
+      color: var(--accent);
+      margin: 0.4rem 0 1rem;
+      font-weight: 600;
+    }
+    .plan ul { margin: 0 0 1.2rem; }
+    .plan li {
+      font-size: 0.9rem;
+      color: #c2d5c6;
+      padding-left: 1.4rem;
+      margin-bottom: 0.55rem;
+    }
+    .plan li::before {
+      content: "\2713";
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .plan .btn { margin-top: auto; text-align: center; }
+
+    /* ===== Discount + disclaimer split ===== */
+    .offer-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+    .offer-card {
+      border-radius: 16px;
+      padding: 1.3rem;
+      border: 1px solid var(--border);
+    }
+    .offer-card.discount {
+      border-color: rgba(74, 172, 101, 0.45);
+      background: linear-gradient(160deg, rgba(74, 172, 101, 0.12), rgba(20, 32, 25, 0.6));
+    }
+    .offer-card.disclaimer {
+      border-color: rgba(200, 152, 48, 0.4);
+      background: linear-gradient(160deg, rgba(200, 152, 48, 0.08), rgba(20, 32, 25, 0.6));
+    }
+    .offer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+    .offer-card.discount .offer-badge { background: rgba(74, 172, 101, 0.18); color: #8ad6a0; border: 1px solid rgba(74, 172, 101, 0.4); }
+    .offer-card.disclaimer .offer-badge { background: rgba(200, 152, 48, 0.16); color: #e8cf95; border: 1px solid rgba(200, 152, 48, 0.4); }
+    .offer-card h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.15rem;
+      color: #eef7ef;
+      margin-bottom: 0.55rem;
+    }
+    .offer-card .big-num {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .offer-card.discount .big-num { color: var(--blue); }
+    .offer-card.disclaimer .big-num { color: var(--accent); }
+    .offer-card p { color: #c2d5c6; font-size: 0.92rem; margin-bottom: 0.6rem; }
+    .offer-card .fine { font-size: 0.8rem; color: var(--muted); }
+    @media (max-width: 720px) { .offer-split { grid-template-columns: 1fr; } }
 
     footer {
       margin: 2rem 0 1.7rem;
@@ -415,12 +591,12 @@
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Web Design and Development for Small Business — Cleveland, Ohio",
-    "description": "Professional website design and development for small businesses in Cleveland, Ohio. Fast, mobile-friendly, SEO-optimized sites built to convert visitors into clients.",
+    "name": "Web Design, Development and Maintenance for Small Business — Cleveland, Ohio",
+    "description": "Professional website design, development, and ongoing maintenance plans for small businesses in Cleveland, Ohio. Fast, mobile-friendly, SEO-optimized sites built to convert, plus monthly care plans with a loyalty discount on sites built by TES.",
     "provider": {"@id": "https://tevisengineering.com/#business"},
     "areaServed": "Cleveland, Ohio",
     "url": "https://tevisengineering.com/website_creation.html",
-    "serviceType": "Web Design"
+    "serviceType": ["Web Design", "Website Maintenance"]
   }
   </script>
 </head>
@@ -455,7 +631,7 @@
           <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-headset"></i></span><span><span class="tnav-tt">Submit a Ticket</span><span class="tnav-dd">Get into the support queue now</span></span></a>
           <a class="tnav-link" href="portal/status.html"><span class="tnav-ic"><i class="fa-solid fa-table-columns"></i></span><span><span class="tnav-tt">Ticket Status</span><span class="tnav-dd">View the status of your open tickets</span></span></a>
           <a class="tnav-link" href="pay_invoice.html"><span class="tnav-ic"><i class="fa-solid fa-credit-card"></i></span><span><span class="tnav-tt">Pay an Invoice</span><span class="tnav-dd">Look up and pay your balance online</span></span></a>
-          <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
+          <a class="tnav-link" href="contact.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
           <a class="tnav-link" href="privacy_policy.html"><span class="tnav-ic"><i class="fa-solid fa-file-shield"></i></span><span><span class="tnav-tt">Privacy &amp; Terms</span><span class="tnav-dd">Payment terms and data policy</span></span></a>
         </div>
         <div class="tnav-cta">
@@ -475,14 +651,14 @@
 
 <main class="container">
     <section class="hero">
-      <span class="eyebrow">Creative Web Solutions</span>
-      <h1>Custom Website Design and Development</h1>
+      <span class="eyebrow">Web Design &amp; Ongoing Care</span>
+      <h1>Websites Built to Convert &mdash; and Kept That Way</h1>
       <p>
-        Every business has a unique story, workflow, and audience. We create websites that match your vision and solve real business problems—from simple landing pages to complex multi-function platforms with commerce, booking, and community features. We help you choose the right tools for your budget and goals, then build something that works.
+        Every business has a unique story, workflow, and audience. We design fast, mobile-friendly websites that solve real business problems &mdash; from clean landing pages to multi-function platforms with commerce, booking, and community features &mdash; then keep them secure, current, and online with an ongoing maintenance plan. Build it once, never let it go stale.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="index.html#contact">Start a Project</a>
-        <a class="btn btn-secondary" href="#types">Explore Website Types</a>
+        <a class="btn btn-primary" href="contact.html">Start a Project</a>
+        <a class="btn btn-secondary" href="#maintenance">View Maintenance Plans</a>
       </div>
     </section>
 
@@ -493,36 +669,42 @@
       </p>
       <div class="showcase-grid">
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-calendar-check"></i></span>
           <strong>Service Portals &amp; Booking Sites</strong>
           <p>
             Appointment scheduling, booking calendars, service selection tools, and client dashboards. Clients can book, reschedule, and track their service requests without email back-and-forth.
           </p>
         </article>
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-users"></i></span>
           <strong>Build a Following (Mailing List &amp; Community)</strong>
           <p>
             Content hubs with email list signup, newsletter automation, community messaging, and subscriber-only resources. Perfect for creators, coaches, and thought leaders building an audience.
           </p>
         </article>
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-images"></i></span>
           <strong>Gallery and Portfolio Sites</strong>
           <p>
             Beautiful, responsive galleries for artists, photographers, designers, and makers. Image-heavy layouts, lightbox galleries, filtering, search, and seamless e-commerce integration for selling work.
           </p>
         </article>
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-cart-shopping"></i></span>
           <strong>Storefronts and E-Commerce</strong>
           <p>
             Product catalogs, shopping carts, payment processing, inventory tracking, and order management. From simple single-product sites to multi-category stores with real business operations.
           </p>
         </article>
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-building"></i></span>
           <strong>Brochure and Company Sites</strong>
           <p>
             Professional presence for service businesses, consultants, and agencies. Clean design, team bios, case studies, service descriptions, and lead capture forms.
           </p>
         </article>
         <article class="showcase-card">
+          <span class="sc-ic"><i class="fa-solid fa-layer-group"></i></span>
           <strong>Hybrid Multi-Function Platforms</strong>
           <p>
             Combinations of the above: a gallery with e-commerce, a booking portal with a newsletter, a storefront with a community. We handle complex, integrated workflows.
@@ -634,6 +816,91 @@
       </div>
     </section>
 
+    <section class="section" id="maintenance">
+      <span class="section-eyebrow">Keep It Running</span>
+      <h2>Ongoing Website Maintenance Plans</h2>
+      <p>
+        A website is not a one-time purchase &mdash; it is a living asset. Software gets out of date, security holes open up, links break, content goes stale, and search rankings slip when nobody is watching. Our maintenance plans keep your site fast, secure, current, and online so you can focus on running your business instead of babysitting your website.
+      </p>
+      <div class="plan-grid">
+        <article class="plan">
+          <h3>Essential Care</h3>
+          <p class="plan-for">For brochure &amp; small business sites that just need to stay healthy.</p>
+          <div class="plan-price">$49<small>/mo</small></div>
+          <p class="plan-note">Built by TES? Pay $39/mo</p>
+          <ul>
+            <li>Software, plugin &amp; security updates</li>
+            <li>Automated offsite backups</li>
+            <li>Uptime &amp; SSL monitoring</li>
+            <li>Up to 30 min of content edits / month</li>
+            <li>Monthly health summary</li>
+          </ul>
+          <a class="btn btn-secondary" href="contact.html">Choose Essential</a>
+        </article>
+        <article class="plan featured">
+          <span class="plan-tag">Most Popular</span>
+          <h3>Growth</h3>
+          <p class="plan-for">For sites that actively bring in leads, bookings, or sales.</p>
+          <div class="plan-price">$129<small>/mo</small></div>
+          <p class="plan-note">Built by TES? Pay $99/mo</p>
+          <ul>
+            <li>Everything in Essential Care</li>
+            <li>Up to 2 hours of content/design edits / month</li>
+            <li>Performance &amp; speed optimization</li>
+            <li>Analytics &amp; conversion reporting</li>
+            <li>SEO upkeep &amp; broken-link checks</li>
+            <li>Priority same-week turnaround</li>
+          </ul>
+          <a class="btn btn-primary" href="contact.html">Choose Growth</a>
+        </article>
+        <article class="plan">
+          <h3>Full Service</h3>
+          <p class="plan-for">For e-commerce &amp; multi-function platforms with real operations.</p>
+          <div class="plan-price">Custom</div>
+          <p class="plan-note">Built by TES? Discounted retainer</p>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>E-commerce, booking &amp; integration upkeep</li>
+            <li>Dedicated monthly improvement hours</li>
+            <li>Quarterly strategy &amp; roadmap review</li>
+            <li>Defined response-time SLA</li>
+          </ul>
+          <a class="btn btn-secondary" href="contact.html">Request a Quote</a>
+        </article>
+      </div>
+      <p class="mini-note">All plans are month-to-month &mdash; cancel anytime with 30 days' notice. Larger fixes or new features outside your plan's included hours are quoted up front before any work begins, billed at the standard $80/hr engineering rate.</p>
+    </section>
+
+    <section class="section" id="discount">
+      <h2>Built by TES? Your Maintenance Costs Less.</h2>
+      <p>
+        When we build your website, we already know every line of it &mdash; the structure, the integrations, the hosting, all of it. That means we can maintain it faster and cheaper, and we pass those savings straight to you.
+      </p>
+      <div class="offer-split">
+        <article class="offer-card discount">
+          <span class="offer-badge"><i class="fa-solid fa-star"></i> Loyalty Discount</span>
+          <div class="big-num">Save ~20%</div>
+          <h3>On every maintenance plan, for as long as you stay</h3>
+          <p>
+            Any website designed and built by Tevis Engineering Solutions qualifies for our standing maintenance discount &mdash; no onboarding fee, no codebase discovery, no surprises. We hand off into maintenance the moment your site goes live.
+          </p>
+          <p class="fine">Discount shown in each plan above ($39/mo Essential, $99/mo Growth, discounted Full Service retainer). Applies as long as your plan stays active.</p>
+        </article>
+        <article class="offer-card disclaimer">
+          <span class="offer-badge"><i class="fa-solid fa-circle-info"></i> Existing or 3rd-Party Sites</span>
+          <div class="big-num">One-Time Onboarding Fee</div>
+          <h3>We&rsquo;ll take over a site we didn&rsquo;t build &mdash; after a code review</h3>
+          <p>
+            If your website was built elsewhere or already exists, we start with a one-time <strong>discovery &amp; onboarding</strong> step to safely digest the codebase, hosting setup, and integrations before we can responsibly maintain it. We review your site, then send you a scoped estimate up front &mdash; no work begins until you approve it.
+          </p>
+          <p class="fine">The onboarding fee varies with the size and complexity of your site and engineering hours to create documentation. Once onboarding is complete, you move onto a standard maintenance plan at regular rates.</p>
+        </article>
+      </div>
+      <div class="highlight-box">
+        <strong>Why the difference?</strong> Inheriting an unfamiliar codebase means reading someone else&rsquo;s work, untangling how it was built, and verifying nothing breaks when we touch it. That up-front time is the discovery fee. Sites we build skip that step entirely &mdash; which is exactly why building with TES pays off twice.
+      </div>
+    </section>
+
     <section class="section" id="scope">
       <h2>Get Started</h2>
       <p>
@@ -705,7 +972,7 @@
         <a href="portfolio.html">Portfolio</a>
         <a href="blog/index.html">Blog</a>
         <a href="pricing_sheet.html">Pricing</a>
-        <a href="make_ticket.html">Contact</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div class="tfoot-col">
         <h5>Get Started</h5>
@@ -720,7 +987,7 @@
       <div class="tfoot-social">
         <a href="https://www.linkedin.com/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         <a href="https://github.com/tevis-engineering-solutions" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="make_ticket.html" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="contact.html" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
       </div>
     </div>
   </footer>
