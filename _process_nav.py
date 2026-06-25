@@ -162,10 +162,12 @@ NEW_JS_IIFE = """    (function() {
       function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); }
       var closeTimer;
       trigger.addEventListener('click', function(e) { e.stopPropagation(); setOpen(!mega.classList.contains('is-open')); });
-      wrap.addEventListener('mouseenter', function() { clearTimeout(closeTimer); setOpen(true); });
-      wrap.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
-      mega.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
-      mega.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+      if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+        wrap.addEventListener('mouseenter', function() { clearTimeout(closeTimer); setOpen(true); });
+        wrap.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+        mega.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+        mega.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+      }
       document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) setOpen(false); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
       mega.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setOpen(false); }); });
