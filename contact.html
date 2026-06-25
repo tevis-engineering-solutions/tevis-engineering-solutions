@@ -141,7 +141,7 @@
     .method-ic { width:50px; height:50px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:1.25rem; margin-bottom:1rem; background:rgba(74,172,101,0.12); border:1px solid rgba(74,172,101,0.28); color:var(--blue); }
     .method.gold .method-ic { background:rgba(200,152,48,0.12); border-color:rgba(200,152,48,0.32); color:var(--accent); }
     .method h3 { font-family:'Montserrat',sans-serif; font-size:1.02rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.3rem; }
-    .method .val { color:var(--text); font-weight:600; word-break:break-word; }
+    .method .val { color:var(--text); font-weight:600; font-size:0.94rem; line-height:1.35; word-break:normal; overflow-wrap:break-word; }
     .method .sub { color:var(--muted); font-size:0.85rem; margin-top:0.25rem; }
 
     /* ===== MAIN GRID (form + sidebar) ===== */
@@ -262,7 +262,7 @@
             <div class="tnav-col-head">Company &amp; Tools</div>
             <a class="tnav-link" href="blog/index.html"><span class="tnav-ic"><i class="fa-solid fa-newspaper"></i></span><span><span class="tnav-tt">Blog / Knowledge Base</span><span class="tnav-dd">IT tips and guides for small businesses</span></span></a>
             <a class="tnav-link" href="make_ticket.html"><span class="tnav-ic"><i class="fa-solid fa-headset"></i></span><span><span class="tnav-tt">Submit a Ticket</span><span class="tnav-dd">Get into the support queue now</span></span></a>
-            <a class="tnav-link" href="portal/status.html"><span class="tnav-ic"><i class="fa-solid fa-table-columns"></i></span><span><span class="tnav-tt">Ticket Status</span><span class="tnav-dd">View the status of your open tickets</span></span></a>
+            <a class="tnav-link" href="service_catalog.html"><span class="tnav-ic"><i class="fa-solid fa-rectangle-list"></i></span><span><span class="tnav-tt">Services Catalog</span><span class="tnav-dd">Full rate card &amp; line sheet</span></span></a>
             <a class="tnav-link" href="pay_invoice.html"><span class="tnav-ic"><i class="fa-solid fa-credit-card"></i></span><span><span class="tnav-tt">Pay an Invoice</span><span class="tnav-dd">Look up and pay your balance online</span></span></a>
             <a class="tnav-link" href="contact.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
             <a class="tnav-link" href="privacy_policy.html"><span class="tnav-ic"><i class="fa-solid fa-file-shield"></i></span><span><span class="tnav-tt">Privacy &amp; Terms</span><span class="tnav-dd">Payment terms and data policy</span></span></a>
@@ -326,19 +326,19 @@
         <a class="method" href="mailto:tyler@tevisengineering.com">
           <div class="method-ic"><i class="fa-solid fa-envelope"></i></div>
           <h3>General</h3>
-          <div class="val">tyler@tevisengineering.com</div>
+          <div class="val">tyler@<wbr>tevisengineering.com</div>
           <div class="sub">Questions &amp; everything else</div>
         </a>
         <a class="method gold" href="mailto:sales@tevisengineering.com">
           <div class="method-ic"><i class="fa-solid fa-handshake"></i></div>
           <h3>Sales</h3>
-          <div class="val">sales@tevisengineering.com</div>
+          <div class="val">sales@<wbr>tevisengineering.com</div>
           <div class="sub">New projects &amp; quotes</div>
         </a>
         <a class="method gold" href="mailto:billing@tevisengineering.com">
           <div class="method-ic"><i class="fa-solid fa-file-invoice-dollar"></i></div>
           <h3>Billing</h3>
-          <div class="val">billing@tevisengineering.com</div>
+          <div class="val">billing@<wbr>tevisengineering.com</div>
           <div class="sub">Invoices &amp; payment help</div>
         </a>
       </div>
@@ -472,6 +472,7 @@
       </div>
       <div class="tfoot-col">
         <h5>Services</h5>
+        <a href="service_catalog.html">Services Catalog</a>
         <a href="pricing_sheet.html">Managed IT Support</a>
         <a href="website_creation.html">Web &amp; App Design</a>
         <a href="portfolio.html">PCB &amp; CAD Design</a>
