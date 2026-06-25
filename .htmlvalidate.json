@@ -13,6 +13,7 @@
     "prefer-native-element": "off",
     "require-sri": "off",
     "script-type": "off",
+    "tel-non-breaking": "off",
     "void-style": "off",
     "wcag/h30": "off",
     "wcag/h32": "off",
