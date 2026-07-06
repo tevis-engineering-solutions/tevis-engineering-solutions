@@ -444,10 +444,17 @@
 </div>
 
 <script>
+  // Reference to the ticket form — used for submit handling and for
+  // clearing the fields when the visitor returns to the page.
+  const ticketForm = document.getElementById('ticketForm');
+
   // Show success card if redirected back with ?submitted=1
   if (new URLSearchParams(location.search).get('submitted') === '1') {
     document.getElementById('formWrapper').style.display = 'none';
     document.getElementById('successCard').classList.add('visible');
+    // Clear the (now hidden) fields so old values never linger if the
+    // visitor navigates back to the blank form afterward.
+    ticketForm.reset();
   }
 
   // Update hidden subject field dynamically as user fills in name
@@ -482,6 +489,22 @@
   if (nameField) nameField.addEventListener('input', updateSubject);
   issueTypes.forEach(r => r.addEventListener('change', updateSubject));
 
+  // Reset the form when the visitor returns via the browser's back/forward
+  // cache (bfcache). Without this, the browser repopulates every field with
+  // what was typed before submitting — so a returning visitor sees a stale,
+  // pre-filled ticket and a submit button stuck on "Sending...". Clearing
+  // here guarantees a blank, ready-to-use form on return.
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      ticketForm.reset();
+      toggleOnSiteAddress();
+      updateSubject();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Support Ticket';
+    }
+  });
+
   // S9 FIX: use addEventListener instead of inline onsubmit attribute
   function handleSubmit(e) {
     const btn = document.getElementById('submitBtn');
@@ -489,7 +512,7 @@
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Sending...';
     // Form will POST to Formspree and redirect via _next field
   }
-  document.getElementById('ticketForm').addEventListener('submit', handleSubmit);
+  ticketForm.addEventListener('submit', handleSubmit);
 
   // Cookie consent banner
   (function() {
