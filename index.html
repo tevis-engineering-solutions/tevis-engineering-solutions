@@ -235,6 +235,42 @@
   .pricing-foot { text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:2rem; }
   @media (max-width:880px) { .eng-ad { grid-template-columns:1fr; padding:2rem; } }
 
+  /* ---------- Google Reviews (native Google look on dark bg) ---------- */
+  .greviews { padding:3.5rem 5% 3.75rem; }
+  .grev-wrap { max-width:960px; margin:2rem auto 0; }
+  .grev-summary { display:flex; align-items:center; justify-content:center; gap:0.85rem; flex-wrap:wrap; margin-bottom:1.8rem; }
+  .grev-summary[hidden] { display:none; }
+  .grev-avg { font-family:var(--font-display); font-weight:800; font-size:2.1rem; color:#fff; line-height:1; }
+  .grev-sum-stars, .grev-stars { display:inline-flex; gap:2px; }
+  .grev-sum-stars svg { width:22px; height:22px; }
+  .grev-count { color:var(--text-muted); font-size:0.95rem; }
+  .grev-glogo svg { width:22px; height:22px; display:block; }
+  .grev-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(275px,1fr)); gap:1.1rem; align-items:start; }
+  .grev-card { position:relative; background:#fff; border-radius:12px; padding:1.2rem 1.25rem 1.3rem; box-shadow:0 8px 22px rgba(0,0,0,0.30); }
+  .grev-card-top { display:flex; align-items:center; gap:0.7rem; margin-bottom:0.5rem; }
+  .grev-ava, .grev-ava-fallback { width:40px; height:40px; border-radius:50%; flex-shrink:0; }
+  .grev-ava { object-fit:cover; background:#e8eaed; }
+  .grev-ava-fallback { display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:#fff; }
+  .grev-meta { display:flex; flex-direction:column; min-width:0; }
+  .grev-name { font-family:var(--font-display); font-weight:600; font-size:0.95rem; color:#202124; text-decoration:none; }
+  a.grev-name:hover { text-decoration:underline; }
+  .grev-time { font-size:0.8rem; color:#70757a; }
+  .grev-gicon { position:absolute; top:1.1rem; right:1.15rem; }
+  .grev-gicon svg { width:18px; height:18px; display:block; }
+  .grev-stars { margin:0.1rem 0 0.6rem; }
+  .grev-stars svg { width:16px; height:16px; }
+  .grev-text { color:#3c4043; font-size:0.92rem; line-height:1.55; overflow-wrap:anywhere; }
+  .grev-loading { display:flex; align-items:center; justify-content:center; gap:0.6rem; color:var(--text-muted); font-size:0.92rem; padding:0.6rem 0 0.2rem; }
+  .grev-spinner { width:18px; height:18px; border:2px solid var(--wash-green-border); border-top-color:var(--brand-primary); border-radius:50%; animation:grevSpin 0.8s linear infinite; }
+  @keyframes grevSpin { to { transform:rotate(360deg); } }
+  .grev-fallback { display:none; text-align:center; color:var(--text-body); font-size:0.95rem; margin:0.4rem 0 0.6rem; }
+  .grev-nojs { text-align:center; color:var(--text-body); font-size:0.95rem; margin-top:1rem; }
+  .grev-nojs a { color:var(--brand-primary); text-decoration:underline; }
+  .grev-cta { text-align:center; margin-top:1.9rem; }
+  .grev-gbtn { gap:0.55rem; }
+  .grev-gbtn svg { width:18px; height:18px; }
+  @media (max-width:560px) { .grev-grid { grid-template-columns:1fr; } }
+
   /* ---------- Newsletter ---------- */
   .tnl { background:radial-gradient(120% 110% at 50% 0%,rgba(74,172,101,0.09),transparent 62%),var(--surface-well); border-top:1px solid var(--border-default); border-bottom:1px solid var(--border-default); padding:3.75rem 5%; }
   .tnl-inner { max-width:660px; margin:0 auto; text-align:center; }
@@ -517,6 +553,26 @@
     </div>
   </section>
 
+  <!-- ============ GOOGLE REVIEWS ============ -->
+  <section class="greviews" id="reviews" aria-label="Reviews from Google">
+    <div class="sh"><p class="eyebrow">Client feedback</p><h2>What Clients Say</h2><span class="rule"></span></div>
+    <div class="grev-wrap">
+      <div class="grev-summary" id="grevSummary" hidden>
+        <span class="grev-avg" id="grevAvg">5.0</span>
+        <span class="grev-sum-stars" id="grevSumStars" aria-hidden="true"></span>
+        <span class="grev-count" id="grevCount"></span>
+        <span class="grev-glogo" aria-hidden="true"><svg viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg></span>
+      </div>
+      <div class="grev-loading" id="grevLoading"><span class="grev-spinner" aria-hidden="true"></span> Loading reviews&hellip;</div>
+      <p class="grev-fallback" id="grevFallback">See what our clients are saying about us on Google.</p>
+      <div class="grev-grid" id="grevGrid" role="list"></div>
+      <div class="grev-cta">
+        <a class="btn btn--secondary btn--sm grev-gbtn" href="https://share.google/O4oor3ja1I48TL3LP" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg> Review us on Google</a>
+      </div>
+      <noscript><p class="grev-nojs">Read our reviews on <a href="https://share.google/O4oor3ja1I48TL3LP" target="_blank" rel="noopener noreferrer">Google</a>.</p></noscript>
+    </div>
+  </section>
+
   <!-- ============ NEWSLETTER ============ -->
   <section class="tnl" aria-label="Email newsletter signup">
     <div class="tnl-inner">
@@ -642,6 +698,150 @@
       var done = document.getElementById('nlDone');
       done.style.display = 'inline-flex';
     });
+  })();
+  </script>
+
+  <!-- ============ GOOGLE REVIEWS — Places API (New) ============ -->
+  <script>
+  (function () {
+    var API_KEY   = 'AIzaSyAjU65fxH_TQ8RO2Ajd-KnZRCZOkWXHgJE';   // browser key — HTTP-referrer restricted to tevisengineering.com
+    var PLACE_ID  = 'ChIJe6S4QRL9YIARNtwVTAIP5Ec';               // Tevis Engineering Solutions, LLC
+    var CACHE_KEY = 'tes_greviews_v1', CACHE_TTL = 60 * 60 * 1000; // sessionStorage cache: 1 hour
+    var MAX_REVIEWS = 5;
+
+    var section = document.getElementById('reviews');
+    if (!section) return;
+    var grid     = document.getElementById('grevGrid');
+    var loading  = document.getElementById('grevLoading');
+    var summary  = document.getElementById('grevSummary');
+    var fallback = document.getElementById('grevFallback');
+    var avgEl    = document.getElementById('grevAvg');
+    var sumStars = document.getElementById('grevSumStars');
+    var countEl  = document.getElementById('grevCount');
+
+    var G_STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27l5.18 3.13-1.37-5.9 4.58-3.96-6.03-.52L12 4.5 9.66 10.02l-6.03.52 4.58 3.96-1.37 5.9z"/></svg>';
+    var G_LOGO = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>';
+    function stars(rating) {
+      var n = Math.round(rating || 0), out = '', i;
+      for (i = 1; i <= 5; i++) out += G_STAR.replace('<path ', '<path fill="' + (i <= n ? '#fbbc04' : '#dadce0') + '" ');
+      return out;
+    }
+    var AVA = ['#1a73e8', '#d93025', '#188038', '#e37400', '#9334e6', '#12939a'];
+    function avaColor(name) { var s = 0, i; for (i = 0; i < name.length; i++) s += name.charCodeAt(i); return AVA[s % AVA.length]; }
+
+    var rendered = false, failTimer;
+
+    function showFallback() {
+      if (rendered) return;
+      clearTimeout(failTimer);
+      loading.style.display = 'none';
+      summary.hidden = true;
+      grid.innerHTML = '';
+      fallback.style.display = 'block';
+    }
+
+    function makeCard(r) {
+      var card = document.createElement('article');
+      card.className = 'grev-card'; card.setAttribute('role', 'listitem');
+
+      var gicon = document.createElement('span');
+      gicon.className = 'grev-gicon'; gicon.setAttribute('aria-hidden', 'true'); gicon.innerHTML = G_LOGO;
+      card.appendChild(gicon);
+
+      var top = document.createElement('div'); top.className = 'grev-card-top';
+      var name = r.name || 'Google user';
+      var fb = document.createElement('span');
+      fb.className = 'grev-ava-fallback'; fb.style.background = avaColor(name);
+      fb.textContent = name.trim().charAt(0).toUpperCase() || '?';
+      if (r.photo) {
+        var img = document.createElement('img');
+        img.className = 'grev-ava'; img.src = r.photo; img.alt = ''; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer';
+        img.addEventListener('error', function () { if (img.parentNode) img.parentNode.replaceChild(fb, img); });
+        top.appendChild(img);
+      } else {
+        top.appendChild(fb);
+      }
+      var meta = document.createElement('div'); meta.className = 'grev-meta';
+      var nameEl = r.uri ? document.createElement('a') : document.createElement('span');
+      if (r.uri) { nameEl.href = r.uri; nameEl.target = '_blank'; nameEl.rel = 'noopener noreferrer'; }
+      nameEl.className = 'grev-name'; nameEl.textContent = name;
+      var timeEl = document.createElement('span'); timeEl.className = 'grev-time'; timeEl.textContent = r.time || '';
+      meta.appendChild(nameEl); meta.appendChild(timeEl);
+      top.appendChild(meta);
+      card.appendChild(top);
+
+      var st = document.createElement('div'); st.className = 'grev-stars';
+      st.setAttribute('aria-label', (r.rating || 0) + ' out of 5 stars'); st.innerHTML = stars(r.rating);
+      card.appendChild(st);
+
+      if (r.text) { var p = document.createElement('p'); p.className = 'grev-text'; p.textContent = r.text; card.appendChild(p); }
+      return card;
+    }
+
+    function render(data) {
+      if (!data || !data.reviews || !data.reviews.length) { showFallback(); return; }
+      rendered = true; clearTimeout(failTimer);
+      avgEl.textContent = (data.rating || 0).toFixed(1);
+      sumStars.innerHTML = stars(data.rating);
+      countEl.textContent = data.count === 1 ? '1 Google review' : (data.count || data.reviews.length) + ' Google reviews';
+      summary.hidden = false;
+      grid.innerHTML = '';
+      data.reviews.slice(0, MAX_REVIEWS).forEach(function (r) { grid.appendChild(makeCard(r)); });
+      loading.style.display = 'none';
+      fallback.style.display = 'none';
+    }
+
+    function normalize(place) {
+      var list = (place.reviews || []).map(function (rv) {
+        var a = rv.authorAttribution || {};
+        var t = rv.text; if (t && typeof t === 'object') t = t.text || '';
+        return { name: a.displayName || 'Google user', photo: a.photoURI || '', uri: a.uri || '',
+                 rating: rv.rating || 0, time: rv.relativePublishTimeDescription || '', text: t || '' };
+      });
+      return { rating: place.rating || 0, count: place.userRatingCount || list.length, reviews: list };
+    }
+
+    async function doFetch() {
+      try {
+        var lib = await google.maps.importLibrary('places');
+        var place = new lib.Place({ id: PLACE_ID });
+        await place.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews'] });
+        var data = normalize(place);
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
+        render(data);
+      } catch (e) { showFallback(); }
+    }
+
+    function loadMaps() {
+      if (window.google && window.google.maps && window.google.maps.importLibrary) { doFetch(); return; }
+      window.tesInitReviews = doFetch;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&loading=async&libraries=places&callback=tesInitReviews';
+      s.onerror = showFallback;
+      document.head.appendChild(s);
+    }
+
+    function begin() {
+      try {
+        var raw = sessionStorage.getItem(CACHE_KEY);
+        if (raw) { var c = JSON.parse(raw); if (c && c.d && (Date.now() - c.t) < CACHE_TTL) { render(c.d); return; } }
+      } catch (e) {}
+      failTimer = setTimeout(showFallback, 8000);
+      loadMaps();
+    }
+
+    // Lazy start: only hit the (billable) API once the section nears the viewport
+    var started = false;
+    function kick() { if (started) return; started = true; begin(); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (ents) {
+        if (ents.some(function (e) { return e.isIntersecting; })) { io.disconnect(); kick(); }
+      }, { rootMargin: '400px' });
+      io.observe(section);
+    } else {
+      kick();
+    }
   })();
   </script>
   <!-- Cookie consent notice — dismissal stored in sessionStorage -->
