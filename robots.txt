@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tevis-engineering-solutions.github.io/sitemap.xml
+Sitemap: https://tevisengineering.com/sitemap.xml

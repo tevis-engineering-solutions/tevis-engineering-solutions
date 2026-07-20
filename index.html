@@ -8,14 +8,19 @@
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tevis Engineering Solutions">
+  <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://tevisengineering.com/">
   <meta property="og:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta property="og:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
-  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <meta property="og:image" content="https://tevisengineering.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cleveland IT Support &amp; Custom Engineering | Tevis Engineering Solutions">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Tevis Engineering Solutions | Cleveland IT Support">
   <meta name="twitter:description" content="Veteran-Owned IT Support, Consulting, and 3D Printing Services for Small Businesses and Individuals in Cleveland, Ohio.">
-  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.svg">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.png">
   <link rel="canonical" href="https://tevisengineering.com/">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -299,6 +304,9 @@
   .tfoot-brand img { width:40px; height:40px; border-radius:9px; }
   .tfoot-brand b { font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#fff; font-size:0.95rem; }
   .tfoot-blurb { color:var(--text-muted); font-size:0.9rem; line-height:1.7; max-width:34ch; margin:0 0 1rem; }
+    .tfoot-nap { color:#8aa48d; font-size:0.85rem; line-height:1.7; margin:0 0 1rem; }
+    .tfoot-nap a { color:#8aa48d; text-decoration:none; }
+    .tfoot-nap a:hover { color:#4aac65; }
   .tfoot-col h5 { font-family:var(--font-display); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--brand-accent); margin-bottom:0.9rem; }
   .tfoot-col a { display:block; color:var(--text-muted); text-decoration:none; font-size:0.88rem; padding:0.3rem 0; transition:color var(--dur-base),transform var(--dur-base); }
   .tfoot-col a:hover { color:var(--brand-primary); transform:translateX(3px); }
@@ -599,6 +607,7 @@
       <div>
         <a class="tfoot-brand" href="index.html"><img src="assets/logo-mark.png" alt="TES"><b>Tevis Engineering</b></a>
         <p class="tfoot-blurb">IT Support, Engineering, 3D Design/Printing and tangential services for small businesses and individuals in the Cleveland, Ohio area and beyond.</p>
+        <p class="tfoot-nap"><a href="tel:+18143845117">(814)&nbsp;384&#8209;5117</a> &middot; Cleveland,&nbsp;OH</p>
       </div>
       <div class="tfoot-col">
         <h5>Services</h5>
@@ -640,18 +649,74 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ProfessionalService"],
-    "@id": "https://tevisengineering.com/#business",
-    "name": "Tevis Engineering Solutions",
-    "alternateName": "TES",
-    "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio. Managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
-    "url": "https://tevisengineering.com",
-    "logo": "https://tevisengineering.com/assets/logo-mark.png",
-    "telephone": "+18143845117",
-    "email": "tyler@tevisengineering.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Cleveland", "addressRegion": "OH", "addressCountry": "US" },
-    "areaServed": { "@type": "GeoCircle", "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 41.4993, "longitude": -81.6944 }, "geoRadius": "50000" },
-    "sameAs": ["https://share.google/O4oor3ja1I48TL3LP"]
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@id": "https://tevisengineering.com/#business",
+        "name": "Tevis Engineering Solutions",
+        "alternateName": "TES",
+        "description": "Veteran-owned IT managed services and engineering firm serving Cleveland, Ohio. Managed IT support, custom software, PCB design, CAD, 3D printing, web design, and IT automation for small and medium businesses.",
+        "url": "https://tevisengineering.com/",
+        "logo": "https://tevisengineering.com/assets/logo-mark.png",
+        "image": "https://tevisengineering.com/assets/og-image.png",
+        "telephone": "+18143845117",
+        "email": "tyler@tevisengineering.com",
+        "priceRange": "$$",
+        "address": { "@type": "PostalAddress", "addressLocality": "Cleveland", "addressRegion": "OH", "addressCountry": "US" },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Cleveland" },
+          { "@type": "City", "name": "Lakewood" },
+          { "@type": "City", "name": "Parma" },
+          { "@type": "City", "name": "Rocky River" },
+          { "@type": "City", "name": "Westlake" },
+          { "@type": "City", "name": "Shaker Heights" },
+          { "@type": "City", "name": "Beachwood" },
+          { "@type": "City", "name": "Strongsville" },
+          { "@type": "GeoCircle", "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 41.4993, "longitude": -81.6944 }, "geoRadius": "50000" }
+        ],
+        "serviceType": [
+          "Managed IT Support",
+          "IT Support and Help Desk",
+          "Custom Software Development",
+          "PCB Design",
+          "CAD and 3D Modeling",
+          "3D Printing",
+          "Web Design and Development",
+          "IT Automation",
+          "Data Destruction",
+          "Knowledge Transfer and Documentation"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "IT and Engineering Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Managed IT Support", "url": "https://tevisengineering.com/how_support_works.html" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Design and Development", "url": "https://tevisengineering.com/website_creation.html" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data Destruction", "url": "https://tevisengineering.com/data_destruction.html" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Knowledge Transfer and Documentation", "url": "https://tevisengineering.com/knowledge_transfer.html" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Readiness Assessment", "url": "https://tevisengineering.com/assessment.html" } }
+          ]
+        },
+        "sameAs": [
+          "https://share.google/O4oor3ja1I48TL3LP",
+          "https://github.com/tevis-engineering-solutions"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tevisengineering.com/#website",
+        "url": "https://tevisengineering.com/",
+        "name": "Tevis Engineering Solutions",
+        "publisher": { "@id": "https://tevisengineering.com/#business" },
+        "inLanguage": "en-US"
+      }
+    ]
   }
   </script>
 
