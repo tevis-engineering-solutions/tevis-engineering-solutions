@@ -199,6 +199,16 @@
     @media(max-width:780px){.tfoot-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:480px){.tfoot-grid{grid-template-columns:1fr;}}
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+      .related-reading { margin-top: 2.5rem; padding: 1.4rem 1.6rem; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+    .related-reading h2 { font-family:"Montserrat",sans-serif; font-size:0.8rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:#c89830; margin:0 0 0.9rem; }
+    .related-reading ul { list-style:none; margin:0; padding:0; }
+    .related-reading li { position:relative; padding-left:1.4rem; margin-bottom:0.6rem; }
+    .related-reading li::before { content:"\2192"; position:absolute; left:0; color:var(--blue); font-weight:700; }
+    .related-reading li a { color:var(--text); text-decoration:none; font-weight:600; font-size:0.98rem; }
+    .related-reading li a:hover { color:var(--blue); text-decoration:underline; }
+    .related-reading .rr-service { margin:1rem 0 0; padding-top:0.9rem; border-top:1px solid var(--line); font-size:0.92rem; color:var(--muted); }
+    .related-reading .rr-service a { color:#c89830; font-weight:700; text-decoration:none; }
+    .related-reading .rr-service a:hover { text-decoration:underline; }
   </style>
   <script type="application/ld+json">
   {
@@ -375,6 +385,14 @@
         <p>If your current backup situation is "we should probably do something about that," now is the right time to act. At Tevis Engineering Solutions, we help Cleveland-area businesses set up automated, tested backup systems that fit their existing workflows. If you'd like help getting this configured correctly — and verified — <a href="../make_ticket.html">submit a support ticket</a> and we'll get started.</p>
       </div>
 
+      <aside class="related-reading" aria-label="Related reading">
+        <h2>Related Reading</h2>
+        <ul>
+        <li><a href="cybersecurity-basics-for-cleveland-small-business.html">Cybersecurity Basics Every Cleveland Small Business Needs</a></li>
+        <li><a href="managed-it-vs-break-fix.html">Managed IT vs. Break-Fix: Which Is Right for Your Business?</a></li>
+        </ul>
+        <p class="rr-service">Need a hand with this? <a href="../how_support_works.html">Get managed backups &amp; IT support</a>.</p>
+      </aside>
       <div class="article-newsletter-cta">
         <strong>Found this useful?</strong> Get monthly IT Tips for Individuals &amp; Small Businesses — straight to your inbox.
         <a href="#newsletter" class="article-newsletter-link">Subscribe below →</a>
