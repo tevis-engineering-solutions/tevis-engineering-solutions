@@ -295,6 +295,18 @@
     .tfoot-veteran { display:inline-flex; align-items:center; gap:0.45rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; line-height:1; background:linear-gradient(135deg,#2d6a3f,#3d8a55); border:1px solid rgba(255,255,255,0.18); color:#fff; }
     @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
     @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
+      .svc-faq { margin-top: 1.5rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+    .svc-faq > h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin:0 0 1rem; color:#fff; }
+    .svc-faq details { border:1px solid rgba(255,255,255,0.12); border-radius:12px; background:rgba(255,255,255,0.02); margin-bottom:0.6rem; overflow:hidden; }
+    .svc-faq summary { cursor:pointer; padding:0.9rem 1rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.98rem; color:#f0f4f0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .svc-faq summary::-webkit-details-marker { display:none; }
+    .svc-faq summary::after { content:"+"; color:#c89830; font-weight:800; font-size:1.2rem; }
+    .svc-faq details[open] summary::after { content:"\2212"; }
+    .svc-faq details[open] summary { border-bottom:1px solid rgba(255,255,255,0.1); }
+    .svc-faq .a { padding:0.9rem 1rem; color:#c3cec6; font-size:0.95rem; line-height:1.7; }
+    .svc-faq-guides { margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.1); font-size:0.92rem; color:#9fb0a3; }
+    .svc-faq-guides a { color:#c89830; text-decoration:none; font-weight:600; }
+    .svc-faq-guides a:hover { text-decoration:underline; }
   </style>
   <script type="application/ld+json">
   {
@@ -310,6 +322,9 @@
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Data Destruction","item":"https://tevisengineering.com/data_destruction.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What data destruction methods do you use?","acceptedAnswer":{"@type":"Answer","text":"We select the method based on the media type and your reuse intent, mapped to the categories in NIST SP 800-88 Rev. 1 (clear, purge, or destroy)."}},{"@type":"Question","name":"Do I get a certificate of destruction?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every engagement includes a destruction or sanitization certificate plus chain-of-custody documentation suitable for audits and your records."}},{"@type":"Question","name":"Does this help with HIPAA or other compliance?","acceptedAnswer":{"@type":"Answer","text":"We provide documentation aligned to common frameworks such as HIPAA, GLBA, FERPA, and PCI DSS. Your specific obligations should be reviewed with your own compliance and legal advisors."}},{"@type":"Question","name":"What devices and media can you handle?","acceptedAnswer":{"@type":"Answer","text":"Hard drives, SSDs, and other storage media from workstations, servers, and backup systems, handled on-site or by scheduled pickup."}},{"@type":"Question","name":"Are you third-party certified?","acceptedAnswer":{"@type":"Answer","text":"We do not represent this service as third-party certified unless and until a formal certification is obtained and active. What you get is a documented, NIST-aligned process and evidence package."}}]}
   </script>
 </head>
 <body>
@@ -496,6 +511,31 @@
         This page is informational and does not constitute legal advice. Tevis Engineering Solutions provides implementation support and documentation based on client-approved policies.
       </div>
     </section>
+    <section class="svc-faq" aria-label="Frequently asked questions">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What data destruction methods do you use?</summary>
+        <div class="a">We select the method based on the media type and your reuse intent, mapped to the categories in NIST SP 800-88 Rev. 1 (clear, purge, or destroy).</div>
+      </details>
+      <details>
+        <summary>Do I get a certificate of destruction?</summary>
+        <div class="a">Yes. Every engagement includes a destruction or sanitization certificate plus chain-of-custody documentation suitable for audits and your records.</div>
+      </details>
+      <details>
+        <summary>Does this help with HIPAA or other compliance?</summary>
+        <div class="a">We provide documentation aligned to common frameworks such as HIPAA, GLBA, FERPA, and PCI DSS. Your specific obligations should be reviewed with your own compliance and legal advisors.</div>
+      </details>
+      <details>
+        <summary>What devices and media can you handle?</summary>
+        <div class="a">Hard drives, SSDs, and other storage media from workstations, servers, and backup systems, handled on-site or by scheduled pickup.</div>
+      </details>
+      <details>
+        <summary>Are you third-party certified?</summary>
+        <div class="a">We do not represent this service as third-party certified unless and until a formal certification is obtained and active. What you get is a documented, NIST-aligned process and evidence package.</div>
+      </details>
+      <p class="svc-faq-guides"><strong>Related guides:</strong> <a href="blog/cybersecurity-basics-for-cleveland-small-business.html">Cybersecurity Basics for Small Business</a> &middot; <a href="blog/small-business-backup-strategy.html">The Backup Strategy That Works</a></p>
+    </section>
+
   </main>
 
   <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->

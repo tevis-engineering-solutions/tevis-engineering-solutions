@@ -594,6 +594,18 @@
     .newsletter-fine { margin-top: 1rem; font-size: 0.78rem; color: var(--muted); }
     .newsletter-fine a { color: var(--muted); text-decoration: underline; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+      .svc-faq { margin-top: 1.5rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+    .svc-faq > h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin:0 0 1rem; color:#fff; }
+    .svc-faq details { border:1px solid rgba(255,255,255,0.12); border-radius:12px; background:rgba(255,255,255,0.02); margin-bottom:0.6rem; overflow:hidden; }
+    .svc-faq summary { cursor:pointer; padding:0.9rem 1rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.98rem; color:#f0f4f0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .svc-faq summary::-webkit-details-marker { display:none; }
+    .svc-faq summary::after { content:"+"; color:#c89830; font-weight:800; font-size:1.2rem; }
+    .svc-faq details[open] summary::after { content:"\2212"; }
+    .svc-faq details[open] summary { border-bottom:1px solid rgba(255,255,255,0.1); }
+    .svc-faq .a { padding:0.9rem 1rem; color:#c3cec6; font-size:0.95rem; line-height:1.7; }
+    .svc-faq-guides { margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.1); font-size:0.92rem; color:#9fb0a3; }
+    .svc-faq-guides a { color:#c89830; text-decoration:none; font-weight:600; }
+    .svc-faq-guides a:hover { text-decoration:underline; }
   </style>
   <script type="application/ld+json">
   {
@@ -609,6 +621,9 @@
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Web and App Design","item":"https://tevisengineering.com/website_creation.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does a website cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on scope. A simple brochure site is very different from a booking or online-store build. We scope and quote every project up front, and our blog guide on small business website costs walks through realistic ranges."}},{"@type":"Question","name":"Do you offer ongoing website maintenance?","acceptedAnswer":{"@type":"Answer","text":"Yes. We have month-to-month care plans covering updates, backups, security, and small changes, starting at $49 per month, with a loyalty discount for sites we built."}},{"@type":"Question","name":"Will my site work on phones and show up on Google?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every site is mobile-responsive and built with SEO fundamentals so it loads fast and can be found and indexed."}},{"@type":"Question","name":"Can you take over a website someone else built?","acceptedAnswer":{"@type":"Answer","text":"Yes. We start with a one-time discovery and onboarding step to learn the existing setup, then we can maintain or rebuild it."}},{"@type":"Question","name":"Do you handle hosting, domains, and email?","acceptedAnswer":{"@type":"Answer","text":"Yes. We can set up and manage hosting, your domain, and professional email on your own domain."}}]}
   </script>
 </head>
 <body>
@@ -925,6 +940,31 @@
         <strong>What to bring to discovery:</strong> Your rough budget range, timeline, key must-have features, and examples of websites (or competitors) you like. The more specific you are, the better we can estimate and plan.
       </div>
     </section>
+    <section class="svc-faq" aria-label="Frequently asked questions">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>How much does a website cost?</summary>
+        <div class="a">It depends on scope. A simple brochure site is very different from a booking or online-store build. We scope and quote every project up front, and our blog guide on small business website costs walks through realistic ranges.</div>
+      </details>
+      <details>
+        <summary>Do you offer ongoing website maintenance?</summary>
+        <div class="a">Yes. We have month-to-month care plans covering updates, backups, security, and small changes, starting at $49 per month, with a loyalty discount for sites we built.</div>
+      </details>
+      <details>
+        <summary>Will my site work on phones and show up on Google?</summary>
+        <div class="a">Yes. Every site is mobile-responsive and built with SEO fundamentals so it loads fast and can be found and indexed.</div>
+      </details>
+      <details>
+        <summary>Can you take over a website someone else built?</summary>
+        <div class="a">Yes. We start with a one-time discovery and onboarding step to learn the existing setup, then we can maintain or rebuild it.</div>
+      </details>
+      <details>
+        <summary>Do you handle hosting, domains, and email?</summary>
+        <div class="a">Yes. We can set up and manage hosting, your domain, and professional email on your own domain.</div>
+      </details>
+      <p class="svc-faq-guides"><strong>Related guides:</strong> <a href="blog/how-much-does-a-small-business-website-cost.html">What a Small Business Website Costs</a> &middot; <a href="blog/website-for-small-business.html">Does Your Business Need a Website?</a></p>
+    </section>
+
   </main>
 
   <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->

@@ -323,6 +323,18 @@
     .newsletter-fine { margin-top: 1rem; font-size: 0.78rem; color: var(--muted); }
     .newsletter-fine a { color: var(--muted); text-decoration: underline; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+      .svc-faq { margin-top: 1.5rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+    .svc-faq > h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin:0 0 1rem; color:#fff; }
+    .svc-faq details { border:1px solid rgba(255,255,255,0.12); border-radius:12px; background:rgba(255,255,255,0.02); margin-bottom:0.6rem; overflow:hidden; }
+    .svc-faq summary { cursor:pointer; padding:0.9rem 1rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.98rem; color:#f0f4f0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .svc-faq summary::-webkit-details-marker { display:none; }
+    .svc-faq summary::after { content:"+"; color:#c89830; font-weight:800; font-size:1.2rem; }
+    .svc-faq details[open] summary::after { content:"\2212"; }
+    .svc-faq details[open] summary { border-bottom:1px solid rgba(255,255,255,0.1); }
+    .svc-faq .a { padding:0.9rem 1rem; color:#c3cec6; font-size:0.95rem; line-height:1.7; }
+    .svc-faq-guides { margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.1); font-size:0.92rem; color:#9fb0a3; }
+    .svc-faq-guides a { color:#c89830; text-decoration:none; font-weight:600; }
+    .svc-faq-guides a:hover { text-decoration:underline; }
   </style>
   <script type="application/ld+json">
   {
@@ -338,6 +350,9 @@
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Knowledge Transfer","item":"https://tevisengineering.com/knowledge_transfer.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What do you actually deliver in a knowledge transfer engagement?","acceptedAnswer":{"@type":"Answer","text":"Clear written documentation, runbooks, and process handoffs, so how your systems work lives in a document instead of in one staff member's memory."}},{"@type":"Question","name":"When does a business need knowledge transfer?","acceptedAnswer":{"@type":"Answer","text":"Common triggers are a staff member leaving, onboarding someone new, wrapping up a project, or simply reducing the risk of depending on one key person."}},{"@type":"Question","name":"How is the documentation delivered?","acceptedAnswer":{"@type":"Answer","text":"As written docs and walkthroughs in the tools and format your team already uses, so it is easy to find and actually gets used."}},{"@type":"Question","name":"How long does an engagement take?","acceptedAnswer":{"@type":"Answer","text":"It is scoped per project based on how much needs to be captured and how complex your systems are. We agree on scope before we start."}}]}
   </script>
 </head>
 <body>
@@ -544,6 +559,27 @@
         Knowledge transfer projects require active participation from your team and access to source materials and subject matter experts. We'll define role expectations and time commitments during scoping.
       </p>
     </section>
+    <section class="svc-faq" aria-label="Frequently asked questions">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What do you actually deliver in a knowledge transfer engagement?</summary>
+        <div class="a">Clear written documentation, runbooks, and process handoffs, so how your systems work lives in a document instead of in one staff member's memory.</div>
+      </details>
+      <details>
+        <summary>When does a business need knowledge transfer?</summary>
+        <div class="a">Common triggers are a staff member leaving, onboarding someone new, wrapping up a project, or simply reducing the risk of depending on one key person.</div>
+      </details>
+      <details>
+        <summary>How is the documentation delivered?</summary>
+        <div class="a">As written docs and walkthroughs in the tools and format your team already uses, so it is easy to find and actually gets used.</div>
+      </details>
+      <details>
+        <summary>How long does an engagement take?</summary>
+        <div class="a">It is scoped per project based on how much needs to be captured and how complex your systems are. We agree on scope before we start.</div>
+      </details>
+      <p class="svc-faq-guides"><strong>Related guides:</strong> <a href="blog/what-to-do-before-calling-it-support.html">What to Do Before Calling IT Support</a> &middot; <a href="blog/small-business-backup-strategy.html">The Backup Strategy That Works</a></p>
+    </section>
+
   </main>
 
   <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->
