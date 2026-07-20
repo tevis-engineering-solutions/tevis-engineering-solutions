@@ -68,6 +68,15 @@
     .area-card h3 i { color:var(--gold); }
     .area-card p { color:#bcd0bf; font-size:0.92rem; margin-bottom:0.6rem; }
     .area-card .go { color:var(--gold); font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; }
+    .area-map-wrap h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin-bottom:0.4rem; color:#f1f7f1; }
+    .area-map-wrap p.sub { color:var(--muted); margin-bottom:0.9rem; font-size:0.95rem; }
+    .area-map { height:420px; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#0f1a13; }
+    .area-map-fallback { color:var(--muted); font-size:0.95rem; text-align:center; padding:2.5rem 1.5rem; }
+    .area-map-fallback a { color:var(--gold); }
+    .area-legend { display:flex; flex-wrap:wrap; gap:1.3rem; margin-top:0.8rem; font-size:0.82rem; color:var(--muted); }
+    .area-legend span { display:inline-flex; align-items:center; gap:0.45rem; }
+    .area-legend i.dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
+    @media (max-width:480px) { .area-map { height:340px; } }
     .cta-band { margin-top:1.25rem; background:radial-gradient(120% 130% at 50% 0%,rgba(74,172,101,0.14),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.28); border-radius:16px; padding:1.8rem 1.5rem; text-align:center; }
     .cta-band h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.4rem; color:#fff; margin-bottom:0.5rem; }
     .cta-band p { color:var(--muted); max-width:640px; margin:0 auto 1.2rem; }
@@ -278,6 +287,17 @@
       </div>
     </section>
 
+    <section class="section area-map-wrap" aria-label="Service area map">
+      <h2>Our Northeast Ohio Service Area</h2>
+      <p class="sub">On-site coverage across the Cleveland metro, with remote support anywhere. The highlighted zone is our core on-site radius; the gold markers are the cities listed above.</p>
+      <div class="area-map" id="areaMap" role="img" aria-label="Map of the Tevis Engineering Solutions service area across Northeast Ohio"></div>
+      <p class="area-map-fallback" id="areaMapFallback" hidden>We serve Cleveland and the surrounding suburbs across Northeast Ohio. <a href="contact.html">Contact us</a> to confirm coverage for your area.</p>
+      <div class="area-legend" aria-hidden="true">
+        <span><i class="dot" style="background:#4aac65"></i> Core on-site radius</span>
+        <span><i class="dot" style="background:#c89830"></i> Cities we serve</span>
+      </div>
+    </section>
+
     <section class="section">
       <h2>Don't See Your City?</h2>
       <p>
@@ -404,6 +424,92 @@
         window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
       });
     }
+
+    // ---- Northeast Ohio service-area map (Google Maps JS; reuses TES referrer-restricted browser key) ----
+    (function () {
+      var el = document.getElementById('areaMap');
+      if (!el) return;
+      var API_KEY = 'AIzaSyAjU65fxH_TQ8RO2Ajd-KnZRCZOkWXHgJE'; // browser key — HTTP-referrer restricted to tevisengineering.com
+      var CLEVELAND = { lat: 41.4993, lng: -81.6944 };
+      var CITIES = [
+        { lat: 41.4820, lng: -81.7982 }, // Lakewood
+        { lat: 41.4048, lng: -81.7229 }, // Parma
+        { lat: 41.4553, lng: -81.9179 }, // Westlake
+        { lat: 41.4645, lng: -81.5087 }, // Beachwood
+        { lat: 41.5201, lng: -81.5562 }, // Cleveland Heights
+        { lat: 41.4739, lng: -81.5371 }, // Shaker Heights
+        { lat: 41.4939, lng: -81.5346 }  // University Heights
+      ];
+      var DARK = [
+        { elementType: 'geometry', stylers: [{ color: '#0f1a13' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#0f1a13' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#8aa48d' }] },
+        { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+        { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+        { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#12211a' }] },
+        { featureType: 'administrative', elementType: 'geometry', stylers: [{ color: '#2c4232' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#24382a' }] },
+        { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#9db3a1' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0a1710' }] }
+      ];
+      var rendered = false, started = false, failTimer;
+
+      function showFallback() {
+        if (rendered) return;
+        clearTimeout(failTimer);
+        el.style.display = 'none';
+        var fb = document.getElementById('areaMapFallback');
+        if (fb) fb.hidden = false;
+      }
+
+      window.tesInitAreaMap = async function () {
+        try {
+          var maps = await google.maps.importLibrary('maps');
+          var map = new maps.Map(el, {
+            center: { lat: 41.46, lng: -81.69 }, zoom: 10,
+            disableDefaultUI: true, zoomControl: true, gestureHandling: 'cooperative',
+            styles: DARK, backgroundColor: '#0f1a13'
+          });
+          new google.maps.Circle({
+            map: map, center: CLEVELAND, radius: 48000, clickable: false,
+            strokeColor: '#4aac65', strokeOpacity: 0.85, strokeWeight: 2,
+            fillColor: '#4aac65', fillOpacity: 0.12
+          });
+          CITIES.forEach(function (c) {
+            new google.maps.Circle({
+              map: map, center: c, radius: 950, clickable: false,
+              strokeColor: '#e0b840', strokeOpacity: 1, strokeWeight: 1,
+              fillColor: '#c89830', fillOpacity: 0.95
+            });
+          });
+          rendered = true; clearTimeout(failTimer);
+        } catch (e) { showFallback(); }
+      };
+
+      function loadMaps() {
+        if (window.google && window.google.maps && window.google.maps.importLibrary) { window.tesInitAreaMap(); return; }
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&loading=async&libraries=maps&callback=tesInitAreaMap';
+        s.onerror = showFallback;
+        document.head.appendChild(s);
+      }
+
+      function begin() {
+        if (started) return; started = true;
+        failTimer = setTimeout(showFallback, 8000);
+        loadMaps();
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { io.disconnect(); begin(); } });
+        }, { rootMargin: '300px' });
+        io.observe(el);
+      } else {
+        begin();
+      }
+    })();
   </script>
 
 <script type="text/javascript">
