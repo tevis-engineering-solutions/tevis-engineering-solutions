@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support | TES Customer Portal</title>
+  <meta name="description" content="Open a support ticket and track its status with Tevis Engineering Solutions.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://tevisengineering.com/portal/tickets.html">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --card-2:#1c2e22; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--text); background:radial-gradient(circle at top,#172b1c 0%,#0d1710 45%,#060e08 100%); line-height:1.6; min-height:100vh; }
+    a { color:var(--green); }
+    .pbar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .pbar-inner { display:flex; align-items:center; gap:1rem; padding:0.7rem 5%; max-width:1200px; margin:0 auto; }
+    .pbrand { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
+    .pbrand img { width:40px; height:40px; border-radius:9px; border:1px solid rgba(255,255,255,0.15); }
+    .pbrand .pl { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.06em; line-height:1.15; }
+    .pbrand .pl b { display:block; font-size:0.9rem; color:#fff; }
+    .pbrand .pl s { display:block; font-size:0.6rem; color:var(--gold); text-decoration:none; letter-spacing:0.12em; }
+    .pbar-spacer { flex:1; }
+    .pacct { display:flex; align-items:center; gap:0.75rem; }
+    .pacct .who { text-align:right; line-height:1.25; }
+    .pacct .who b { display:block; font-size:0.82rem; color:#e4ede5; }
+    .pacct .who span { font-size:0.72rem; color:var(--muted); }
+    .pavatar { width:38px; height:38px; border-radius:999px; background:linear-gradient(135deg,#4aac65,#c89830); color:#0d1710; display:grid; place-items:center; font-weight:800; font-family:"Montserrat",sans-serif; }
+    .psignout { font-family:"Montserrat",sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; color:var(--muted); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:0.4rem 0.8rem; transition:color .2s,border-color .2s; white-space:nowrap; }
+    .psignout:hover { color:#e4ede5; border-color:var(--green); }
+    @media (max-width:640px) { .pacct .who { display:none; } }
+    .ptabs { background:rgba(9,18,12,0.55); border-bottom:1px solid var(--line); position:sticky; top:55px; z-index:40; }
+    .ptabs-inner { display:flex; gap:0.2rem; max-width:1200px; margin:0 auto; padding:0 5%; overflow-x:auto; scrollbar-width:none; }
+    .ptabs-inner::-webkit-scrollbar { display:none; }
+    .ptab { padding:0.85rem 1rem; font-family:"Montserrat",sans-serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:700; color:var(--muted); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; display:inline-flex; align-items:center; gap:0.5rem; transition:color .2s; }
+    .ptab:hover { color:#e4ede5; }
+    .ptab.active { color:#fff; border-bottom-color:var(--gold); }
+    .pmain { max-width:1200px; margin:0 auto; padding:2rem 5% 4rem; }
+    .phead { margin-bottom:1.4rem; }
+    .phead h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.02em; font-size:1.7rem; margin-bottom:0.3rem; }
+    .phead p { color:var(--muted); font-size:0.95rem; }
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; align-items:start; }
+    @media (max-width:820px) { .cols { grid-template-columns:1fr; } }
+    .pcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.4rem; }
+    .pcard h2 { font-family:"Montserrat",sans-serif; font-size:1.1rem; color:#fff; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+    .pcard h2 i { color:var(--gold); }
+    .field { margin-bottom:0.9rem; }
+    .field label { display:block; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:0.3rem; font-weight:600; }
+    .field input, .field select, .field textarea { width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:0.9rem; font-family:"Inter",sans-serif; outline:none; transition:border-color 0.2s; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--green); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+    @media (max-width:480px) { .row2 { grid-template-columns:1fr; } }
+    .trap { position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden; }
+    .btn { text-decoration:none; border-radius:999px; padding:0.75rem 1.2rem; font-weight:700; border:1px solid transparent; font-size:0.85rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; display:inline-flex; align-items:center; gap:0.5rem; justify-content:center; cursor:pointer; width:100%; }
+    .btn-primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; }
+    .success { background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.35); border-radius:12px; padding:1.3rem; color:#cdeed6; text-align:center; }
+    .success i { font-size:1.8rem; color:var(--green); margin-bottom:0.5rem; }
+    .success h3 { font-family:"Montserrat",sans-serif; color:#fff; margin-bottom:0.4rem; }
+    /* ticket list */
+    .tk { border:1px solid var(--line); border-radius:12px; background:var(--card-2); padding:1rem 1.1rem; margin-bottom:0.7rem; }
+    .tk-top { display:flex; justify-content:space-between; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+    .tk-id { font-family:"Montserrat",sans-serif; font-weight:800; font-size:0.82rem; color:#e4ede5; letter-spacing:0.03em; }
+    .tk-badges { display:flex; gap:0.4rem; flex-wrap:wrap; }
+    .badge { font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; padding:0.2rem 0.6rem; border-radius:999px; border:1px solid transparent; }
+    .tk-title { font-weight:600; color:#f0f4f0; font-size:0.94rem; margin-bottom:0.25rem; }
+    .tk-desc { color:var(--muted); font-size:0.86rem; }
+    .tk-meta { margin-top:0.5rem; font-size:0.76rem; color:var(--muted); display:flex; gap:1rem; flex-wrap:wrap; }
+    .tk-note { margin-top:0.6rem; font-size:0.83rem; color:#cfe0d2; background:rgba(74,172,101,0.07); border-left:2px solid var(--green); padding:0.5rem 0.7rem; border-radius:0 8px 8px 0; }
+    .tk-loading, .tk-empty { text-align:center; color:var(--muted); font-size:0.9rem; padding:1.6rem 1rem; border:1px dashed var(--line); border-radius:12px; }
+    .tk-empty i { display:block; font-size:1.5rem; color:#33513c; margin-bottom:0.4rem; }
+    .pfoot { max-width:1200px; margin:0 auto; padding:1.5rem 5% 2.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+    .pfoot a { color:var(--muted); text-decoration:none; }
+    .pfoot a:hover { color:var(--green); }
+  </style>
+</head>
+<body>
+  <div class="pbar">
+    <div class="pbar-inner">
+      <a class="pbrand" href="index.html">
+        <img src="../assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="pl"><b>Tevis Engineering</b><s>Customer Portal</s></span>
+      </a>
+      <div class="pbar-spacer"></div>
+      <div class="pacct">
+        <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
+        <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
+        <a class="psignout" href="/cdn-cgi/access/logout">Sign out</a>
+      </div>
+    </div>
+  </div>
+  <nav class="ptabs" aria-label="Portal sections">
+    <div class="ptabs-inner">
+      <a class="ptab" href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a class="ptab" href="software.html"><i class="fa-solid fa-cubes"></i> My Software</a>
+      <a class="ptab" href="billing.html"><i class="fa-solid fa-credit-card"></i> Billing</a>
+      <a class="ptab active" href="tickets.html"><i class="fa-solid fa-headset"></i> Support</a>
+      <a class="ptab" href="account.html"><i class="fa-solid fa-user-gear"></i> Account</a>
+    </div>
+  </nav>
+
+  <main class="pmain">
+    <div class="phead">
+      <h1>Support</h1>
+      <p>Open a ticket and track it through to resolution. Straight to the engineer, one-business-day reply.</p>
+    </div>
+
+    <div class="cols">
+      <!-- Submit a ticket -->
+      <section class="pcard" aria-labelledby="newTicketTitle">
+        <h2 id="newTicketTitle"><i class="fa-solid fa-plus"></i> Open a ticket</h2>
+        <div class="success" id="ticketSuccess" style="display:none;">
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>Ticket received</h3>
+          <p>Thanks &mdash; we'll reply within one business day. You'll get an email confirmation, and your ticket status will show below once it's logged.</p>
+        </div>
+        <form id="ticketForm" action="https://formspree.io/f/maqvanal" method="POST">
+          <input type="hidden" name="_subject" value="New Portal Ticket | TES">
+          <input type="hidden" name="_next" value="https://tevisengineering.com/portal/tickets.html?submitted=1">
+          <input type="hidden" name="source" value="Customer Portal">
+          <input type="text" name="website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="row2">
+            <div class="field">
+              <label for="tkName">Name</label>
+              <input id="tkName" type="text" name="name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="tkEmail">Email</label>
+              <input id="tkEmail" type="email" name="email" required autocomplete="email">
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="tkType">Issue type</label>
+              <select id="tkType" name="issue_type">
+                <option>General question</option>
+                <option>Software / app issue</option>
+                <option>Account &amp; login</option>
+                <option>Billing question</option>
+                <option>Feature request</option>
+                <option>Something is broken</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tkPriority">Priority</label>
+              <select id="tkPriority" name="priority">
+                <option>Low</option>
+                <option selected>Medium</option>
+                <option>High</option>
+                <option>Critical &mdash; business down</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tkMsg">How can we help?</label>
+            <textarea id="tkMsg" name="message" rows="5" required placeholder="Describe the issue, what you were doing, and any error messages."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Ticket</button>
+        </form>
+      </section>
+
+      <!-- Ticket status -->
+      <section class="pcard" aria-labelledby="statusTitle">
+        <h2 id="statusTitle"><i class="fa-solid fa-list-check"></i> Your tickets</h2>
+        <div id="ticketList">
+          <div class="tk-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading your tickets&hellip;</div>
+        </div>
+        <p style="margin-top:0.8rem;font-size:0.8rem;color:var(--muted);">Look up your tickets by their ticket number (e.g. <code>JS-001</code>). Client names are intentionally not shown here.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pfoot">
+    <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+    <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
+  </footer>
+
+  <script>
+    // Account identity (populated once Cloudflare Access gates the portal)
+    (function () {
+      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (id) {
+          if (!id || !id.email) return;
+          var display = id.name || id.email.split('@')[0];
+          var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
+          if (n) n.textContent = display;
+          if (e) e.textContent = id.email;
+          if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+        })
+        .catch(function () {});
+    })();
+
+    // Success state after Formspree redirect
+    (function () {
+      if (window.location.search.indexOf('submitted=1') !== -1) {
+        var s = document.getElementById('ticketSuccess'), f = document.getElementById('ticketForm');
+        if (s) s.style.display = 'block';
+        if (f) f.style.display = 'none';
+      }
+    })();
+
+    // Render ticket status from status.json
+    (function () {
+      var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e' };
+      var PRIORITY = { 'Low':'#6a8ba8', 'Medium':'#4fa2ff', 'High':'#fb923c', 'Critical':'#ef4444' };
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+      function badge(text, color) { return '<span class="badge" style="color:' + color + ';border-color:' + color + '55;background:' + color + '1a;">' + esc(text) + '</span>'; }
+      function card(t) {
+        var html = '<div class="tk">';
+        html += '<div class="tk-top"><span class="tk-id">' + esc(t.id || 'TES') + '</span><span class="tk-badges">';
+        if (t.status) html += badge(t.status, STATUS[t.status] || '#8aa48d');
+        if (t.priority) html += badge(t.priority, PRIORITY[t.priority] || '#8aa48d');
+        html += '</span></div>';
+        if (t.title) html += '<div class="tk-title">' + esc(t.title) + '</div>';
+        if (t.description) html += '<div class="tk-desc">' + esc(t.description) + '</div>';
+        html += '<div class="tk-meta">';
+        if (t.opened) html += '<span>Opened ' + esc(t.opened) + '</span>';
+        if (t.last_update) html += '<span>Updated ' + esc(t.last_update) + '</span>';
+        html += '</div>';
+        if (t.note) html += '<div class="tk-note">' + esc(t.note) + '</div>';
+        html += '</div>';
+        return html;
+      }
+      var el = document.getElementById('ticketList');
+      fetch('status.json?v=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          var tickets = (data && Array.isArray(data.tickets)) ? data.tickets : [];
+          if (!tickets.length) {
+            el.innerHTML = '<div class="tk-empty"><i class="fa-solid fa-inbox"></i>No tickets yet. Open one on the left and it will show up here once it\'s logged.</div>';
+            return;
+          }
+          el.innerHTML = tickets.map(card).join('');
+        })
+        .catch(function () {
+          el.innerHTML = '<div class="tk-empty"><i class="fa-solid fa-inbox"></i>No tickets to show yet. Open one on the left to get started.</div>';
+        });
+    })();
+  </script>
+</body>
+</html>

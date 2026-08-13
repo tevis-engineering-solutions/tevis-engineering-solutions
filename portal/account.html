@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account | TES Customer Portal</title>
+  <meta name="description" content="Manage your Tevis Engineering Solutions account profile and preferences.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://tevisengineering.com/portal/account.html">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --card-2:#1c2e22; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--text); background:radial-gradient(circle at top,#172b1c 0%,#0d1710 45%,#060e08 100%); line-height:1.6; min-height:100vh; }
+    a { color:var(--green); }
+    .pbar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .pbar-inner { display:flex; align-items:center; gap:1rem; padding:0.7rem 5%; max-width:1200px; margin:0 auto; }
+    .pbrand { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
+    .pbrand img { width:40px; height:40px; border-radius:9px; border:1px solid rgba(255,255,255,0.15); }
+    .pbrand .pl { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.06em; line-height:1.15; }
+    .pbrand .pl b { display:block; font-size:0.9rem; color:#fff; }
+    .pbrand .pl s { display:block; font-size:0.6rem; color:var(--gold); text-decoration:none; letter-spacing:0.12em; }
+    .pbar-spacer { flex:1; }
+    .pacct { display:flex; align-items:center; gap:0.75rem; }
+    .pacct .who { text-align:right; line-height:1.25; }
+    .pacct .who b { display:block; font-size:0.82rem; color:#e4ede5; }
+    .pacct .who span { font-size:0.72rem; color:var(--muted); }
+    .pavatar { width:38px; height:38px; border-radius:999px; background:linear-gradient(135deg,#4aac65,#c89830); color:#0d1710; display:grid; place-items:center; font-weight:800; font-family:"Montserrat",sans-serif; }
+    .psignout { font-family:"Montserrat",sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; color:var(--muted); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:0.4rem 0.8rem; transition:color .2s,border-color .2s; white-space:nowrap; }
+    .psignout:hover { color:#e4ede5; border-color:var(--green); }
+    @media (max-width:640px) { .pacct .who { display:none; } }
+    .ptabs { background:rgba(9,18,12,0.55); border-bottom:1px solid var(--line); position:sticky; top:55px; z-index:40; }
+    .ptabs-inner { display:flex; gap:0.2rem; max-width:1200px; margin:0 auto; padding:0 5%; overflow-x:auto; scrollbar-width:none; }
+    .ptabs-inner::-webkit-scrollbar { display:none; }
+    .ptab { padding:0.85rem 1rem; font-family:"Montserrat",sans-serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:700; color:var(--muted); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; display:inline-flex; align-items:center; gap:0.5rem; transition:color .2s; }
+    .ptab:hover { color:#e4ede5; }
+    .ptab.active { color:#fff; border-bottom-color:var(--gold); }
+    .pmain { max-width:1200px; margin:0 auto; padding:2rem 5% 4rem; }
+    .phead { margin-bottom:1.4rem; }
+    .phead h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.02em; font-size:1.7rem; margin-bottom:0.3rem; }
+    .phead p { color:var(--muted); font-size:0.95rem; }
+    .pgrid { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; align-items:start; }
+    @media (max-width:820px) { .pgrid { grid-template-columns:1fr; } }
+    .pcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.4rem; }
+    .pcard h2 { font-family:"Montserrat",sans-serif; font-size:1.05rem; color:#fff; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+    .pcard h2 i { color:var(--gold); }
+    .kv { display:flex; justify-content:space-between; gap:1rem; padding:0.65rem 0; border-bottom:1px solid var(--line); font-size:0.9rem; }
+    .kv:last-of-type { border-bottom:none; }
+    .kv .k { color:var(--muted); }
+    .kv .v { color:#e4ede5; font-weight:500; text-align:right; }
+    .note { font-size:0.82rem; color:var(--muted); margin-top:0.9rem; }
+    .secline { display:flex; gap:0.7rem; align-items:flex-start; font-size:0.88rem; color:#cfe0d2; margin-bottom:0.8rem; }
+    .secline i { color:var(--green); margin-top:0.15rem; }
+    .btn { text-decoration:none; border-radius:999px; padding:0.65rem 1.05rem; font-weight:700; border:1px solid transparent; font-size:0.8rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-ghost { border-color:var(--line); color:#cfe0d2; background:var(--card); }
+    .btn-ghost:hover { border-color:var(--green); }
+    .btn-danger { border-color:rgba(239,68,68,0.4); color:#f3b4b4; background:rgba(239,68,68,0.08); }
+    .btn-danger:hover { border-color:#ef4444; }
+    .toggle-row { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:0.6rem 0; border-bottom:1px solid var(--line); }
+    .toggle-row:last-child { border-bottom:none; }
+    .toggle-row span { font-size:0.88rem; color:#cfe0d2; }
+    .sw { width:40px; height:22px; border-radius:999px; background:var(--card-2); border:1px solid var(--line); position:relative; flex-shrink:0; }
+    .sw.on { background:rgba(74,172,101,0.3); border-color:var(--green); }
+    .sw::after { content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:999px; background:var(--muted); transition:transform .2s,background .2s; }
+    .sw.on::after { transform:translateX(18px); background:var(--green); }
+    .pfoot { max-width:1200px; margin:0 auto; padding:1.5rem 5% 2.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+    .pfoot a { color:var(--muted); text-decoration:none; }
+    .pfoot a:hover { color:var(--green); }
+  </style>
+</head>
+<body>
+  <div class="pbar">
+    <div class="pbar-inner">
+      <a class="pbrand" href="index.html">
+        <img src="../assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="pl"><b>Tevis Engineering</b><s>Customer Portal</s></span>
+      </a>
+      <div class="pbar-spacer"></div>
+      <div class="pacct">
+        <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
+        <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
+        <a class="psignout" href="/cdn-cgi/access/logout">Sign out</a>
+      </div>
+    </div>
+  </div>
+  <nav class="ptabs" aria-label="Portal sections">
+    <div class="ptabs-inner">
+      <a class="ptab" href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a class="ptab" href="software.html"><i class="fa-solid fa-cubes"></i> My Software</a>
+      <a class="ptab" href="billing.html"><i class="fa-solid fa-credit-card"></i> Billing</a>
+      <a class="ptab" href="tickets.html"><i class="fa-solid fa-headset"></i> Support</a>
+      <a class="ptab active" href="account.html"><i class="fa-solid fa-user-gear"></i> Account</a>
+    </div>
+  </nav>
+
+  <main class="pmain">
+    <div class="phead">
+      <h1>Account</h1>
+      <p>Your profile, sign-in, and notification preferences.</p>
+    </div>
+
+    <div class="pgrid">
+      <section class="pcard">
+        <h2><i class="fa-solid fa-id-card"></i> Profile</h2>
+        <div class="kv"><span class="k">Name</span><span class="v" id="pfName">&mdash;</span></div>
+        <div class="kv"><span class="k">Email</span><span class="v" id="pfEmail">&mdash;</span></div>
+        <div class="kv"><span class="k">Company</span><span class="v" id="pfCompany">&mdash;</span></div>
+        <p class="note">Your name and email come from the account you sign in with. To update your company details or contacts, <a href="../contact.html">contact us</a> and we'll take care of it.</p>
+      </section>
+
+      <section class="pcard">
+        <h2><i class="fa-solid fa-shield-halved"></i> Sign-in &amp; security</h2>
+        <div class="secline"><i class="fa-solid fa-circle-check"></i><span>You're signed in securely through Cloudflare Access &mdash; with Google or a one-time email code.</span></div>
+        <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Tevis Engineering never sees or stores a password for your account.</span></div>
+        <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Sessions expire automatically, so an unattended device won't stay signed in.</span></div>
+        <a class="btn btn-ghost" href="/cdn-cgi/access/logout" style="margin-top:0.6rem;"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+      </section>
+
+      <section class="pcard">
+        <h2><i class="fa-solid fa-bell"></i> Notifications</h2>
+        <div class="toggle-row"><span>Product updates &amp; new features</span><span class="sw on" role="switch" aria-checked="true" aria-label="Product updates"></span></div>
+        <div class="toggle-row"><span>Billing &amp; renewal reminders</span><span class="sw on" role="switch" aria-checked="true" aria-label="Billing reminders"></span></div>
+        <div class="toggle-row"><span>Ticket status changes</span><span class="sw on" role="switch" aria-checked="true" aria-label="Ticket updates"></span></div>
+        <p class="note">Preference controls activate once your account is linked. Essential account and security emails are always sent.</p>
+      </section>
+
+      <section class="pcard">
+        <h2><i class="fa-solid fa-gear"></i> Account actions</h2>
+        <p class="note" style="margin-top:0;">Need to change the email on your account, add a teammate, or close your account? We'll handle it personally.</p>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.9rem;">
+          <a class="btn btn-ghost" href="../contact.html"><i class="fa-solid fa-envelope"></i> Contact TES</a>
+          <a class="btn btn-danger" href="../contact.html"><i class="fa-solid fa-user-slash"></i> Close Account</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pfoot">
+    <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+    <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
+  </footer>
+
+  <script>
+    (function () {
+      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (id) {
+          if (!id || !id.email) return;
+          var display = id.name || id.email.split('@')[0];
+          var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
+          if (n) n.textContent = display;
+          if (e) e.textContent = id.email;
+          if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+          var pn = document.getElementById('pfName'), pe = document.getElementById('pfEmail');
+          if (pn) pn.textContent = display;
+          if (pe) pe.textContent = id.email;
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
+</html>

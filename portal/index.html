@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | TES Customer Portal</title>
+  <meta name="description" content="Tevis Engineering Solutions customer portal dashboard.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://tevisengineering.com/portal/index.html">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --card-2:#1c2e22; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--text); background:radial-gradient(circle at top,#172b1c 0%,#0d1710 45%,#060e08 100%); line-height:1.6; min-height:100vh; }
+    a { color:var(--green); }
+    /* portal top bar */
+    .pbar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .pbar-inner { display:flex; align-items:center; gap:1rem; padding:0.7rem 5%; max-width:1200px; margin:0 auto; }
+    .pbrand { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
+    .pbrand img { width:40px; height:40px; border-radius:9px; border:1px solid rgba(255,255,255,0.15); }
+    .pbrand .pl { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.06em; line-height:1.15; }
+    .pbrand .pl b { display:block; font-size:0.9rem; color:#fff; }
+    .pbrand .pl s { display:block; font-size:0.6rem; color:var(--gold); text-decoration:none; letter-spacing:0.12em; }
+    .pbar-spacer { flex:1; }
+    .pacct { display:flex; align-items:center; gap:0.75rem; }
+    .pacct .who { text-align:right; line-height:1.25; }
+    .pacct .who b { display:block; font-size:0.82rem; color:#e4ede5; }
+    .pacct .who span { font-size:0.72rem; color:var(--muted); }
+    .pavatar { width:38px; height:38px; border-radius:999px; background:linear-gradient(135deg,#4aac65,#c89830); color:#0d1710; display:grid; place-items:center; font-weight:800; font-family:"Montserrat",sans-serif; }
+    .psignout { font-family:"Montserrat",sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; color:var(--muted); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:0.4rem 0.8rem; transition:color .2s,border-color .2s; white-space:nowrap; }
+    .psignout:hover { color:#e4ede5; border-color:var(--green); }
+    @media (max-width:640px) { .pacct .who { display:none; } }
+    /* tabs */
+    .ptabs { background:rgba(9,18,12,0.55); border-bottom:1px solid var(--line); position:sticky; top:55px; z-index:40; }
+    .ptabs-inner { display:flex; gap:0.2rem; max-width:1200px; margin:0 auto; padding:0 5%; overflow-x:auto; scrollbar-width:none; }
+    .ptabs-inner::-webkit-scrollbar { display:none; }
+    .ptab { padding:0.85rem 1rem; font-family:"Montserrat",sans-serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:700; color:var(--muted); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; display:inline-flex; align-items:center; gap:0.5rem; transition:color .2s; }
+    .ptab:hover { color:#e4ede5; }
+    .ptab.active { color:#fff; border-bottom-color:var(--gold); }
+    .ptab i { font-size:0.85rem; }
+    /* main */
+    .pmain { max-width:1200px; margin:0 auto; padding:2rem 5% 4rem; }
+    .phead { margin-bottom:1.4rem; }
+    .phead h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.02em; font-size:1.7rem; margin-bottom:0.3rem; }
+    .phead p { color:var(--muted); font-size:0.95rem; }
+    .pill { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.25rem 0.7rem; border-radius:999px; }
+    .pill.muted { background:var(--card-2); color:var(--muted); border:1px solid var(--line); }
+    .pill.ok { background:rgba(74,172,101,0.15); color:#9fe3b4; border:1px solid rgba(74,172,101,0.4); }
+    .pill.gold { background:rgba(200,152,48,0.12); color:#e6c68a; border:1px solid rgba(200,152,48,0.35); }
+    /* info banner */
+    .pbanner { display:flex; gap:0.8rem; align-items:flex-start; background:rgba(200,152,48,0.09); border:1px solid rgba(200,152,48,0.3); border-radius:12px; padding:0.9rem 1.1rem; margin-bottom:1.5rem; color:#ecd9b3; font-size:0.9rem; }
+    .pbanner i { color:var(--gold); margin-top:0.15rem; }
+    .pbanner b { color:#f2e2c0; }
+    /* cards */
+    .pgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
+    .pcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.3rem; display:flex; flex-direction:column; }
+    .pcard .ic { width:40px; height:40px; border-radius:11px; background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.22); color:var(--green); display:grid; place-items:center; font-size:1.05rem; margin-bottom:0.9rem; }
+    .pcard h2 { font-family:"Montserrat",sans-serif; font-size:1.05rem; color:#fff; margin-bottom:0.35rem; }
+    .pcard p { color:var(--muted); font-size:0.9rem; margin-bottom:0.9rem; }
+    .pcard .status { font-size:0.82rem; color:#cfe0d2; margin-bottom:0.9rem; }
+    .pcard .plink { margin-top:auto; display:inline-flex; align-items:center; gap:0.45rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--green); text-decoration:none; }
+    .pcard .plink:hover { color:var(--gold); }
+    .quick { margin-top:1.5rem; display:flex; gap:0.7rem; flex-wrap:wrap; }
+    .qbtn { display:inline-flex; align-items:center; gap:0.5rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.03em; text-decoration:none; border-radius:999px; padding:0.7rem 1.1rem; }
+    .qbtn.primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; }
+    .qbtn.ghost { border:1px solid var(--line); color:#cfe0d2; background:var(--card); }
+    .qbtn.ghost:hover { border-color:var(--green); }
+    .pfoot { max-width:1200px; margin:0 auto; padding:1.5rem 5% 2.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+    .pfoot a { color:var(--muted); text-decoration:none; }
+    .pfoot a:hover { color:var(--green); }
+  </style>
+</head>
+<body>
+  <!-- portal top bar -->
+  <div class="pbar">
+    <div class="pbar-inner">
+      <a class="pbrand" href="index.html">
+        <img src="../assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="pl"><b>Tevis Engineering</b><s>Customer Portal</s></span>
+      </a>
+      <div class="pbar-spacer"></div>
+      <div class="pacct">
+        <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
+        <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
+        <!-- Cloudflare Access logout endpoint (active once Access gates /portal/*) -->
+        <a class="psignout" href="/cdn-cgi/access/logout">Sign out</a>
+      </div>
+    </div>
+  </div>
+  <!-- section tabs -->
+  <nav class="ptabs" aria-label="Portal sections">
+    <div class="ptabs-inner">
+      <a class="ptab active" href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a class="ptab" href="software.html"><i class="fa-solid fa-cubes"></i> My Software</a>
+      <a class="ptab" href="billing.html"><i class="fa-solid fa-credit-card"></i> Billing</a>
+      <a class="ptab" href="tickets.html"><i class="fa-solid fa-headset"></i> Support</a>
+      <a class="ptab" href="account.html"><i class="fa-solid fa-user-gear"></i> Account</a>
+    </div>
+  </nav>
+
+  <main class="pmain">
+    <div class="phead">
+      <h1>Welcome to your portal</h1>
+      <p>Manage your TES software, subscriptions, billing, and support in one place.</p>
+    </div>
+
+    <div class="pbanner">
+      <i class="fa-solid fa-circle-info"></i>
+      <div><b>Setting things up.</b> Your live license, plan, and usage data will appear here as soon as your account is linked. <strong>Billing and support are active right now</strong> &mdash; pay an invoice or open a ticket any time below.</div>
+    </div>
+
+    <div class="pgrid">
+      <div class="pcard">
+        <div class="ic"><i class="fa-solid fa-cubes"></i></div>
+        <h2>My Software</h2>
+        <p>License keys, downloads, activation, and usage for your TES applications.</p>
+        <div class="status"><span class="pill muted">No active products yet</span></div>
+        <a class="plink" href="software.html">Open My Software <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="pcard">
+        <div class="ic"><i class="fa-solid fa-credit-card"></i></div>
+        <h2>Billing</h2>
+        <p>Pay an invoice, manage your subscription, and review payment history.</p>
+        <div class="status"><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Active</span></div>
+        <a class="plink" href="billing.html">Open Billing <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="pcard">
+        <div class="ic"><i class="fa-solid fa-headset"></i></div>
+        <h2>Support</h2>
+        <p>Open a support ticket and track its status through to resolution.</p>
+        <div class="status"><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Active</span></div>
+        <a class="plink" href="tickets.html">Open Support <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="pcard">
+        <div class="ic"><i class="fa-solid fa-user-gear"></i></div>
+        <h2>Account</h2>
+        <p>Your profile, company details, and notification preferences.</p>
+        <div class="status"><span class="pill muted">Profile</span></div>
+        <a class="plink" href="account.html">Open Account <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="quick">
+      <a class="qbtn primary" href="../pay_invoice.html"><i class="fa-solid fa-credit-card"></i> Pay an Invoice</a>
+      <a class="qbtn ghost" href="tickets.html"><i class="fa-solid fa-plus"></i> Open a Ticket</a>
+      <a class="qbtn ghost" href="../software.html"><i class="fa-solid fa-laptop-code"></i> Explore Software</a>
+    </div>
+  </main>
+
+  <footer class="pfoot">
+    <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+    <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
+  </footer>
+
+  <script>
+    // Populate the account name/avatar from the Cloudflare Access identity when available.
+    // Access exposes the signed-in email at /cdn-cgi/access/get-identity once the app is gated.
+    (function () {
+      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (id) {
+          if (!id || !id.email) return;
+          var email = id.email;
+          var nameEl = document.getElementById('acctName');
+          var emailEl = document.getElementById('acctEmail');
+          var avatarEl = document.getElementById('acctAvatar');
+          var display = id.name || email.split('@')[0];
+          if (nameEl) nameEl.textContent = display;
+          if (emailEl) emailEl.textContent = email;
+          if (avatarEl) avatarEl.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+        })
+        .catch(function () { /* not gated yet — leave defaults */ });
+    })();
+  </script>
+</body>
+</html>

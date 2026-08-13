@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Software | TES Customer Portal</title>
+  <meta name="description" content="Manage your Tevis Engineering Solutions software licenses, downloads, and usage.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://tevisengineering.com/portal/software.html">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --card-2:#1c2e22; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--text); background:radial-gradient(circle at top,#172b1c 0%,#0d1710 45%,#060e08 100%); line-height:1.6; min-height:100vh; }
+    a { color:var(--green); }
+    .pbar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .pbar-inner { display:flex; align-items:center; gap:1rem; padding:0.7rem 5%; max-width:1200px; margin:0 auto; }
+    .pbrand { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
+    .pbrand img { width:40px; height:40px; border-radius:9px; border:1px solid rgba(255,255,255,0.15); }
+    .pbrand .pl { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.06em; line-height:1.15; }
+    .pbrand .pl b { display:block; font-size:0.9rem; color:#fff; }
+    .pbrand .pl s { display:block; font-size:0.6rem; color:var(--gold); text-decoration:none; letter-spacing:0.12em; }
+    .pbar-spacer { flex:1; }
+    .pacct { display:flex; align-items:center; gap:0.75rem; }
+    .pacct .who { text-align:right; line-height:1.25; }
+    .pacct .who b { display:block; font-size:0.82rem; color:#e4ede5; }
+    .pacct .who span { font-size:0.72rem; color:var(--muted); }
+    .pavatar { width:38px; height:38px; border-radius:999px; background:linear-gradient(135deg,#4aac65,#c89830); color:#0d1710; display:grid; place-items:center; font-weight:800; font-family:"Montserrat",sans-serif; }
+    .psignout { font-family:"Montserrat",sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; color:var(--muted); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:0.4rem 0.8rem; transition:color .2s,border-color .2s; white-space:nowrap; }
+    .psignout:hover { color:#e4ede5; border-color:var(--green); }
+    @media (max-width:640px) { .pacct .who { display:none; } }
+    .ptabs { background:rgba(9,18,12,0.55); border-bottom:1px solid var(--line); position:sticky; top:55px; z-index:40; }
+    .ptabs-inner { display:flex; gap:0.2rem; max-width:1200px; margin:0 auto; padding:0 5%; overflow-x:auto; scrollbar-width:none; }
+    .ptabs-inner::-webkit-scrollbar { display:none; }
+    .ptab { padding:0.85rem 1rem; font-family:"Montserrat",sans-serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:700; color:var(--muted); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; display:inline-flex; align-items:center; gap:0.5rem; transition:color .2s; }
+    .ptab:hover { color:#e4ede5; }
+    .ptab.active { color:#fff; border-bottom-color:var(--gold); }
+    .pmain { max-width:1200px; margin:0 auto; padding:2rem 5% 4rem; }
+    .phead { margin-bottom:1.4rem; }
+    .phead h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.02em; font-size:1.7rem; margin-bottom:0.3rem; }
+    .phead p { color:var(--muted); font-size:0.95rem; }
+    .pcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.3rem; }
+    .empty { text-align:center; padding:2.6rem 1.5rem; background:var(--card); border:1px dashed var(--line); border-radius:14px; }
+    .empty .ei { font-size:2.3rem; color:#33513c; margin-bottom:0.8rem; }
+    .empty h2 { font-family:"Montserrat",sans-serif; font-size:1.2rem; color:#e4ede5; margin-bottom:0.4rem; }
+    .empty p { color:var(--muted); max-width:480px; margin:0 auto 1.3rem; font-size:0.92rem; }
+    .btn { text-decoration:none; border-radius:999px; padding:0.7rem 1.1rem; font-weight:700; border:1px solid transparent; font-size:0.82rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; }
+    .btn-ghost { border-color:var(--line); color:#cfe0d2; background:var(--card); }
+    .btn-ghost:hover { border-color:var(--green); }
+    .sec-title { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:1rem; color:#f1f7f1; margin:2rem 0 0.8rem; }
+    .manage-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0.9rem; }
+    .mtile { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1.05rem; }
+    .mtile i { color:var(--gold); font-size:1.1rem; }
+    .mtile h3 { font-family:"Montserrat",sans-serif; font-size:0.95rem; color:#e4ede5; margin:0.5rem 0 0.3rem; }
+    .mtile p { color:var(--muted); font-size:0.86rem; }
+    .pfoot { max-width:1200px; margin:0 auto; padding:1.5rem 5% 2.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+    .pfoot a { color:var(--muted); text-decoration:none; }
+    .pfoot a:hover { color:var(--green); }
+  </style>
+</head>
+<body>
+  <div class="pbar">
+    <div class="pbar-inner">
+      <a class="pbrand" href="index.html">
+        <img src="../assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="pl"><b>Tevis Engineering</b><s>Customer Portal</s></span>
+      </a>
+      <div class="pbar-spacer"></div>
+      <div class="pacct">
+        <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
+        <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
+        <a class="psignout" href="/cdn-cgi/access/logout">Sign out</a>
+      </div>
+    </div>
+  </div>
+  <nav class="ptabs" aria-label="Portal sections">
+    <div class="ptabs-inner">
+      <a class="ptab" href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a class="ptab active" href="software.html"><i class="fa-solid fa-cubes"></i> My Software</a>
+      <a class="ptab" href="billing.html"><i class="fa-solid fa-credit-card"></i> Billing</a>
+      <a class="ptab" href="tickets.html"><i class="fa-solid fa-headset"></i> Support</a>
+      <a class="ptab" href="account.html"><i class="fa-solid fa-user-gear"></i> Account</a>
+    </div>
+  </nav>
+
+  <main class="pmain">
+    <div class="phead">
+      <h1>My Software</h1>
+      <p>License keys, downloads, activation, and usage for your TES applications.</p>
+    </div>
+
+    <div class="empty">
+      <div class="ei"><i class="fa-solid fa-cubes"></i></div>
+      <h2>No active products yet</h2>
+      <p>Once you start a subscription or purchase a TES application, your license key, plan, usage, and downloads will appear right here.</p>
+      <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="../software.html"><i class="fa-solid fa-laptop-code"></i> Browse Software</a>
+        <a class="btn btn-ghost" href="../ohio-crash-report-analysis-tool.html#get-started"><i class="fa-solid fa-bolt"></i> Start a Free Trial</a>
+      </div>
+    </div>
+
+    <h2 class="sec-title">What you'll manage here</h2>
+    <div class="manage-grid">
+      <div class="mtile">
+        <i class="fa-solid fa-key"></i>
+        <h3>License key &amp; activation</h3>
+        <p>Your license key (kept masked) and step-by-step activation for each machine.</p>
+      </div>
+      <div class="mtile">
+        <i class="fa-solid fa-gauge"></i>
+        <h3>Plan &amp; usage</h3>
+        <p>Your current plan, renewal date, and a live meter of reports used this period.</p>
+      </div>
+      <div class="mtile">
+        <i class="fa-solid fa-download"></i>
+        <h3>Downloads &amp; updates</h3>
+        <p>The latest installer and release notes, so you're always on the current version.</p>
+      </div>
+      <div class="mtile">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <h3>Manage subscription</h3>
+        <p>Upgrade, add counties or agencies, or change your plan whenever you need to.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pfoot">
+    <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+    <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
+  </footer>
+
+  <script>
+    (function () {
+      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (id) {
+          if (!id || !id.email) return;
+          var display = id.name || id.email.split('@')[0];
+          var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
+          if (n) n.textContent = display;
+          if (e) e.textContent = id.email;
+          if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
+</html>

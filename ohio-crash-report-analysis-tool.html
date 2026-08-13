@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ohio Crash Report Analysis Tool | Tevis Engineering Solutions</title>
+  <meta name="description" content="The Ohio Crash Report Analysis Tool turns Ohio's official crash reports into a clean, de-duplicated audience of injury-crash leads — name, address, injury, county — for personal-injury law firms and injury-care practices. Own it, subscribe, or get the data delivered. Built in Cleveland, Ohio.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tevis Engineering Solutions">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://tevisengineering.com/ohio-crash-report-analysis-tool.html">
+  <meta property="og:title" content="Ohio Crash Report Analysis Tool | Tevis Engineering Solutions">
+  <meta property="og:description" content="Turn Ohio's official crash reports into an owned pipeline of injury-crash leads — for a fraction of what brokers charge. Own it, subscribe, or get the data delivered.">
+  <meta property="og:image" content="https://tevisengineering.com/assets/crash/lead-dashboard.png">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="1167">
+  <meta property="og:image:alt" content="Ohio Crash List lead dashboard — summary tiles, injury-leads-by-county chart, and an exportable lead table.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ohio Crash Report Analysis Tool | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Turn Ohio's official crash reports into an owned pipeline of injury-crash leads — for a fraction of what brokers charge.">
+  <meta name="twitter:image" content="https://tevisengineering.com/assets/crash/lead-dashboard.png">
+  <link rel="canonical" href="https://tevisengineering.com/ohio-crash-report-analysis-tool.html">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0d1710;
+      --card: #142019;
+      --card-2: #1c2e22;
+      --line: #2c4232;
+      --text: #e4ede5;
+      --muted: #8aa48d;
+      --blue: #4aac65;
+      --green: #4aac65;
+      --gold: #c89830;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #172b1c 0%, #0d1710 45%, #060e08 100%);
+      line-height: 1.65;
+    }
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    .hero { padding: 3.5rem 0 2rem; text-align: left; }
+    .eyebrow { display:inline-flex; align-items:center; gap:0.4rem; border:1px solid rgba(74,172,101,0.45); border-radius:999px; padding:0.32rem 0.8rem; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#cdeed6; background:rgba(74,172,101,0.12); margin-bottom:0.9rem; }
+    h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.02em; font-size:clamp(2rem,6vw,3.15rem); line-height:1.12; margin-bottom:0.9rem; }
+    h1 .grad { background:linear-gradient(90deg,#4aac65,#c89830); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero p { max-width:900px; color:var(--muted); font-size:1.05rem; }
+    .cta-row { margin-top:1.4rem; display:flex; gap:0.8rem; flex-wrap:wrap; }
+    .btn { text-decoration:none; border-radius:999px; padding:0.78rem 1.2rem; font-weight:700; border:1px solid transparent; font-size:0.9rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; cursor:pointer; }
+    .btn-primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; box-shadow:0 10px 20px rgba(200,152,48,0.25); }
+    .btn-secondary { border-color:rgba(74,172,101,0.4); background:rgba(74,172,101,0.1); color:#cdeed6; }
+    .section { margin-top:1.25rem; background:rgba(20,32,25,0.74); border:1px solid var(--line); border-radius:16px; padding:1.5rem; }
+    .section h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin-bottom:0.75rem; color:#f1f7f1; }
+    .section h2 .gold { color:var(--gold); }
+    .section > p { color:var(--muted); margin-bottom:0.7rem; }
+    .section p strong, .section li strong { color:#dfeadf; }
+    .lead-line { font-size:1.08rem; color:#cfe0d2 !important; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:0.85rem; margin-top:0.85rem; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem; }
+    .card h3 { font-family:"Montserrat",sans-serif; font-size:1rem; margin-bottom:0.5rem; color:#e4ede5; display:flex; align-items:center; gap:0.55rem; }
+    .card h3 i { color:var(--gold); width:1.1rem; text-align:center; }
+    .card p, .card li { font-size:0.95rem; color:#bcd0bf; }
+    ul.ticks { list-style:none; margin-top:0.35rem; }
+    ul.ticks li { position:relative; padding-left:1.4rem; margin-bottom:0.45rem; }
+    ul.ticks li::before { content:"\2713"; position:absolute; left:0; top:0.05rem; color:var(--green); font-weight:700; }
+
+    /* stat tiles */
+    .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.8rem; margin-top:1.6rem; }
+    .stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:0.9rem 1rem; }
+    .stat b { display:block; font-family:"Montserrat",sans-serif; font-size:1.55rem; font-weight:800; line-height:1.1; background:linear-gradient(90deg,#4aac65,#c89830); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .stat span { display:block; font-size:0.8rem; color:var(--muted); margin-top:0.25rem; }
+
+    /* screenshots */
+    .shot { margin-top:0.9rem; }
+    .shot img { display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:12px; box-shadow:0 14px 40px rgba(0,0,0,0.4); background:#0b120d; }
+    .shot figcaption { margin-top:0.6rem; font-size:0.85rem; color:var(--muted); line-height:1.55; }
+    .shot figcaption .tag { display:inline-block; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); font-weight:800; margin-right:0.5rem; }
+    .shot figcaption b { color:#cfe0d2; }
+    .shots-2 { display:grid; grid-template-columns:1.55fr 1fr; gap:1rem; align-items:start; margin-top:0.9rem; }
+    @media (max-width:760px) { .shots-2 { grid-template-columns:1fr; } }
+
+    /* process */
+    .process { counter-reset:flow; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; margin-top:0.7rem; }
+    .process-step { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:0.95rem; position:relative; }
+    .process-step::before { counter-increment:flow; content:counter(flow); position:absolute; top:-10px; right:10px; width:24px; height:24px; border-radius:999px; display:grid; place-items:center; font-size:0.78rem; font-weight:800; color:#0d1710; background:linear-gradient(135deg,#c89830,#e0b840); }
+    .process-step strong { display:block; margin-bottom:0.35rem; color:#dfeadf; }
+    .process-step p { color:var(--muted); font-size:0.92rem; }
+
+    /* notice / callout */
+    .notice { margin-top:0.95rem; border-radius:12px; border:1px solid rgba(200,152,48,0.34); background:rgba(200,152,48,0.09); padding:0.9rem 1rem; color:#ecd9b3; font-size:0.94rem; }
+    .notice b { color:#f2e2c0; }
+
+    /* comparison tables */
+    .ptable-wrap { overflow-x:auto; margin-top:0.85rem; border:1px solid var(--line); border-radius:12px; }
+    .ptable { width:100%; border-collapse:collapse; font-size:0.92rem; min-width:520px; }
+    .ptable th, .ptable td { text-align:left; padding:0.65rem 0.85rem; border-bottom:1px solid var(--line); vertical-align:top; }
+    .ptable thead th { color:var(--gold); text-transform:uppercase; font-size:0.68rem; letter-spacing:0.06em; font-family:"Montserrat",sans-serif; background:rgba(255,255,255,0.02); }
+    .ptable tbody tr:last-child td { border-bottom:none; }
+    .ptable td.rowlab { color:#dfeadf; font-weight:600; }
+    .ptable .hl { background:rgba(74,172,101,0.09); color:#eaf3ec; }
+    .ptable thead th.hl { color:#9fe3b4; }
+
+    /* pricing model cards */
+    .models { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1rem; }
+    .model { position:relative; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.3rem 1.15rem; }
+    .model.feat { border:2px solid var(--gold); box-shadow:0 10px 30px rgba(200,152,48,0.16); }
+    .model .rec { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#c89830,#e0b840); color:#3a2c07; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:800; padding:4px 12px; border-radius:999px; white-space:nowrap; }
+    .model h3 { font-family:"Montserrat",sans-serif; font-size:1.1rem; color:#fff; text-align:center; margin-bottom:0.4rem; }
+    .model .mprice { font-family:"Montserrat",sans-serif; font-size:1.7rem; font-weight:800; color:var(--green); text-align:center; line-height:1; margin-bottom:0.7rem; }
+    .model .mprice small { font-size:0.55em; color:var(--muted); font-weight:500; }
+    .model p { font-size:0.9rem; color:#bcd0bf; margin-bottom:0.6rem; }
+    .model .fit { font-size:0.82rem; color:var(--muted); text-align:center; margin-top:0.4rem; }
+    .model .fit b { color:var(--gold); font-weight:700; }
+
+    /* subscription plan cards */
+    .plans { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:1rem; margin-top:1.1rem; align-items:start; }
+    .plan { position:relative; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.4rem 1.15rem; text-align:center; }
+    .plan.feat { border:2px solid var(--gold); box-shadow:0 10px 30px rgba(200,152,48,0.16); }
+    .plan .ribbon { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#c89830,#e0b840); color:#3a2c07; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:800; padding:4px 13px; border-radius:999px; white-space:nowrap; }
+    .plan .pname { font-family:"Montserrat",sans-serif; font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:0.6rem; }
+    .plan .price { font-family:"Montserrat",sans-serif; font-size:2rem; font-weight:800; color:var(--green); line-height:1; }
+    .plan .price small { font-size:0.42em; color:var(--muted); font-weight:500; }
+    .plan .annual { font-size:0.78rem; color:var(--gold); font-weight:700; margin-top:0.45rem; }
+    .plan ul.spec { list-style:none; text-align:left; margin:1rem 0 1.1rem; }
+    .plan ul.spec li { position:relative; padding-left:1.4rem; margin-bottom:0.5rem; font-size:0.85rem; color:#bcd0bf; }
+    .plan ul.spec li::before { content:"\2713"; position:absolute; left:0; top:0.05rem; color:var(--gold); font-weight:700; }
+    .plan .btn { display:block; font-size:0.8rem; padding:0.6rem 1rem; }
+
+    .incl { list-style:none; margin-top:1rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0.5rem 1.4rem; }
+    .incl li { position:relative; padding-left:1.4rem; font-size:0.9rem; color:#cfe0d2; }
+    .incl li::before { content:"\2713"; position:absolute; left:0; top:0.05rem; color:var(--gold); font-weight:700; }
+
+    .fields { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.6rem; }
+    .fields code { font-family:"Inter",sans-serif; font-size:0.82rem; background:var(--card); border:1px solid var(--line); border-radius:6px; padding:0.28rem 0.6rem; color:#cfe0d2; }
+
+    /* FAQ */
+    .faq { margin-top:0.6rem; }
+    .faq details { border:1px solid var(--line); border-radius:12px; background:var(--card); margin-bottom:0.6rem; overflow:hidden; }
+    .faq summary { cursor:pointer; padding:0.9rem 1rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.98rem; color:#e4ede5; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; color:var(--gold); font-weight:800; font-size:1.2rem; }
+    .faq details[open] summary::after { content:"\2212"; }
+    .faq details[open] summary { border-bottom:1px solid var(--line); }
+    .faq .faq-a { padding:0.9rem 1rem; color:var(--muted); font-size:0.95rem; }
+
+    /* CTA band + request form */
+    .cta-band { margin-top:1.25rem; background:radial-gradient(120% 130% at 50% 0%,rgba(74,172,101,0.14),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.28); border-radius:16px; padding:1.8rem 1.5rem; text-align:center; }
+    .cta-band h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.4rem; color:#fff; margin-bottom:0.5rem; }
+    .cta-band p { color:var(--muted); max-width:640px; margin:0 auto 1.2rem; }
+    .req-form { max-width:640px; margin:1.2rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; text-align:left; }
+    .req-form .full { grid-column:1 / -1; }
+    .req-form label { display:block; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:0.3rem; font-weight:600; }
+    .req-form input, .req-form select, .req-form textarea { width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:0.9rem; font-family:"Inter",sans-serif; outline:none; transition:border-color 0.2s; }
+    .req-form input:focus, .req-form select:focus, .req-form textarea:focus { border-color:var(--green); }
+    .req-form .trap { position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden; }
+    .req-form button { grid-column:1 / -1; }
+    .req-success { max-width:640px; margin:1rem auto 0; background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.35); border-radius:12px; padding:1.2rem; color:#cdeed6; }
+    @media (max-width:560px) { .req-form { grid-template-columns:1fr; } }
+
+    .mini-note { margin-top:0.75rem; font-size:0.88rem; color:var(--muted); }
+    .breadcrumbs { padding:1.25rem 0 0; font-size:0.82rem; color:var(--muted); }
+    .breadcrumbs a { color:var(--muted); text-decoration:none; }
+    .breadcrumbs a:hover { color:var(--green); }
+    @media (max-width:700px) { .hero { padding-top:2.8rem; } .section { padding:1.1rem; } }
+    @media (max-width:480px) { .hero { padding:2.2rem 0 1.5rem; } .cta-row { flex-direction:column; align-items:stretch; } .cta-row .btn { text-align:center; } .process { grid-template-columns:1fr; } }
+
+    /* Newsletter signup */
+    .newsletter-section { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 3.5rem 5%; margin-top: 4rem; }
+    .newsletter-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .newsletter-heading { font-family: "Montserrat", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .newsletter-sub { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.75rem; }
+    .newsletter-form { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+    .newsletter-input { flex: 1 1 220px; max-width: 320px; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 0.95rem; font-family: "Inter", sans-serif; outline: none; transition: border-color 0.2s; }
+    .newsletter-input:focus { border-color: var(--blue); }
+    .newsletter-btn { padding: 0.7rem 1.5rem; border-radius: 8px; border: none; background: var(--blue); color: #fff; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.2s; }
+    .newsletter-btn:hover { opacity: 0.85; }
+    .newsletter-fine { margin-top: 1rem; font-size: 0.78rem; color: var(--muted); }
+    .newsletter-fine a { color: var(--muted); text-decoration: underline; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    /* ===== TES NAV ===== */
+    .tnav-bar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.9); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
+    .tnav-inner { display:flex; align-items:center; gap:1.25rem; padding:0.8rem 5%; max-width:1280px; margin:0 auto; }
+    .tnav-brand { display:flex; align-items:center; gap:0.8rem; cursor:pointer; text-decoration:none; }
+    .tnav-brand img { width:44px; height:44px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); }
+    .tnav-brand .bn { display:flex; flex-direction:column; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.08em; line-height:1.15; }
+    .tnav-brand .bn b { font-size:1rem; font-weight:800; color:#fff; }
+    .tnav-brand .bn s { font-size:0.7rem; font-weight:500; color:#8aa48d; text-decoration:none; }
+    .tnav-spacer { flex:1; }
+    .tnav-wrap { position:relative; }
+    .tnav-trigger { display:inline-flex; align-items:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; font-size:0.85rem; color:#c2d2c5; background:transparent; border:1px solid transparent; padding:0.6rem 1rem; border-radius:999px; cursor:pointer; transition:color .2s,background .2s,border-color .2s; }
+    .tnav-wrap:hover .tnav-trigger,.tnav-trigger[aria-expanded="true"] { color:#fff; background:rgba(74,172,101,0.10); border-color:rgba(74,172,101,0.22); }
+    .tnav-chev { transition:transform .25s cubic-bezier(0.22,1,0.36,1); }
+    .tnav-wrap:hover .tnav-chev,.tnav-trigger[aria-expanded="true"] .tnav-chev { transform:rotate(180deg); }
+    .tnav-mega { position:fixed; top:72px; left:50%; width:min(840px,calc(100vw - 32px)); max-height:calc(100vh - 92px); overflow-y:auto; background:#142019; border:1px solid #2c4232; border-radius:20px; box-shadow:0 24px 60px rgba(0,0,0,0.55); padding:1.4rem; display:grid; grid-template-columns:1fr 1fr 0.85fr; gap:1.1rem; opacity:0; visibility:hidden; pointer-events:none; transform:translateX(-50%) translateY(8px); transition:opacity .22s cubic-bezier(0.22,1,0.36,1),transform .22s cubic-bezier(0.22,1,0.36,1); z-index:60; }
+    .tnav-mega::before { content:''; position:absolute; top:-22px; left:0; right:0; height:24px; }
+    .tnav-mega.is-open { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .tnav-col-head { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; color:#c89830; margin:0 0 0.55rem; padding-left:0.45rem; }
+    .tnav-link { display:flex; gap:0.7rem; align-items:flex-start; padding:0.5rem; border-radius:12px; cursor:pointer; text-decoration:none; transition:background .18s,transform .18s; }
+    .tnav-link:hover { background:#1c2e22; transform:translateX(3px); }
+    .tnav-ic { width:34px; height:34px; flex-shrink:0; border-radius:9px; background:rgba(74,172,101,0.10); border:1px solid rgba(74,172,101,0.22); color:#4aac65; display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:background .18s,color .18s; }
+    .tnav-link:hover .tnav-ic { background:#4aac65; color:#0d1710; }
+    .tnav-tt { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; font-size:0.85rem; color:#e4ede5; line-height:1.2; display:block; }
+    .tnav-dd { font-size:0.73rem; color:#8aa48d; margin-top:2px; line-height:1.3; display:block; }
+    .tnav-cta { background:radial-gradient(110% 120% at 50% 0%,rgba(74,172,101,0.16),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.22); border-radius:18px; padding:1.3rem 1.1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.5rem; }
+    .tnav-cta .star { color:#c89830; font-size:1.3rem; }
+    .tnav-cta h4 { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:0.95rem; color:#fff; margin:0.2rem 0 0; }
+    .tnav-cta p { font-size:0.76rem; color:#8aa48d; margin:0 0 0.6rem; line-height:1.45; }
+    .tnav-right { display:flex; align-items:center; gap:0.9rem; }
+    .tnav-sup-btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border-radius:999px; cursor:pointer; border:2px solid rgba(255,255,255,0.45); padding:8px 18px; font-size:0.78rem; color:#e4ede5; background:transparent; transition:transform 0.2s,border-color 0.2s; }
+    .tnav-sup-btn:hover { transform:translateY(-2px); border-color:#fff; }
+    .tnav-cta-btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border-radius:999px; cursor:pointer; border:1px solid rgba(255,255,255,0.25); padding:8px 18px; font-size:0.78rem; color:#0d1710; background:linear-gradient(135deg,#c89830,#e0b840); box-shadow:0 10px 20px rgba(200,152,48,0.28); transition:transform 0.2s,filter 0.2s; }
+    .tnav-cta-btn:hover { transform:translateY(-2px); filter:brightness(1.06); }
+    @media (max-width:860px) { .tnav-mega { top:68px; left:4vw; right:4vw; width:auto; grid-template-columns:1fr; max-height:calc(100vh - 84px); transform:translateY(8px); } .tnav-mega.is-open { transform:translateY(0); } .tnav-cta,.tnav-brand .bn { display:none; } }
+    @media (max-width:460px) { .tnav-inner { gap:0.6rem; padding:0.7rem 4%; } .tnav-trigger { padding:0.55rem 0.75rem; } .tnav-sup-btn span.lbl { display:none; } }
+    /* ===== TES FOOTER ===== */
+    .tfoot { background:#050b07; border-top:1px solid #2c4232; padding:3rem 5% 2rem; }
+    .tfoot-grid { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:2rem; }
+    .tfoot-brand { display:flex; align-items:center; gap:0.7rem; margin-bottom:1rem; cursor:pointer; text-decoration:none; }
+    .tfoot-brand img { width:40px; height:40px; border-radius:9px; }
+    .tfoot-brand b { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#fff; font-size:0.95rem; }
+    .tfoot-blurb { color:#8aa48d; font-size:0.9rem; line-height:1.7; max-width:34ch; margin:0 0 1rem; }
+    .tfoot-nap { color:#8aa48d; font-size:0.85rem; line-height:1.7; margin:0 0 1rem; }
+    .tfoot-nap a { color:#8aa48d; text-decoration:none; }
+    .tfoot-nap a:hover { color:#4aac65; }
+    .tfoot-col h5 { font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:#c89830; margin-bottom:0.9rem; }
+    .tfoot-col a { display:block; color:#8aa48d; text-decoration:none; font-size:0.88rem; padding:0.3rem 0; transition:color 0.2s,transform 0.2s; }
+    .tfoot-col a:hover { color:#4aac65; transform:translateX(3px); }
+    .tfoot-bar { max-width:1280px; margin:2rem auto 0; padding-top:1.5rem; border-top:1px solid #2c4232; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; align-items:center; }
+    .tfoot-bar span { color:#8aa48d; font-size:0.82rem; }
+    .tfoot-social { display:flex; gap:1.2rem; }
+    .tfoot-social a { color:#8aa48d; font-size:1.1rem; transition:color 0.2s; }
+    .tfoot-social a:hover { color:#4aac65; }
+    @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ohio Crash Report Analysis Tool",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows 10, Windows 11",
+    "description": "Turns Ohio's official crash reports into a clean, de-duplicated audience of injury-crash leads — name, mailing address, injury status, county, agency, and crash date — for personal-injury law firms and injury-care practices. Available as a one-time purchase, an all-inclusive subscription, or a done-for-you data service.",
+    "url": "https://tevisengineering.com/ohio-crash-report-analysis-tool.html",
+    "image": "https://tevisengineering.com/assets/crash/lead-dashboard.png",
+    "provider": {"@id": "https://tevisengineering.com/#business"},
+    "publisher": {"@id": "https://tevisengineering.com/#business"},
+    "areaServed": {"@type": "State", "name": "Ohio"},
+    "featureList": [
+      "Interactive county picker for all 88 Ohio counties",
+      "Law-enforcement agency search (statewide)",
+      "AI extraction of every person on each crash report",
+      "De-duplication into an owned audience database",
+      "Filterable lead dashboard with per-report PDF links",
+      "One-click CSV export"
+    ],
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "199",
+      "highPrice": "1199",
+      "offerCount": "3"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Software Services","item":"https://tevisengineering.com/software.html"},{"@type":"ListItem","position":3,"name":"Ohio Crash Report Analysis Tool","item":"https://tevisengineering.com/ohio-crash-report-analysis-tool.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Where does the crash data come from?","acceptedAnswer":{"@type":"Answer","text":"From Ohio's own official public Crash Retrieval portal, operated by the Ohio Department of Public Safety. The tool reads the same public OH-1 crash reports anyone can request; it does not hack, scrape around security, or defeat the site's anti-bot check. A person clears one quick CAPTCHA per search, and everything after that is automated."}},
+  {"@type":"Question","name":"Are phone numbers and emails included?","acceptedAnswer":{"@type":"Answer","text":"No. Phone and email are not printed on a crash report, so they are not in the base output — exactly like the broker spreadsheets, which sell them as a paid 'append.' The tool produces an addressable audience (name, mailing address, injury, county, agency, date). Optional phone/email enrichment can be added through the same third-party identity providers the brokers use."}},
+  {"@type":"Question","name":"How much does it cost to run?","acceptedAnswer":{"@type":"Answer","text":"On the own-it option the only per-use cost is AI, about 1.5 cents per injury report read — roughly $10 to $25 per month for a weekly regional pull. The subscription includes the AI in the monthly price. A rules-only mode runs the whole pipeline for $0."}},
+  {"@type":"Question","name":"Do I have to be technical to use it?","acceptedAnswer":{"@type":"Answer","text":"No. If you do not want to touch software at all, choose Data as a Service: you tell us your counties and agencies, and we deliver validated, injury-tagged crashes with their source reports to your inbox on a set weekly cadence."}},
+  {"@type":"Question","name":"What are the three ways to buy it?","acceptedAnswer":{"@type":"Answer","text":"Own it — a one-time purchase you run in-house on your own AI key. License it — an all-inclusive monthly subscription (Starter $199, Pro $549, Firm/Statewide $1,199) with AI, updates, support, and portal-change fixes built in. Data as a service — we run everything and deliver the data from $750 per month."}},
+  {"@type":"Question","name":"Does it cover the whole state of Ohio?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can select any of Ohio's 88 counties or query a law-enforcement agency such as the Ohio State Highway Patrol statewide. The tool is built as a foundation that can also be extended to other states via a portal adapter."}}
+  ]}
+  </script>
+</head>
+<body>
+<!-- ===== NAV ===== -->
+<div class="tnav-bar">
+  <div class="tnav-inner">
+    <a class="tnav-brand" href="index.html">
+      <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions">
+      <span class="bn"><b>Tevis Engineering</b><s>Solutions</s></span>
+    </a>
+    <div class="tnav-spacer"></div>
+    <div class="tnav-wrap" id="navWrap">
+      <button class="tnav-trigger" type="button" aria-haspopup="true" aria-expanded="false" id="navTrigger">
+        Menu
+        <svg class="tnav-chev" width="11" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1.5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="tnav-mega" id="navMega" role="navigation" aria-label="Site navigation">
+        <div>
+          <div class="tnav-col-head">Services</div>
+          <a class="tnav-link" href="how_support_works.html"><span class="tnav-ic"><i class="fa-regular fa-circle-question"></i></span><span><span class="tnav-tt">How Support Works</span><span class="tnav-dd">Intake, scope, delivery, and billing</span></span></a>
+          <a class="tnav-link" href="pricing_sheet.html"><span class="tnav-ic"><i class="fa-solid fa-tag"></i></span><span><span class="tnav-tt">Pricing</span><span class="tnav-dd">Flat rates, hourly, and retainer plans</span></span></a>
+          <a class="tnav-link" href="portfolio.html"><span class="tnav-ic"><i class="fa-solid fa-briefcase"></i></span><span><span class="tnav-tt">Portfolio</span><span class="tnav-dd">Case studies across IT and engineering</span></span></a>
+          <a class="tnav-link" href="assessment.html"><span class="tnav-ic"><i class="fa-solid fa-chart-simple"></i></span><span><span class="tnav-tt">IT Assessment</span><span class="tnav-dd">Free 7-question readiness quiz</span></span></a>
+          <a class="tnav-link" href="website_creation.html"><span class="tnav-ic"><i class="fa-solid fa-globe"></i></span><span><span class="tnav-tt">Web &amp; App Design</span><span class="tnav-dd">Sites, tools, and digital presence</span></span></a>
+          <a class="tnav-link" href="data_destruction.html"><span class="tnav-ic"><i class="fa-solid fa-shield-halved"></i></span><span><span class="tnav-tt">Data Destruction</span><span class="tnav-dd">NIST-aligned secure media sanitization</span></span></a>
+          <a class="tnav-link" href="knowledge_transfer.html"><span class="tnav-ic"><i class="fa-solid fa-file-lines"></i></span><span><span class="tnav-tt">Knowledge Transfer</span><span class="tnav-dd">Documentation and process handoffs</span></span></a>
+        </div>
+        <div>
+          <div class="tnav-col-head">Company &amp; Tools</div>
+          <a class="tnav-link" href="service-areas.html"><span class="tnav-ic"><i class="fa-solid fa-location-dot"></i></span><span><span class="tnav-tt">Service Areas</span><span class="tnav-dd">Cleveland-area cities we support</span></span></a>
+          <a class="tnav-link" href="blog/index.html"><span class="tnav-ic"><i class="fa-solid fa-newspaper"></i></span><span><span class="tnav-tt">Blog / Knowledge Base</span><span class="tnav-dd">IT tips and guides for small businesses</span></span></a>
+          <a class="tnav-link" href="software.html"><span class="tnav-ic"><i class="fa-solid fa-laptop-code"></i></span><span><span class="tnav-tt">Software Services</span><span class="tnav-dd">Cloud apps &amp; licensed software</span></span></a>
+          <a class="tnav-link" href="service_catalog.html"><span class="tnav-ic"><i class="fa-solid fa-rectangle-list"></i></span><span><span class="tnav-tt">Services Catalog</span><span class="tnav-dd">Full rate card &amp; line sheet</span></span></a>
+          <a class="tnav-link" href="pay_invoice.html"><span class="tnav-ic"><i class="fa-solid fa-credit-card"></i></span><span><span class="tnav-tt">Pay an Invoice</span><span class="tnav-dd">Look up and pay your balance online</span></span></a>
+          <a class="tnav-link" href="contact.html"><span class="tnav-ic"><i class="fa-solid fa-envelope"></i></span><span><span class="tnav-tt">Contact</span><span class="tnav-dd">Send a message or request a quote</span></span></a>
+          <a class="tnav-link" href="privacy_policy.html"><span class="tnav-ic"><i class="fa-solid fa-file-shield"></i></span><span><span class="tnav-tt">Privacy &amp; Terms</span><span class="tnav-dd">Payment terms and data policy</span></span></a>
+        </div>
+        <div class="tnav-cta">
+          <span class="star">&#9733;</span>
+          <h4>Need help now?</h4>
+          <p>Talk straight to the engineer &mdash; no call center, one-business-day reply.</p>
+          <a class="tnav-cta-btn" href="make_ticket.html"><i class="fa-solid fa-headset"></i> Get Support Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="tnav-spacer"></div>
+    <div class="tnav-right">
+      <a class="tnav-sup-btn" href="login.html"><i class="fa-solid fa-right-to-bracket"></i> <span class="lbl">LOGIN</span></a>
+    </div>
+  </div>
+</div>
+
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> &rsaquo; <a href="software.html">Software Services</a> &rsaquo; <span>Ohio Crash Report Analysis Tool</span>
+    </nav>
+
+    <section class="hero">
+      <span class="eyebrow"><i class="fa-solid fa-bolt"></i> TES Software &middot; Available Now</span>
+      <h1>Ohio Crash Report <span class="grad">Analysis Tool</span></h1>
+      <p>
+        A purpose-built application that turns Ohio's official crash reports into a clean, de-duplicated
+        <strong>audience of crash-involved people</strong> &mdash; name, mailing address, injury status, county, agency, and crash
+        date &mdash; ready for outreach or addressable / CTV advertising. Built for <strong>personal-injury law firms and
+        injury-care practices</strong>. You <strong>own</strong> the pipeline instead of renting a spreadsheet from a data broker.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#get-started">Start Your Free Trial</a>
+        <a class="btn btn-secondary" href="#pricing">See Pricing</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>~1.5&cent;</b><span>AI cost per report read</span></div>
+        <div class="stat"><b>300&ndash;1,000&times;</b><span>cheaper than buying reports retail</span></div>
+        <div class="stat"><b>88</b><span>Ohio counties + agency search</span></div>
+        <div class="stat"><b>$0</b><span>per-record data fee &mdash; you own it</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="what">
+      <h2>An <span class="gold">owned pipeline</span>, not a rented list</h2>
+      <p class="lead-line">
+        The tool scans Ohio's official crash-report portal &mdash; by county or by law-enforcement agency &mdash; over a rolling
+        date window; uses AI to <strong>read each OH-1 report</strong> and extract every person involved; de-duplicates them into a
+        database; and presents a live dashboard plus a one-click spreadsheet export.
+      </p>
+      <p>
+        It is a self-contained desktop program with your branding &mdash; not a third-party data subscription. The output matches
+        the shape of the broker spreadsheets already on the market, <strong>minus the paid phone / email &ldquo;append&rdquo;</strong>
+        (which can be added). The one manual step &mdash; a person clearing a quick anti-bot check once per search &mdash; is a
+        deliberate, defensible choice, explained below.
+      </p>
+      <div class="shots-2">
+        <figure class="shot">
+          <img src="assets/crash/control-panel.png" alt="Ohio Crash Scanner control panel: crash date range, interactive Ohio county map, searchable county list, extraction-mode selector, and a law-enforcement-agency option." width="1500" height="1085" loading="lazy" decoding="async">
+          <figcaption><span class="tag">The app</span><b>One branded desktop app.</b> Pick counties on the interactive Ohio map (or the searchable list), or query an agency such as the State Highway Patrol; set the date window and the cost / accuracy mode.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/crash/dps-portal.png" alt="Ohio Department of Public Safety Crash Retrieval portal: advanced search by crash date range, county, or law-enforcement agency, gated by a CAPTCHA text box." width="1500" height="905" loading="lazy" decoding="async">
+          <figcaption><span class="tag">The source</span><b>Ohio's official crash portal.</b> The state's public Crash Retrieval site &mdash; searchable by county or agency. Every search is gated by the CAPTCHA at the bottom; that is the one step a person clears.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="capabilities">
+      <h2>What it does today</h2>
+      <div class="grid">
+        <article class="card">
+          <h3><i class="fa-solid fa-map-location-dot"></i> County + agency search</h3>
+          <p>An interactive map and searchable list for all 88 Ohio counties, with one-click presets (NE Ohio, big metros, all 88). Or query a law-enforcement agency &mdash; one search pulls that agency's injury crashes statewide.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-robot"></i> AI extraction, your way</h3>
+          <p>Reads each report PDF and returns <strong>one record per person</strong> (driver, passenger, pedestrian) with name, address, age, gender, and injury severity. A mode switch trades cost for accuracy: hybrid, always-AI, or rules-only ($0).</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-layer-group"></i> De-duplication &amp; storage</h3>
+          <p>A local database collapses the same person across multiple crashes into one audience entry, while keeping full per-crash provenance &mdash; and remembers your last scan for glance-and-go weekly refreshes.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-table-list"></i> Lead dashboard</h3>
+          <p>A live, filterable list (county, severity), a &ldquo;hide No Apparent Injury&rdquo; toggle, per-lead link to the source PDF, per-county counts, and a severity breakdown &mdash; all exportable to CSV in one click.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-gauge-high"></i> Live cost meter</h3>
+          <p>A running read-out of the AI spend for the session <em>as it happens</em>. You hold the throttle &mdash; the AI runs on a key you control, capped by you, and rules-only mode runs the entire pipeline for $0.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-user-shield"></i> Your data stays yours</h3>
+          <p>On the own-it option the database never leaves your office. The audience is <strong>exclusive</strong> &mdash; you generate and own it &mdash; unlike a broker list resold to every competitor in your market.</p>
+        </article>
+      </div>
+      <figure class="shot" style="margin-top:1.2rem;">
+        <img src="assets/crash/lead-dashboard.png" alt="Ohio Crash List lead dashboard: summary tiles (247 crashes, 689 people/leads, 14 counties), injury-leads-by-county chart, severity breakdown, and a filterable, sortable lead table with per-row PDF links and CSV export." width="1500" height="1180" loading="lazy" decoding="async">
+        <figcaption><span class="tag">The output</span><b>What the firm works from &mdash; one click from lead to source.</b> Summary tiles, injury-leads-by-county, a severity breakdown, and a filterable, exportable lead table. Every row's PDF button opens the actual crash report. <em>Names and addresses shown are synthetic samples.</em></figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="how">
+      <h2>How it works</h2>
+      <p>You only ever solve CAPTCHAs. Everything else is automatic.</p>
+      <div class="process">
+        <div class="process-step"><strong>Pick your scope</strong><p>Choose counties on the map or query a law-enforcement agency, and set a date window.</p></div>
+        <div class="process-step"><strong>Clear one check</strong><p>A staff member clears one quick anti-bot check per search &mdash; a few minutes total for a multi-county pull.</p></div>
+        <div class="process-step"><strong>Auto-fetch &amp; extract</strong><p>The tool pages the results, downloads the injury reports, and AI reads each one into structured records.</p></div>
+        <div class="process-step"><strong>Dashboard &amp; export</strong><p>De-duplicated leads land in the dashboard, ready to filter and export to CSV.</p></div>
+      </div>
+      <div class="notice">
+        <b>Why the one human step?</b> Ohio's portal places a CAPTCHA on every search to ensure a person &mdash; not a bot &mdash; makes each request. We <strong>deliberately do not build CAPTCHA-defeating automation</strong>: it is brittle, works against the site's controls, and is the wrong exposure for a professional practice. Free &rArr; accept a small human step each run. Fully unattended &rArr; add a paid, contracted data feed (available as an upgrade).
+      </div>
+    </section>
+
+    <section class="section" id="value">
+      <h2>What it saves you vs. <span class="gold">buying the reports</span></h2>
+      <p>
+        Brokers are not defeating the CAPTCHA either &mdash; they hold an authorized, contracted pipe into the same records and
+        resell it. You pay only for the AI that <strong>reads</strong> each report &mdash; about 1.5&cent; &mdash; not for gated access.
+        To assemble ~1,000 injury reports:
+      </p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th></th><th>Buying reports retail (e.g. BuyCrash)</th><th class="hl">This tool</th></tr></thead>
+          <tbody>
+            <tr><td class="rowlab">Cost to obtain &amp; read them</td><td>$5,000 &ndash; $15,000</td><td class="hl">~$15 in AI</td></tr>
+            <tr><td class="rowlab">Per report</td><td>$5 &ndash; $15</td><td class="hl">~$0.015 (about 1.5&cent;)</td></tr>
+            <tr><td class="rowlab">Exclusivity</td><td>Non-exclusive &mdash; resold to competitors</td><td class="hl">Exclusive &mdash; you generate &amp; own it</td></tr>
+            <tr><td class="rowlab">Afterward</td><td>You bought copies</td><td class="hl">You own the audience &mdash; reuse it freely</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mini-note">Illustrative market ranges &mdash; same public records; the difference is you pay for the <em>reading</em>, not for access someone else gates behind a per-report fee. At the scale of a typical broker file (thousands of reports), that is tens of thousands of dollars retail versus tens of dollars here.</p>
+    </section>
+
+    <section class="section" id="pricing">
+      <h2>Three ways to get it</h2>
+      <p>Own the software, subscribe to it, or skip the app entirely and just get the data. Every option is validated &mdash; you never pay for junk records &mdash; and every option costs a fraction of what the big data channels charge.</p>
+      <div class="models">
+        <div class="model">
+          <h3>Own it</h3>
+          <p class="mprice">$6,000 <small>one-time</small></p>
+          <p>Buy the software outright and run it in-house on <strong>your own AI key</strong>, so you pay for AI at cost with no recurring license fee. Your data never leaves your office. Includes a 60-day portal-change warranty; AI runs ~$10&ndash;$25/mo.</p>
+          <p class="fit"><b>Best when</b> you want control and the lowest long-run cost.</p>
+        </div>
+        <div class="model feat">
+          <span class="rec">Most Popular</span>
+          <h3>License it</h3>
+          <p class="mprice">from $199 <small>/ month</small></p>
+          <p>An all-inclusive <strong>subscription</strong> &mdash; AI, updates, support, and portal-change fixes built in. It always works and stays current, with nothing to maintain. Month-to-month, cancel anytime.</p>
+          <p class="fit"><b>Best when</b> you want it to just work and keep improving.</p>
+        </div>
+        <div class="model">
+          <h3>Data as a service</h3>
+          <p class="mprice">from $750 <small>/ month</small></p>
+          <p>Never open the app. <strong>We</strong> run it and deliver validated, injury-tagged crashes &mdash; with the source report and every party on it &mdash; for your counties and agencies, twice weekly.</p>
+          <p class="fit"><b>Best when</b> you just want the data &mdash; no operational lift.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.03em;font-size:1rem;color:#f1f7f1;margin:1.8rem 0 0.3rem;">License it &mdash; the all-inclusive subscription</h3>
+      <p>The AI is included, and support, updates, new features, and portal-change fixes are all built in. You run the weekly pull (a few minutes); we keep everything behind it running.</p>
+      <div class="plans">
+        <div class="plan">
+          <p class="pname">Starter</p>
+          <p class="price">$199<small>/mo</small></p>
+          <p class="annual">$1,910/yr &mdash; save 20%</p>
+          <ul class="spec">
+            <li>1&ndash;3 counties or 1 agency</li>
+            <li>Weekly refresh</li>
+            <li>1 user</li>
+            <li>Email support</li>
+          </ul>
+          <a class="btn btn-secondary" href="#get-started">Start trial</a>
+        </div>
+        <div class="plan feat">
+          <span class="ribbon">Most Popular</span>
+          <p class="pname">Pro</p>
+          <p class="price">$549<small>/mo</small></p>
+          <p class="annual">$5,270/yr &mdash; save 20%</p>
+          <ul class="spec">
+            <li>A full region (~15 counties) + 1 agency</li>
+            <li>Twice-weekly refresh</li>
+            <li>Up to 3 users</li>
+            <li>Priority support</li>
+            <li>Custom output format</li>
+          </ul>
+          <a class="btn btn-primary" href="#get-started">Start trial</a>
+        </div>
+        <div class="plan">
+          <p class="pname">Firm / Statewide</p>
+          <p class="price">$1,199<small>/mo</small></p>
+          <p class="annual">$11,510/yr &mdash; save 20%</p>
+          <ul class="spec">
+            <li>Statewide or unlimited counties + agencies</li>
+            <li>Twice-weekly or faster</li>
+            <li>Unlimited users</li>
+            <li>Phone support</li>
+            <li>Custom integrations &amp; dashboards</li>
+          </ul>
+          <a class="btn btn-secondary" href="#get-started">Talk to us</a>
+        </div>
+      </div>
+      <ul class="incl">
+        <li>AI usage &mdash; on our key, nothing to manage</li>
+        <li>All software updates &amp; new features</li>
+        <li>Portal-change fixes handled for you</li>
+        <li>Support &amp; onboarding / training</li>
+        <li>Setup fee waived on annual prepay</li>
+        <li>Your validated audience, refreshed on cadence</li>
+      </ul>
+      <p class="mini-note">Data-as-a-service is priced by coverage: 1&ndash;3 counties $750/mo, 4&ndash;10 $1,100, a full region (11&ndash;25) $1,500, statewide from $2,500 &mdash; or pay per validated crash ($3&ndash;$8). Every plan is built to your counties, cadence, and budget &mdash; <a href="#get-started" style="color:var(--gold);">request a tailored quote</a>. A 14-day, 100-report free trial is available to evaluate the tool first.</p>
+    </section>
+
+    <section class="section" id="fields">
+      <h2>Fields extracted per person</h2>
+      <div class="fields">
+        <code>report_number</code><code>crash_date</code><code>county</code><code>agency</code><code>unit / role</code><code>last, first, middle</code><code>date_of_birth</code><code>age</code><code>gender</code><code>street</code><code>city</code><code>state</code><code>ZIP</code><code>injury_code</code><code>injury_description</code><code>+ optional phone</code><code>+ optional email</code>
+      </div>
+      <p class="mini-note">Injury severity: Fatal / Suspected Serious / Suspected Minor / Injury Possible / No Apparent. Every row links back to the full OH-1 report already in your database.</p>
+      <figure class="shot" style="margin-top:1rem;max-width:520px;">
+        <img src="assets/crash/oh1-report.png" alt="A sample Ohio OH-1 traffic crash report, page 1, opened from a lead's PDF link." width="905" height="1160" loading="lazy" decoding="async">
+        <figcaption><span class="tag">The record</span><b>The actual source report</b> behind every lead &mdash; a real public record with the officer's details blurred.</figcaption>
+      </figure>
+    </section>
+
+    <section class="svc-faq faq" aria-label="Frequently asked questions">
+      <h2 style="font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.03em;font-size:1.3rem;margin-bottom:0.9rem;color:#fff;">Frequently Asked Questions</h2>
+      <details>
+        <summary>Where does the crash data come from?</summary>
+        <div class="faq-a">From Ohio's own official public Crash Retrieval portal, operated by the Ohio Department of Public Safety. The tool reads the same public OH-1 crash reports anyone can request &mdash; it does not hack, scrape around security, or defeat the site's anti-bot check. A person clears one quick CAPTCHA per search, and everything after that is automated.</div>
+      </details>
+      <details>
+        <summary>Are phone numbers and emails included?</summary>
+        <div class="faq-a">No. Phone and email are not printed on a crash report, so they are not in the base output &mdash; exactly like the broker spreadsheets, which sell them as a paid &ldquo;append.&rdquo; The tool produces an addressable audience (name, mailing address, injury, county, agency, date). Optional phone / email enrichment can be added through the same third-party identity providers the brokers use.</div>
+      </details>
+      <details>
+        <summary>How much does it cost to run?</summary>
+        <div class="faq-a">On the own-it option the only per-use cost is AI &mdash; about 1.5&cent; per injury report read, roughly $10&ndash;$25/month for a weekly regional pull. The subscription includes the AI in the monthly price. A rules-only mode runs the whole pipeline for $0.</div>
+      </details>
+      <details>
+        <summary>Do I have to be technical to use it?</summary>
+        <div class="faq-a">No. If you do not want to touch software at all, choose Data as a Service: you tell us your counties and agencies, and we deliver validated, injury-tagged crashes with their source reports to your inbox on a set weekly cadence.</div>
+      </details>
+      <details>
+        <summary>Does it cover the whole state of Ohio?</summary>
+        <div class="faq-a">Yes. You can select any of Ohio's 88 counties or query a law-enforcement agency such as the Ohio State Highway Patrol statewide. The tool is built as a foundation that can also be extended to other states via a portal adapter.</div>
+      </details>
+      <details>
+        <summary>Is this legal and compliant?</summary>
+        <div class="faq-a">The tool reads public records through the state's own public portal and respects its controls. How you use crash-victim contact data for outreach or advertising is subject to laws that vary by use case and jurisdiction (for example, solicitation rules for law firms). You are responsible for your own outreach compliance; we are happy to build filters and cadence controls that fit your policies.</div>
+      </details>
+    </section>
+
+    <section class="cta-band" id="get-started">
+      <h2>Start your free trial or get a tailored quote</h2>
+      <p>Tell us your target counties or agencies and how you'd like to work &mdash; own it, subscribe, or have us deliver the data &mdash; and we'll set you up with a 14-day free trial or a one-page quote. Straight to the engineer, one-business-day reply.</p>
+      <div class="req-success" id="reqSuccess" style="display:none;">
+        <strong>Thanks &mdash; your request is in.</strong> We'll reply within one business day with trial access or a tailored quote. For anything urgent, call <a href="tel:+12163028486" style="color:#cdeed6;">(216)&nbsp;302&#8209;8486</a>.
+      </div>
+      <form id="reqForm" class="req-form" action="https://formspree.io/f/maqvanal" method="POST">
+        <input type="hidden" name="_subject" value="Ohio Crash Tool — Trial / Quote Request">
+        <input type="hidden" name="_next" value="https://tevisengineering.com/ohio-crash-report-analysis-tool.html?requested=1">
+        <input type="hidden" name="product" value="Ohio Crash Report Analysis Tool">
+        <input type="text" name="_honeypot" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div>
+          <label for="reqName">Name</label>
+          <input id="reqName" type="text" name="name" required autocomplete="name">
+        </div>
+        <div>
+          <label for="reqFirm">Firm / practice</label>
+          <input id="reqFirm" type="text" name="firm" autocomplete="organization">
+        </div>
+        <div>
+          <label for="reqEmail">Email</label>
+          <input id="reqEmail" type="email" name="email" required autocomplete="email">
+        </div>
+        <div>
+          <label for="reqModel">How you'd like to work</label>
+          <select id="reqModel" name="model">
+            <option value="Free trial first">Free trial first</option>
+            <option value="Own it (one-time)">Own it (one-time)</option>
+            <option value="License it (subscription)">License it (subscription)</option>
+            <option value="Data as a service">Data as a service</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="reqCounties">Target counties or agencies (and anything else)</label>
+          <textarea id="reqCounties" name="counties" rows="3" placeholder="e.g. Cuyahoga, Summit, Lorain — weekly; or Ohio State Highway Patrol statewide"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Request Trial / Quote</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- NEWSLETTER SIGNUP -->
+  <section class="newsletter-section" aria-label="Email newsletter signup">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2 class="newsletter-heading">Tools &amp; Tips from TES</h2>
+        <p class="newsletter-sub">Occasional updates on new software, features, and practical business technology. No spam. Unsubscribe anytime.</p>
+      </div>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/tevisengineering"
+        method="post"
+        target="popupwindow"
+        class="newsletter-form"
+        id="newsletterForm"
+      >
+        <input type="hidden" value="1" name="embed">
+        <label for="newsletterEmail" class="sr-only">Email address</label>
+        <input type="email" id="newsletterEmail" name="email" placeholder="your@email.com" required autocomplete="email" class="newsletter-input">
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+        <noscript><p style="margin-top:0.75rem;font-size:0.85rem;">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
+      </form>
+      <p class="newsletter-fine">
+        Powered by <a href="https://buttondown.com/refer/tevisengineering" target="_blank" rel="noopener noreferrer">Buttondown</a>.
+        Read our <a href="privacy_policy.html" rel="noopener">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="tfoot">
+    <div class="tfoot-grid">
+      <div>
+        <a class="tfoot-brand" href="index.html"><img src="assets/logo-mark.png" alt="TES"><b>Tevis Engineering</b></a>
+        <p class="tfoot-blurb">IT Support, Engineering, 3D Design/Printing and tangential services for small businesses and individuals in the Cleveland, Ohio area and beyond.</p>
+        <p class="tfoot-nap"><a href="tel:+12163028486">(216)&nbsp;302&#8209;8486</a> &middot; Cleveland,&nbsp;OH</p>
+      </div>
+      <div class="tfoot-col">
+        <h5>Services</h5>
+        <a href="service_catalog.html">Services Catalog</a>
+        <a href="pricing_sheet.html">Managed IT Support</a>
+        <a href="website_creation.html">Web &amp; App Design</a>
+        <a href="portfolio.html">PCB &amp; CAD Design</a>
+        <a href="portfolio.html">3D Printing</a>
+        <a href="data_destruction.html">Data Destruction</a>
+      </div>
+      <div class="tfoot-col">
+        <h5>Company</h5>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="how_support_works.html">How Support Works</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="pricing_sheet.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="tfoot-col">
+        <h5>Get Started</h5>
+        <a href="make_ticket.html">Make a Ticket</a>
+        <a href="pay_invoice.html">Pay Invoice</a>
+        <a href="assessment.html">IT Assessment</a>
+        <a href="how_support_works.html">How Support Works</a>
+      </div>
+    </div>
+    <div class="tfoot-bar">
+      <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
+      <div class="tfoot-social">
+        <a href="https://linkedin.com/in/tylertevis/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/tevis-engineering-solutions" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="contact.html" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var wrap = document.getElementById('navWrap');
+      var trigger = document.getElementById('navTrigger');
+      var mega = document.getElementById('navMega');
+      function setOpen(o) { mega.classList.toggle('is-open', o); trigger.setAttribute('aria-expanded', o ? 'true' : 'false'); if (window.innerWidth <= 860 && typeof Tawk_API !== 'undefined') { o ? Tawk_API.hideWidget() : Tawk_API.showWidget(); } }
+      var closeTimer;
+      trigger.addEventListener('click', function(e) { e.stopPropagation(); setOpen(!mega.classList.contains('is-open')); });
+      if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+        wrap.addEventListener('mouseenter', function() { clearTimeout(closeTimer); setOpen(true); });
+        wrap.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+        mega.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+        mega.addEventListener('mouseleave', function() { closeTimer = setTimeout(function() { setOpen(false); }, 150); });
+      }
+      document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) setOpen(false); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
+      mega.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setOpen(false); }); });
+    })();
+    var form = document.getElementById('newsletterForm');
+    if (form) {
+      form.addEventListener('submit', function() {
+        window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
+      });
+    }
+    // Trial/quote request success state (Formspree _next redirect back with ?requested=1)
+    (function() {
+      if (window.location.search.indexOf('requested=1') !== -1) {
+        var s = document.getElementById('reqSuccess'), f = document.getElementById('reqForm');
+        if (s) s.style.display = 'block';
+        if (f) f.style.display = 'none';
+      }
+    })();
+  </script>
+
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a2d769e0f46281c35cc68ee/1jr0pemhe';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+</body>
+</html>

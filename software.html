@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IT Support in Cleveland Heights, Ohio | Tevis Engineering Solutions</title>
-  <meta name="description" content="On-site and remote IT support for small businesses in Cleveland Heights, Ohio. Managed IT, help desk, networks, and cybersecurity from a veteran-owned local firm. Free IT assessment.">
+  <title>Software Services | Tevis Engineering Solutions</title>
+  <meta name="description" content="Cloud software built and run by Tevis Engineering Solutions in Cleveland, Ohio. Practical, industry-specific tools you can license or subscribe to — starting with the Ohio Crash Report Analysis Tool for personal-injury firms, with more verticals on the way.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tevis Engineering Solutions">
   <meta property="og:locale" content="en_US">
-  <meta property="og:url" content="https://tevisengineering.com/it-support-cleveland-heights.html">
-  <meta property="og:title" content="IT Support in Cleveland Heights, Ohio | Tevis Engineering Solutions">
-  <meta property="og:description" content="On-site and remote IT support for small businesses in Cleveland Heights, Ohio. Managed IT, help desk, networks, and cybersecurity from a veteran-owned local firm. Free IT assessment.">
+  <meta property="og:url" content="https://tevisengineering.com/software.html">
+  <meta property="og:title" content="Software Services | Tevis Engineering Solutions">
+  <meta property="og:description" content="Practical, industry-specific cloud software you can license or subscribe to — built and operated by TES. Starting with the Ohio Crash Report Analysis Tool.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Cleveland IT Support &amp; Custom Engineering | Tevis Engineering Solutions">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="IT Support in Cleveland Heights, Ohio | Tevis Engineering Solutions">
-  <meta name="twitter:description" content="On-site and remote IT support for small businesses in Cleveland Heights, Ohio. Managed IT, help desk, networks, and cybersecurity from a veteran-owned local firm. Free IT assessment.">
+  <meta name="twitter:title" content="Software Services | Tevis Engineering Solutions">
+  <meta name="twitter:description" content="Practical, industry-specific cloud software you can license or subscribe to — built and operated by TES.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.png">
-  <link rel="canonical" href="https://tevisengineering.com/it-support-cleveland-heights.html">
+  <link rel="canonical" href="https://tevisengineering.com/software.html">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -55,41 +55,56 @@
     h1 .grad { background:linear-gradient(90deg,#4aac65,#c89830); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
     .hero p { max-width:900px; color:var(--muted); font-size:1.05rem; }
     .cta-row { margin-top:1.4rem; display:flex; gap:0.8rem; flex-wrap:wrap; }
-    .btn { text-decoration:none; border-radius:999px; padding:0.78rem 1.2rem; font-weight:700; border:1px solid transparent; font-size:0.9rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; }
+    .btn { text-decoration:none; border-radius:999px; padding:0.78rem 1.2rem; font-weight:700; border:1px solid transparent; font-size:0.9rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; cursor:pointer; }
     .btn-primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; box-shadow:0 10px 20px rgba(200,152,48,0.25); }
     .btn-secondary { border-color:rgba(74,172,101,0.4); background:rgba(74,172,101,0.1); color:#cdeed6; }
     .section { margin-top:1.25rem; background:rgba(20,32,25,0.74); border:1px solid var(--line); border-radius:16px; padding:1.5rem; }
     .section h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.3rem; margin-bottom:0.75rem; color:#f1f7f1; }
     .section h2 .gold { color:var(--gold); }
-    .section p { color:var(--muted); margin-bottom:0.7rem; }
-    .section p strong, .section li strong { color:#dfeadf; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:0.85rem; margin-top:0.85rem; }
+    .section > p { color:var(--muted); margin-bottom:0.7rem; }
+    .section p strong { color:#dfeadf; }
+
+    /* product cards */
+    .prod-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1rem; }
+    .prod-card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:transform .2s,border-color .2s; }
+    .prod-card.live { border-color:rgba(200,152,48,0.4); }
+    .prod-card.live:hover { transform:translateY(-5px); border-color:var(--gold); }
+    .prod-thumb { width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; background:#0b120d; border-bottom:1px solid var(--line); }
+    .prod-thumb.placeholder { display:flex; align-items:center; justify-content:center; color:#33513c; font-size:2.4rem; }
+    .prod-body { padding:1.15rem; display:flex; flex-direction:column; flex:1; }
+    .badge { display:inline-flex; align-items:center; gap:0.35rem; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:800; padding:0.22rem 0.6rem; border-radius:999px; width:max-content; margin-bottom:0.6rem; }
+    .badge.live { background:rgba(74,172,101,0.15); color:#9fe3b4; border:1px solid rgba(74,172,101,0.4); }
+    .badge.dev { background:rgba(200,152,48,0.12); color:#e6c68a; border:1px solid rgba(200,152,48,0.35); }
+    .prod-body h3 { font-family:"Montserrat",sans-serif; font-size:1.1rem; color:#fff; margin-bottom:0.3rem; }
+    .prod-body .who { font-size:0.78rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.55rem; font-weight:700; }
+    .prod-body p { font-size:0.92rem; color:#bcd0bf; margin-bottom:0.9rem; }
+    .prod-link { margin-top:auto; display:inline-flex; align-items:center; gap:0.45rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--green); text-decoration:none; }
+    .prod-link:hover { color:var(--gold); }
+    .prod-link.muted { color:var(--muted); cursor:default; }
+
+    /* steps */
+    .process { counter-reset:flow; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; margin-top:0.7rem; }
+    .process-step { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:0.95rem; position:relative; }
+    .process-step::before { counter-increment:flow; content:counter(flow); position:absolute; top:-10px; right:10px; width:24px; height:24px; border-radius:999px; display:grid; place-items:center; font-size:0.78rem; font-weight:800; color:#0d1710; background:linear-gradient(135deg,#c89830,#e0b840); }
+    .process-step strong { display:block; margin-bottom:0.35rem; color:#dfeadf; }
+    .process-step p { color:var(--muted); font-size:0.92rem; }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0.85rem; margin-top:0.85rem; }
     .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem; }
     .card h3 { font-family:"Montserrat",sans-serif; font-size:1rem; margin-bottom:0.5rem; color:#e4ede5; display:flex; align-items:center; gap:0.55rem; }
     .card h3 i { color:var(--gold); width:1.1rem; text-align:center; }
-    .card p, .card li { font-size:0.95rem; color:#bcd0bf; }
-    ul.ticks { list-style:none; margin-top:0.35rem; }
-    ul.ticks li { position:relative; padding-left:1.4rem; margin-bottom:0.45rem; }
-    ul.ticks li::before { content:"\2713"; position:absolute; left:0; top:0.05rem; color:var(--green); font-weight:700; }
-    .faq { margin-top:0.6rem; }
-    .faq details { border:1px solid var(--line); border-radius:12px; background:var(--card); margin-bottom:0.6rem; overflow:hidden; }
-    .faq summary { cursor:pointer; padding:0.9rem 1rem; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.98rem; color:#e4ede5; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
-    .faq summary::-webkit-details-marker { display:none; }
-    .faq summary::after { content:"+"; color:var(--gold); font-weight:800; font-size:1.2rem; }
-    .faq details[open] summary::after { content:"\2212"; }
-    .faq details[open] summary { border-bottom:1px solid var(--line); }
-    .faq .faq-a { padding:0.9rem 1rem; color:var(--muted); font-size:0.95rem; }
-    .faq .faq-a a { color:var(--green); }
-    .cta-band { margin-top:1.25rem; background:radial-gradient(120% 130% at 50% 0%,rgba(74,172,101,0.14),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.28); border-radius:16px; padding:1.8rem 1.5rem; text-align:center; }
+    .card p { font-size:0.93rem; color:#bcd0bf; }
+
+    .cta-band { margin-top:1.25rem; background:radial-gradient(120% 130% at 50% 0%,rgba(74,172,101,0.14),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.28); border-radius:16px; padding:1.9rem 1.5rem; text-align:center; }
     .cta-band h2 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.4rem; color:#fff; margin-bottom:0.5rem; }
     .cta-band p { color:var(--muted); max-width:620px; margin:0 auto 1.2rem; }
     .cta-band .cta-row { justify-content:center; }
-    .mini-note { margin-top:0.75rem; font-size:0.9rem; color:var(--muted); }
     .breadcrumbs { padding:1.25rem 0 0; font-size:0.82rem; color:var(--muted); }
     .breadcrumbs a { color:var(--muted); text-decoration:none; }
     .breadcrumbs a:hover { color:var(--green); }
+    .mini-note { margin-top:0.75rem; font-size:0.88rem; color:var(--muted); }
     @media (max-width:700px) { .hero { padding-top:2.8rem; } .section { padding:1.1rem; } }
-    @media (max-width:480px) { .hero { padding:2.2rem 0 1.5rem; } .cta-row { flex-direction:column; align-items:stretch; } .cta-row .btn { text-align:center; } }
+    @media (max-width:480px) { .hero { padding:2.2rem 0 1.5rem; } .cta-row { flex-direction:column; align-items:stretch; } .cta-row .btn { text-align:center; } .process { grid-template-columns:1fr; } }
 
     /* Newsletter signup */
     .newsletter-section { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 3.5rem 5%; margin-top: 4rem; }
@@ -157,32 +172,22 @@
     .tfoot-social { display:flex; gap:1.2rem; }
     .tfoot-social a { color:#8aa48d; font-size:1.1rem; transition:color 0.2s; }
     .tfoot-social a:hover { color:#4aac65; }
-    .tfoot-veteran { display:inline-flex; align-items:center; gap:0.45rem; font-family:'Montserrat','Segoe UI',system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; line-height:1; background:linear-gradient(135deg,#2d6a3f,#3d8a55); border:1px solid rgba(255,255,255,0.18); color:#fff; }
     @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
     @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
   </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "IT Support in Cleveland Heights, Ohio",
-    "description": "On-site and remote IT support for small businesses in Cleveland Heights, Ohio. Managed IT, help desk, networks, and cybersecurity from a veteran-owned local firm. Free IT assessment.",
-    "provider": {"@id": "https://tevisengineering.com/#business"},
-    "areaServed": {"@type": "City", "name": "Cleveland Heights", "containedInPlace": {"@type": "AdministrativeArea", "name": "Cuyahoga County, Ohio"}},
-    "url": "https://tevisengineering.com/it-support-cleveland-heights.html",
-    "serviceType": "Managed IT Services"
+    "@type": "CollectionPage",
+    "name": "Software Services — Tevis Engineering Solutions",
+    "description": "Practical, industry-specific cloud software built and operated by Tevis Engineering Solutions, available to license or subscribe. Starting with the Ohio Crash Report Analysis Tool.",
+    "url": "https://tevisengineering.com/software.html",
+    "isPartOf": {"@id": "https://tevisengineering.com/#website"},
+    "about": {"@id": "https://tevisengineering.com/#business"}
   }
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Service Areas","item":"https://tevisengineering.com/service-areas.html"},{"@type":"ListItem","position":3,"name":"Cleveland Heights","item":"https://tevisengineering.com/it-support-cleveland-heights.html"}]}
-  </script>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Do you offer on-site IT support in Cleveland Heights, Ohio?","acceptedAnswer":{"@type":"Answer","text":"Yes. We provide both on-site and remote IT support to businesses throughout Cleveland Heights. Our office is in the Cleveland area, so an on-site visit to Cleveland Heights is a short drive, and most issues that don't require hands-on work are resolved remotely the same day."}},
-  {"@type":"Question","name":"What size businesses in Cleveland Heights do you work with?","acceptedAnswer":{"@type":"Answer","text":"We focus on solo practices, home-based businesses, and small teams up to roughly 50 employees, exactly the kind of business that needs reliable IT but can't justify a full-time internal IT department."}},
-  {"@type":"Question","name":"How quickly can you respond to a Cleveland Heights business?","acceptedAnswer":{"@type":"Answer","text":"Standard response is within one business day. Managed-plan clients get priority response, and many remote issues are handled same-day. For a business-down emergency we do everything we can to get you working again as fast as possible."}},
-  {"@type":"Question","name":"What does IT support cost for a small business in Cleveland Heights?","acceptedAnswer":{"@type":"Answer","text":"You can work with us on a flat-rate monthly managed plan or on an as-needed hourly basis (standard engineering rate is $80/hour). We scope and quote every engagement up front, so there are no surprise bills."}}
-  ]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"Software Services","item":"https://tevisengineering.com/software.html"}]}
   </script>
 </head>
 <body>
@@ -237,114 +242,99 @@
 
   <main class="container">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="index.html">Home</a> &rsaquo; <a href="service-areas.html">Service Areas</a> &rsaquo; <span>Cleveland Heights</span>
+      <a href="index.html">Home</a> &rsaquo; <span>Software Services</span>
     </nav>
+
     <section class="hero">
-      <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Now Serving Cleveland Heights, Ohio</span>
-      <h1>IT Support in <span class="grad">Cleveland Heights, Ohio</span></h1>
+      <span class="eyebrow"><i class="fa-solid fa-laptop-code"></i> TES Software</span>
+      <h1>Cloud Software, <span class="grad">Built &amp; Run by TES</span></h1>
       <p>
-        Tevis Engineering Solutions is a veteran-owned IT and engineering firm based in the Cleveland area &mdash; and we're now serving businesses across Cleveland Heights. From the independent shops and cafes of <strong>Coventry Village</strong> and the <strong>Cedar-Lee</strong> district to the nonprofits and small practices scattered through the neighborhood, we deliver approachable, responsive IT support without the overhead of a big provider. You talk straight to the engineer doing the work.
+        Beyond IT support, Tevis Engineering Solutions designs, builds, and <strong>operates</strong> practical software products for
+        specific industries. You license or subscribe; we handle the hosting, updates, and support. Here's what's available now &mdash;
+        with more verticals in active development.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="contact.html">Get a Free Consultation</a>
-        <a class="btn btn-secondary" href="assessment.html">Take the Free IT Assessment</a>
+        <a class="btn btn-primary" href="ohio-crash-report-analysis-tool.html">Explore the Ohio Crash Tool</a>
+        <a class="btn btn-secondary" href="login.html">Customer Login</a>
       </div>
     </section>
 
-    <section class="section" id="local">
-      <h2>IT Support Built for <span class="gold">Cleveland Heights</span> Businesses</h2>
-      <p>Cleveland Heights is a diverse, character-filled inner-ring suburb with a strong independent streak. Its business districts &mdash; <strong>Coventry Village</strong>, <strong>Cedar-Lee</strong>, and <strong>Cedar Fairmount</strong> &mdash; are lined with independent retailers, restaurants and cafes, creative and arts businesses, nonprofits, and small professional practices, many operating out of the area's older commercial buildings.</p>
-      <p>Those older spaces and tight budgets create very real IT friction: patchy Wi-Fi in a century-old storefront, a card reader that keeps dropping, shared files nobody can find, and no in-house tech to sort it out. We speak plainly, fix the actual problem, and right-size everything to what an independent Cleveland Heights business actually needs &mdash; no jargon, no overselling.</p>
+    <section class="section" id="products">
+      <h2>Available <span class="gold">Now</span> &amp; In Development</h2>
+      <p>Every product is built on the same foundation: you own your data, you get direct-to-engineer support, and there is no bloat &mdash; just the tool that does the job.</p>
+      <div class="prod-grid">
+        <article class="prod-card live">
+          <img class="prod-thumb" src="assets/crash/lead-dashboard.png" alt="Ohio Crash List lead dashboard preview" loading="lazy" decoding="async">
+          <div class="prod-body">
+            <span class="badge live"><i class="fa-solid fa-circle-check"></i> Available now</span>
+            <h3>Ohio Crash Report Analysis Tool</h3>
+            <p class="who">For personal-injury firms &amp; injury-care practices</p>
+            <p>Turns Ohio's official crash reports into a clean, de-duplicated audience of injury-crash leads &mdash; name, address, injury, county &mdash; that you own. Own it, subscribe, or have us deliver the data.</p>
+            <a class="prod-link" href="ohio-crash-report-analysis-tool.html">View product <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+        <article class="prod-card">
+          <div class="prod-thumb placeholder"><i class="fa-solid fa-database"></i></div>
+          <div class="prod-body">
+            <span class="badge dev"><i class="fa-solid fa-screwdriver-wrench"></i> In development</span>
+            <h3>Public-Records &amp; Lead Pipelines</h3>
+            <p class="who">Other verticals &amp; other states</p>
+            <p>The same acquire-extract-de-duplicate engine behind the Ohio crash tool, adapted to new public-record sources, verticals, and states via a portal adapter.</p>
+            <span class="prod-link muted">Coming soon</span>
+          </div>
+        </article>
+        <article class="prod-card">
+          <div class="prod-thumb placeholder"><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="prod-body">
+            <span class="badge dev"><i class="fa-solid fa-screwdriver-wrench"></i> In development</span>
+            <h3>Business Operations Tools</h3>
+            <p class="who">Custom internal software, run for you</p>
+            <p>Purpose-built dashboards, intake, scheduling, and reporting tools for a specific workflow &mdash; hosted, maintained, and supported by TES so your team just uses it.</p>
+            <span class="prod-link muted">Coming soon</span>
+          </div>
+        </article>
+      </div>
+      <p class="mini-note">Have a repetitive, data-heavy task that should be software? <a href="contact.html" style="color:var(--gold);">Tell us about it</a> &mdash; custom tools are what we do.</p>
     </section>
 
-    <section class="section" id="services">
-      <h2>How We Support Cleveland Heights Businesses</h2>
-      <p>Whether you need someone on call for the occasional problem or a full outsourced IT department, we cover the essentials:</p>
+    <section class="section" id="how">
+      <h2>How TES Software Works</h2>
+      <div class="process">
+        <div class="process-step"><strong>Pick a product &amp; plan</strong><p>Choose the tool and the model that fits &mdash; own it outright, subscribe, or have us run it and deliver the output.</p></div>
+        <div class="process-step"><strong>We provision your access</strong><p>We set up your license or account, configure it to your needs, and onboard you. Most tools are running the same week.</p></div>
+        <div class="process-step"><strong>You run it &mdash; we maintain it</strong><p>Use the tool (or receive the data). Updates, fixes, and support are handled behind the scenes. Sign in any time from the customer portal.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <h2>Why TES Software</h2>
       <div class="grid">
         <article class="card">
-          <h3><i class="fa-solid fa-headset"></i> Managed IT &amp; Help Desk</h3>
-          <p>A flat monthly rate for proactive monitoring, updates, and a real person to call when something breaks &mdash; your outsourced IT department.</p>
+          <h3><i class="fa-solid fa-user-shield"></i> You own your data</h3>
+          <p>On owned and licensed tools, your data and outputs are yours &mdash; not resold, not shared with your competitors.</p>
         </article>
         <article class="card">
-          <h3><i class="fa-solid fa-wifi"></i> Networks &amp; Wi-Fi</h3>
-          <p>Wired and wireless networks that actually reach every corner of your space, plus reliable point-of-sale and guest Wi-Fi.</p>
+          <h3><i class="fa-solid fa-headset"></i> Direct to the engineer</h3>
+          <p>No call center and no ticket black hole. You talk to the person who built the software, with a one-business-day reply.</p>
         </article>
         <article class="card">
-          <h3><i class="fa-solid fa-lock"></i> Security &amp; Backup</h3>
-          <p>Endpoint protection, ransomware-resistant backups, and email security to keep your business and customer data safe.</p>
+          <h3><i class="fa-solid fa-star"></i> Veteran-owned &amp; local</h3>
+          <p>A Cleveland, Ohio company that stands behind its work &mdash; software you can actually get a human on the phone about.</p>
         </article>
         <article class="card">
-          <h3><i class="fa-solid fa-envelope-open-text"></i> Microsoft 365 &amp; Email</h3>
-          <p>Setup, migration, and support for Microsoft 365, Google Workspace, shared files, and professional email on your own domain.</p>
+          <h3><i class="fa-solid fa-sliders"></i> Shaped to your workflow</h3>
+          <p>These tools are built as foundations. Need a new filter, format, or integration? Describe it and we build it.</p>
         </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-house-laptop"></i> On-Site &amp; Remote Support</h3>
-          <p>Hands-on help when hardware needs a human, and fast remote fixes when it doesn't &mdash; whichever gets you working sooner.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-store"></i> New Office &amp; Business Setup</h3>
-          <p>Opening or moving in Coventry, Cedar-Lee, or Cedar Fairmount? We handle the wiring, network, computers, and software so you're up and running from day one.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="why-local">
-      <h2>Why a Local IT Partner Beats a 1-800 Number</h2>
-      <div class="grid">
-        <article class="card">
-          <h3><i class="fa-solid fa-truck-fast"></i> On-Site When It Counts</h3>
-          <ul class="ticks">
-            <li>A short drive from the Cleveland area &mdash; not a technician flown in from three states away</li>
-            <li>Remote-first for speed, on-site whenever hardware needs hands</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-user-check"></i> One Accountable Person</h3>
-          <ul class="ticks">
-            <li>You work with the actual engineer &mdash; no call center, no ticket ping-pong</li>
-            <li>We learn your setup so you're not re-explaining it every time</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-clock"></i> Fast, Honest Response</h3>
-          <ul class="ticks">
-            <li>One-business-day standard response, priority for plan clients</li>
-            <li>Clear, up-front pricing &mdash; scoped and quoted before we start</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <h2>Cleveland Heights IT Support &mdash; Frequently Asked Questions</h2>
-      <div class="faq">
-        <details>
-          <summary>Do you offer on-site IT support in Cleveland Heights, Ohio?</summary>
-          <div class="faq-a">Yes. We provide both on-site and remote IT support to businesses throughout Cleveland Heights. Our office is in the Cleveland area, so an on-site visit to Cleveland Heights is a short drive, and most issues that don't require hands-on work are resolved remotely the same day.</div>
-        </details>
-        <details>
-          <summary>What size businesses in Cleveland Heights do you work with?</summary>
-          <div class="faq-a">We focus on solo practices, home-based businesses, and small teams up to roughly 50 employees &mdash; exactly the kind of business that needs reliable IT but can't justify a full-time internal IT department.</div>
-        </details>
-        <details>
-          <summary>How quickly can you respond to a Cleveland Heights business?</summary>
-          <div class="faq-a">Standard response is within one business day. Managed-plan clients get priority response, and many remote issues are handled same-day. For a business-down emergency we do everything we can to get you working again as fast as possible.</div>
-        </details>
-        <details>
-          <summary>What does IT support cost for a small business in Cleveland Heights?</summary>
-          <div class="faq-a">You can work with us on a flat-rate monthly managed plan or on an as-needed hourly basis (standard engineering rate is $80/hour). We scope and quote every engagement up front, so there are no surprise bills. See the <a href="pricing_sheet.html">pricing sheet</a> for details.</div>
-        </details>
       </div>
     </section>
 
     <section class="cta-band">
-      <h2>Let's Talk About Your Cleveland Heights Business</h2>
-      <p>Tired of DIY IT or an unresponsive provider? Get a free, no-pressure consultation or take our two-minute IT readiness assessment &mdash; and see what a local, accountable IT partner feels like.</p>
+      <h2>Ready to get started?</h2>
+      <p>Existing customer? Sign in to manage your subscription, licenses, billing, and support in one place. New here? Explore a product or reach out and we'll find the right fit.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="contact.html">Get a Free Consultation</a>
-        <a class="btn btn-secondary" href="tel:+12163028486">Call (216) 302-8486</a>
+        <a class="btn btn-primary" href="login.html">Customer Login</a>
+        <a class="btn btn-secondary" href="contact.html">Talk to Us</a>
       </div>
-      <p class="mini-note">Serving Cleveland Heights and the greater Cleveland area &middot; Veteran-owned</p>
     </section>
   </main>
 
@@ -352,8 +342,8 @@
   <section class="newsletter-section" aria-label="Email newsletter signup">
     <div class="newsletter-inner">
       <div class="newsletter-text">
-        <h2 class="newsletter-heading">IT Tips for Individuals &amp; Small Businesses</h2>
-        <p class="newsletter-sub">Monthly practical advice — no spam, no upsells. Unsubscribe anytime.</p>
+        <h2 class="newsletter-heading">Tools &amp; Tips from TES</h2>
+        <p class="newsletter-sub">Occasional updates on new software, features, and practical business technology. No spam. Unsubscribe anytime.</p>
       </div>
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/tevisengineering"
@@ -364,15 +354,7 @@
       >
         <input type="hidden" value="1" name="embed">
         <label for="newsletterEmail" class="sr-only">Email address</label>
-        <input
-          type="email"
-          id="newsletterEmail"
-          name="email"
-          placeholder="your@email.com"
-          required
-          autocomplete="email"
-          class="newsletter-input"
-        >
+        <input type="email" id="newsletterEmail" name="email" placeholder="your@email.com" required autocomplete="email" class="newsletter-input">
         <button type="submit" class="newsletter-btn">Subscribe</button>
         <noscript><p style="margin-top:0.75rem;font-size:0.85rem;">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
       </form>
@@ -406,6 +388,7 @@
         <a href="how_support_works.html">How Support Works</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="blog/index.html">Blog</a>
+        <a href="pricing_sheet.html">Pricing</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="tfoot-col">
