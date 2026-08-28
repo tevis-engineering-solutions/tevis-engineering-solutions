@@ -75,6 +75,8 @@
     .lic-k { color:var(--muted); }
     .lic-v { color:var(--text); font-weight:600; }
     .prod-actions { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1rem; }
+    .sha { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:0.72rem; word-break:break-all; margin-top:0.4rem; color:var(--muted); }
+    .sha-how { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:0.72rem; margin-top:0.25rem; color:var(--muted); }
     .keynote { font-size:0.8rem; color:var(--muted); margin-top:0.8rem; padding:0.7rem 0.85rem; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid var(--line); }
     .swmsg { font-size:0.84rem; margin-top:0.6rem; min-height:1.1rem; }
     .swmsg.ok { color:#8fd4a3; }
@@ -337,6 +339,27 @@
       a.href = dl.url;
       acts.appendChild(a);
       d.appendChild(acts);
+
+      /* Version and checksum. This does not remove Windows' unsigned-app warning
+         -- only code signing does -- but it lets a cautious customer confirm the
+         file they received is the file we published. */
+      if (dl.version || dl.sha256) {
+        var meta = el('div', 'keynote');
+        if (dl.version) {
+          meta.appendChild(el('div', null,
+            'Version ' + dl.version + (dl.arch ? ' · ' + dl.arch : '')));
+        }
+        if (dl.sha256) {
+          var sh = el('div', 'sha');
+          sh.textContent = 'SHA-256 ' + dl.sha256;
+          meta.appendChild(sh);
+          var how = el('div', 'sha-how');
+          how.textContent = 'Verify with: Get-FileHash ' + dl.filename;
+          meta.appendChild(how);
+        }
+        if (dl.notes) meta.appendChild(el('div', null, dl.notes));
+        d.appendChild(meta);
+      }
 
       if (dl.byo_key) {
         var note = el('div', 'keynote');
