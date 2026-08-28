@@ -56,6 +56,30 @@
     .btn-ghost { border-color:var(--line); color:#cfe0d2; background:var(--card); }
     .btn-ghost:hover { border-color:var(--green); }
     .sec-title { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:1rem; color:#f1f7f1; margin:2rem 0 0.8rem; }
+    .prod { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1.3rem; margin-bottom:1rem; }
+    .prod-top { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:0.9rem; }
+    .prod-name { font-family:"Montserrat",sans-serif; font-size:1.15rem; color:#fff; }
+    .prod-plan { font-size:0.8rem; color:var(--muted); margin-top:0.2rem; }
+    .pill { font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; padding:0.25rem 0.7rem; border-radius:999px; border:1px solid transparent; white-space:nowrap; }
+    .prod-explain { font-size:0.9rem; color:var(--muted); margin-bottom:1rem; }
+    .meter { margin-bottom:1rem; }
+    .meter-top { display:flex; justify-content:space-between; font-size:0.8rem; color:var(--muted); margin-bottom:0.35rem; }
+    .meter-top b { color:var(--text); font-family:"Montserrat",sans-serif; }
+    .meter-bar { height:9px; border-radius:999px; background:rgba(255,255,255,0.07); overflow:hidden; }
+    .meter-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,#4aac65,#7fd39a); transition:width .4s; }
+    .meter-fill.warn { background:linear-gradient(90deg,#c89830,#e0b840); }
+    .meter-fill.full { background:linear-gradient(90deg,#e06b6b,#f09a9a); }
+    .meter-note { font-size:0.78rem; color:var(--muted); margin-top:0.35rem; }
+    .lic { border-top:1px solid var(--line); padding-top:0.85rem; margin-top:0.85rem; }
+    .lic-row { display:flex; justify-content:space-between; gap:1rem; font-size:0.84rem; padding:0.25rem 0; flex-wrap:wrap; }
+    .lic-k { color:var(--muted); }
+    .lic-v { color:var(--text); font-weight:600; }
+    .prod-actions { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1rem; }
+    .keynote { font-size:0.8rem; color:var(--muted); margin-top:0.8rem; padding:0.7rem 0.85rem; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid var(--line); }
+    .swmsg { font-size:0.84rem; margin-top:0.6rem; min-height:1.1rem; }
+    .swmsg.ok { color:#8fd4a3; }
+    .swmsg.err { color:#f0a3a3; }
+    .empty-actions { display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
     .manage-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0.9rem; }
     .mtile { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1.05rem; }
     .mtile i { color:var(--gold); font-size:1.1rem; }
@@ -97,15 +121,12 @@
       <p>License keys, downloads, activation, and usage for your TES applications.</p>
     </div>
 
-    <div class="empty">
-      <div class="ei"><i class="fa-solid fa-cubes"></i></div>
-      <h2>No active products yet</h2>
-      <p>Once you start a subscription or purchase a TES application, your license key, plan, usage, and downloads will appear right here.</p>
-      <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
-        <a class="btn btn-primary" href="../software.html"><i class="fa-solid fa-laptop-code"></i> Browse Software</a>
-        <a class="btn btn-ghost" href="../ohio-crash-report-analysis-tool.html#get-started"><i class="fa-solid fa-bolt"></i> Start a Free Trial</a>
-      </div>
+    <div id="swState" class="empty">
+      <div class="ei"><i class="fa-solid fa-spinner fa-spin"></i></div>
+      <h2>Loading your software&hellip;</h2>
     </div>
+
+    <div id="swList"></div>
 
     <h2 class="sec-title">What you'll manage here</h2>
     <div class="manage-grid">
@@ -136,6 +157,179 @@
     <span>&copy; 2026 Tevis Engineering Solutions, LLC &middot; Cleveland, OH</span>
     <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
   </footer>
+
+  <script>
+  (function () {
+    'use strict';
+    var API = '/portal-api';
+    var STATUS_COLOR = {
+      active: '#22c55e', issued: '#4fa2ff', expired: '#fb923c',
+      inactive: '#f59e0b', revoked: '#ef4444'
+    };
+
+    function api(path, opts) {
+      opts = opts || {};
+      opts.credentials = 'same-origin';
+      if (opts.body) {
+        opts.headers = { 'content-type': 'application/json' };
+        opts.body = JSON.stringify(opts.body);
+      }
+      return fetch(API + path, opts)
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .catch(function () { return { ok: false }; });
+    }
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+    function fmt(ts) {
+      if (!ts) return '\u2014';
+      return new Date(ts * 1000).toLocaleDateString(undefined,
+        { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    function pill(text, color) {
+      var p = el('span', 'pill', text);
+      p.style.color = color; p.style.borderColor = color + '55'; p.style.background = color + '1a';
+      return p;
+    }
+
+    var stateEl = document.getElementById('swState');
+    var listEl = document.getElementById('swList');
+
+    function card(p) {
+      var d = el('div', 'prod');
+
+      var top = el('div', 'prod-top');
+      var left = el('div');
+      left.appendChild(el('div', 'prod-name', p.name));
+      left.appendChild(el('div', 'prod-plan', p.plan_label + ' plan'));
+      top.appendChild(left);
+      top.appendChild(pill(p.status, STATUS_COLOR[p.status] || '#8aa48d'));
+      d.appendChild(top);
+
+      if (p.explain) d.appendChild(el('div', 'prod-explain', p.explain));
+
+      // Usage meter. The limit shown is the one the API actually enforces.
+      var u = p.usage;
+      var m = el('div', 'meter');
+      var mt = el('div', 'meter-top');
+      mt.appendChild(el('span', null, u.period_label));
+      var right = el('span');
+      right.appendChild(el('b', null, u.reports_used.toLocaleString()));
+      right.appendChild(document.createTextNode(' of ' + u.reports_limit.toLocaleString() + ' reports'));
+      mt.appendChild(right);
+      m.appendChild(mt);
+
+      var bar = el('div', 'meter-bar');
+      var fill = el('div', 'meter-fill' + (u.percent >= 100 ? ' full' : u.percent >= 80 ? ' warn' : ''));
+      fill.style.width = Math.max(2, u.percent) + '%';
+      bar.appendChild(fill);
+      m.appendChild(bar);
+
+      m.appendChild(el('div', 'meter-note',
+        u.remaining > 0
+          ? u.remaining.toLocaleString() + ' remaining \u00b7 up to ' + u.per_minute + ' per minute'
+          : 'You have used your full allowance. Upgrade to keep extracting.'));
+      d.appendChild(m);
+
+      (p.licenses || []).forEach(function (l) {
+        var lic = el('div', 'lic');
+        function row(k, v) {
+          var r = el('div', 'lic-row');
+          r.appendChild(el('span', 'lic-k', k));
+          r.appendChild(el('span', 'lic-v', v));
+          lic.appendChild(r);
+        }
+        row('Licence type', l.type === 'trial' ? 'Free trial' : 'Paid');
+        row('Activated', l.activated ? fmt(l.activated_at) : 'Not yet activated');
+        if (l.machine_bound) row('Installed on', '1 computer');
+        if (l.expires_at) {
+          row('Expires', fmt(l.expires_at) +
+            (l.days_left != null ? ' (' + l.days_left + ' day' + (l.days_left === 1 ? '' : 's') + ' left)' : ''));
+        }
+        d.appendChild(lic);
+      });
+
+      var acts = el('div', 'prod-actions');
+      var view = el('a', 'btn btn-ghost', 'Product details');
+      view.href = p.url;
+      acts.appendChild(view);
+      if (p.status === 'expired' || p.plan === 'trial') {
+        var up = el('a', 'btn btn-primary', 'Upgrade');
+        up.href = p.url + '#get-started';
+        acts.appendChild(up);
+      }
+      d.appendChild(acts);
+
+      // Keys are stored hashed and cannot be looked up, so this raises a ticket
+      // rather than pretending the portal can show one.
+      var note = el('div', 'keynote');
+      note.appendChild(document.createTextNode(
+        'For your security we store licence keys hashed, so they cannot be displayed here. ' +
+        'Lost yours? We will issue a replacement. '));
+      var req = el('button', null, 'Request a replacement key');
+      req.type = 'button';
+      req.className = 'btn btn-ghost';
+      req.style.marginTop = '0.6rem';
+      var msg = el('div', 'swmsg');
+      req.addEventListener('click', function () {
+        req.disabled = true;
+        msg.className = 'swmsg';
+        msg.textContent = 'Sending\u2026';
+        api('/software/key-request', { method: 'POST', body: {} }).then(function (r) {
+          req.disabled = false;
+          if (!r || !r.ok) {
+            msg.className = 'swmsg err';
+            msg.textContent = 'Could not send that. Email support@tevisengineering.com.';
+            return;
+          }
+          msg.className = 'swmsg ok';
+          msg.textContent = 'Request sent (' + r.ticket_number + '). We will email a new key shortly.';
+          req.disabled = true;
+        });
+      });
+      note.appendChild(document.createElement('br'));
+      note.appendChild(req);
+      note.appendChild(msg);
+      d.appendChild(note);
+
+      return d;
+    }
+
+    api('/software').then(function (r) {
+      if (!r || !r.ok) {
+        if (r && r.error === 'unauthenticated') { location.replace('../login.html'); return; }
+        stateEl.textContent = '';
+        stateEl.appendChild(el('div', 'ei')).appendChild(el('i', 'fa-solid fa-triangle-exclamation'));
+        stateEl.appendChild(el('h2', null, 'Could not load your software'));
+        stateEl.appendChild(el('p', null, 'Try again in a moment, or email support@tevisengineering.com.'));
+        return;
+      }
+      var products = r.products || [];
+      if (!products.length) {
+        // Genuinely owns nothing -- keep the original invitation to start a trial.
+        stateEl.textContent = '';
+        var ei = el('div', 'ei');
+        ei.appendChild(el('i', 'fa-solid fa-cubes'));
+        stateEl.appendChild(ei);
+        stateEl.appendChild(el('h2', null, 'No active products yet'));
+        stateEl.appendChild(el('p', null,
+          'Once you start a subscription or purchase a TES application, your licence, plan and usage appear here.'));
+        var row = el('div', 'empty-actions');
+        var a1 = el('a', 'btn btn-primary', 'Browse Software'); a1.href = '../software.html';
+        var a2 = el('a', 'btn btn-ghost', 'Start a Free Trial');
+        a2.href = '../ohio-crash-report-analysis-tool.html#get-started';
+        row.appendChild(a1); row.appendChild(a2);
+        stateEl.appendChild(row);
+        return;
+      }
+      stateEl.hidden = true;
+      products.forEach(function (p) { listEl.appendChild(card(p)); });
+    });
+  })();
+  </script>
 
   <script>
     (function () {
