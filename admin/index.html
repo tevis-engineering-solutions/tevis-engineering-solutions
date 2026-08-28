@@ -77,6 +77,8 @@
     .inv-actions { display:flex; gap:0.4rem; margin-top:0.6rem; flex-wrap:wrap; }
     .inv-actions button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
     .inv-actions button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .inv-actions button.danger { border-color:#7f2c2c; color:#e08585; }
+    .inv-actions button.danger:hover { background:rgba(190,60,60,.14); }
     .pending-line { color:#e0c98a; }
     .newinv { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1rem; margin-bottom:1rem; }
     .newinv h2 { font-family:"Montserrat",sans-serif; font-size:1rem; margin-bottom:0.8rem; }
@@ -630,6 +632,9 @@
     };
     // Only a dead key can be filed away. Mirrors ARCHIVABLE in the Worker.
     var ARCHIVABLE = ['revoked', 'expired'];
+    // Same rule as archiving: only a dead key may be hidden or destroyed.
+    var UNASSIGNABLE = ['revoked', 'expired'];
+    var DELETABLE = ['revoked', 'expired'];
     var keyFilter = 'exclude';
 
     // Dates here carry the year. A key issued last November and one issued this
@@ -681,6 +686,9 @@
       var top = el('div', 'inv-top');
       top.appendChild(el('span', 'inv-num', v.email || v.account_id));
       var right = el('span');
+      if (v.unassigned) {
+        right.appendChild(badge('Hidden from customer', '#6a8ba8'));
+      }
       if (v.archived) {
         right.appendChild(badge('Archived', '#6a8ba8'));
         right.appendChild(document.createTextNode(' '));
@@ -790,6 +798,41 @@
             .then(function (r) {
               toast(r.ok ? 'Archived' :
                 r.error === 'not_archivable' ? 'Only revoked or expired keys can be archived' : 'Failed');
+              loadKeys();
+            });
+        }));
+      }
+
+      // Hides a dead key from the customer's My Software page. Their dashboard
+      // should show the licence they are using, not every one ever issued to them.
+      if (v.unassigned) {
+        acts.appendChild(licAction('Show to customer', null, function () {
+          api('/admin/licenses/' + v.key_hash + '/unassign',
+            { method: 'POST', body: { unassigned: false } })
+            .then(function (r) { toast(r.ok ? 'Visible on their dashboard again' : 'Failed'); loadKeys(); });
+        }));
+      } else if (UNASSIGNABLE.indexOf(v.status) !== -1) {
+        acts.appendChild(licAction('Hide from customer', null, function () {
+          api('/admin/licenses/' + v.key_hash + '/unassign',
+            { method: 'POST', body: { unassigned: true } })
+            .then(function (r) {
+              toast(r.ok ? 'Hidden from their dashboard' : (r.message || 'Failed'));
+              loadKeys();
+            });
+        }));
+      }
+
+      // Permanent. The history in license_events survives, so "we issued this and
+      // later destroyed it" stays answerable after the row is gone.
+      if (DELETABLE.indexOf(v.status) !== -1) {
+        acts.appendChild(licAction('Delete', 'danger', function () {
+          if (!confirm('Permanently delete this key?' + "\n\n" +
+                'The row is destroyed. Its history is kept, but it disappears from ' +
+                'this list and from ' + (v.email || 'the customer') + "'s dashboard." + "\n\n" +
+                'This cannot be undone.')) return;
+          api('/admin/licenses/' + v.key_hash, { method: 'DELETE' })
+            .then(function (r) {
+              toast(r.ok ? 'Deleted' : (r.message || 'Could not delete'));
               loadKeys();
             });
         }));
