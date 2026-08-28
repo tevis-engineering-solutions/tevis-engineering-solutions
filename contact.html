@@ -372,8 +372,8 @@
       <div class="contact-grid">
         <!-- FORM -->
         <div class="panel">
-          <h2>Send a Message</h2>
-          <p class="lede">Fill this out and it lands in the inbox directly. Expect a reply within one business day.</p>
+          <h2 id="formHeading">Send a Message</h2>
+          <p class="lede" id="formLede">Fill this out and it lands in the inbox directly. Expect a reply within one business day.</p>
 
           <form class="form" id="contactForm" action="https://formspree.io/f/maqvanal" method="POST">
             <div class="form-success" id="formSuccess" role="status">
@@ -578,6 +578,13 @@
       function showSuccess() {
         Array.prototype.forEach.call(form.children, function(el) {
           if (el !== success) el.style.display = 'none';
+        });
+        // The panel heading and lede sit outside the form, so hiding the form's own
+        // children is not enough -- without this the confirmation still reads
+        // "Send a Message / Fill this out...", inviting a second submission.
+        ['formHeading', 'formLede'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = 'none';
         });
         success.classList.add('show');
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });

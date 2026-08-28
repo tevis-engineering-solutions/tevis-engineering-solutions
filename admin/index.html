@@ -115,6 +115,7 @@
     <button type="button" class="fpill" data-status="In Progress">In Progress</button>
     <button type="button" class="fpill" data-status="Pending Client">Pending Client</button>
     <button type="button" class="fpill" data-status="Resolved">Resolved</button>
+    <button type="button" class="fpill" data-status="Archived">Archived</button>
   </div>
 
   <main class="wrap" aria-label="Ticket triage">
@@ -179,9 +180,9 @@
   (function () {
     'use strict';
     var API = '/portal-api';
-    var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e' };
+    var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e', 'Archived':'#6a8ba8' };
     var PRIORITY = { 'Low':'#6a8ba8', 'Medium':'#4fa2ff', 'High':'#fb923c', 'Critical':'#ef4444' };
-    var STATUSES = ['Open', 'In Progress', 'Pending Client', 'Resolved'];
+    var STATUSES = ['Open', 'In Progress', 'Pending Client', 'Resolved', 'Archived'];
     var PRIORITIES = ['Low', 'Medium', 'High', 'Critical'];
 
     var listEl = document.getElementById('list');
@@ -302,7 +303,25 @@
             load().then(function () { open(t.id); });
           });
       });
-      ctl.appendChild(sSel); ctl.appendChild(pSel); ctl.appendChild(save);
+      var arch = el('button', null, t.status === 'Archived' ? 'Unarchive' : 'Archive');
+      arch.type = 'button';
+      arch.addEventListener('click', function () {
+        arch.disabled = true;
+        var next = t.status === 'Archived' ? 'Resolved' : 'Archived';
+        api('/admin/tickets/' + t.id, { method: 'PATCH', body: { status: next } })
+          .then(function (r) {
+            arch.disabled = false;
+            if (!r.ok) return toast('Could not update');
+            toast(next === 'Archived' ? 'Archived' : 'Restored to Resolved');
+            // Archiving removes it from the current list, so clear the panel too.
+            detailEl.textContent = '';
+            detailEl.appendChild(el('div', 'state', 'Select a ticket to open it.'));
+            currentId = null;
+            load();
+          });
+      });
+
+      ctl.appendChild(sSel); ctl.appendChild(pSel); ctl.appendChild(save); ctl.appendChild(arch);
       p.appendChild(ctl);
 
       // Thread
