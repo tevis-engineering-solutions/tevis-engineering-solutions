@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -316,6 +316,8 @@
     #paypal-button-container {
       max-width: 400px;
       margin: 1.5rem auto 0;
+      position: relative;
+      z-index: 1;
     }
     .payment-success {
       text-align: center;
@@ -687,6 +689,10 @@
         .replace(/[^a-z0-9]/g, "");
     }
 
+    function formatUSD(value) {
+      return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+    }
+
     function toCurrencyNumber(amountText) {
       const numeric = Number(String(amountText).replace(/[^0-9.-]/g, ""));
       return Number.isFinite(numeric) ? numeric : null;
@@ -763,7 +769,7 @@
       selectedInvoice = row;
       const amountText = row.InvoiceAmount || "";
       const numericAmount = toCurrencyNumber(amountText);
-      const displayAmount = (amountText && !String(amountText).startsWith("$")) ? "$" + amountText : amountText;
+      const displayAmount = numericAmount === null ? amountText : formatUSD(numericAmount);
 
       resultUsername.textContent = row.Username || "-";
       resultLatestInvoice.textContent = row.LatestInvoice || "-";
@@ -837,7 +843,7 @@
               '<p class="success-icon">✓</p>' +
               '<p class="success-heading">Payment Complete</p>' +
               '<p class="success-detail">Thank you, ' + details.payer.name.given_name + '. ' +
-              'Your payment of $' + amount.toFixed(2) + ' has been received.</p>' +
+              'Your payment of ' + formatUSD(amount) + ' has been received.</p>' +
               '<p class="success-order">PayPal Order ID: ' + data.orderID + '</p>' +
               '</div>';
           });
