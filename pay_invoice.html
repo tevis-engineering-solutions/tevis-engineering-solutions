@@ -32,11 +32,11 @@
       Referrer-Policy: strict-origin-when-cross-origin
       Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
         https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.paypal.com
-        https://www.google.com https://script.google.com;
+        https://www.google.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com
         https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com
         https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'
-        https://formspree.io https://script.google.com; frame-ancestors 'none';
+        https://formspree.io; frame-ancestors 'none';
     For Netlify/Cloudflare Pages, these are also in /_headers (repo root).
   -->
   <!-- S5: settable via <meta>, partial coverage only -->
@@ -217,6 +217,9 @@
       margin-right: 0.35rem;
     }
 
+    .lookup-help { border:1px solid var(--border); border-radius:12px; padding:1.1rem 1.2rem; background:rgba(255,255,255,0.02); }
+    .lookup-help p { margin:0 0 0.6rem; font-size:0.92rem; color:var(--muted); }
+    .lookup-help .btn { margin-top:0.4rem; }
     .lookup-row {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -512,19 +515,19 @@
 
     <section class="hero">
       <h1>Invoice Lookup and Payment</h1>
-      <p>Enter your invoice number or the email address the invoice was sent to and retrieve your billing details. If you have payment or billing issues, use the support form below and include your invoice reference.</p>
+      <p>Open the payment link from your invoice email to pay in a couple of clicks. If you have an account with us, every invoice is also in your customer portal. For payment or billing questions, use the support form below and include your invoice reference.</p>
     </section>
 
     <div class="grid">
       <section class="card" aria-labelledby="lookup-title">
         <h2 id="lookup-title">Find Your Invoice</h2>
-        <p class="lead">Search using your invoice number or the email address the invoice was sent to.</p>
-        <p class="quick-pay-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Once your invoice is found, click <strong>Pay Invoice</strong> to be directed to PayPal immediately and complete payment.</p>
+        <p class="lead">Invoices open from the secure payment link we email you.</p>
+        <p class="quick-pay-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Your payment link opens the invoice directly. Review the amount, then pay with PayPal, a card, or Venmo.</p>
 
-        <div class="lookup-row">
-          <label for="invoiceQuery" class="sr-only">Invoice number or account email</label>
-          <input id="invoiceQuery" type="text" placeholder="e.g. TES-2026-001 or your account email">
-          <button id="lookupBtn" class="btn btn-primary" type="button" disabled>Search</button>
+        <div id="noLinkHelp" class="lookup-help">
+          <p>Open the <strong>payment link</strong> from your invoice email and this page will load that invoice automatically.</p>
+          <p>Have an account with us? All of your invoices are in the customer portal.</p>
+          <a class="btn btn-primary" href="login.html"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Sign In to the Portal</a>
         </div>
 
         <p id="lookupStatus" class="status" role="status" aria-live="polite"></p>
@@ -667,8 +670,6 @@
       if (success) success.classList.add('visible');
     }
 
-    const invoiceQueryEl = document.getElementById("invoiceQuery");
-    const lookupBtn = document.getElementById("lookupBtn");
     const lookupStatus = document.getElementById("lookupStatus");
     const invoiceResult = document.getElementById("invoiceResult");
     const paypalMeta = document.getElementById("paypalMeta");
@@ -680,7 +681,6 @@
     const resultAmount = document.getElementById("resultAmount");
 
     let selectedInvoice = null;
-    let lookupInFlight = false;
 
     function setStatus(message, kind) {
       lookupStatus.textContent = message;
@@ -756,87 +756,50 @@
       });
     }
 
-    function onLookup() {
-      const query = invoiceQueryEl.value;
-      if (!query.trim()) {
-        setStatus("Enter an invoice number or account email.", "warn");
-        return;
-      }
-      if (lookupInFlight) {
+    /* Invoices are resolved from a signed, expiring pay link (?t=...), not by
+       searching. The old search hit a Google Apps Script that returned every
+       invoice row to any caller; there is deliberately no lookup-by-number path
+       any more, because a number is guessable and a signed token is not. */
+    function loadFromPayLink() {
+      const help = document.getElementById("noLinkHelp");
+      const hasToken = new URLSearchParams(window.location.search).has("t");
+
+      if (!hasToken) {
+        setStatus("Open the payment link from your invoice email, or sign in to the portal.", "");
         return;
       }
 
-      lookupInFlight = true;
-      lookupBtn.disabled = true;
-      clearResult();
-      setStatus("Searching the invoicing database...", "warn");
+      if (help) help.style.display = "none";
+      setStatus("Loading your invoice...", "warn");
 
-      TESInvoices.lookup(query).then(function (matches) {
-        if (!matches.length) {
-          setStatus("No match found. Check the invoice reference or use the billing support form.", "bad");
+      TESInvoices.lookupFromPayLink().then(function (res) {
+        if (!res.ok) {
+          if (help) help.style.display = "";
+          if (res.error === "invalid_or_expired") {
+            setStatus("That payment link has expired or is not valid. Ask us for a fresh one, or sign in to the portal.", "bad");
+          } else {
+            setStatus("We could not load that invoice. Use the billing support form below.", "bad");
+          }
           return;
         }
 
-        const unpaid = matches.filter(function (m) { return !m.paid; });
-        const row = unpaid.length ? unpaid[0] : matches[0];
-        renderResult(row);
+        renderResult(res.invoice);
 
-        if (row.paid) {
-          setStatus("Invoice located. It is already marked paid.", "good");
-        } else if (unpaid.length > 1) {
-          setStatus("Found " + unpaid.length + " open invoices for this account. Showing the first. " +
-            "Sign in to the customer portal to see them all.", "good");
+        if (res.invoice.paid) {
+          setStatus("This invoice is already paid. Nothing further is owed.", "good");
+        } else if (res.invoice.overdue) {
+          setStatus("Invoice loaded. This one is past due.", "warn");
         } else {
-          setStatus("Invoice located. Review details and continue to payment.", "good");
+          setStatus("Invoice loaded. Review the details and continue to payment.", "good");
         }
       }).catch(function (error) {
-        console.error("Invoice lookup error:", error);
-        setStatus("Unable to reach the invoicing service. Use the billing support form below.", "bad");
-      }).finally(function () {
-        lookupInFlight = false;
-        lookupBtn.disabled = false;
+        console.error("Invoice load error:", error);
+        if (help) help.style.display = "";
+        setStatus("Unable to reach the billing service. Use the billing support form below.", "bad");
       });
     }
 
-    function handleDirectLookupFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      let invoiceParam = "";
-
-      for (const [key, value] of params.entries()) {
-        const k = String(key || "").toLowerCase();
-        if (k === "invoice" || k === "invoicenumber" || k === "invoice_number" || k === "inv" || k === "q") {
-          invoiceParam = String(value || "").trim();
-          break;
-        }
-      }
-
-      if (!invoiceParam) {
-        const hashToken = decodeURIComponent(String(window.location.hash || "").replace(/^#/, "")).trim();
-        if (hashToken && hashToken !== "billing-support") {
-          invoiceParam = hashToken;
-        }
-      }
-
-      if (!invoiceParam) {
-        return;
-      }
-
-      invoiceQueryEl.value = invoiceParam;
-      onLookup();
-    }
-
-    lookupBtn.addEventListener("click", onLookup);
-
-    invoiceQueryEl.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        onLookup();
-      }
-    });
-
-    lookupBtn.disabled = false;
-    setStatus("Enter your invoice number or account email to begin.", "");
-    handleDirectLookupFromQuery();
+    loadFromPayLink();
 
     // Cookie consent banner
     (function() {

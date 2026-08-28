@@ -65,6 +65,26 @@
     textarea:focus { outline:none; border-color:var(--green); }
     .reply-row { display:flex; gap:0.4rem; margin-top:0.5rem; flex-wrap:wrap; }
 
+    .viewnav { display:flex; gap:0.4rem; padding:0.6rem 1rem 0; max-width:1100px; margin:0 auto; }
+    .vbtn { font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.5rem 0.9rem; border-radius:8px 8px 0 0; border:1px solid var(--line); border-bottom:none; background:transparent; color:var(--muted); cursor:pointer; }
+    .vbtn.on { background:var(--card); color:#fff; border-color:var(--gold); }
+    .inv { border:1px solid var(--line); border-radius:12px; background:var(--card); padding:0.85rem 1rem; margin-bottom:0.5rem; }
+    .inv-top { display:flex; justify-content:space-between; gap:0.6rem; align-items:center; flex-wrap:wrap; }
+    .inv-num { font-family:"Montserrat",sans-serif; font-weight:800; font-size:0.82rem; }
+    .inv-amt { font-family:"Montserrat",sans-serif; font-weight:800; font-size:1rem; color:var(--gold); }
+    .inv-meta { font-size:0.74rem; color:var(--muted); margin-top:0.25rem; word-break:break-word; }
+    .inv-actions { display:flex; gap:0.4rem; margin-top:0.6rem; flex-wrap:wrap; }
+    .inv-actions button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
+    .inv-actions button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .newinv { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1rem; margin-bottom:1rem; }
+    .newinv h2 { font-family:"Montserrat",sans-serif; font-size:1rem; margin-bottom:0.8rem; }
+    .fgrid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
+    @media (max-width:640px) { .fgrid { grid-template-columns:1fr; } }
+    .fgrid label, .fwide label { display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; margin-bottom:0.2rem; }
+    .fgrid input, .fwide input { width:100%; padding:0.55rem 0.7rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.88rem; }
+    .fgrid input:focus, .fwide input:focus { outline:none; border-color:var(--green); }
+    .fwide { margin-top:0.6rem; }
+    .paylink { margin-top:0.7rem; padding:0.6rem 0.75rem; border-radius:8px; background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.35); font-size:0.78rem; word-break:break-all; color:#cdeed6; }
     .state { text-align:center; color:var(--muted); font-size:0.88rem; padding:2rem 1rem; border:1px dashed var(--line); border-radius:12px; }
     .toast { position:fixed; left:50%; bottom:1.2rem; transform:translateX(-50%); background:var(--card-2); border:1px solid var(--green); color:var(--text); padding:0.6rem 1rem; border-radius:999px; font-size:0.85rem; z-index:99; }
     [hidden] { display:none !important; }
@@ -82,6 +102,12 @@
     </div>
   </header>
 
+  <div class="viewnav">
+    <button type="button" class="vbtn on" id="navTickets">Tickets</button>
+    <button type="button" class="vbtn" id="navInvoices">Invoices</button>
+  </div>
+
+  <div id="viewTickets">
   <div class="filters" id="filters">
     <button type="button" class="fpill on" data-status="">All</button>
     <button type="button" class="fpill" data-status="Open">Open</button>
@@ -90,7 +116,7 @@
     <button type="button" class="fpill" data-status="Resolved">Resolved</button>
   </div>
 
-  <main class="wrap">
+  <main class="wrap" aria-label="Ticket triage">
     <div class="grid">
       <section aria-label="Tickets">
         <div id="list"><div class="state">Loading tickets&hellip;</div></div>
@@ -99,6 +125,51 @@
         <div class="state">Select a ticket to open it.</div>
       </section>
     </div>
+  </main>
+  </div>
+
+  <main class="wrap" id="viewInvoices" aria-label="Invoices" hidden>
+    <section class="newinv">
+      <h2>New invoice</h2>
+      <form id="invForm">
+        <div class="fgrid">
+          <div>
+            <label for="invNumber">Invoice number</label>
+            <input type="text" id="invNumber" name="number" required placeholder="TES-2026-001">
+          </div>
+          <div>
+            <label for="invEmail">Client email</label>
+            <input id="invEmail" name="email" type="email" required placeholder="billing@client.com">
+          </div>
+          <div>
+            <label for="invCompany">Company</label>
+            <input type="text" id="invCompany" name="company" placeholder="Meridian Dental Group">
+          </div>
+          <div>
+            <label for="invService">Service</label>
+            <input type="text" id="invService" name="service" placeholder="Managed IT - March">
+          </div>
+          <div>
+            <label for="invAmount">Amount (USD)</label>
+            <input id="invAmount" name="amount" type="number" step="0.01" min="0.01" required placeholder="1143.10">
+          </div>
+          <div>
+            <label for="invDue">Due date</label>
+            <input id="invDue" name="due" type="date">
+          </div>
+        </div>
+        <div class="fwide">
+          <label for="invDesc">Description</label>
+          <input type="text" id="invDesc" name="description" placeholder="Optional line-item summary">
+        </div>
+        <div class="inv-actions">
+          <button type="submit" class="prim" id="invCreate">Create &amp; get pay link</button>
+        </div>
+        <div class="paylink" id="invPayLink" hidden></div>
+      </form>
+    </section>
+
+    <div id="invList"><div class="state">Loading invoices&hellip;</div></div>
   </main>
 
   <div class="toast" id="toast" hidden></div>
@@ -333,11 +404,136 @@
       })
       .catch(function () {});
 
+    // ---- invoices -------------------------------------------------------
+    var invListEl = document.getElementById('invList');
+    var invForm = document.getElementById('invForm');
+    var invPayLink = document.getElementById('invPayLink');
+    var STATUS_COLOR = { open: '#f59e0b', paid: '#22c55e', void: '#6a8ba8' };
+
+    function money(cents) {
+      return (Number(cents) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+
+    function invCard(v) {
+      var d = el('div', 'inv');
+      var top = el('div', 'inv-top');
+      top.appendChild(el('span', 'inv-num', v.number));
+      var right = el('span');
+      right.appendChild(badge(v.status, STATUS_COLOR[v.status] || '#8aa48d'));
+      right.appendChild(document.createTextNode(' '));
+      right.appendChild(el('span', 'inv-amt', money(v.amount_cents)));
+      top.appendChild(right);
+      d.appendChild(top);
+
+      d.appendChild(el('div', 'inv-meta',
+        [v.company, v.email, v.service].filter(Boolean).join(' \u00b7 ')));
+      if (v.paid_at) d.appendChild(el('div', 'inv-meta', 'Paid ' + fmt(v.paid_at)));
+
+      var acts = el('div', 'inv-actions');
+      var copy = el('button', null, 'Copy pay link');
+      copy.type = 'button';
+      copy.addEventListener('click', function () {
+        api('/admin/invoices/' + v.id + '/paylink', { method: 'POST', body: {} })
+          .then(function (r) {
+            if (!r.ok) return toast('Could not mint a link');
+            navigator.clipboard.writeText(r.pay_url).then(
+              function () { toast('Pay link copied'); },
+              function () { invPayLink.hidden = false; invPayLink.textContent = r.pay_url; }
+            );
+          });
+      });
+      acts.appendChild(copy);
+
+      if (v.status !== 'paid') {
+        var paid = el('button', null, 'Mark paid');
+        paid.type = 'button';
+        paid.addEventListener('click', function () {
+          api('/admin/invoices/' + v.id, { method: 'PATCH', body: { status: 'paid' } })
+            .then(function (r) { toast(r.ok ? 'Marked paid' : 'Failed'); loadInvoices(); });
+        });
+        acts.appendChild(paid);
+
+        var voidB = el('button', null, 'Void');
+        voidB.type = 'button';
+        voidB.addEventListener('click', function () {
+          api('/admin/invoices/' + v.id, { method: 'PATCH', body: { status: 'void' } })
+            .then(function (r) { toast(r.ok ? 'Voided' : 'Failed'); loadInvoices(); });
+        });
+        acts.appendChild(voidB);
+      }
+      d.appendChild(acts);
+      return d;
+    }
+
+    function loadInvoices() {
+      return api('/admin/invoices').then(function (r) {
+        invListEl.textContent = '';
+        if (!r.ok) {
+          invListEl.appendChild(el('div', 'state', 'Could not load invoices.'));
+          return;
+        }
+        var list = r.invoices || [];
+        if (!list.length) {
+          invListEl.appendChild(el('div', 'state', 'No invoices yet. Create one above.'));
+          return;
+        }
+        list.forEach(function (v) { invListEl.appendChild(invCard(v)); });
+      });
+    }
+
+    invForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!invForm.reportValidity()) return;
+      var f = {};
+      new FormData(invForm).forEach(function (val, k) { f[k] = val; });
+
+      var payload = {
+        number: f.number, email: f.email, company: f.company,
+        service: f.service, description: f.description,
+        // Sent as integer cents so nothing depends on float parsing of money.
+        amount_cents: Math.round(parseFloat(f.amount) * 100),
+      };
+      if (f.due) payload.due_at = Math.floor(new Date(f.due + 'T12:00:00').getTime() / 1000);
+
+      var btn = document.getElementById('invCreate');
+      btn.disabled = true;
+      api('/admin/invoices', { method: 'POST', body: payload }).then(function (r) {
+        btn.disabled = false;
+        if (!r.ok) {
+          toast(r.error === 'duplicate_number' ? 'That invoice number already exists' : 'Could not create');
+          return;
+        }
+        invPayLink.hidden = false;
+        invPayLink.textContent = r.pay_url;
+        if (navigator.clipboard) navigator.clipboard.writeText(r.pay_url).then(function () {}, function () {});
+        toast('Invoice created, pay link copied');
+        invForm.reset();
+        loadInvoices();
+      });
+    });
+
+    // ---- view switching --------------------------------------------------
+    var vT = document.getElementById('viewTickets');
+    var vI = document.getElementById('viewInvoices');
+    var nT = document.getElementById('navTickets');
+    var nI = document.getElementById('navInvoices');
+    var invoicesLoaded = false;
+
+    function showView(which) {
+      var inv = which === 'invoices';
+      vT.hidden = inv; vI.hidden = !inv;
+      nT.classList.toggle('on', !inv); nI.classList.toggle('on', inv);
+      if (inv && !invoicesLoaded) { invoicesLoaded = true; loadInvoices(); }
+    }
+    nT.addEventListener('click', function () { showView('tickets'); });
+    nI.addEventListener('click', function () { showView('invoices'); });
+
     // Telegram alerts deep-link to #t=<id>, so honour the hash on load.
     load().then(function () {
       var m = /#t=(\d+)/.exec(location.hash);
       if (m) open(m[1]);
     });
+    if (location.hash === '#invoices') showView('invoices');
   })();
   </script>
 </body>

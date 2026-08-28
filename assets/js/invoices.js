@@ -15,7 +15,16 @@
 (function (global) {
   'use strict';
 
-  var API_URL = 'https://script.google.com/macros/s/AKfycbzOqk9rjdEQ12A8m5VXIFbEWd-V79YA9J9Av_Zb_Qe478KR0QjXTcsdC3AwoyrlwFM4/exec';
+  /* Invoices come from the TES portal Worker, same-origin, scoped server-side.
+     The previous Google Apps Script endpoint was removed: it ignored its query
+     parameter and returned EVERY invoice row to any caller, and its URL sat in
+     this file, which is public. Filtering used to happen in the browser below,
+     which meant it was not a control at all. */
+  var API = '/portal-api';
+
+  /* Set when the page is opened from a signed pay link (?t=...). That token is
+     the authorisation for exactly one invoice, so it is what payment calls send. */
+  var payToken = null;
 
   /* Column aliases. The sheet's header row supplies the JSON keys, so accept
      the names in use today plus the ones a future sheet is likely to use. */
@@ -61,6 +70,8 @@
   function dateValue(value) {
     if (!value) return null;
     if (value instanceof Date) return value.getTime();
+    /* The API returns unix SECONDS. Anything below ~1e11 is seconds, not ms. */
+    if (typeof value === 'number') return value < 1e11 ? value * 1000 : value;
     var s = String(value).trim();
     // Bare YYYY-MM-DD is parsed as UTC by Date, which can render as the day
     // before in US time zones. Pin it to local noon instead.
@@ -115,105 +126,83 @@
 
   /* ---------- network ---------------------------------------------------- */
 
-  /* The Apps Script deployment is erratic: identical back-to-back calls have
-     returned 200 in 2.2s, then 404 at 34s, then 404 at 66s, then 200 in 2.2s.
-     A healthy instance answers in about two seconds, so cut a hung request off
-     early and retry — the retry usually lands on a good instance. Without this
-     the page sits on a spinner for a minute and then gives up. */
-  var REQUEST_TIMEOUT_MS = 12000;
-  var RETRIES = 2;
+  function apiGet(path) {
+    return fetch(API + path, { credentials: 'same-origin' })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .catch(function () { return { ok: false, error: 'network' }; });
+  }
 
-  function fetchOnce(url, timeoutMs) {
-    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, timeoutMs);
-    var opts = { cache: 'no-store' };
-    if (ctrl) opts.signal = ctrl.signal;
+  function apiPost(path, body) {
+    return fetch(API + path, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body || {})
+    })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .catch(function () { return { ok: false, error: 'network' }; });
+  }
 
-    return fetch(url, opts).then(function (res) {
-      clearTimeout(timer);
-      if (!res.ok) throw new Error('Invoice API returned ' + res.status);
-      return res.json();
-    }, function (err) {
-      clearTimeout(timer);
-      throw err;
+  /* Maps the API shape onto the field names the pages already render, so the
+     billing and pay pages did not have to be rewritten around a new object. */
+  function fromApi(inv) {
+    if (!inv) return null;
+    return {
+      id:          inv.id,
+      number:      inv.number || '',
+      service:     inv.service || '',
+      description: inv.description || '',
+      amount:      Number(inv.amount_cents) / 100,
+      paid:        inv.status === 'paid',
+      status:      inv.status,
+      issued:      inv.issued_at || null,
+      due:         inv.due_at || null,
+      paidDate:    inv.paid_at || null,
+      overdue:     !!inv.overdue,
+      currency:    inv.currency || 'USD',
+      ref:         '',
+      email:       '',
+      emailKey:    ''
+    };
+  }
+
+  /* Every invoice for the signed-in account. The email argument is ignored and
+     kept only so existing callers did not need changing -- scoping is done by
+     the session on the server, never by anything the browser supplies. */
+  function fetchForEmail() {
+    return apiGet('/invoices').then(function (d) {
+      if (!d || !d.ok) return [];
+      return (d.invoices || []).map(fromApi);
     });
   }
 
-  function fetchRows(params, opts) {
-    opts = opts || {};
-    var timeoutMs = opts.timeoutMs || REQUEST_TIMEOUT_MS;
-    var attemptsLeft = opts.retries == null ? RETRIES : opts.retries;
-
-    var qs = Object.keys(params || {}).map(function (k) {
-      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-    }).join('&');
-    var url = API_URL + (qs ? '?' + qs : '');
-
-    function attempt(remaining) {
-      return fetchOnce(url, timeoutMs).catch(function (err) {
-        if (remaining <= 0) throw err;
-        return attempt(remaining - 1);
-      });
-    }
-
-    return attempt(attemptsLeft).then(function (data) {
-      if (Array.isArray(data)) return data;
-      if (data && Array.isArray(data.rows)) return data.rows;
-      if (data && Array.isArray(data.invoices)) return data.invoices;
-      if (data && data.error) throw new Error(String(data.error));
-      throw new Error('Unexpected invoice API response.');
+  function fetchSummary() {
+    return apiGet('/invoices').then(function (d) {
+      if (!d || !d.ok) return null;
+      return { invoices: (d.invoices || []).map(fromApi), summary: d.summary };
     });
   }
 
-  /* Every invoice billed to one email. The client-side filter is what makes
-     this safe against an Apps Script deployment that still dumps the sheet. */
-  function fetchForEmail(email) {
-    var key = String(email || '').trim().toLowerCase();
-    if (!key) return Promise.resolve([]);
-    return fetchRows({ email: key }).then(function (rows) {
-      return rows.map(parseRow).filter(function (inv) {
-        return inv.emailKey && inv.emailKey === key;
-      });
+  /* Resolves the signed pay link in the current URL (?t=...). Returns
+     { ok, invoice } or { ok:false, error }. No token means no invoice: there is
+     deliberately no way to look one up by guessing a number. */
+  function lookupFromPayLink() {
+    var t = new URLSearchParams(location.search).get('t');
+    if (!t) return Promise.resolve({ ok: false, error: 'no_token' });
+    payToken = t;
+    return apiGet('/pay/invoice?t=' + encodeURIComponent(t)).then(function (d) {
+      if (!d || !d.ok) return { ok: false, error: (d && d.error) || 'not_found' };
+      return { ok: true, invoice: fromApi(d.invoice) };
     });
   }
 
-  /* One-off lookup by invoice number or account/username, for the public page. */
-  function lookup(query) {
-    var raw = String(query || '').trim();
-    if (!raw) return Promise.resolve([]);
-    var exact = raw.toLowerCase();
-    var token = normalizeToken(raw);
-    return fetchRows({ q: raw }).then(function (rows) {
-      return rows.map(parseRow).filter(function (inv) {
-        if (inv.emailKey === exact) return true;
-        if (inv.number && inv.number.toLowerCase() === exact) return true;
-        if (token && normalizeToken(inv.number) === token) return true;
-        if (token && normalizeToken(inv.email) === token) return true;
-        return false;
-      });
-    });
-  }
+  /* Legacy name kept so pay_invoice.html keeps working. */
+  function lookup() { return lookupFromPayLink(); }
 
-  /* Tell the Apps Script an invoice was captured so it can mark the row paid.
-     Fire-and-forget on purpose: if the write-back is not deployed yet, the
-     payment still succeeded and the page falls back to its local pending
-     badge. No custom headers, so the browser skips the CORS preflight that
-     Apps Script cannot answer. */
-  function notifyPaid(inv, orderId) {
-    try {
-      fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          action: 'markPaid',
-          invoice: inv.number,
-          email: inv.email,
-          amount: inv.amount,
-          orderID: orderId
-        }),
-        keepalive: true
-      }).catch(function () {});
-    } catch (e) { /* ignore — pending badge covers it */ }
-  }
+  /* Retained as a no-op. Marking an invoice paid is now a server-side decision
+     made only after a capture whose amount matched the invoice. The browser
+     saying "this is paid" is not evidence of anything. */
+  function notifyPaid() { return Promise.resolve(null); }
 
   /* ---------- identity --------------------------------------------------- */
 
@@ -248,56 +237,59 @@
     }, 150);
   }
 
-  /* Render Smart Payment Buttons for one invoice into `container`.
-     handlers: { onPaid(orderId, payerFirstName), onError(err) } */
+  /* Identifies the invoice to the server. A pay link authorises exactly one
+     invoice; otherwise the session decides what the caller may pay. Note that
+     no AMOUNT is sent -- the server reads it from the database. That is the
+     whole point: the old flow built the order in the browser, so a modified
+     page could capture a different figure than the invoice said. */
+  function payRef(inv) {
+    return payToken ? { token: payToken } : { invoice_id: inv && inv.id };
+  }
+
   function mountPayPal(container, inv, handlers) {
     handlers = handlers || {};
-    container.innerHTML = '';
-
     whenPayPalReady(function () {
       global.paypal.Buttons({
-        style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay', height: 45 },
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: Number(inv.amount).toFixed(2), currency_code: 'USD' },
-              description: ('Invoice ' + (inv.number || '') + ' — Tevis Engineering Solutions').slice(0, 127),
-              custom_id: String(inv.number || '').slice(0, 127)
-            }]
+        style: { layout: 'vertical', color: 'gold', shape: 'pill', label: 'pay' },
+
+        createOrder: function () {
+          return apiPost('/pay/order', payRef(inv)).then(function (d) {
+            if (!d || !d.ok || !d.order_id) {
+              throw new Error((d && d.error) || 'order_failed');
+            }
+            return d.order_id;
           });
         },
-        onApprove: function (data, actions) {
-          return actions.order.capture().then(function (details) {
-            notifyPaid(inv, data.orderID);
-            var first = '';
-            try { first = details.payer.name.given_name || ''; } catch (e) {}
-            if (handlers.onPaid) handlers.onPaid(data.orderID, first);
+
+        onApprove: function (data) {
+          var body = payRef(inv);
+          body.order_id = data.orderID;
+          return apiPost('/pay/capture', body).then(function (d) {
+            if (!d || !d.ok) {
+              if (handlers.onError) handlers.onError((d && d.error) || 'capture_failed');
+              return;
+            }
+            if (handlers.onPaid) handlers.onPaid(data.orderID);
           });
         },
-        onError: function (err) {
-          console.error('PayPal error:', err);
-          if (handlers.onError) handlers.onError(err);
-        },
-        onCancel: function () { /* buttons stay mounted */ }
+
+        onError: function () { if (handlers.onError) handlers.onError('paypal_error'); }
       }).render(container);
-    }, function () {
-      if (handlers.onError) handlers.onError(new Error('PayPal SDK did not load.'));
-    });
+    }, function () { if (handlers.onError) handlers.onError('sdk_timeout'); });
   }
 
   global.TESInvoices = {
-    API_URL: API_URL,
     normalizeToken: normalizeToken,
     toNumber: toNumber,
     formatUSD: formatUSD,
     formatDate: formatDate,
     dateValue: dateValue,
     escapeHtml: escapeHtml,
-    parseRow: parseRow,
     isOverdue: isOverdue,
-    fetchRows: fetchRows,
     fetchForEmail: fetchForEmail,
+    fetchSummary: fetchSummary,
     lookup: lookup,
+    lookupFromPayLink: lookupFromPayLink,
     notifyPaid: notifyPaid,
     getIdentity: getIdentity,
     mountPayPal: mountPayPal
