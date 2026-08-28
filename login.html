@@ -66,6 +66,11 @@
        rule -- without this the OTP form renders on page load. Same trap as the
        .gh-loading spinner in Session 18. */
     [hidden] { display:none !important; }
+    /* Turnstile renders a fixed-width iframe by default (300px), which sat narrower
+       than the 340px input and button. data-size="flexible" makes it fill the
+       container; these rules stop it overflowing if that is ever unsupported. */
+    .cf-turnstile { width:100%; max-width:100%; overflow:hidden; }
+    .cf-turnstile iframe { max-width:100% !important; }
     .auth-form { display:flex; flex-direction:column; gap:0.6rem; margin:0 auto 0.9rem; max-width:340px; text-align:left; }
     .auth-label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; }
     .auth-input { width:100%; padding:0.7rem 0.85rem; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.95rem; }
@@ -213,7 +218,7 @@
         <form id="emailForm" class="auth-form">
           <label class="auth-label" for="loginEmail">Email address</label>
           <input class="auth-input" id="loginEmail" name="email" type="email" required autocomplete="email" placeholder="you@yourcompany.com">
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark"></div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark" data-size="flexible"></div>
           <button class="btn btn-primary" type="submit" id="sendBtn"><i class="fa-solid fa-paper-plane"></i> Email me a sign-in link</button>
         </form>
 
