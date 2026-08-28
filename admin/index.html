@@ -106,6 +106,7 @@
     .lic-manage button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
     .lic-manage button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
     .lic-manage .lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; }
+    .inv.archived { opacity:0.72; border-style:dashed; }
     .lic-hist { margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid var(--line); }
     .hev { display:flex; flex-wrap:wrap; gap:0.15rem 0.5rem; font-size:0.74rem; color:var(--muted); padding:0.3rem 0; border-bottom:1px dashed rgba(44,66,50,0.7); }
     .hev:last-child { border-bottom:none; }
@@ -234,6 +235,12 @@
         <div class="keyout" id="keyOut" hidden></div>
       </form>
     </section>
+
+    <div class="filters" id="keyFilters">
+      <button type="button" class="fpill on" data-archived="exclude">Current</button>
+      <button type="button" class="fpill" data-archived="only">Archived</button>
+      <button type="button" class="fpill" data-archived="all">All</button>
+    </div>
 
     <div id="keyList"><div class="state">Loading keys&hellip;</div></div>
   </main>
@@ -618,8 +625,11 @@
       issued: 'Issued', revoked: 'Revoked', restored: 'Un-revoked',
       plan_changed: 'Plan changed', account_suspended: 'Account suspended',
       account_restored: 'Account restored', unbound: 'Released from PC',
-      replaced: 'Replaced'
+      replaced: 'Replaced', archived: 'Archived', unarchived: 'Unarchived'
     };
+    // Only a dead key can be filed away. Mirrors ARCHIVABLE in the Worker.
+    var ARCHIVABLE = ['revoked', 'expired'];
+    var keyFilter = 'exclude';
 
     // Dates here carry the year. A key issued last November and one issued this
     // month are otherwise indistinguishable in the list.
@@ -665,11 +675,15 @@
     }
 
     function licCard(v) {
-      var d = el('div', 'inv');
+      var d = el('div', 'inv' + (v.archived ? ' archived' : ''));
 
       var top = el('div', 'inv-top');
       top.appendChild(el('span', 'inv-num', v.email || v.account_id));
       var right = el('span');
+      if (v.archived) {
+        right.appendChild(badge('Archived', '#6a8ba8'));
+        right.appendChild(document.createTextNode(' '));
+      }
       right.appendChild(badge(v.status, LIC_COLOR[v.status] || '#8aa48d'));
       right.appendChild(document.createTextNode(' '));
       right.appendChild(el('span', 'inv-amt', v.plan_label));
@@ -687,6 +701,10 @@
       g.appendChild(field('Service level', v.plan_label + ' (' + v.type + ')'));
       g.appendChild(field('Account', ACCT_LABEL[v.account_status] || v.account_status || 'Unknown'));
       g.appendChild(field('Computer', v.machine_bound ? 'Bound · ' + v.machine_hint : 'Not bound'));
+      if (v.archived) {
+        g.appendChild(field('Archived', fmtDay(v.archived_at) +
+          (v.archived_by ? ' · ' + v.archived_by : '')));
+      }
       d.appendChild(g);
 
       var acts = el('div', 'lic-manage');
@@ -756,6 +774,26 @@
         }));
       }
 
+      // Filing, not disabling. Offered only once the key is actually dead, so a
+      // suspended account cannot be tidied out of sight while you are chasing it.
+      if (v.archived) {
+        acts.appendChild(licAction('Unarchive', null, function () {
+          api('/admin/licenses/' + v.key_hash + '/archive',
+            { method: 'POST', body: { archived: false } })
+            .then(function (r) { toast(r.ok ? 'Back in the working list' : 'Failed'); loadKeys(); });
+        }));
+      } else if (ARCHIVABLE.indexOf(v.status) !== -1) {
+        acts.appendChild(licAction('Archive', null, function () {
+          api('/admin/licenses/' + v.key_hash + '/archive',
+            { method: 'POST', body: { archived: true } })
+            .then(function (r) {
+              toast(r.ok ? 'Archived' :
+                r.error === 'not_archivable' ? 'Only revoked or expired keys can be archived' : 'Failed');
+              loadKeys();
+            });
+        }));
+      }
+
       acts.appendChild(licAction('Re-issue', 'prim', function () {
         if (!confirm('Issue a replacement key for ' + (v.email || 'this account') + '?\n\nThis key is revoked at the same moment, so it stops working immediately.')) return;
         var notify = confirm('Email the new key to ' + (v.email || 'the customer') + '?\n\nOK to email, Cancel to just show it here.');
@@ -801,7 +839,7 @@
     }
 
     function loadKeys() {
-      return api('/admin/licenses').then(function (r) {
+      return api('/admin/licenses?archived=' + keyFilter).then(function (r) {
         keyListEl.textContent = '';
         if (!r.ok) {
           keyListEl.appendChild(el('div', 'state', 'Could not load keys.'));
@@ -809,12 +847,24 @@
         }
         var list = r.licenses || [];
         if (!list.length) {
-          keyListEl.appendChild(el('div', 'state', 'No keys issued yet. Issue one above.'));
+          keyListEl.appendChild(el('div', 'state', keyFilter === 'only'
+            ? 'Nothing archived yet. Revoked and expired keys can be filed here.'
+            : 'No keys issued yet. Issue one above.'));
           return;
         }
         list.forEach(function (v) { keyListEl.appendChild(licCard(v)); });
       });
     }
+
+    document.getElementById('keyFilters').addEventListener('click', function (ev) {
+      var b = ev.target.closest('.fpill');
+      if (!b) return;
+      keyFilter = b.getAttribute('data-archived');
+      [].forEach.call(this.querySelectorAll('.fpill'), function (p) {
+        p.classList.toggle('on', p === b);
+      });
+      loadKeys();
+    });
 
     keyForm.addEventListener('submit', function (ev) {
       ev.preventDefault();
