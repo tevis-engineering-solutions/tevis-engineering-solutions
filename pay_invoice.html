@@ -512,18 +512,18 @@
 
     <section class="hero">
       <h1>Invoice Lookup and Payment</h1>
-      <p>Enter your invoice number or company admin username to retrieve your billing details. If you have payment or billing issues, use the support form below and include your invoice reference.</p>
+      <p>Enter your invoice number or the email address the invoice was sent to and retrieve your billing details. If you have payment or billing issues, use the support form below and include your invoice reference.</p>
     </section>
 
     <div class="grid">
       <section class="card" aria-labelledby="lookup-title">
         <h2 id="lookup-title">Find Your Invoice</h2>
-        <p class="lead">Search using either your admin username or latest invoice number.</p>
+        <p class="lead">Search using your invoice number or the email address the invoice was sent to.</p>
         <p class="quick-pay-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Once your invoice is found, click <strong>Pay Invoice</strong> to be directed to PayPal immediately and complete payment.</p>
 
         <div class="lookup-row">
-          <label for="invoiceQuery" class="sr-only">Invoice number or admin username</label>
-          <input id="invoiceQuery" type="text" placeholder="e.g. TES-2026-001 or your admin username">
+          <label for="invoiceQuery" class="sr-only">Invoice number or account email</label>
+          <input id="invoiceQuery" type="text" placeholder="e.g. TES-2026-001 or your account email">
           <button id="lookupBtn" class="btn btn-primary" type="button" disabled>Search</button>
         </div>
 
@@ -531,9 +531,9 @@
 
         <div id="invoiceResult" class="invoice-result" aria-live="polite">
           <div class="kv">
-            <span class="k">Username</span>
+            <span class="k">Account</span>
             <span class="v" id="resultUsername">-</span>
-            <span class="k">Latest Invoice</span>
+            <span class="k">Invoice Number</span>
             <span class="v" id="resultLatestInvoice">-</span>
             <span class="k">Service Type</span>
             <span class="v" id="resultCadence">-</span>
@@ -652,13 +652,13 @@
       font-size:0.83rem; font-weight:700; cursor:pointer; white-space:nowrap;">Got it</button>
   </div>
 
+  <script src="assets/js/invoices.js"></script>
   <script>
-    // S8: The Google Apps Script URL below is intentionally public (read-only GET endpoint).
-    // It returns invoice summary data (username, invoice number, amount, service type).
-    // NO sensitive fields (SSNs, full addresses, card data) exist in the backing sheet.
-    // The Apps Script deployment is set to "Execute as: Me" / "Who has access: Anyone"
-    // with no write permissions. This is acceptable for a public billing lookup tool.
-    const API_URL = "https://script.google.com/macros/s/AKfycbzOqk9rjdEQ12A8m5VXIFbEWd-V79YA9J9Av_Zb_Qe478KR0QjXTcsdC3AwoyrlwFM4/exec";
+    // S8: The Google Apps Script endpoint (see assets/js/invoices.js) is a read-only
+    // GET web app in front of the billing sheet. This page now queries it per lookup
+    // (?q=<token>) instead of downloading the whole sheet on load, so an anonymous
+    // visitor never receives other customers' rows. See _ops/INVOICING.md.
+
     // M7: Show billing success state if redirected from Formspree
     if (new URLSearchParams(location.search).get('billing_submitted') === '1') {
       const wrapper = document.getElementById('billingFormWrapper');
@@ -672,31 +672,15 @@
     const lookupStatus = document.getElementById("lookupStatus");
     const invoiceResult = document.getElementById("invoiceResult");
     const paypalMeta = document.getElementById("paypalMeta");
+    const paypalContainer = document.getElementById("paypal-button-container");
 
     const resultUsername = document.getElementById("resultUsername");
     const resultLatestInvoice = document.getElementById("resultLatestInvoice");
     const resultCadence = document.getElementById("resultCadence");
     const resultAmount = document.getElementById("resultAmount");
 
-    let invoiceRows = [];
     let selectedInvoice = null;
-    let directLookupQuery = "";
-
-    function normalizeLookupToken(value) {
-      return String(value || "")
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-    }
-
-    function formatUSD(value) {
-      return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
-    }
-
-    function toCurrencyNumber(amountText) {
-      const numeric = Number(String(amountText).replace(/[^0-9.-]/g, ""));
-      return Number.isFinite(numeric) ? numeric : null;
-    }
+    let lookupInFlight = false;
 
     function setStatus(message, kind) {
       lookupStatus.textContent = message;
@@ -706,157 +690,112 @@
       }
     }
 
-    async function loadInvoiceData() {
-      setStatus("Connecting to Invoicing Database...", "warn");
-      try {
-        const response = await fetch(API_URL, { cache: "no-store" });
-        
-        if (!response.ok) {
-          throw new Error("Invoice API returned " + response.status);
-        }
-
-        const jsonData = await response.json();
-        
-        if (!Array.isArray(jsonData) || jsonData.length === 0) {
-          throw new Error("No invoice data found in source.");
-        }
-
-        invoiceRows = jsonData;
-        setStatus("Invoice Database Ready", "good");
-        lookupBtn.disabled = false;
-
-        if (directLookupQuery) {
-          setStatus("Direct invoice link detected. Running lookup...", "warn");
-          setTimeout(() => {
-            onLookup();
-          }, 2200);
-        }
-      } catch (error) {
-        console.error("Invoice loading error:", error);
-        setStatus("Unable to load invoice source. Use the billing support form below.", "bad");
-        lookupBtn.disabled = true;
-      }
-    }
-
-    function findRow(query) {
-      const normalized = query.trim().toLowerCase();
-      const normalizedToken = normalizeLookupToken(query);
-      if (!normalized) {
-        return null;
-      }
-
-      return invoiceRows.find((row) => {
-        const username = String(row.Username || "").trim().toLowerCase();
-        const latestInvoice = String(row.LatestInvoice || "").trim().toLowerCase();
-        const usernameToken = normalizeLookupToken(username);
-        const latestInvoiceToken = normalizeLookupToken(latestInvoice);
-
-        if (
-          username === normalized ||
-          latestInvoice === normalized ||
-          usernameToken === normalizedToken ||
-          latestInvoiceToken === normalizedToken
-        ) {
-          return true;
-        }
-
-        // Fallback: if schema changes, allow exact token match against any field value.
-        return Object.values(row).some((value) => normalizeLookupToken(value) === normalizedToken);
-      }) || null;
+    function clearResult() {
+      selectedInvoice = null;
+      invoiceResult.classList.remove("visible");
+      paypalContainer.innerHTML = "";
+      paypalMeta.textContent = "";
     }
 
     function renderResult(row) {
       selectedInvoice = row;
-      const amountText = row.InvoiceAmount || "";
-      const numericAmount = toCurrencyNumber(amountText);
-      const displayAmount = numericAmount === null ? amountText : formatUSD(numericAmount);
 
-      resultUsername.textContent = row.Username || "-";
-      resultLatestInvoice.textContent = row.LatestInvoice || "-";
-      resultCadence.textContent = row.ServiceType || "-";
-      resultAmount.textContent = displayAmount || "-";
+      resultUsername.textContent = row.email || "-";
+      resultLatestInvoice.textContent = row.number || "-";
+      resultCadence.textContent = row.service || "-";
+      resultAmount.textContent = row.amount === null ? "-" : TESInvoices.formatUSD(row.amount);
 
       invoiceResult.classList.add("visible");
+      paypalContainer.innerHTML = "";
 
-      if (numericAmount === null || numericAmount <= 0) {
-        document.getElementById('paypal-button-container').innerHTML = '';
-        paypalMeta.textContent = "Invoice amount is missing or invalid. Submit the billing support form for correction.";
-      } else {
-        const invoiceId = String(row.LatestInvoice || "").trim();
-        const description = "Invoice " + invoiceId + " — Tevis Engineering Solutions";
-        paypalMeta.textContent = "";
-        initPayPalButtons(numericAmount, description, invoiceId);
+      if (row.paid) {
+        paypalMeta.textContent = "This invoice is already marked paid" +
+          (row.paidDate ? " (" + TESInvoices.formatDate(row.paidDate) + ")" : "") +
+          ". If that is not right, use the billing support form below.";
+        return;
       }
+
+      if (row.amount === null || row.amount <= 0) {
+        paypalMeta.textContent = "Invoice amount is missing or invalid. Submit the billing support form for correction.";
+        return;
+      }
+
+      paypalMeta.textContent = "";
+      TESInvoices.mountPayPal(paypalContainer, row, {
+        onPaid: function (orderId, payerName) {
+          paypalContainer.textContent = "";
+          const box = document.createElement("div");
+          box.className = "payment-success";
+          const icon = document.createElement("p");
+          icon.className = "success-icon";
+          icon.textContent = "✓";
+          const head = document.createElement("p");
+          head.className = "success-heading";
+          head.textContent = "Payment Complete";
+          const detail = document.createElement("p");
+          detail.className = "success-detail";
+          detail.textContent = (payerName ? "Thank you, " + payerName + ". " : "Thank you. ") +
+            "Your payment of " + TESInvoices.formatUSD(row.amount) + " has been received.";
+          const ref = document.createElement("p");
+          ref.className = "success-order";
+          ref.textContent = "PayPal Order ID: " + orderId;
+          box.appendChild(icon);
+          box.appendChild(head);
+          box.appendChild(detail);
+          box.appendChild(ref);
+          paypalContainer.appendChild(box);
+          setStatus("Payment received. PayPal is sending a receipt to your email.", "good");
+        },
+        onError: function () {
+          paypalContainer.textContent = "";
+          const err = document.createElement("p");
+          err.className = "error-msg";
+          err.textContent = "Payment could not be completed. Please try again or contact billing@tevisengineering.com.";
+          paypalContainer.appendChild(err);
+        }
+      });
     }
 
     function onLookup() {
       const query = invoiceQueryEl.value;
       if (!query.trim()) {
-        setStatus("Enter an invoice number or username.", "warn");
+        setStatus("Enter an invoice number or account email.", "warn");
+        return;
+      }
+      if (lookupInFlight) {
         return;
       }
 
-      if (!invoiceRows.length) {
-        setStatus("Invoice source is still loading. Try again in a moment.", "warn");
-        return;
-      }
+      lookupInFlight = true;
+      lookupBtn.disabled = true;
+      clearResult();
+      setStatus("Searching the invoicing database...", "warn");
 
-      const row = findRow(query);
-      if (!row) {
-        selectedInvoice = null;
-        invoiceResult.classList.remove("visible");
-        setStatus("No match found. Check the invoice reference or use the billing support form.", "bad");
-        return;
-      }
-
-      renderResult(row);
-      setStatus("Invoice located. Review details and continue to payment.", "good");
-    }
-
-    function initPayPalButtons(amount, description, invoiceId) {
-      document.getElementById('paypal-button-container').innerHTML = '';
-
-      paypal.Buttons({
-        style: {
-          layout: 'vertical',
-          color:  'blue',
-          shape:  'rect',
-          label:  'pay',
-          height: 45
-        },
-        createOrder: function(data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: amount.toFixed(2),
-                currency_code: 'USD'
-              },
-              description: description,
-              custom_id: invoiceId
-            }]
-          });
-        },
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            document.getElementById('paypal-button-container').innerHTML =
-              '<div class="payment-success">' +
-              '<p class="success-icon">✓</p>' +
-              '<p class="success-heading">Payment Complete</p>' +
-              '<p class="success-detail">Thank you, ' + details.payer.name.given_name + '. ' +
-              'Your payment of ' + formatUSD(amount) + ' has been received.</p>' +
-              '<p class="success-order">PayPal Order ID: ' + data.orderID + '</p>' +
-              '</div>';
-          });
-        },
-        onError: function(err) {
-          document.getElementById('paypal-button-container').innerHTML =
-            '<p class="error-msg">Payment could not be completed. Please try again or contact billing@tevisengineering.com.</p>';
-          console.error('PayPal error:', err);
-        },
-        onCancel: function() {
-          // User closed the PayPal popup — buttons remain
+      TESInvoices.lookup(query).then(function (matches) {
+        if (!matches.length) {
+          setStatus("No match found. Check the invoice reference or use the billing support form.", "bad");
+          return;
         }
-      }).render('#paypal-button-container');
+
+        const unpaid = matches.filter(function (m) { return !m.paid; });
+        const row = unpaid.length ? unpaid[0] : matches[0];
+        renderResult(row);
+
+        if (row.paid) {
+          setStatus("Invoice located. It is already marked paid.", "good");
+        } else if (unpaid.length > 1) {
+          setStatus("Found " + unpaid.length + " open invoices for this account. Showing the first. " +
+            "Sign in to the customer portal to see them all.", "good");
+        } else {
+          setStatus("Invoice located. Review details and continue to payment.", "good");
+        }
+      }).catch(function (error) {
+        console.error("Invoice lookup error:", error);
+        setStatus("Unable to reach the invoicing service. Use the billing support form below.", "bad");
+      }).finally(function () {
+        lookupInFlight = false;
+        lookupBtn.disabled = false;
+      });
     }
 
     function handleDirectLookupFromQuery() {
@@ -873,7 +812,7 @@
 
       if (!invoiceParam) {
         const hashToken = decodeURIComponent(String(window.location.hash || "").replace(/^#/, "")).trim();
-        if (hashToken) {
+        if (hashToken && hashToken !== "billing-support") {
           invoiceParam = hashToken;
         }
       }
@@ -882,9 +821,8 @@
         return;
       }
 
-      directLookupQuery = invoiceParam;
       invoiceQueryEl.value = invoiceParam;
-      setStatus("Direct invoice link detected. Preparing lookup...", "warn");
+      onLookup();
     }
 
     lookupBtn.addEventListener("click", onLookup);
@@ -896,8 +834,9 @@
       }
     });
 
+    lookupBtn.disabled = false;
+    setStatus("Enter your invoice number or account email to begin.", "");
     handleDirectLookupFromQuery();
-    loadInvoiceData();
 
     // Cookie consent banner
     (function() {

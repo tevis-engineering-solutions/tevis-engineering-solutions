@@ -86,7 +86,7 @@
       <div class="pacct">
         <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
         <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
-        <a class="psignout" href="https://tevisengineering.com/cdn-cgi/access/logout">Sign out</a>
+        <a class="psignout" href="#">Sign out</a>
       </div>
     </div>
   </div>
@@ -120,7 +120,7 @@
         <div class="secline"><i class="fa-solid fa-circle-check"></i><span>You're signed in securely through Cloudflare Access &mdash; with Google or a one-time email code.</span></div>
         <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Tevis Engineering never sees or stores a password for your account.</span></div>
         <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Sessions expire automatically, so an unattended device won't stay signed in.</span></div>
-        <a class="btn btn-ghost" href="https://tevisengineering.com/cdn-cgi/access/logout" style="margin-top:0.6rem;"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+        <a class="btn btn-ghost signout-link" href="#" style="margin-top:0.6rem;"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
       </section>
 
       <section class="pcard">
@@ -149,9 +149,10 @@
 
   <script>
     (function () {
-      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+      fetch('/portal-api/me', { credentials: 'same-origin' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (id) {
+          if (id && !id.ok) id = null;
           if (!id || !id.email) return;
           var display = id.name || id.email.split('@')[0];
           var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
@@ -164,6 +165,26 @@
         })
         .catch(function () {});
     })();
+  </script>
+
+  <script>
+  // Sign-out now ends the app-level session in the portal Worker. Cloudflare Access
+  // no longer gates portal/* -- it is reserved for the admin console.
+  (function () {
+    var links = document.querySelectorAll('.psignout, .signout-link');
+    Array.prototype.forEach.call(links, function (a) {
+      a.setAttribute('href', '#');
+      a.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        fetch('/portal-api/auth/logout', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: '{}'
+        }).then(function () { location.href = '../login.html'; });
+      });
+    });
+  })();
   </script>
 </body>
 </html>

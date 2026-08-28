@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Signed-in surfaces. Both are also noindex; this keeps them out of crawl
+# budget and out of search results even if a link ever leaks.
+Disallow: /admin/
+Disallow: /portal/
+
 Sitemap: https://tevisengineering.com/sitemap.xml

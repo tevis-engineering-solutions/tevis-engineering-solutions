@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Triage | TES Admin</title>
+  <meta name="description" content="Internal ticket triage console for Tevis Engineering Solutions.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --card-2:#1c2e22; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:"Inter","Segoe UI",system-ui,sans-serif; color:var(--text); background:var(--bg); line-height:1.55; -webkit-text-size-adjust:100%; }
+    a { color:var(--green); }
+
+    .abar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.96); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+    .abar-inner { display:flex; align-items:center; gap:0.75rem; padding:0.7rem 1rem; max-width:1100px; margin:0 auto; }
+    .abrand { display:flex; align-items:center; gap:0.6rem; text-decoration:none; color:var(--text); }
+    .abrand img { width:34px; height:34px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); }
+    .abrand b { font-family:"Montserrat",sans-serif; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.06em; }
+    .abrand s { display:block; font-size:0.6rem; color:var(--gold); text-decoration:none; letter-spacing:0.12em; }
+    .aspacer { flex:1; }
+    .awho { font-size:0.72rem; color:var(--muted); text-align:right; max-width:40vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .filters { display:flex; gap:0.35rem; padding:0.6rem 1rem; max-width:1100px; margin:0 auto; overflow-x:auto; scrollbar-width:none; }
+    .filters::-webkit-scrollbar { display:none; }
+    .fpill { flex:0 0 auto; font-family:"Montserrat",sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; padding:0.45rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--muted); cursor:pointer; }
+    .fpill.on { color:#0d1710; background:linear-gradient(135deg,var(--gold),#e0b840); border-color:transparent; }
+
+    .wrap { max-width:1100px; margin:0 auto; padding:0.4rem 1rem 4rem; }
+    .grid { display:grid; grid-template-columns:minmax(0,1fr); gap:0.6rem; }
+    @media (min-width:900px) { .grid { grid-template-columns:minmax(0,380px) minmax(0,1fr); align-items:start; } }
+
+    .tk { width:100%; text-align:left; border:1px solid var(--line); border-radius:12px; background:var(--card); padding:0.8rem 0.9rem; cursor:pointer; color:inherit; font:inherit; display:block; margin-bottom:0.5rem; }
+    .tk:hover { border-color:var(--green); }
+    .tk.sel { border-color:var(--gold); background:var(--card-2); }
+    .tk-top { display:flex; justify-content:space-between; gap:0.5rem; align-items:center; margin-bottom:0.25rem; }
+    .tk-id { font-family:"Montserrat",sans-serif; font-weight:800; font-size:0.78rem; letter-spacing:0.03em; }
+    .tk-sub { font-size:0.9rem; font-weight:600; color:#f0f4f0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .tk-meta { font-size:0.72rem; color:var(--muted); margin-top:0.25rem; }
+    .badge { font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; padding:0.15rem 0.5rem; border-radius:999px; border:1px solid transparent; white-space:nowrap; }
+
+    .panel { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1rem; }
+    .panel h2 { font-family:"Montserrat",sans-serif; font-size:1.05rem; margin-bottom:0.15rem; }
+    .panel .who { font-size:0.8rem; color:var(--muted); margin-bottom:0.8rem; word-break:break-word; }
+    .desc { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:0.7rem 0.8rem; font-size:0.88rem; white-space:pre-wrap; word-wrap:break-word; margin-bottom:0.9rem; }
+
+    .ctl { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.9rem; }
+    .ctl select, .ctl button { font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:38px; }
+    .ctl .prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+
+    .thread { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:0.9rem; }
+    .msg { border-radius:10px; padding:0.6rem 0.75rem; font-size:0.87rem; white-space:pre-wrap; word-wrap:break-word; border:1px solid var(--line); }
+    .msg.staff { background:rgba(74,172,101,0.09); border-color:rgba(74,172,101,0.3); }
+    .msg.customer { background:var(--card-2); }
+    .msg.internal { background:rgba(200,152,48,0.09); border-color:rgba(200,152,48,0.35); }
+    .msg .m-meta { font-size:0.68rem; color:var(--muted); margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em; font-weight:700; }
+
+    textarea { width:100%; padding:0.6rem 0.7rem; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.9rem; resize:vertical; }
+    textarea:focus { outline:none; border-color:var(--green); }
+    .reply-row { display:flex; gap:0.4rem; margin-top:0.5rem; flex-wrap:wrap; }
+
+    .state { text-align:center; color:var(--muted); font-size:0.88rem; padding:2rem 1rem; border:1px dashed var(--line); border-radius:12px; }
+    .toast { position:fixed; left:50%; bottom:1.2rem; transform:translateX(-50%); background:var(--card-2); border:1px solid var(--green); color:var(--text); padding:0.6rem 1rem; border-radius:999px; font-size:0.85rem; z-index:99; }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+  <header class="abar">
+    <div class="abar-inner">
+      <a class="abrand" href="index.html">
+        <img src="../assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span><b>TES Triage</b><s>Admin Console</s></span>
+      </a>
+      <div class="aspacer"></div>
+      <div class="awho" id="adminWho">&nbsp;</div>
+    </div>
+  </header>
+
+  <div class="filters" id="filters">
+    <button type="button" class="fpill on" data-status="">All</button>
+    <button type="button" class="fpill" data-status="Open">Open</button>
+    <button type="button" class="fpill" data-status="In Progress">In Progress</button>
+    <button type="button" class="fpill" data-status="Pending Client">Pending Client</button>
+    <button type="button" class="fpill" data-status="Resolved">Resolved</button>
+  </div>
+
+  <main class="wrap">
+    <div class="grid">
+      <section aria-label="Tickets">
+        <div id="list"><div class="state">Loading tickets&hellip;</div></div>
+      </section>
+      <section id="detail" aria-live="polite">
+        <div class="state">Select a ticket to open it.</div>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script>
+  (function () {
+    'use strict';
+    var API = '/portal-api';
+    var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e' };
+    var PRIORITY = { 'Low':'#6a8ba8', 'Medium':'#4fa2ff', 'High':'#fb923c', 'Critical':'#ef4444' };
+    var STATUSES = ['Open', 'In Progress', 'Pending Client', 'Resolved'];
+    var PRIORITIES = ['Low', 'Medium', 'High', 'Critical'];
+
+    var listEl = document.getElementById('list');
+    var detailEl = document.getElementById('detail');
+    var toastEl = document.getElementById('toast');
+    var filter = '';
+    var tickets = [];
+    var currentId = null;
+
+    function api(path, opts) {
+      opts = opts || {};
+      opts.credentials = 'same-origin';
+      if (opts.body) {
+        opts.headers = { 'content-type': 'application/json' };
+        opts.body = JSON.stringify(opts.body);
+      }
+      return fetch(API + path, opts).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      });
+    }
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.hidden = false;
+      clearTimeout(toast._t);
+      toast._t = setTimeout(function () { toastEl.hidden = true; }, 2600);
+    }
+
+    function fmt(ts) {
+      if (!ts) return '';
+      var d = new Date(ts * 1000);
+      return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' +
+             d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+    }
+
+    function badge(text, color) {
+      var s = document.createElement('span');
+      s.className = 'badge';
+      s.textContent = text;
+      s.style.color = color;
+      s.style.borderColor = color + '55';
+      s.style.background = color + '1a';
+      return s;
+    }
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    function renderList() {
+      listEl.textContent = '';
+      if (!tickets.length) {
+        listEl.appendChild(el('div', 'state', 'No tickets here.'));
+        return;
+      }
+      tickets.forEach(function (t) {
+        var b = el('button', 'tk' + (String(t.id) === String(currentId) ? ' sel' : ''));
+        b.type = 'button';
+        b.setAttribute('data-id', t.id);
+
+        var top = el('div', 'tk-top');
+        top.appendChild(el('span', 'tk-id', t.ticket_number || ('#' + t.id)));
+        var badges = el('span');
+        badges.appendChild(badge(t.status, STATUS[t.status] || '#8aa48d'));
+        badges.appendChild(document.createTextNode(' '));
+        badges.appendChild(badge(t.priority, PRIORITY[t.priority] || '#8aa48d'));
+        top.appendChild(badges);
+        b.appendChild(top);
+
+        b.appendChild(el('div', 'tk-sub', t.subject || '(no subject)'));
+        var meta = [t.company || t.contact_name || t.email, fmt(t.updated_at)].filter(Boolean).join(' · ');
+        b.appendChild(el('div', 'tk-meta', meta));
+        listEl.appendChild(b);
+      });
+    }
+
+    function renderDetail(data) {
+      var t = data.ticket;
+      detailEl.textContent = '';
+      var p = el('section', 'panel');
+
+      p.appendChild(el('h2', null, (t.ticket_number || '#' + t.id) + ' — ' + (t.subject || '(no subject)')));
+      var whoBits = [t.contact_name, t.company, t.email, t.phone].filter(Boolean).join(' · ');
+      p.appendChild(el('div', 'who', whoBits));
+
+      if (t.description) p.appendChild(el('div', 'desc', t.description));
+
+      // Controls
+      var ctl = el('div', 'ctl');
+      var sSel = document.createElement('select');
+      sSel.setAttribute('aria-label', 'Status');
+      STATUSES.forEach(function (s) {
+        var o = document.createElement('option');
+        o.value = s; o.textContent = s;
+        if (s === t.status) o.selected = true;
+        sSel.appendChild(o);
+      });
+      var pSel = document.createElement('select');
+      pSel.setAttribute('aria-label', 'Priority');
+      PRIORITIES.forEach(function (s) {
+        var o = document.createElement('option');
+        o.value = s; o.textContent = s;
+        if (s === t.priority) o.selected = true;
+        pSel.appendChild(o);
+      });
+      var save = el('button', 'prim', 'Save');
+      save.type = 'button';
+      save.addEventListener('click', function () {
+        save.disabled = true;
+        api('/admin/tickets/' + t.id, { method: 'PATCH', body: { status: sSel.value, priority: pSel.value } })
+          .then(function (r) {
+            save.disabled = false;
+            if (!r.ok) return toast('Could not save');
+            toast('Saved — customer notified');
+            load().then(function () { open(t.id); });
+          });
+      });
+      ctl.appendChild(sSel); ctl.appendChild(pSel); ctl.appendChild(save);
+      p.appendChild(ctl);
+
+      // Thread
+      var thread = el('div', 'thread');
+      (data.comments || []).forEach(function (c) {
+        var cls = 'msg ' + (c.internal ? 'internal' : c.author_type);
+        var m = el('div', cls);
+        var label = (c.internal ? 'Internal note' : (c.author_type === 'staff' ? 'You' : 'Customer')) +
+                    ' · ' + fmt(c.created_at);
+        m.appendChild(el('div', 'm-meta', label));
+        m.appendChild(document.createTextNode(c.body));
+        thread.appendChild(m);
+      });
+      if (!(data.comments || []).length) thread.appendChild(el('div', 'tk-meta', 'No replies yet.'));
+      p.appendChild(thread);
+
+      // Reply
+      var ta = document.createElement('textarea');
+      ta.rows = 3;
+      ta.placeholder = 'Write a reply to the customer, or an internal note…';
+      ta.setAttribute('aria-label', 'Reply');
+      p.appendChild(ta);
+
+      var row = el('div', 'reply-row');
+      var send = el('button', 'prim', 'Reply to customer');
+      send.type = 'button';
+      var note = el('button', null, 'Internal note');
+      note.type = 'button';
+
+      function post(internal) {
+        var msg = ta.value.trim();
+        if (!msg) return toast('Nothing to send');
+        send.disabled = note.disabled = true;
+        api('/admin/tickets/' + t.id + '/comments', { method: 'POST', body: { message: msg, internal: internal } })
+          .then(function (r) {
+            send.disabled = note.disabled = false;
+            if (!r.ok) return toast('Could not send');
+            ta.value = '';
+            toast(internal ? 'Note saved (private)' : 'Reply sent');
+            open(t.id);
+          });
+      }
+      send.addEventListener('click', function () { post(false); });
+      note.addEventListener('click', function () { post(true); });
+      row.appendChild(send); row.appendChild(note);
+      p.appendChild(row);
+
+      detailEl.appendChild(p);
+    }
+
+    function open(id) {
+      currentId = id;
+      if (location.hash !== '#t=' + id) history.replaceState(null, '', '#t=' + id);
+      renderList();
+      detailEl.textContent = '';
+      detailEl.appendChild(el('div', 'state', 'Loading…'));
+      return api('/admin/tickets/' + id).then(function (r) {
+        if (!r.ok) {
+          detailEl.textContent = '';
+          detailEl.appendChild(el('div', 'state', 'Could not load that ticket.'));
+          return;
+        }
+        renderDetail(r);
+      });
+    }
+
+    function load() {
+      return api('/admin/tickets' + (filter ? '?status=' + encodeURIComponent(filter) : ''))
+        .then(function (r) {
+          if (!r.ok) {
+            listEl.textContent = '';
+            listEl.appendChild(el('div', 'state', 'Could not load tickets. Check that you are signed in.'));
+            return;
+          }
+          tickets = r.tickets || [];
+          renderList();
+        });
+    }
+
+    listEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('.tk');
+      if (btn) open(btn.getAttribute('data-id'));
+    });
+
+    document.getElementById('filters').addEventListener('click', function (e) {
+      var b = e.target.closest('.fpill');
+      if (!b) return;
+      Array.prototype.forEach.call(this.querySelectorAll('.fpill'), function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      filter = b.getAttribute('data-status') || '';
+      load();
+    });
+
+    // Cloudflare Access injects the signed-in identity; show it so it is obvious
+    // which account is acting. Failure here is cosmetic only.
+    fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (id) {
+        if (id && id.email) document.getElementById('adminWho').textContent = id.email;
+      })
+      .catch(function () {});
+
+    // Telegram alerts deep-link to #t=<id>, so honour the hash on load.
+    load().then(function () {
+      var m = /#t=(\d+)/.exec(location.hash);
+      if (m) open(m[1]);
+    });
+  })();
+  </script>
+</body>
+</html>

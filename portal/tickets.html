@@ -75,6 +75,9 @@
     .tk-note { margin-top:0.6rem; font-size:0.83rem; color:#cfe0d2; background:rgba(74,172,101,0.07); border-left:2px solid var(--green); padding:0.5rem 0.7rem; border-radius:0 8px 8px 0; }
     .tk-loading, .tk-empty { text-align:center; color:var(--muted); font-size:0.9rem; padding:1.6rem 1rem; border:1px dashed var(--line); border-radius:12px; }
     .tk-empty i { display:block; font-size:1.5rem; color:#33513c; margin-bottom:0.4rem; }
+    .thread-toggle { background:none; border:none; color:var(--green); cursor:pointer; padding:0.4rem 0; font:inherit; font-size:0.82rem; }
+    .reply-box { width:100%; margin-top:0.5rem; }
+    .reply-send { margin-top:0.4rem; }
     .pfoot { max-width:1200px; margin:0 auto; padding:1.5rem 5% 2.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
     .pfoot a { color:var(--muted); text-decoration:none; }
     .pfoot a:hover { color:var(--green); }
@@ -91,7 +94,7 @@
       <div class="pacct">
         <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
         <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
-        <a class="psignout" href="https://tevisengineering.com/cdn-cgi/access/logout">Sign out</a>
+        <a class="psignout" href="#" id="signOut">Sign out</a>
       </div>
     </div>
   </div>
@@ -120,20 +123,11 @@
           <h3>Ticket received</h3>
           <p>Thanks &mdash; we'll reply within one business day. You'll get an email confirmation, and your ticket status will show below once it's logged.</p>
         </div>
-        <form id="ticketForm" action="https://formspree.io/f/maqvanal" method="POST">
-          <input type="hidden" name="_subject" value="New Portal Ticket | TES">
-          <input type="hidden" name="_next" value="https://tevisengineering.com/portal/tickets.html?submitted=1">
-          <input type="hidden" name="source" value="Customer Portal">
+        <form id="ticketForm">
           <input type="text" name="website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="row2">
-            <div class="field">
-              <label for="tkName">Name</label>
-              <input id="tkName" type="text" name="name" required autocomplete="name">
-            </div>
-            <div class="field">
-              <label for="tkEmail">Email</label>
-              <input id="tkEmail" type="email" name="email" required autocomplete="email">
-            </div>
+          <div class="field">
+            <label for="tkSubject">Subject</label>
+            <input id="tkSubject" type="text" name="subject" maxlength="150" required placeholder="Short summary of the issue">
           </div>
           <div class="row2">
             <div class="field">
@@ -153,15 +147,15 @@
                 <option>Low</option>
                 <option selected>Medium</option>
                 <option>High</option>
-                <option>Critical &mdash; business down</option>
+                <option>Critical</option>
               </select>
             </div>
           </div>
           <div class="field">
             <label for="tkMsg">How can we help?</label>
-            <textarea id="tkMsg" name="message" rows="5" required placeholder="Describe the issue, what you were doing, and any error messages."></textarea>
+            <textarea id="tkMsg" name="description" rows="5" required placeholder="Describe the issue, what you were doing, and any error messages."></textarea>
           </div>
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Ticket</button>
+          <button type="submit" class="btn btn-primary" id="tkSubmit"><i class="fa-solid fa-paper-plane"></i> Submit Ticket</button>
         </form>
       </section>
 
@@ -182,67 +176,168 @@
   </footer>
 
   <script>
-    // Account identity (populated once Cloudflare Access gates the portal)
-    (function () {
-      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (id) {
-          if (!id || !id.email) return;
-          var display = id.name || id.email.split('@')[0];
-          var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
-          if (n) n.textContent = display;
-          if (e) e.textContent = id.email;
-          if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
-        })
-        .catch(function () {});
-    })();
+  (function () {
+    'use strict';
+    var API = '/portal-api';
+    var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e' };
+    var PRIORITY = { 'Low':'#6a8ba8', 'Medium':'#4fa2ff', 'High':'#fb923c', 'Critical':'#ef4444' };
 
-    // Success state after Formspree redirect
-    (function () {
-      if (window.location.search.indexOf('submitted=1') !== -1) {
-        var s = document.getElementById('ticketSuccess'), f = document.getElementById('ticketForm');
-        if (s) s.style.display = 'block';
-        if (f) f.style.display = 'none';
+    function api(path, opts) {
+      opts = opts || {};
+      opts.credentials = 'same-origin';
+      if (opts.body) {
+        opts.headers = { 'content-type': 'application/json' };
+        opts.body = JSON.stringify(opts.body);
       }
-    })();
+      return fetch(API + path, opts).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      });
+    }
 
-    // Render ticket status from status.json
-    (function () {
-      var STATUS = { 'Open':'#4fa2ff', 'In Progress':'#f59e0b', 'Pending Client':'#fb923c', 'Resolved':'#22c55e' };
-      var PRIORITY = { 'Low':'#6a8ba8', 'Medium':'#4fa2ff', 'High':'#fb923c', 'Critical':'#ef4444' };
-      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
-      function badge(text, color) { return '<span class="badge" style="color:' + color + ';border-color:' + color + '55;background:' + color + '1a;">' + esc(text) + '</span>'; }
-      function card(t) {
-        var html = '<div class="tk">';
-        html += '<div class="tk-top"><span class="tk-id">' + esc(t.id || 'TES') + '</span><span class="tk-badges">';
-        if (t.status) html += badge(t.status, STATUS[t.status] || '#8aa48d');
-        if (t.priority) html += badge(t.priority, PRIORITY[t.priority] || '#8aa48d');
-        html += '</span></div>';
-        if (t.title) html += '<div class="tk-title">' + esc(t.title) + '</div>';
-        if (t.description) html += '<div class="tk-desc">' + esc(t.description) + '</div>';
-        html += '<div class="tk-meta">';
-        if (t.opened) html += '<span>Opened ' + esc(t.opened) + '</span>';
-        if (t.last_update) html += '<span>Updated ' + esc(t.last_update) + '</span>';
-        html += '</div>';
-        if (t.note) html += '<div class="tk-note">' + esc(t.note) + '</div>';
-        html += '</div>';
-        return html;
-      }
-      var el = document.getElementById('ticketList');
-      fetch('status.json?v=' + Date.now(), { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .then(function (data) {
-          var tickets = (data && Array.isArray(data.tickets)) ? data.tickets : [];
-          if (!tickets.length) {
-            el.innerHTML = '<div class="tk-empty"><i class="fa-solid fa-inbox"></i>No tickets yet. Open one on the left and it will show up here once it\'s logged.</div>';
-            return;
-          }
-          el.innerHTML = tickets.map(card).join('');
-        })
-        .catch(function () {
-          el.innerHTML = '<div class="tk-empty"><i class="fa-solid fa-inbox"></i>No tickets to show yet. Open one on the left to get started.</div>';
-        });
-    })();
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+    function badge(text, color) {
+      var b = el('span', 'badge', text);
+      b.style.color = color; b.style.borderColor = color + '55'; b.style.background = color + '1a';
+      return b;
+    }
+    function fmt(ts) {
+      if (!ts) return '';
+      return new Date(ts * 1000).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+    }
+
+    // ---- identity -------------------------------------------------------
+    // Served by our own Worker now, not Cloudflare Access. A 401 means the
+    // visitor is signed out, so send them to the sign-in page.
+    api('/me').then(function (id) {
+      if (!id || !id.ok) { location.href = '../login.html'; return; }
+      var display = id.name || id.email.split('@')[0];
+      var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
+      if (n) n.textContent = display;
+      if (e) e.textContent = id.email;
+      if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+    });
+
+    var so = document.getElementById('signOut');
+    if (so) so.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      api('/auth/logout', { method: 'POST', body: {} }).then(function () { location.href = '../login.html'; });
+    });
+
+    // ---- ticket list ----------------------------------------------------
+    var listEl = document.getElementById('ticketList');
+
+    function renderThread(box, t) {
+      box.textContent = '';
+      (t.comments || []).forEach(function (c) {
+        var m = el('div', 'tk-note');
+        m.appendChild(el('strong', null, (c.author_type === 'staff' ? 'TES' : 'You') + ' \u00b7 ' + fmt(c.created_at)));
+        m.appendChild(document.createElement('br'));
+        m.appendChild(document.createTextNode(c.body));
+        box.appendChild(m);
+      });
+      var ta = document.createElement('textarea');
+      ta.rows = 2;
+      ta.placeholder = 'Add a reply...';
+      ta.className = 'reply-box';
+      ta.setAttribute('aria-label', 'Reply to ticket ' + (t.ticket_number || ''));
+      var send = el('button', 'btn btn-primary reply-send', 'Send reply');
+      send.type = 'button';
+      send.addEventListener('click', function () {
+        var msg = ta.value.trim();
+        if (!msg) return;
+        send.disabled = true;
+        api('/tickets/' + t.id + '/comments', { method: 'POST', body: { message: msg } })
+          .then(function (r) {
+            send.disabled = false;
+            if (!r.ok) return;
+            ta.value = '';
+            api('/tickets/' + t.id).then(function (d) { if (d.ok) renderThread(box, d.ticket); });
+          });
+      });
+      box.appendChild(ta); box.appendChild(send);
+    }
+
+    function card(t) {
+      var d = el('div', 'tk');
+      var top = el('div', 'tk-top');
+      top.appendChild(el('span', 'tk-id', t.ticket_number || ('#' + t.id)));
+      var bs = el('span', 'tk-badges');
+      if (t.status) bs.appendChild(badge(t.status, STATUS[t.status] || '#8aa48d'));
+      if (t.priority) bs.appendChild(badge(t.priority, PRIORITY[t.priority] || '#8aa48d'));
+      top.appendChild(bs);
+      d.appendChild(top);
+      if (t.subject) d.appendChild(el('div', 'tk-title', t.subject));
+      if (t.description) d.appendChild(el('div', 'tk-desc', t.description));
+      var meta = el('div', 'tk-meta');
+      if (t.created_at) meta.appendChild(el('span', null, 'Opened ' + fmt(t.created_at)));
+      if (t.updated_at) meta.appendChild(el('span', null, 'Updated ' + fmt(t.updated_at)));
+      d.appendChild(meta);
+
+      var box = el('div');
+      var toggle = el('button', 'thread-toggle', 'View conversation');
+      toggle.type = 'button';
+      toggle.addEventListener('click', function () {
+        if (box.childNodes.length) { box.textContent = ''; toggle.textContent = 'View conversation'; return; }
+        toggle.textContent = 'Hide conversation';
+        api('/tickets/' + t.id).then(function (r) { if (r.ok) renderThread(box, r.ticket); });
+      });
+      d.appendChild(toggle);
+      d.appendChild(box);
+      return d;
+    }
+
+    function loadTickets() {
+      return api('/tickets').then(function (r) {
+        listEl.textContent = '';
+        if (!r.ok) {
+          listEl.appendChild(el('div', 'tk-empty', 'Could not load your tickets right now.'));
+          return;
+        }
+        var ts = r.tickets || [];
+        if (!ts.length) {
+          var e = el('div', 'tk-empty');
+          e.appendChild(el('i', 'fa-solid fa-inbox'));
+          e.appendChild(document.createTextNode('No tickets yet. Open one on the left and it will appear here immediately.'));
+          listEl.appendChild(e);
+          return;
+        }
+        ts.forEach(function (t) { listEl.appendChild(card(t)); });
+      });
+    }
+    loadTickets();
+
+    // ---- submission -----------------------------------------------------
+    // Posts straight to the Worker and renders the ticket number inline. No
+    // redirect round-trip, and the ticket is queryable the moment this returns.
+    var form = document.getElementById('ticketForm');
+    var btn = document.getElementById('tkSubmit');
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+      var fd = new FormData(form);
+      var payload = {};
+      fd.forEach(function (v, k) { payload[k] = v; });
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      api('/tickets', { method: 'POST', body: payload }).then(function (r) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Ticket';
+        if (!r || !r.ok) { btn.textContent = 'Could not send - try again'; return; }
+        var s = document.getElementById('ticketSuccess');
+        var p = s.querySelector('p');
+        if (p) p.textContent = 'Your ticket number is ' + r.ticket_number +
+          '. We reply within one business day, and it is already listed on the right.';
+        s.style.display = 'block';
+        form.style.display = 'none';
+        loadTickets();
+      });
+    });
+  })();
   </script>
 </body>
 </html>

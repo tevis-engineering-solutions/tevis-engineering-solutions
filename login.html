@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     :root {
       --bg: #0d1710;
@@ -61,6 +62,19 @@
     .auth-card .sub { color:var(--muted); font-size:0.95rem; margin-bottom:1.4rem; }
     .auth-card .btn { width:100%; padding:0.85rem 1rem; font-size:0.92rem; }
     .auth-methods { display:flex; gap:0.6rem; flex-wrap:wrap; margin:1rem 0 0; }
+    /* .auth-form sets display:flex, which beats the UA stylesheet's [hidden]
+       rule -- without this the OTP form renders on page load. Same trap as the
+       .gh-loading spinner in Session 18. */
+    [hidden] { display:none !important; }
+    .auth-form { display:flex; flex-direction:column; gap:0.6rem; margin:0 auto 0.9rem; max-width:340px; text-align:left; }
+    .auth-label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; }
+    .auth-input { width:100%; padding:0.7rem 0.85rem; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.95rem; }
+    .auth-input:focus { outline:none; border-color:var(--green); }
+    .auth-code { letter-spacing:0.4em; text-align:center; font-size:1.2rem; }
+    .auth-back { background:none; border:none; color:var(--muted); font:inherit; font-size:0.8rem; cursor:pointer; text-decoration:underline; padding:0.2rem; }
+    .auth-back:hover { color:var(--green); }
+    .auth-status { min-height:1.2rem; font-size:0.85rem; color:var(--green); margin-bottom:0.3rem; }
+    .auth-status.err { color:#f19a9a; }
     .method { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.82rem; color:#cfe0d2; background:var(--card-2); border:1px solid var(--line); border-radius:999px; padding:0.4rem 0.85rem; }
     .method i { color:var(--gold); }
     .auth-note { margin-top:1rem; font-size:0.82rem; color:var(--muted); }
@@ -196,12 +210,22 @@
         <div class="auth-lock"><i class="fa-solid fa-lock"></i></div>
         <h1 id="authTitle">Customer Portal</h1>
         <p class="sub">Sign in to manage your software licenses, subscriptions, billing, and support tickets &mdash; all in one place.</p>
-        <a class="btn btn-primary" href="portal/index.html"><i class="fa-solid fa-right-to-bracket"></i> Sign In to Your Account</a>
-        <div class="auth-methods" role="group" aria-label="Sign-in methods">
-          <span class="method"><i class="fa-brands fa-google"></i> Sign in with Google</span>
-          <span class="method"><i class="fa-solid fa-envelope"></i> Email one-time code</span>
-        </div>
-        <p class="auth-note">Secure sign-in &mdash; no password to remember. You'll verify with Google or a one-time code sent to your email.</p>
+        <form id="emailForm" class="auth-form">
+          <label class="auth-label" for="loginEmail">Email address</label>
+          <input class="auth-input" id="loginEmail" name="email" type="email" required autocomplete="email" placeholder="you@yourcompany.com">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark"></div>
+          <button class="btn btn-primary" type="submit" id="sendBtn"><i class="fa-solid fa-paper-plane"></i> Email me a sign-in link</button>
+        </form>
+
+        <form id="codeForm" class="auth-form" hidden>
+          <label class="auth-label" for="loginCode">Enter the 6-digit code</label>
+          <input class="auth-input auth-code" id="loginCode" name="otp" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000">
+          <button class="btn btn-primary" type="submit" id="codeBtn"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
+          <button class="auth-back" type="button" id="backBtn">Use a different email</button>
+        </form>
+
+        <p class="auth-status" id="authStatus" role="status"></p>
+        <p class="auth-note">No password to remember. We email you a one-time link and code &mdash; both expire in 15 minutes and work once.</p>
         <div class="auth-divider">New to TES Software?</div>
         <div class="auth-secondary">
           <a class="btn btn-secondary" href="software.html"><i class="fa-solid fa-laptop-code"></i> Explore Software</a>
@@ -234,7 +258,7 @@
             <p>Update your profile, contacts, and notification preferences.</p>
           </div>
         </div>
-        <p class="peek-trust"><i class="fa-solid fa-shield-halved"></i> <span>Sign-in is secured at the network edge by Cloudflare Access. Tevis Engineering never stores your password &mdash; you authenticate with Google or a one-time email code.</span></p>
+        <p class="peek-trust"><i class="fa-solid fa-shield-halved"></i> <span>Tevis Engineering never stores a password for your account &mdash; you sign in with a one-time link or code sent to your email, and your session is encrypted end to end.</span></p>
       </aside>
     </div>
   </main>
@@ -301,6 +325,108 @@
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
       mega.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setOpen(false); }); });
     })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    var API = '/portal-api';
+    var PORTAL = 'portal/index.html';
+
+    var emailForm = document.getElementById('emailForm');
+    var codeForm = document.getElementById('codeForm');
+    var statusEl = document.getElementById('authStatus');
+    var sendBtn = document.getElementById('sendBtn');
+    var codeBtn = document.getElementById('codeBtn');
+    var pendingEmail = '';
+
+    // --- Turnstile -------------------------------------------------------
+    // The widget renders itself (class="cf-turnstile") and writes the token into
+    // a hidden input named cf-turnstile-response inside the form. The Worker
+    // expects it as `turnstileToken`, so read it out and rename it.
+    // Tokens are single-use, so the widget is reset after every attempt.
+    function readTurnstile(form) {
+      var el = form.querySelector('[name="cf-turnstile-response"]');
+      return el ? el.value : '';
+    }
+    function resetTurnstile() {
+      try { if (window.turnstile) window.turnstile.reset(); } catch (e) {}
+    }
+
+    function api(path, body) {
+      return fetch(API + path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body)
+      }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); });
+    }
+
+    function say(msg, isErr) {
+      statusEl.textContent = msg;
+      statusEl.className = 'auth-status' + (isErr ? ' err' : '');
+    }
+
+    // If the visitor arrived from the emailed link, consume the token straight away.
+    var m = /[?&]t=([^&]+)/.exec(location.search);
+    if (m) {
+      say('Signing you in\u2026');
+      api('/auth/verify', { token: decodeURIComponent(m[1]) }).then(function (r) {
+        if (r && r.ok) { location.replace(PORTAL); return; }
+        say('That link has expired or was already used. Request a new one below.', true);
+        history.replaceState(null, '', location.pathname);
+      });
+    }
+
+    emailForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var email = document.getElementById('loginEmail').value.trim();
+      if (!email) return;
+
+      var token = readTurnstile(emailForm);
+      if (!token) {
+        say('Still checking that you are human. Give it a second and try again.', true);
+        return;
+      }
+
+      pendingEmail = email;
+      sendBtn.disabled = true;
+      say('Sending\u2026');
+      api('/auth/request', { email: email, turnstileToken: token }).then(function (r) {
+        sendBtn.disabled = false;
+        resetTurnstile();
+        if (r && r.ok === false && r.error === 'challenge_failed') {
+          say('Verification failed. Reload the page and try again.', true);
+          return;
+        }
+        // Always the same message whether or not the address is registered --
+        // otherwise this page becomes a way to test which emails have accounts.
+        say('If that address has an account, a sign-in link and code are on the way.');
+        emailForm.hidden = true;
+        codeForm.hidden = false;
+        document.getElementById('loginCode').focus();
+      });
+    });
+
+    codeForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var otp = document.getElementById('loginCode').value.trim();
+      if (!/^[0-9]{6}$/.test(otp)) { say('Enter the 6-digit code from your email.', true); return; }
+      codeBtn.disabled = true;
+      say('Checking\u2026');
+      api('/auth/verify', { email: pendingEmail, otp: otp }).then(function (r) {
+        codeBtn.disabled = false;
+        if (r && r.ok) { location.replace(PORTAL); return; }
+        say('That code is not valid or has expired. Request a new one.', true);
+      });
+    });
+
+    document.getElementById('backBtn').addEventListener('click', function () {
+      codeForm.hidden = true;
+      emailForm.hidden = false;
+      say('');
+    });
+  })();
   </script>
 </body>
 </html>

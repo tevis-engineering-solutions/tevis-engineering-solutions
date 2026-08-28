@@ -90,7 +90,7 @@
         <div class="who"><b id="acctName">Your Account</b><span id="acctEmail">Signed in</span></div>
         <div class="pavatar" id="acctAvatar" aria-hidden="true">TE</div>
         <!-- Cloudflare Access logout endpoint (active once Access gates /portal/*) -->
-        <a class="psignout" href="https://tevisengineering.com/cdn-cgi/access/logout">Sign out</a>
+        <a class="psignout" href="#">Sign out</a>
       </div>
     </div>
   </div>
@@ -128,7 +128,7 @@
         <div class="ic"><i class="fa-solid fa-credit-card"></i></div>
         <h2>Billing</h2>
         <p>Pay an invoice, manage your subscription, and review payment history.</p>
-        <div class="status"><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Active</span></div>
+        <div class="status"><span class="pill ok" id="billingPill"><i class="fa-solid fa-circle-check"></i> Active</span></div>
         <a class="plink" href="billing.html">Open Billing <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <div class="pcard">
@@ -159,25 +159,67 @@
     <span><a href="../index.html">Main site</a> &middot; <a href="../contact.html">Contact</a> &middot; <a href="../privacy_policy.html">Privacy &amp; Terms</a></span>
   </footer>
 
+  <script src="../assets/js/invoices.js"></script>
   <script>
-    // Populate the account name/avatar from the Cloudflare Access identity when available.
-    // Access exposes the signed-in email at /cdn-cgi/access/get-identity once the app is gated.
+    // The portal Worker exposes the signed-in email at /portal-api/me
+    // once portal/* is gated. Name and avatar come from there; the Billing card
+    // then shows what this account actually owes instead of a generic "Active".
     (function () {
-      fetch('/cdn-cgi/access/get-identity', { credentials: 'same-origin' })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (id) {
-          if (!id || !id.email) return;
-          var email = id.email;
-          var nameEl = document.getElementById('acctName');
-          var emailEl = document.getElementById('acctEmail');
-          var avatarEl = document.getElementById('acctAvatar');
-          var display = id.name || email.split('@')[0];
-          if (nameEl) nameEl.textContent = display;
-          if (emailEl) emailEl.textContent = email;
-          if (avatarEl) avatarEl.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
-        })
-        .catch(function () { /* not gated yet — leave defaults */ });
+      function setPill(cls, icon, label) {
+        var pill = document.getElementById('billingPill');
+        if (!pill) return;
+        pill.className = 'pill ' + cls;
+        pill.textContent = '';
+        var i = document.createElement('i');
+        i.className = icon;
+        pill.appendChild(i);
+        pill.appendChild(document.createTextNode(' ' + label));
+      }
+
+      TESInvoices.getIdentity().then(function (id) {
+        if (!id || !id.email) return null;
+        var email = id.email;
+        var display = id.name || email.split('@')[0];
+        var nameEl = document.getElementById('acctName');
+        var emailEl = document.getElementById('acctEmail');
+        var avatarEl = document.getElementById('acctAvatar');
+        if (nameEl) nameEl.textContent = display;
+        if (emailEl) emailEl.textContent = email;
+        if (avatarEl) avatarEl.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+
+        return TESInvoices.fetchForEmail(email).then(function (invoices) {
+          var open = invoices.filter(function (inv) { return !inv.paid; });
+          if (!open.length) {
+            if (invoices.length) setPill('ok', 'fa-solid fa-circle-check', 'No balance due');
+            return;
+          }
+          var due = open.reduce(function (sum, inv) { return sum + (inv.amount || 0); }, 0);
+          setPill('gold', 'fa-solid fa-file-invoice-dollar',
+                  TESInvoices.formatUSD(due) + ' due · ' + open.length +
+                  ' invoice' + (open.length === 1 ? '' : 's'));
+        });
+      }).catch(function () { /* not gated yet, or billing unreachable - leave defaults */ });
     })();
+  </script>
+
+  <script>
+  // Sign-out now ends the app-level session in the portal Worker. Cloudflare Access
+  // no longer gates portal/* -- it is reserved for the admin console.
+  (function () {
+    var links = document.querySelectorAll('.psignout, .signout-link');
+    Array.prototype.forEach.call(links, function (a) {
+      a.setAttribute('href', '#');
+      a.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        fetch('/portal-api/auth/logout', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: '{}'
+        }).then(function () { location.href = '../login.html'; });
+      });
+    });
+  })();
   </script>
 </body>
 </html>
