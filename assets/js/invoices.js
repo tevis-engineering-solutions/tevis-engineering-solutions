@@ -278,6 +278,27 @@
     }, function () { if (handlers.onError) handlers.onError('sdk_timeout'); });
   }
 
+  /* ---------- check / ACH / wire ------------------------------------------ */
+
+  /* Raises a support ticket asking for remittance details, which TES answers by
+     email. Account and routing numbers are deliberately never rendered on a page
+     or stored in this repo, which is public. */
+  function requestBankDetails(inv, kind) {
+    var body = payRef(inv);
+    body.kind = kind || 'ACH';
+    return apiPost('/pay/bank-request', body);
+  }
+
+  /* Customer states they have paid by check, ACH, or wire. This moves the
+     invoice to 'pending', NOT 'paid' -- a claim is not cleared funds. TES
+     confirms the money landed and closes it out. */
+  function reportPayment(inv, method, reference) {
+    var body = payRef(inv);
+    body.method = method;
+    body.reference = reference || '';
+    return apiPost('/pay/report', body);
+  }
+
   global.TESInvoices = {
     normalizeToken: normalizeToken,
     toNumber: toNumber,
@@ -292,6 +313,8 @@
     lookupFromPayLink: lookupFromPayLink,
     notifyPaid: notifyPaid,
     getIdentity: getIdentity,
-    mountPayPal: mountPayPal
+    mountPayPal: mountPayPal,
+    requestBankDetails: requestBankDetails,
+    reportPayment: reportPayment
   };
 })(window);

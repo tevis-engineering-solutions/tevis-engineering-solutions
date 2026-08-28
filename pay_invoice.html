@@ -316,6 +316,23 @@
       margin-bottom: 0.55rem;
     }
 
+    .paytabs { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .paytab { flex:1 1 auto; min-width:132px; font-family:"Montserrat",sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.6rem 0.7rem; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0.4rem; }
+    .paytab:hover { color:var(--text); border-color:var(--blue); }
+    .paytab.on { background:rgba(200,152,48,0.12); border-color:var(--accent); color:#f0e2c2; }
+    .paypanel-lead { font-size:0.9rem; color:var(--muted); margin-bottom:0.8rem; }
+    .paypanel-note { font-size:0.84rem; color:var(--muted); margin-top:0.6rem; min-height:1.1rem; }
+    .paypanel-note.ok { color:#8fd4a3; }
+    .paypanel-note.err { color:#f0a3a3; }
+    .pay-actions { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .pay-sep { border:none; border-top:1px solid var(--border); margin:1.1rem 0; }
+    .check-row { display:flex; gap:0.5rem; align-items:flex-end; flex-wrap:wrap; }
+    .check-row label { display:block; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; margin-bottom:0.25rem; }
+    .check-row label .opt { text-transform:none; letter-spacing:0; font-weight:500; }
+    .check-row input { padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.95rem; min-width:190px; }
+    .check-row input:focus { outline:none; border-color:var(--blue); }
+    .pending-banner { border:1px solid rgba(200,152,48,0.4); background:rgba(200,152,48,0.1); border-radius:10px; padding:0.8rem 1rem; color:#f0e2c2; font-size:0.9rem; margin-bottom:1rem; }
+    [hidden] { display:none !important; }
     #paypal-button-container {
       max-width: 400px;
       margin: 1.5rem auto 0;
@@ -546,7 +563,46 @@
 
           <div class="paypal-area">
             <p class="paypal-meta" id="paypalMeta"></p>
-            <div id="paypal-button-container"></div>
+
+            <div class="paytabs" id="payTabs" role="group" aria-label="Payment method">
+              <button type="button" class="paytab on" data-method="card"><i class="fa-brands fa-cc-paypal" aria-hidden="true"></i> Card or PayPal</button>
+              <button type="button" class="paytab" data-method="bank"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> ACH or Wire</button>
+              <button type="button" class="paytab" data-method="check"><i class="fa-solid fa-money-check-dollar" aria-hidden="true"></i> Check</button>
+            </div>
+
+            <div id="payCard">
+              <div id="paypal-button-container"></div>
+            </div>
+
+            <div id="payBank" class="paypanel" hidden>
+              <p class="paypanel-lead">Paying by ACH, bank draft, or wire? Request our remittance details and we&rsquo;ll email them to you, usually the same business day.</p>
+              <div class="pay-actions">
+                <button type="button" class="btn btn-primary" id="bankRequest"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Request Bank Details</button>
+              </div>
+              <p class="paypanel-note" id="bankStatus" role="status"></p>
+              <hr class="pay-sep">
+              <p class="paypanel-lead">Already sent the transfer? Let us know and we&rsquo;ll confirm once it lands.</p>
+              <div class="check-row">
+                <div>
+                  <label for="bankRef">Reference <span class="opt">(optional)</span></label>
+                  <input id="bankRef" type="text" maxlength="60" placeholder="Confirmation or trace number">
+                </div>
+                <button type="button" class="btn btn-secondary" id="bankPaid">I&rsquo;ve Sent Payment</button>
+              </div>
+              <p class="paypanel-note" id="bankPaidStatus" role="status"></p>
+            </div>
+
+            <div id="payCheck" class="paypanel" hidden>
+              <p class="paypanel-lead">Make the check payable to <strong>Tevis Engineering Solutions, LLC</strong> and write the invoice number in the memo. Tell us the check number and we&rsquo;ll watch for it.</p>
+              <div class="check-row">
+                <div>
+                  <label for="checkNumber">Check number</label>
+                  <input id="checkNumber" type="text" inputmode="numeric" maxlength="40" placeholder="e.g. 1042">
+                </div>
+                <button type="button" class="btn btn-primary" id="checkPaid">I&rsquo;ve Mailed the Check</button>
+              </div>
+              <p class="paypanel-note" id="checkStatus" role="status"></p>
+            </div>
           </div>
         </div>
       </section>
@@ -697,6 +753,87 @@
       paypalMeta.textContent = "";
     }
 
+    /* Three ways to pay. PayPal settles automatically because a verified capture
+       is proof of funds. Check and ACH only mark the invoice 'pending' -- a
+       customer saying they paid is a claim, and TES confirms before closing it. */
+    function setupAltPayment(row) {
+      const tabs = document.getElementById("payTabs");
+      const panels = {
+        card: document.getElementById("payCard"),
+        bank: document.getElementById("payBank"),
+        check: document.getElementById("payCheck")
+      };
+
+      function show(method) {
+        Object.keys(panels).forEach(function (k) { panels[k].hidden = k !== method; });
+        Array.prototype.forEach.call(tabs.querySelectorAll(".paytab"), function (b) {
+          b.classList.toggle("on", b.getAttribute("data-method") === method);
+        });
+      }
+      tabs.addEventListener("click", function (ev) {
+        const b = ev.target.closest(".paytab");
+        if (b) show(b.getAttribute("data-method"));
+      });
+
+      function say(el, msg, cls) {
+        el.className = "paypanel-note" + (cls ? " " + cls : "");
+        el.textContent = msg;
+      }
+
+      /* Raises a ticket; TES replies by email with the account details. */
+      const bankStatus = document.getElementById("bankStatus");
+      document.getElementById("bankRequest").addEventListener("click", function () {
+        const btn = this;
+        btn.disabled = true;
+        say(bankStatus, "Sending\u2026");
+        TESInvoices.requestBankDetails(row, "ACH").then(function (r) {
+          btn.disabled = false;
+          if (!r || !r.ok) {
+            say(bankStatus, "Could not send that. Email billing@tevisengineering.com and we will reply with the details.", "err");
+            return;
+          }
+          say(bankStatus, "Request sent (" + r.ticket_number + "). We will email the remittance details shortly.", "ok");
+        });
+      });
+
+      function reportHandler(method, refEl, btn, statusEl, doneMsg) {
+        btn.addEventListener("click", function () {
+          const ref = refEl ? refEl.value.trim() : "";
+          if (method === "check" && !ref) {
+            say(statusEl, "Enter the check number first.", "err");
+            return;
+          }
+          btn.disabled = true;
+          say(statusEl, "Sending\u2026");
+          TESInvoices.reportPayment(row, method, ref).then(function (r) {
+            btn.disabled = false;
+            if (!r || !r.ok) {
+              say(statusEl, "Could not record that. Email billing@tevisengineering.com so we can note it.", "err");
+              return;
+            }
+            /* Deliberately does not claim the invoice is settled. */
+            say(statusEl, doneMsg, "ok");
+            if (refEl) refEl.disabled = true;
+            btn.disabled = true;
+          });
+        });
+      }
+
+      reportHandler("check",
+        document.getElementById("checkNumber"),
+        document.getElementById("checkPaid"),
+        document.getElementById("checkStatus"),
+        "Thanks \u2014 noted. The invoice stays open until the check clears, then we will mark it paid.");
+
+      reportHandler("ach",
+        document.getElementById("bankRef"),
+        document.getElementById("bankPaid"),
+        document.getElementById("bankPaidStatus"),
+        "Thanks \u2014 noted. We will confirm once the transfer lands and mark the invoice paid.");
+
+      show("card");
+    }
+
     function renderResult(row) {
       selectedInvoice = row;
 
@@ -707,6 +844,18 @@
 
       invoiceResult.classList.add("visible");
       paypalContainer.innerHTML = "";
+
+      if (row.status === "pending") {
+        paypalMeta.textContent = "";
+        const b = document.createElement("div");
+        b.className = "pending-banner";
+        b.textContent = "You told us this was paid by " +
+          (row.payment_method === "check" ? "check" : "bank transfer") +
+          (row.payment_ref ? " (" + row.payment_ref + ")" : "") +
+          ". We are confirming it now and will mark the invoice paid once the funds land. " +
+          "You can still pay by card below if you would rather settle it immediately.";
+        paypalContainer.parentNode.insertBefore(b, paypalContainer.parentNode.firstChild);
+      }
 
       if (row.paid) {
         paypalMeta.textContent = "This invoice is already marked paid" +
@@ -721,6 +870,7 @@
       }
 
       paypalMeta.textContent = "";
+      setupAltPayment(row);
       TESInvoices.mountPayPal(paypalContainer, row, {
         onPaid: function (orderId, payerName) {
           paypalContainer.textContent = "";

@@ -76,6 +76,7 @@
     .inv-actions { display:flex; gap:0.4rem; margin-top:0.6rem; flex-wrap:wrap; }
     .inv-actions button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
     .inv-actions button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .pending-line { color:#e0c98a; }
     .newinv { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1rem; margin-bottom:1rem; }
     .newinv h2 { font-family:"Montserrat",sans-serif; font-size:1rem; margin-bottom:0.8rem; }
     .fgrid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
@@ -408,7 +409,7 @@
     var invListEl = document.getElementById('invList');
     var invForm = document.getElementById('invForm');
     var invPayLink = document.getElementById('invPayLink');
-    var STATUS_COLOR = { open: '#f59e0b', paid: '#22c55e', void: '#6a8ba8' };
+    var STATUS_COLOR = { open: '#f59e0b', pending: '#c89830', paid: '#22c55e', void: '#6a8ba8' };
 
     function money(cents) {
       return (Number(cents) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -428,6 +429,14 @@
       d.appendChild(el('div', 'inv-meta',
         [v.company, v.email, v.service].filter(Boolean).join(' \u00b7 ')));
       if (v.paid_at) d.appendChild(el('div', 'inv-meta', 'Paid ' + fmt(v.paid_at)));
+      if (v.status === 'pending') {
+        var how = v.payment_method === 'check' ? 'Check' :
+                  v.payment_method === 'wire' ? 'Wire' : 'ACH';
+        var line = el('div', 'inv-meta pending-line',
+          'Customer reported: ' + how + (v.payment_ref ? ' #' + v.payment_ref : '') +
+          (v.reported_at ? ' on ' + fmt(v.reported_at) : '') + ' — confirm before marking paid');
+        d.appendChild(line);
+      }
 
       var acts = el('div', 'inv-actions');
       var copy = el('button', null, 'Copy pay link');
@@ -445,7 +454,8 @@
       acts.appendChild(copy);
 
       if (v.status !== 'paid') {
-        var paid = el('button', null, 'Mark paid');
+        var paid = el('button', v.status === 'pending' ? 'prim' : null,
+          v.status === 'pending' ? 'Confirm received' : 'Mark paid');
         paid.type = 'button';
         paid.addEventListener('click', function () {
           api('/admin/invoices/' + v.id, { method: 'PATCH', body: { status: 'paid' } })
