@@ -176,8 +176,16 @@
         pill.appendChild(document.createTextNode(' ' + label));
       }
 
+
+    /* Portal pages require a session. Without this the page renders its
+       placeholder shell ("Your Account" / "Signed in") and looks half-logged-in,
+       which is what a missing session used to look like. */
+    function requireSession(id) {
+      if (!id || !id.email) { location.replace('../login.html'); return false; }
+      return true;
+    }
       TESInvoices.getIdentity().then(function (id) {
-        if (!id || !id.email) return null;
+        if (!requireSession(id)) return null;
         var email = id.email;
         var display = id.name || email.split('@')[0];
         var nameEl = document.getElementById('acctName');

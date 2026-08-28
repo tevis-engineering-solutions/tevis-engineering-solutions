@@ -193,9 +193,9 @@
     <div class="pgrid">
       <div class="pcard feat">
         <div class="ic"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-        <h2>Pay any invoice</h2>
-        <p>Have an invoice number that isn't listed above &mdash; a one-off project, or one billed to a different email? Look it up and pay it without signing in.</p>
-        <a class="btn btn-primary" href="../pay_invoice.html"><i class="fa-solid fa-credit-card"></i> Invoice Lookup</a>
+        <h2>Invoice not listed?</h2>
+        <p>An invoice billed to a different email &mdash; a one-off project, say &mdash; is paid from the secure payment link in that invoice email. It opens without signing in.</p>
+        <a class="btn btn-primary" href="mailto:billing@tevisengineering.com?subject=Payment%20link%20request"><i class="fa-solid fa-envelope"></i> Request a Payment Link</a>
       </div>
       <div class="pcard">
         <div class="ic"><i class="fa-solid fa-arrows-rotate"></i></div>
@@ -478,7 +478,7 @@
       setState(
         '<i class="fa-solid fa-circle-info"></i><div><b>No invoices are linked to ' +
         TESInvoices.escapeHtml(email) + ' yet.</b>' +
-        'If an invoice was sent to a different address, use <a href="../pay_invoice.html">Invoice Lookup</a> ' +
+        'If an invoice was sent to a different address, open the payment link from that invoice email ' +
         'to pay it by number. To have future invoices appear here automatically, email ' +
         '<a href="mailto:billing@tevisengineering.com">billing@tevisengineering.com</a> and we will link this address to your account.</div>'
       );
@@ -486,18 +486,16 @@
     }
 
     function noIdentity() {
-      setState(
-        '<i class="fa-solid fa-circle-info"></i><div><b>Sign-in not detected.</b>' +
-        'We could not read your signed-in email, so your personalized invoice list is unavailable on this device. ' +
-        'You can still pay any invoice by number with <a href="../pay_invoice.html">Invoice Lookup</a>.</div>'
-      );
+      /* No session. Send them to sign in rather than showing a signed-out shell
+         that looks like a broken login. */
+      location.replace('../login.html');
     }
 
     function loadFailed() {
       setState(
         '<i class="fa-solid fa-triangle-exclamation"></i><div><b>Billing records are unavailable right now.</b>' +
         'We could not reach the invoicing service. Try again in a few minutes, use ' +
-        '<a href="../pay_invoice.html">Invoice Lookup</a>, or email ' +
+        'the payment link from your invoice email, or email ' +
         '<a href="mailto:billing@tevisengineering.com">billing@tevisengineering.com</a>.</div>',
         true
       );
