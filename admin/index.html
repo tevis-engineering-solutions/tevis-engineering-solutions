@@ -65,8 +65,9 @@
     textarea:focus { outline:none; border-color:var(--green); }
     .reply-row { display:flex; gap:0.4rem; margin-top:0.5rem; flex-wrap:wrap; }
 
-    .viewnav { display:flex; gap:0.4rem; padding:0.6rem 1rem 0; max-width:1100px; margin:0 auto; }
-    .vbtn { font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.5rem 0.9rem; border-radius:8px 8px 0 0; border:1px solid var(--line); border-bottom:none; background:transparent; color:var(--muted); cursor:pointer; }
+    .viewnav { display:flex; gap:0.4rem; padding:0.6rem 1rem 0; max-width:1100px; margin:0 auto; overflow-x:auto; scrollbar-width:none; }
+    .viewnav::-webkit-scrollbar { display:none; }
+    .vbtn { flex:0 0 auto; font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.5rem 0.9rem; border-radius:8px 8px 0 0; border:1px solid var(--line); border-bottom:none; background:transparent; color:var(--muted); cursor:pointer; }
     .vbtn.on { background:var(--card); color:#fff; border-color:var(--gold); }
     .inv { border:1px solid var(--line); border-radius:12px; background:var(--card); padding:0.85rem 1rem; margin-bottom:0.5rem; }
     .inv-top { display:flex; justify-content:space-between; gap:0.6rem; align-items:center; flex-wrap:wrap; }
@@ -86,6 +87,30 @@
     .fgrid input:focus, .fwide input:focus { outline:none; border-color:var(--green); }
     .fwide { margin-top:0.6rem; }
     .paylink { margin-top:0.7rem; padding:0.6rem 0.75rem; border-radius:8px; background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.35); font-size:0.78rem; word-break:break-all; color:#cdeed6; }
+    .fgrid select, .fwide select { width:100%; padding:0.55rem 0.7rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.88rem; }
+    .fgrid select:focus, .fwide select:focus { outline:none; border-color:var(--green); }
+    .fcheck { display:flex; align-items:center; gap:0.5rem; margin-top:0.7rem; font-size:0.82rem; color:var(--muted); }
+    .fcheck input { width:18px; height:18px; accent-color:var(--gold); }
+    .fnote { font-size:0.74rem; color:var(--muted); margin-top:0.5rem; line-height:1.5; }
+    /* The issued key is shown once and never again -- it is only ever stored hashed.
+       Monospace so 1/l and 0/O are unambiguous when it is read aloud on the phone. */
+    .keyout { margin-top:0.8rem; border:1px solid var(--gold); border-radius:10px; background:rgba(200,152,48,0.09); padding:0.8rem 0.9rem; }
+    .keyout h3 { font-family:"Montserrat",sans-serif; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--gold); margin-bottom:0.4rem; }
+    .keyval { font-family:Consolas,"Courier New",monospace; font-size:1rem; word-break:break-all; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:0.6rem 0.7rem; user-select:all; }
+    .keywarn { font-size:0.76rem; color:#e0c98a; margin-top:0.5rem; line-height:1.5; }
+    .lic-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.4rem 1rem; margin-top:0.55rem; }
+    .lic-f { font-size:0.74rem; color:var(--muted); }
+    .lic-f b { display:block; font-weight:700; color:var(--text); font-size:0.8rem; }
+    .lic-manage { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid var(--line); }
+    .lic-manage select { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.6rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
+    .lic-manage button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; }
+    .lic-manage button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .lic-manage .lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; }
+    .lic-hist { margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid var(--line); }
+    .hev { display:flex; flex-wrap:wrap; gap:0.15rem 0.5rem; font-size:0.74rem; color:var(--muted); padding:0.3rem 0; border-bottom:1px dashed rgba(44,66,50,0.7); }
+    .hev:last-child { border-bottom:none; }
+    .hev b { color:var(--text); font-weight:700; white-space:nowrap; }
+    .hev .when { margin-left:auto; white-space:nowrap; }
     .state { text-align:center; color:var(--muted); font-size:0.88rem; padding:2rem 1rem; border:1px dashed var(--line); border-radius:12px; }
     .toast { position:fixed; left:50%; bottom:1.2rem; transform:translateX(-50%); background:var(--card-2); border:1px solid var(--green); color:var(--text); padding:0.6rem 1rem; border-radius:999px; font-size:0.85rem; z-index:99; }
     [hidden] { display:none !important; }
@@ -106,6 +131,7 @@
   <div class="viewnav">
     <button type="button" class="vbtn on" id="navTickets">Tickets</button>
     <button type="button" class="vbtn" id="navInvoices">Invoices</button>
+    <button type="button" class="vbtn" id="navKeys">Product Keys</button>
   </div>
 
   <div id="viewTickets">
@@ -172,6 +198,44 @@
     </section>
 
     <div id="invList"><div class="state">Loading invoices&hellip;</div></div>
+  </main>
+
+  <main class="wrap" id="viewKeys" aria-label="Product keys" hidden>
+    <section class="newinv">
+      <h2>Issue a key &mdash; Ohio Crash Report Analysis Tool</h2>
+      <form id="keyForm">
+        <div class="fgrid">
+          <div>
+            <label for="keyEmail">Customer email</label>
+            <input id="keyEmail" name="email" type="email" required placeholder="owner@client.com">
+          </div>
+          <div>
+            <label for="keyPlan">Service level</label>
+            <select id="keyPlan" name="plan">
+              <option value="trial">Trial &mdash; 100 reports, 14 days</option>
+              <option value="starter">Starter &mdash; 1,000 reports/mo</option>
+              <option value="pro">Pro &mdash; 4,000 reports/mo</option>
+              <option value="enterprise">Enterprise &mdash; 15,000 reports/mo</option>
+            </select>
+          </div>
+        </div>
+        <div class="fcheck">
+          <input type="checkbox" id="keyNotify" name="notify" checked>
+          <label for="keyNotify">Email the key to the customer with activation instructions</label>
+        </div>
+        <p class="fnote">
+          The key attaches to this email's existing customer account, or creates one if it is a new
+          customer. Only a one-way hash is stored, so the key below is the only copy &mdash; it cannot
+          be looked up later. A trial's 14&#8209;day clock starts at first activation, not now.
+        </p>
+        <div class="inv-actions">
+          <button type="submit" class="prim" id="keyCreate">Issue key</button>
+        </div>
+        <div class="keyout" id="keyOut" hidden></div>
+      </form>
+    </section>
+
+    <div id="keyList"><div class="state">Loading keys&hellip;</div></div>
   </main>
 
   <div class="toast" id="toast" hidden></div>
@@ -541,21 +605,263 @@
       });
     });
 
+    // ---- product keys ----------------------------------------------------
+    var keyListEl = document.getElementById('keyList');
+    var keyForm = document.getElementById('keyForm');
+    var keyOut = document.getElementById('keyOut');
+    // Effective statuses the control plane computes, not the raw stored column.
+    var LIC_COLOR = { active:'#22c55e', issued:'#4fa2ff', expired:'#fb923c', inactive:'#c89830', revoked:'#ef4444' };
+    var ACCT_LABEL = { active:'Active', past_due:'Suspended (past due)', canceled:'Canceled' };
+    var PLAN_LABEL = { trial:'Trial', starter:'Starter', pro:'Pro', enterprise:'Enterprise' };
+    var PAID_PLANS = ['starter', 'pro', 'enterprise'];
+    var EVENT_LABEL = {
+      issued: 'Issued', revoked: 'Revoked', restored: 'Un-revoked',
+      plan_changed: 'Plan changed', account_suspended: 'Account suspended',
+      account_restored: 'Account restored', unbound: 'Released from PC',
+      replaced: 'Replaced'
+    };
+
+    // Dates here carry the year. A key issued last November and one issued this
+    // month are otherwise indistinguishable in the list.
+    function fmtDay(ts) {
+      if (!ts) return '';
+      var d = new Date(ts * 1000);
+      return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) +
+             ', ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+    }
+
+    function field(label, value) {
+      var f = el('div', 'lic-f');
+      f.appendChild(el('b', null, value));
+      f.appendChild(document.createTextNode(label));
+      return f;
+    }
+
+    // The raw key exists in this response and nowhere else -- the database holds
+    // only its sha256. If it is lost here the only remedy is to reissue.
+    function showKey(r, replacement) {
+      keyOut.hidden = false;
+      keyOut.textContent = '';
+      keyOut.appendChild(el('h3', null,
+        (replacement ? 'Replacement key for ' : 'New key for ') + (r.email || '')));
+      keyOut.appendChild(el('div', 'keyval', r.key));
+      keyOut.appendChild(el('div', 'lic-f',
+        (r.plan_label || PLAN_LABEL[r.plan] || r.plan) + ' · issued ' + fmtDay(r.issued_at)));
+      keyOut.appendChild(el('div', 'keywarn',
+        (r.emailed ? 'Emailed to ' + r.email + '. '
+          : r.email_failed ? 'The email did NOT send — copy this key and send it yourself. '
+          : 'Not emailed. ') +
+        'This is the only time the key is shown; the database stores only its hash.'));
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(r.key).then(function () { toast('Key copied'); }, function () {});
+      }
+    }
+
+    function licAction(label, cls, fn) {
+      var b = el('button', cls || null, label);
+      b.type = 'button';
+      b.addEventListener('click', fn);
+      return b;
+    }
+
+    function licCard(v) {
+      var d = el('div', 'inv');
+
+      var top = el('div', 'inv-top');
+      top.appendChild(el('span', 'inv-num', v.email || v.account_id));
+      var right = el('span');
+      right.appendChild(badge(v.status, LIC_COLOR[v.status] || '#8aa48d'));
+      right.appendChild(document.createTextNode(' '));
+      right.appendChild(el('span', 'inv-amt', v.plan_label));
+      top.appendChild(right);
+      d.appendChild(top);
+
+      var g = el('div', 'lic-grid');
+      g.appendChild(field('Issued', fmtDay(v.issued_at)));
+      g.appendChild(field('Activated', v.activated_at ? fmtDay(v.activated_at) : 'Not yet'));
+      g.appendChild(field('Expires', v.expires_at
+        ? fmtDay(v.expires_at) + (v.days_left != null
+            ? ' (' + (v.days_left >= 0 ? v.days_left + 'd left' : Math.abs(v.days_left) + 'd ago') + ')'
+            : '')
+        : (v.type === 'trial' ? 'On activation +14d' : 'No expiry')));
+      g.appendChild(field('Service level', v.plan_label + ' (' + v.type + ')'));
+      g.appendChild(field('Account', ACCT_LABEL[v.account_status] || v.account_status || 'Unknown'));
+      g.appendChild(field('Computer', v.machine_bound ? 'Bound · ' + v.machine_hint : 'Not bound'));
+      d.appendChild(g);
+
+      var acts = el('div', 'lic-manage');
+
+      // Plan. A trial row shows Trial as the disabled current value: the control
+      // plane forces plan='trial' on a trial licence, so the only move is upward.
+      acts.appendChild(el('span', 'lbl', 'Plan'));
+      var sel = el('select');
+      if (v.type === 'trial') {
+        var o0 = el('option', null, 'Trial');
+        o0.value = 'trial';
+        o0.selected = true;
+        sel.appendChild(o0);
+      }
+      PAID_PLANS.forEach(function (p) {
+        var o = el('option', null, PLAN_LABEL[p]);
+        o.value = p;
+        if (v.type !== 'trial' && v.plan === p) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener('change', function () {
+        var p = sel.value;
+        if (p === 'trial') return;
+        var msg = v.type === 'trial'
+          ? 'Convert this trial to the ' + PLAN_LABEL[p] + ' plan? The customer keeps the same key and the trial expiry is cleared.'
+          : 'Change ' + (v.email || 'this account') + ' to the ' + PLAN_LABEL[p] + ' plan? It takes effect on their next launch.';
+        if (!confirm(msg)) { loadKeys(); return; }
+        api('/admin/licenses/' + v.key_hash, { method: 'PATCH', body: { plan: p } })
+          .then(function (r) {
+            toast(r.ok ? 'Plan set to ' + PLAN_LABEL[p] : 'Could not change plan');
+            loadKeys();
+          });
+      });
+      acts.appendChild(sel);
+
+      // Nonpayment lever. Suspending sets the ACCOUNT past_due, which is what the
+      // control plane turns into "check your PayPal billing" for the customer.
+      // It has no effect on a trial licence -- revoke those instead.
+      var suspended = v.account_status && v.account_status !== 'active';
+      acts.appendChild(licAction(suspended ? 'Restore account' : 'Suspend (nonpayment)', null, function () {
+        var next = suspended ? 'active' : 'past_due';
+        if (!suspended && v.type === 'trial' &&
+            !confirm('This is a TRIAL key. Suspending the account will not block it — the control plane gates trials on the 14-day expiry only. Revoke the key instead?\n\nOK to suspend the account anyway.')) return;
+        if (!suspended && !confirm('Suspend ' + (v.email || 'this account') + ' for nonpayment? Every paid key on the account stops working until you restore it.')) return;
+        api('/admin/licenses/' + v.key_hash, { method: 'PATCH', body: { account_status: next } })
+          .then(function (r) {
+            toast(r.ok ? (suspended ? 'Account restored' : 'Account suspended') : 'Failed');
+            loadKeys();
+          });
+      }));
+
+      // Revoke kills this one key permanently in the customer's eyes; it is the
+      // harder lever and reads as "revoked" in the app, not "billing problem".
+      var revoked = v.status === 'revoked';
+      acts.appendChild(licAction(revoked ? 'Un-revoke key' : 'Revoke key', null, function () {
+        if (!revoked && !confirm('Revoke this key? The app will stop working immediately and tell them the license was revoked.')) return;
+        api('/admin/licenses/' + v.key_hash, { method: 'PATCH', body: { status: revoked ? 'active' : 'revoked' } })
+          .then(function (r) { toast(r.ok ? (revoked ? 'Restored' : 'Revoked') : 'Failed'); loadKeys(); });
+      }));
+
+      if (v.machine_bound) {
+        acts.appendChild(licAction('Move to new PC', null, function () {
+          if (!confirm('Release this key from the computer it is bound to?' +
+                (v.type === 'trial' ? '\n\nThis is a TRIAL: re-activating restarts the 14-day clock.' : ''))) return;
+          api('/admin/licenses/' + v.key_hash + '/unbind', { method: 'POST', body: {} })
+            .then(function (r) { toast(r.ok ? 'Released — they can activate on the new machine' : 'Failed'); loadKeys(); });
+        }));
+      }
+
+      acts.appendChild(licAction('Re-issue', 'prim', function () {
+        if (!confirm('Issue a replacement key for ' + (v.email || 'this account') + '?\n\nThis key is revoked at the same moment, so it stops working immediately.')) return;
+        var notify = confirm('Email the new key to ' + (v.email || 'the customer') + '?\n\nOK to email, Cancel to just show it here.');
+        api('/admin/licenses/' + v.key_hash + '/reissue', { method: 'POST', body: { notify: notify } })
+          .then(function (r) {
+            if (!r.ok) return toast('Could not reissue');
+            showView('keys');
+            showKey(r, true);
+            toast(r.email_failed ? 'Reissued, but the email failed' : 'Reissued');
+            loadKeys();
+          });
+      }));
+
+      // Audit trail, fetched only when asked for. Every card carrying its own
+      // history would be one request per key on every list refresh.
+      var hist = el('div', 'lic-hist');
+      hist.hidden = true;
+      var histBtn = licAction('History', null, function () {
+        if (!hist.hidden) { hist.hidden = true; return; }
+        hist.hidden = false;
+        hist.textContent = '';
+        hist.appendChild(el('div', 'lic-f', 'Loading…'));
+        api('/admin/licenses/' + v.key_hash + '/events').then(function (r) {
+          hist.textContent = '';
+          var evs = (r && r.events) || [];
+          if (!r || !r.ok) { hist.appendChild(el('div', 'lic-f', 'Could not load history.')); return; }
+          if (!evs.length) { hist.appendChild(el('div', 'lic-f', 'No recorded actions.')); return; }
+          evs.forEach(function (e) {
+            var row = el('div', 'hev');
+            row.appendChild(el('b', null, EVENT_LABEL[e.kind] || e.kind));
+            if (e.detail) row.appendChild(el('span', null, e.detail));
+            if (e.actor) row.appendChild(el('span', null, '· ' + e.actor));
+            row.appendChild(el('span', 'when', fmtDay(e.created_at)));
+            hist.appendChild(row);
+          });
+        });
+      });
+      acts.appendChild(histBtn);
+
+      d.appendChild(acts);
+      d.appendChild(hist);
+      return d;
+    }
+
+    function loadKeys() {
+      return api('/admin/licenses').then(function (r) {
+        keyListEl.textContent = '';
+        if (!r.ok) {
+          keyListEl.appendChild(el('div', 'state', 'Could not load keys.'));
+          return;
+        }
+        var list = r.licenses || [];
+        if (!list.length) {
+          keyListEl.appendChild(el('div', 'state', 'No keys issued yet. Issue one above.'));
+          return;
+        }
+        list.forEach(function (v) { keyListEl.appendChild(licCard(v)); });
+      });
+    }
+
+    keyForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!keyForm.reportValidity()) return;
+      var btn = document.getElementById('keyCreate');
+      btn.disabled = true;
+      api('/admin/licenses', {
+        method: 'POST',
+        body: {
+          email: document.getElementById('keyEmail').value,
+          plan: document.getElementById('keyPlan').value,
+          notify: document.getElementById('keyNotify').checked,
+        },
+      }).then(function (r) {
+        btn.disabled = false;
+        if (!r.ok) {
+          toast(r.error === 'invalid_email' ? 'That email is not valid' : 'Could not issue a key');
+          return;
+        }
+        showKey(r, false);
+        toast(r.email_failed ? 'Key issued, but the email failed' : 'Key issued');
+        keyForm.reset();
+        loadKeys();
+      });
+    });
+
     // ---- view switching --------------------------------------------------
-    var vT = document.getElementById('viewTickets');
-    var vI = document.getElementById('viewInvoices');
-    var nT = document.getElementById('navTickets');
-    var nI = document.getElementById('navInvoices');
-    var invoicesLoaded = false;
+    var VIEWS = {
+      tickets: { view: 'viewTickets', nav: 'navTickets' },
+      invoices: { view: 'viewInvoices', nav: 'navInvoices', load: loadInvoices },
+      keys: { view: 'viewKeys', nav: 'navKeys', load: loadKeys }
+    };
+    var loaded = {};
 
     function showView(which) {
-      var inv = which === 'invoices';
-      vT.hidden = inv; vI.hidden = !inv;
-      nT.classList.toggle('on', !inv); nI.classList.toggle('on', inv);
-      if (inv && !invoicesLoaded) { invoicesLoaded = true; loadInvoices(); }
+      Object.keys(VIEWS).forEach(function (k) {
+        var on = k === which;
+        document.getElementById(VIEWS[k].view).hidden = !on;
+        document.getElementById(VIEWS[k].nav).classList.toggle('on', on);
+      });
+      var v = VIEWS[which];
+      // Each list is fetched the first time its tab is opened, not on page load.
+      if (v && v.load && !loaded[which]) { loaded[which] = true; v.load(); }
     }
-    nT.addEventListener('click', function () { showView('tickets'); });
-    nI.addEventListener('click', function () { showView('invoices'); });
+    Object.keys(VIEWS).forEach(function (k) {
+      document.getElementById(VIEWS[k].nav).addEventListener('click', function () { showView(k); });
+    });
 
     // Telegram alerts deep-link to #t=<id>, so honour the hash on load.
     load().then(function () {
@@ -563,6 +869,7 @@
       if (m) open(m[1]);
     });
     if (location.hash === '#invoices') showView('invoices');
+    if (location.hash === '#keys') showView('keys');
   })();
   </script>
 </body>
