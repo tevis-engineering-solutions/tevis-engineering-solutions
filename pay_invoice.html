@@ -316,6 +316,7 @@
       margin-bottom: 0.55rem;
     }
 
+    .billed-sub { font-size:0.82rem; font-weight:400; color:var(--muted); }
     .paytabs { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1rem; }
     .paytab { flex:1 1 auto; min-width:132px; font-family:"Montserrat",sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.6rem 0.7rem; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0.4rem; }
     .paytab:hover { color:var(--text); border-color:var(--blue); }
@@ -551,7 +552,7 @@
 
         <div id="invoiceResult" class="invoice-result" aria-live="polite">
           <div class="kv">
-            <span class="k">Account</span>
+            <span class="k">Billed To</span>
             <span class="v" id="resultUsername">-</span>
             <span class="k">Invoice Number</span>
             <span class="v" id="resultLatestInvoice">-</span>
@@ -837,7 +838,15 @@
     function renderResult(row) {
       selectedInvoice = row;
 
-      resultUsername.textContent = row.email || "-";
+      // Company first when we have one; the email is the fallback identity.
+      resultUsername.textContent = row.company || row.email || "-";
+      if (row.company && row.email) {
+        const sub = document.createElement("span");
+        sub.className = "billed-sub";
+        sub.textContent = row.email;
+        resultUsername.appendChild(document.createElement("br"));
+        resultUsername.appendChild(sub);
+      }
       resultLatestInvoice.textContent = row.number || "-";
       resultCadence.textContent = row.service || "-";
       resultAmount.textContent = row.amount === null ? "-" : TESInvoices.formatUSD(row.amount);

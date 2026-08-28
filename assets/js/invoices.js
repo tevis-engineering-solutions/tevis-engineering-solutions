@@ -161,7 +161,10 @@
       overdue:     !!inv.overdue,
       currency:    inv.currency || 'USD',
       ref:         '',
-      email:       '',
+      /* Billed-to. Safe on the pay-link path: the recipient already holds this
+         invoice, and nothing here reveals any other account. */
+      email:       inv.email || '',
+      company:     inv.company || '',
       emailKey:    ''
     };
   }
