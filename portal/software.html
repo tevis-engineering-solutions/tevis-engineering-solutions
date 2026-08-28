@@ -211,8 +211,18 @@
 
       if (p.explain) d.appendChild(el('div', 'prod-explain', p.explain));
 
+      // Owned licences are not metered, so there is no meter to draw. Rendering
+      // "0 of 0" would imply a limit that does not exist.
+      if (!p.usage) {
+        var own = el('div', 'meter-note');
+        own.textContent = 'Perpetual licence · no usage limit · runs on your own Anthropic API key';
+        own.style.marginBottom = '1rem';
+        d.appendChild(own);
+      }
+
       // Usage meter. The limit shown is the one the API actually enforces.
       var u = p.usage;
+      if (u) {
       var m = el('div', 'meter');
       var mt = el('div', 'meter-top');
       mt.appendChild(el('span', null, u.period_label));
@@ -233,6 +243,7 @@
           ? u.remaining.toLocaleString() + ' remaining \u00b7 up to ' + u.per_minute + ' per minute'
           : 'You have used your full allowance. Upgrade to keep extracting.'));
       d.appendChild(m);
+      }
 
       (p.licenses || []).forEach(function (l) {
         var lic = el('div', 'lic');
@@ -242,7 +253,8 @@
           r.appendChild(el('span', 'lic-v', v));
           lic.appendChild(r);
         }
-        row('Licence type', l.type === 'trial' ? 'Free trial' : 'Paid');
+        row('Licence type', l.type === 'trial' ? 'Free trial'
+          : l.type === 'owned' ? 'Owned outright (perpetual)' : 'Subscription');
         row('Activated', l.activated ? fmt(l.activated_at) : 'Not yet activated');
         if (l.machine_bound) row('Installed on', '1 computer');
         if (l.expires_at) {
@@ -256,7 +268,7 @@
       var view = el('a', 'btn btn-ghost', 'Product details');
       view.href = p.url;
       acts.appendChild(view);
-      if (p.status === 'expired' || p.plan === 'trial') {
+      if (p.plan !== 'owned' && (p.status === 'expired' || p.plan === 'trial')) {
         var up = el('a', 'btn btn-primary', 'Upgrade');
         up.href = p.url + '#get-started';
         acts.appendChild(up);
