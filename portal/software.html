@@ -143,7 +143,7 @@
       <div class="mtile">
         <i class="fa-solid fa-download"></i>
         <h3>Downloads &amp; updates</h3>
-        <p>The latest installer and release notes, so you're always on the current version.</p>
+        <p>The installer for your edition, so you're always on the current version.</p>
       </div>
       <div class="mtile">
         <i class="fa-solid fa-arrows-rotate"></i>
@@ -310,6 +310,44 @@
       return d;
     }
 
+    /* The installer. There is no public URL for this -- the href is a same-origin
+       Worker route that re-checks entitlement on every request, so the link is
+       useless to anyone who is not signed in as this customer. */
+    function downloadPanel(dl) {
+      if (!dl || !dl.available) return null;
+      var d = el('div', 'prod');
+      d.appendChild(el('div', 'prod-name', 'Download'));
+      d.appendChild(el('div', 'prod-plan', dl.label));
+
+      if (!dl.published) {
+        d.appendChild(el('div', 'prod-explain',
+          'The installer for your edition is being prepared. We will email you the moment it is ready.'));
+        return d;
+      }
+
+      var size = dl.size ? (dl.size / 1048576).toFixed(1) + ' MB' : '';
+      d.appendChild(el('div', 'prod-explain',
+        'Your edition of the software' + (size ? ', ' + size : '') + '.' +
+        (dl.byo_key
+          ? ' Runs on your own Anthropic API key — nothing is metered by us.'
+          : ' Activate it with your licence key on first run.')));
+
+      var acts = el('div', 'prod-actions');
+      var a = el('a', 'btn btn-primary', 'Download Installer');
+      a.href = dl.url;
+      acts.appendChild(a);
+      d.appendChild(acts);
+
+      if (dl.byo_key) {
+        var note = el('div', 'keynote');
+        note.appendChild(document.createTextNode(
+          'Setting up your API key: create one at console.anthropic.com, then open the app and ' +
+          'choose Set API key. It is stored locally on your machine and never sent to us.'));
+        d.appendChild(note);
+      }
+      return d;
+    }
+
     api('/software').then(function (r) {
       if (!r || !r.ok) {
         if (r && r.error === 'unauthenticated') { location.replace('../login.html'); return; }
@@ -339,6 +377,8 @@
       }
       stateEl.hidden = true;
       products.forEach(function (p) { listEl.appendChild(card(p)); });
+      var dl = downloadPanel(r.download);
+      if (dl) listEl.appendChild(dl);
     });
   })();
   </script>
