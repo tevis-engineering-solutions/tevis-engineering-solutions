@@ -64,11 +64,21 @@
     textarea { width:100%; padding:0.6rem 0.7rem; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.9rem; resize:vertical; }
     textarea:focus { outline:none; border-color:var(--green); }
     .reply-row { display:flex; gap:0.4rem; margin-top:0.5rem; flex-wrap:wrap; }
+    /* These had layout but no styling, so they rendered as raw browser buttons. */
+    .reply-row button { font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; }
+    .reply-row button:hover { border-color:var(--green); }
+    .reply-row button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
 
     .viewnav { display:flex; gap:0.4rem; padding:0.6rem 1rem 0; max-width:1100px; margin:0 auto; overflow-x:auto; scrollbar-width:none; }
     .viewnav::-webkit-scrollbar { display:none; }
     .vbtn { flex:0 0 auto; font-family:"Montserrat",sans-serif; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.5rem 0.9rem; border-radius:8px 8px 0 0; border:1px solid var(--line); border-bottom:none; background:transparent; color:var(--muted); cursor:pointer; }
     .vbtn.on { background:var(--card); color:#fff; border-color:var(--gold); }
+    /* Four tabs overflow a phone. The bar scrolls, but a tab you cannot see is a
+       tab you will not use, and this console is used from a phone first. */
+    @media (max-width:480px) {
+      .viewnav { gap:0.2rem; padding:0.6rem 0.45rem 0; }
+      .vbtn { font-size:0.66rem; letter-spacing:0.02em; padding:0.5rem 0.5rem; }
+    }
     .inv { border:1px solid var(--line); border-radius:12px; background:var(--card); padding:0.85rem 1rem; margin-bottom:0.5rem; }
     .inv-top { display:flex; justify-content:space-between; gap:0.6rem; align-items:center; flex-wrap:wrap; }
     .inv-num { font-family:"Montserrat",sans-serif; font-weight:800; font-size:0.82rem; }
@@ -114,6 +124,67 @@
     .hev:last-child { border-bottom:none; }
     .hev b { color:var(--text); font-weight:700; white-space:nowrap; }
     .hev .when { margin-left:auto; white-space:nowrap; }
+    /* ---- customers ---- */
+    .custfind { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:1rem; margin-bottom:1rem; }
+    .custfind label { display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; margin-bottom:0.2rem; }
+    .custfind input { width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.92rem; }
+    .custfind .fnote { margin-top:0.45rem; }
+
+    .cust { width:100%; text-align:left; border:1px solid var(--line); border-radius:12px; background:var(--card); padding:0.8rem 0.9rem; cursor:pointer; color:inherit; font:inherit; display:block; margin-bottom:0.5rem; }
+    .cust:hover { border-color:var(--green); }
+    .cust.sel { border-color:var(--gold); background:var(--card-2); }
+    .cust-top { display:flex; justify-content:space-between; gap:0.5rem; align-items:center; margin-bottom:0.25rem; }
+    .cust-name { font-family:"Montserrat",sans-serif; font-weight:800; font-size:0.86rem; word-break:break-word; }
+    .cust-sub { font-size:0.76rem; color:var(--muted); word-break:break-word; }
+    .cust-counts { font-size:0.72rem; color:var(--muted); margin-top:0.35rem; display:flex; flex-wrap:wrap; gap:0.15rem 0.7rem; }
+    .cust-counts b { color:var(--text); font-weight:700; }
+
+    .cust-head { border-bottom:1px solid var(--line); padding-bottom:0.8rem; margin-bottom:0.9rem; }
+    .cust-head h2 { font-family:"Montserrat",sans-serif; font-size:1.1rem; margin-bottom:0.15rem; word-break:break-word; }
+    .cust-badges { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.5rem; }
+    .cust-src { font-size:0.7rem; color:var(--muted); margin-top:0.5rem; }
+
+    .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:0.5rem; margin-bottom:0.9rem; }
+    .tile { border:1px solid var(--line); border-radius:12px; background:var(--bg); padding:0.65rem 0.75rem; }
+    .tile s { display:block; text-decoration:none; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; }
+    .tile b { display:block; font-family:"Montserrat",sans-serif; font-size:1.05rem; margin-top:0.15rem; }
+    .tile .warn { color:var(--gold); }
+
+    .cust-sec { margin-bottom:0.9rem; }
+    .cust-sec > h3 { font-family:"Montserrat",sans-serif; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:0.4rem; }
+    .row { width:100%; text-align:left; border:1px solid var(--line); border-radius:10px; background:var(--bg); padding:0.55rem 0.7rem; margin-bottom:0.35rem; color:inherit; font:inherit; display:flex; justify-content:space-between; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+    button.row { cursor:pointer; }
+    button.row:hover { border-color:var(--green); }
+    .row-main { font-size:0.82rem; word-break:break-word; }
+    .row-sub { font-size:0.72rem; color:var(--muted); }
+
+    .orphan { border:1px solid var(--gold); border-radius:12px; background:rgba(200,152,48,0.07); padding:0.8rem 0.9rem; margin-bottom:0.9rem; }
+    .orphan h3 { font-family:"Montserrat",sans-serif; font-size:0.82rem; color:var(--gold); margin-bottom:0.3rem; }
+    .orphan p { font-size:0.76rem; color:var(--muted); margin-bottom:0.5rem; }
+    .orphan button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.4rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; }
+    .orphan button:hover { border-color:var(--green); }
+    .orphan button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+
+    /* ---- work log: time + documents on a ticket ---- */
+    .worklog { border-top:1px solid var(--line); padding-top:0.9rem; margin-top:0.9rem; margin-bottom:0; }
+    .worklog-head { display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem; }
+    .worklog-head h3 { margin-bottom:0.4rem; }
+    .worklog-tot { font-family:"Montserrat",sans-serif; font-size:0.8rem; color:var(--muted); }
+    .worklog-tot b { color:var(--text); font-weight:800; }
+    .worklog-tot .warn { color:var(--gold); font-weight:700; }
+    .worklog-add { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin-top:0.5rem; }
+    .worklog-add input[type="text"], .worklog-add input[type="date"] { flex:1 1 8rem; min-width:0; padding:0.5rem 0.6rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.85rem; }
+    .worklog-add input[type="file"] { flex:1 1 12rem; min-width:0; font-size:0.78rem; color:var(--muted); }
+    .worklog-add button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; }
+    .worklog-add button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .worklog-bill { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.76rem; color:var(--muted); white-space:nowrap; }
+    .worklog .row button, .worklog .row .doclink { font-family:"Montserrat",sans-serif; font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.35rem 0.6rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; min-height:34px; }
+    .worklog .row button:hover, .worklog .row .doclink:hover { border-color:var(--green); }
+
+    .meter { height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:0.35rem; }
+    .meter i { display:block; height:100%; background:var(--green); }
+    .meter i.hot { background:var(--gold); }
+
     .state { text-align:center; color:var(--muted); font-size:0.88rem; padding:2rem 1rem; border:1px dashed var(--line); border-radius:12px; }
     .toast { position:fixed; left:50%; bottom:1.2rem; transform:translateX(-50%); background:var(--card-2); border:1px solid var(--green); color:var(--text); padding:0.6rem 1rem; border-radius:999px; font-size:0.85rem; z-index:99; }
     [hidden] { display:none !important; }
@@ -133,6 +204,7 @@
 
   <div class="viewnav">
     <button type="button" class="vbtn on" id="navTickets">Tickets</button>
+    <button type="button" class="vbtn" id="navCustomers">Customers</button>
     <button type="button" class="vbtn" id="navInvoices">Invoices</button>
     <button type="button" class="vbtn" id="navKeys">Product Keys</button>
   </div>
@@ -158,6 +230,25 @@
     </div>
   </main>
   </div>
+
+  <main class="wrap" id="viewCustomers" aria-label="Customers" hidden>
+    <section class="custfind">
+      <label for="custQ">Find a customer</label>
+      <input id="custQ" type="search" autocomplete="off"
+             placeholder="Email, name, company, ticket or invoice number">
+      <p class="fnote">Searches accounts, tickets and invoices together, so somebody who has
+        written in but never signed in still turns up.</p>
+    </section>
+
+    <div class="grid">
+      <section aria-label="Search results">
+        <div id="custList"><div class="state">Loading customers&hellip;</div></div>
+      </section>
+      <section id="custDetail" aria-live="polite">
+        <div class="state">Pick somebody to open their file.</div>
+      </section>
+    </div>
+  </main>
 
   <main class="wrap" id="viewInvoices" aria-label="Invoices" hidden>
     <section class="newinv">
@@ -447,7 +538,199 @@
       row.appendChild(send); row.appendChild(note);
       p.appendChild(row);
 
+      p.appendChild(timeSection(t, data.time || { entries: [] }));
+      p.appendChild(docSection(t, data.documents || []));
+
       detailEl.appendChild(p);
+    }
+
+    // ---- time log ---------------------------------------------------------
+    // Entries are typed in after the job rather than timed. A timer left running
+    // overnight produces a wrong bill you then have to notice and correct.
+
+    function dayInput(ts) {
+      var d = new Date((ts || (Date.now() / 1000)) * 1000);
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') +
+             '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    // Accepts "90", "1.5h", "1h30", "45m". Typing 1.5h and getting 1 minute would be
+    // a wrong invoice, so anything not understood returns null and is refused.
+    function parseDuration(raw) {
+      var s = String(raw || '').trim().toLowerCase();
+      if (!s) return null;
+      if (/^\d+(\.\d+)?$/.test(s)) return Math.round(parseFloat(s));
+      var hm = /^(\d+(?:\.\d+)?)\s*h(?:ours?)?\s*(\d+)?\s*m?(?:ins?)?$/.exec(s);
+      if (hm) return Math.round(parseFloat(hm[1]) * 60) + (hm[2] ? parseInt(hm[2], 10) : 0);
+      var mm = /^(\d+)\s*m(?:ins?)?$/.exec(s);
+      if (mm) return parseInt(mm[1], 10);
+      return null;
+    }
+
+    function timeSection(t, time) {
+      var s = el('section', 'cust-sec worklog');
+      var head = el('div', 'worklog-head');
+      head.appendChild(el('h3', null, 'Time'));
+      var tot = el('span', 'worklog-tot');
+      tot.appendChild(el('b', null, fmtDur(time.total_minutes || 0)));
+      if (time.unbilled_cents) {
+        var u = el('span', 'warn', ' · ' + money(time.unbilled_cents) + ' unbilled');
+        tot.appendChild(u);
+      }
+      head.appendChild(tot);
+      s.appendChild(head);
+
+      (time.entries || []).forEach(function (e) {
+        var d = el('div', 'row');
+        var left = el('div');
+        left.appendChild(el('div', 'row-main', e.duration + (e.note ? ' · ' + e.note : '')));
+        left.appendChild(el('div', 'row-sub', fmtDay(e.worked_on) +
+          (e.billable ? ' · ' + money(e.amount_cents) : ' · no charge') +
+          (e.invoice_id ? ' · invoiced' : '')));
+        d.appendChild(left);
+        var right = el('div', 'cust-badges');
+        // A billed entry is frozen on the server too. The button is hidden rather
+        // than shown-and-refused, so the state is legible before you tap it.
+        if (e.locked) right.appendChild(badge('billed', '#22c55e'));
+        else {
+          right.appendChild(licAction('Delete', null, function () {
+            if (!confirm('Delete this ' + e.duration + ' entry?')) return;
+            api('/admin/time/' + e.id, { method: 'DELETE' }).then(function (r) {
+              toast(r && r.ok ? 'Deleted' : (r && r.message) || 'Could not delete');
+              open(t.id);
+            });
+          }));
+        }
+        d.appendChild(right);
+        s.appendChild(d);
+      });
+
+      var form = el('div', 'worklog-add');
+      var dur = document.createElement('input');
+      dur.type = 'text'; dur.placeholder = '90, 1.5h, 1h30';
+      dur.setAttribute('aria-label', 'Duration');
+      var when = document.createElement('input');
+      when.type = 'date'; when.value = dayInput();
+      when.setAttribute('aria-label', 'Date worked');
+      var what = document.createElement('input');
+      what.type = 'text'; what.placeholder = 'What you did';
+      what.setAttribute('aria-label', 'Note');
+      var billLbl = el('label', 'worklog-bill');
+      var bill = document.createElement('input');
+      bill.type = 'checkbox'; bill.checked = true;
+      billLbl.appendChild(bill);
+      billLbl.appendChild(document.createTextNode(' Billable'));
+      var addBtn = licAction('Log time', 'prim', function () {
+        var mins = parseDuration(dur.value);
+        if (!mins) return toast('Enter a duration like 90, 1.5h or 1h30');
+        addBtn.disabled = true;
+        api('/admin/tickets/' + t.id + '/time', {
+          method: 'POST',
+          body: {
+            minutes: mins,
+            // Parsed as local midnight, so an entry logged late at night keeps the
+            // day you picked rather than sliding to the next one in UTC.
+            worked_on: Math.floor(new Date(when.value + 'T00:00:00').getTime() / 1000),
+            note: what.value,
+            billable: bill.checked
+          }
+        }).then(function (r) {
+          addBtn.disabled = false;
+          if (!r || !r.ok) return toast((r && r.message) || 'Could not log that');
+          toast('Logged ' + fmtDur(mins));
+          open(t.id);
+        });
+      });
+      form.appendChild(dur); form.appendChild(when); form.appendChild(what);
+      form.appendChild(billLbl); form.appendChild(addBtn);
+      s.appendChild(form);
+      return s;
+    }
+
+    function fmtDur(m) {
+      m = Math.max(0, Math.round(m || 0));
+      var h = Math.floor(m / 60), rem = m % 60;
+      return h && rem ? h + 'h ' + rem + 'm' : h ? h + 'h' : rem + 'm';
+    }
+
+    function fmtSize(b) {
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return Math.round(b / 1024) + ' KB';
+      return (b / 1048576).toFixed(1) + ' MB';
+    }
+
+    // ---- documents --------------------------------------------------------
+    // Uploaded as base64 inside JSON, not multipart. The Worker requires JSON on
+    // every state-changing request, and that rule is what stops a cross-site form
+    // driving the admin API -- see src/documents.js.
+
+    function docSection(t, docs) {
+      var s = el('section', 'cust-sec worklog');
+      var head = el('div', 'worklog-head');
+      head.appendChild(el('h3', null, 'Documents'));
+      head.appendChild(el('span', 'worklog-tot', docs.length ? String(docs.length) : ''));
+      s.appendChild(head);
+
+      docs.forEach(function (d) {
+        var rw = el('div', 'row');
+        var left = el('div');
+        left.appendChild(el('div', 'row-main', d.label || d.filename));
+        left.appendChild(el('div', 'row-sub',
+          (d.label ? d.filename + ' · ' : '') + fmtSize(d.size_bytes) + ' · ' + fmtDay(d.uploaded_at) +
+          (d.note ? ' · ' + d.note : '')));
+        rw.appendChild(left);
+        var right = el('div', 'cust-badges');
+        var openBtn = el('a', 'doclink', 'Open');
+        openBtn.href = API + '/admin/documents/' + d.id;
+        openBtn.target = '_blank';
+        openBtn.rel = 'noopener';
+        right.appendChild(openBtn);
+        right.appendChild(licAction('Delete', null, function () {
+          if (!confirm('Delete ' + (d.label || d.filename) + '?\n\nThe file is removed for good.')) return;
+          api('/admin/documents/' + d.id, { method: 'DELETE' }).then(function (r) {
+            toast(r && r.ok ? 'Deleted' : 'Could not delete');
+            open(t.id);
+          });
+        }));
+        rw.appendChild(right);
+        s.appendChild(rw);
+      });
+
+      var form = el('div', 'worklog-add');
+      var file = document.createElement('input');
+      file.type = 'file';
+      file.setAttribute('aria-label', 'File');
+      var label = document.createElement('input');
+      label.type = 'text'; label.placeholder = 'Label, e.g. Signed quote';
+      label.setAttribute('aria-label', 'Label');
+      var up = licAction('Upload', 'prim', function () {
+        var f = file.files && file.files[0];
+        if (!f) return toast('Pick a file first');
+        if (f.size > 10 * 1024 * 1024) return toast('That file is over the 10 MB limit');
+        up.disabled = true;
+        var reader = new FileReader();
+        reader.onerror = function () { up.disabled = false; toast('Could not read that file'); };
+        reader.onload = function () {
+          api('/admin/tickets/' + t.id + '/documents', {
+            method: 'POST',
+            body: {
+              filename: f.name,
+              content_type: f.type || 'application/octet-stream',
+              label: label.value,
+              data: String(reader.result)
+            }
+          }).then(function (r) {
+            up.disabled = false;
+            if (!r || !r.ok) return toast((r && r.message) || 'Upload failed');
+            toast('Uploaded');
+            open(t.id);
+          });
+        };
+        reader.readAsDataURL(f);
+      });
+      form.appendChild(file); form.appendChild(label); form.appendChild(up);
+      s.appendChild(form);
+      return s;
     }
 
     function open(id) {
@@ -939,9 +1222,413 @@
       });
     });
 
+    // ---- customers -------------------------------------------------------
+    // One person per row, assembled from accounts, tickets and invoices. A result
+    // with no account_id is somebody who has contacted us but never signed in --
+    // a real finding, not a glitch, and the reason this search reaches past accounts.
+
+    // The control plane stores 'past_due'. A badge is read by a human mid-call.
+    function acctState(s) { return String(s || '').replace(/_/g, ' '); }
+
+    // A starting point for the invoice number, not an allocator: the server rejects a
+    // duplicate, and you can type whatever your numbering actually is.
+    function suggestInvoiceNumber() {
+      var d = new Date();
+      return 'TES-' + d.getFullYear() + '-';
+    }
+
+    var custQEl = document.getElementById('custQ');
+    var custListEl = document.getElementById('custList');
+    var custDetailEl = document.getElementById('custDetail');
+    var custRows = [];
+    var custSel = null;
+    var custTimer = null;
+
+    function loadCustomers(q) {
+      custListEl.textContent = '';
+      custListEl.appendChild(el('div', 'state', 'Searching…'));
+      return api('/admin/customers' + (q ? '?q=' + encodeURIComponent(q) : ''))
+        .then(function (r) {
+          custRows = (r && r.customers) || [];
+          renderCustList();
+        });
+    }
+
+    function renderCustList() {
+      custListEl.textContent = '';
+      if (!custRows.length) {
+        custListEl.appendChild(el('div', 'state', 'Nobody matches that.'));
+        return;
+      }
+      custRows.forEach(function (c) {
+        var b = el('button', 'cust' + (custSel === c.key ? ' sel' : ''));
+        b.type = 'button';
+
+        var top = el('div', 'cust-top');
+        top.appendChild(el('span', 'cust-name', c.name || c.company || c.email || '(no name)'));
+        // The badge is the whole point of the row for an unlinked person: it says
+        // why their records are invisible everywhere else in the console.
+        if (!c.account_id) top.appendChild(badge('No account', '#c89830'));
+        else if (c.status && c.status !== 'active') top.appendChild(badge(acctState(c.status), '#ef4444'));
+        else if (c.plan) top.appendChild(badge(c.plan, '#4fa2ff'));
+        b.appendChild(top);
+
+        b.appendChild(el('div', 'cust-sub',
+          c.company && c.name ? c.company + ' · ' + c.email : (c.email || '')));
+
+        var counts = el('div', 'cust-counts');
+        var bit = function (label, value, strong) {
+          var s = el('span');
+          s.appendChild(el('b', null, String(value)));
+          s.appendChild(document.createTextNode(' ' + label));
+          if (strong) s.style.color = 'var(--gold)';
+          counts.appendChild(s);
+        };
+        if (c.open_tickets) bit('open', c.open_tickets, true);
+        bit(c.tickets === 1 ? 'ticket' : 'tickets', c.tickets);
+        if (c.balance_cents) {
+          var owed = el('span');
+          owed.appendChild(el('b', null, money(c.balance_cents)));
+          owed.appendChild(document.createTextNode(' due'));
+          owed.style.color = 'var(--gold)';
+          counts.appendChild(owed);
+        }
+        if (c.licenses) bit(c.licenses === 1 ? 'key' : 'keys', c.licenses);
+        b.appendChild(counts);
+
+        b.addEventListener('click', function () {
+          custSel = c.key;
+          renderCustList();
+          if (c.account_id) openCustomer(c.account_id);
+          else showNoAccount(c);
+        });
+        custListEl.appendChild(b);
+      });
+    }
+
+    // Somebody with records but no account. There is nothing to fetch, so say what
+    // is known and why the rest of the console cannot see them.
+    function showNoAccount(c) {
+      custDetailEl.textContent = '';
+      var p = el('div', 'panel');
+      p.appendChild(el('h2', null, c.name || c.company || c.email));
+      p.appendChild(el('div', 'who', c.email));
+
+      var o = el('div', 'orphan');
+      o.appendChild(el('h3', null, 'No portal account'));
+      o.appendChild(el('p', null,
+        'They have contacted us but never signed in, so nothing is attached to an ' +
+        'account. Their records do not appear on any dashboard, including their own. ' +
+        'An account is created the first time they sign in at the portal.'));
+      p.appendChild(o);
+
+      var t = el('div', 'cust-counts');
+      t.appendChild(el('span', null, c.tickets + (c.tickets === 1 ? ' ticket' : ' tickets')));
+      if (c.invoices) t.appendChild(el('span', null,
+        c.invoices + (c.invoices === 1 ? ' invoice' : ' invoices') +
+        (c.balance_cents ? ' · ' + money(c.balance_cents) + ' due' : '')));
+      p.appendChild(t);
+
+      custDetailEl.appendChild(p);
+    }
+
+    function openCustomer(accountId) {
+      custDetailEl.textContent = '';
+      custDetailEl.appendChild(el('div', 'state', 'Loading…'));
+      api('/admin/customers/' + encodeURIComponent(accountId)).then(function (r) {
+        custDetailEl.textContent = '';
+        if (!r || !r.ok) {
+          custDetailEl.appendChild(el('div', 'state', 'Could not load that customer.'));
+          return;
+        }
+        custDetailEl.appendChild(dossier(r.customer));
+      });
+    }
+
+    function sec(title) {
+      var s = el('section', 'cust-sec');
+      s.appendChild(el('h3', null, title));
+      return s;
+    }
+
+    function row(main, sub, right, onClick) {
+      var d = el(onClick ? 'button' : 'div', 'row');
+      if (onClick) { d.type = 'button'; d.addEventListener('click', onClick); }
+      var left = el('div');
+      left.appendChild(el('div', 'row-main', main));
+      if (sub) left.appendChild(el('div', 'row-sub', sub));
+      d.appendChild(left);
+      if (right) d.appendChild(right);
+      return d;
+    }
+
+    function dossier(c) {
+      var wrap = el('div', 'panel');
+
+      // ---- who they are ----
+      var head = el('div', 'cust-head');
+      head.appendChild(el('h2', null, c.profile.name || c.profile.company || c.account.email));
+      var sub = [c.profile.company, c.account.email, c.profile.phone].filter(Boolean).join(' · ');
+      head.appendChild(el('div', 'who', sub));
+
+      var badges = el('div', 'cust-badges');
+      badges.appendChild(badge(c.account.plan_label || c.account.plan, '#4fa2ff'));
+      badges.appendChild(badge(acctState(c.account.status),
+        c.account.status === 'active' ? '#22c55e' : c.account.status === 'past_due' ? '#c89830' : '#ef4444'));
+      if (c.account.subscribed) badges.appendChild(badge('PayPal sub', '#22c55e'));
+      head.appendChild(badges);
+
+      // Says whether the name above was typed by a human or guessed off a ticket,
+      // rather than presenting the two as equally reliable.
+      head.appendChild(el('div', 'cust-src',
+        c.profile.source === 'profile'
+          ? 'Details corrected by ' + (c.profile.updated_by || 'staff') +
+            (c.profile.updated_at ? ' on ' + fmt(c.profile.updated_at) : '')
+          : c.profile.source === 'ticket'
+            ? 'Details read from their most recent ticket. No profile saved yet.'
+            : 'No name on file. They have never filed a ticket.'));
+      wrap.appendChild(head);
+
+      if (c.profile.notes) {
+        var n = el('div', 'desc', c.profile.notes);
+        wrap.appendChild(n);
+      }
+
+      // ---- the numbers ----
+      var tiles = el('div', 'tiles');
+      var tile = function (label, value, warn) {
+        var t = el('div', 'tile');
+        t.appendChild(el('s', null, label));
+        t.appendChild(el('b', warn ? 'warn' : null, value));
+        return t;
+      };
+      tiles.appendChild(tile('Open tickets', String(c.open_tickets), c.open_tickets > 0));
+      tiles.appendChild(tile('Balance due', money(c.balance_cents), c.balance_cents > 0));
+      var owed = c.unbilled || { amount_cents: 0, duration: '0m', entries: [] };
+      if (owed.amount_cents) {
+        tiles.appendChild(tile('Unbilled work', owed.duration + ' · ' + money(owed.amount_cents), true));
+      }
+      tiles.appendChild(tile('Keys', String(c.licenses.length)));
+      if (c.usage) {
+        var u = el('div', 'tile');
+        u.appendChild(el('s', null, c.usage.period_label));
+        u.appendChild(el('b', c.usage.pct >= 80 ? 'warn' : null,
+          c.usage.used + ' / ' + c.usage.limit));
+        var m = el('div', 'meter');
+        var fill = el('i', c.usage.pct >= 80 ? 'hot' : null);
+        fill.style.width = c.usage.pct + '%';
+        m.appendChild(fill);
+        u.appendChild(m);
+        tiles.appendChild(u);
+      }
+      wrap.appendChild(tiles);
+
+      // ---- records that belong to nobody ----
+      // Deliberately near the top and gold-bordered: this is the fact the rest of
+      // the console cannot show you, and it is invisible on the customer's own
+      // dashboard too.
+      if (c.unlinked.count) {
+        var o = el('div', 'orphan');
+        o.appendChild(el('h3', null, c.unlinked.count + ' record' +
+          (c.unlinked.count === 1 ? '' : 's') + ' not attached to this account'));
+        o.appendChild(el('p', null,
+          c.unlinked.near_count
+            ? 'These are filed under an address that belongs to ' + c.account.email +
+              ' or folds to it. They do not show on this account, and the customer ' +
+              'cannot see them in the portal either. Check the address before linking a suggestion.'
+            : 'Filed under ' + c.account.email + ' but attached to no account. They do ' +
+              'not show in the lists below, and the customer cannot see them in the ' +
+              'portal either.'));
+
+        var linkNow = function (payload, what) {
+          api('/admin/customers/' + encodeURIComponent(c.account.id) + '/link',
+            { method: 'POST', body: payload })
+            .then(function (r) {
+              if (!r || !r.ok) return toast(r && r.error ? r.error : 'Could not link');
+              var n = r.linked.tickets + r.linked.invoices;
+              toast(n ? 'Linked ' + what : (r.skipped[0] ? r.skipped[0].reason.replace(/_/g, ' ') : 'Nothing to link'));
+              openCustomer(c.account.id);
+              loadCustomers(custQEl.value.trim());
+            });
+        };
+
+        // Bulk applies to exact addresses only. A near match is a suggestion, and
+        // suggestions get confirmed one at a time with the address in front of you.
+        var exactT = c.unlinked.tickets.filter(function (t) { return t.match === 'exact'; });
+        var exactI = c.unlinked.invoices.filter(function (i) { return i.match === 'exact'; });
+        if (exactT.length + exactI.length > 1) {
+          var all = licAction('Link all ' + (exactT.length + exactI.length) +
+            ' exact matches', 'prim', function () {
+            linkNow({ tickets: exactT.map(function (t) { return t.id; }),
+                      invoices: exactI.map(function (i) { return i.id; }) },
+              (exactT.length + exactI.length) + ' records');
+          });
+          all.style.marginBottom = '0.5rem';
+          o.appendChild(all);
+        }
+
+        var orphanRow = function (main, sub, statusBadge, rec, payloadKey, label) {
+          var d = el('div', 'row');
+          var left = el('div');
+          left.appendChild(el('div', 'row-main', main));
+          left.appendChild(el('div', 'row-sub', sub));
+          // Only shown when it differs, so the thing you must check is the thing you see.
+          if (rec.match === 'near') {
+            var w = el('div', 'row-sub', 'Filed as ' + rec.email);
+            w.style.color = 'var(--gold)';
+            left.appendChild(w);
+          }
+          d.appendChild(left);
+          var right = el('div', 'cust-badges');
+          right.appendChild(statusBadge);
+          right.appendChild(licAction('Link', null, function () {
+            if (rec.match === 'near' && !confirm(
+              'Link ' + label + ' to ' + c.account.email + '?\n\n' +
+              'It was filed as ' + rec.email + ', which is a different address. ' +
+              'Only link it if this is the same person.')) return;
+            var p = {};
+            p[payloadKey] = [rec.id];
+            linkNow(p, label);
+          }));
+          d.appendChild(right);
+          return d;
+        };
+
+        c.unlinked.tickets.forEach(function (t) {
+          o.appendChild(orphanRow(t.ticket_number + ' · ' + (t.subject || ''),
+            fmt(t.created_at), badge(t.status, STATUS[t.status] || '#8aa48d'),
+            t, 'tickets', t.ticket_number));
+        });
+        c.unlinked.invoices.forEach(function (i) {
+          o.appendChild(orphanRow(i.number + ' · ' + (i.service || ''),
+            money(i.amount_cents), badge(i.status, STATUS_COLOR[i.status] || '#8aa48d'),
+            i, 'invoices', i.number));
+        });
+        wrap.appendChild(o);
+      }
+
+      // ---- unbilled work ----
+      // The ticket is where you log an hour; this is where you notice you never
+      // charged for it.
+      if (owed.amount_cents) {
+        var us = sec('Unbilled work');
+        owed.tickets.forEach(function (g) {
+          us.appendChild(row(g.ticket_number, g.duration, el('span', 'inv-amt', money(g.amount_cents))));
+        });
+        var mkInv = licAction('Create invoice for ' + money(owed.amount_cents), 'prim', function () {
+          var num = prompt('Invoice number for ' + owed.duration + ' (' +
+            money(owed.amount_cents) + ')?', suggestInvoiceNumber());
+          if (!num) return;
+          mkInv.disabled = true;
+          api('/admin/customers/' + encodeURIComponent(c.account.id) + '/invoice-from-time',
+            { method: 'POST', body: { number: num.trim() } })
+            .then(function (r) {
+              mkInv.disabled = false;
+              if (!r || !r.ok) {
+                return toast(r && r.error === 'duplicate_number'
+                  ? 'That invoice number is taken' : (r && r.error) || 'Could not create it');
+              }
+              // Said out loud rather than swallowed: the invoice covers more than it
+              // captured, and that needs a human to reconcile.
+              if (r.partial) alert('Warning: only ' + r.entries_billed + ' entries were ' +
+                'claimed. The invoice may overstate the work captured. Check it before sending.');
+              toast('Invoice created for ' + money(r.amount_cents));
+              openCustomer(c.account.id);
+            });
+        });
+        mkInv.style.marginTop = '0.4rem';
+        us.appendChild(mkInv);
+        wrap.appendChild(us);
+      }
+
+      // ---- subscriptions ----
+      if (c.subscriptions.length) {
+        var ss = sec('Subscriptions');
+        c.subscriptions.forEach(function (s) {
+          ss.appendChild(row(s.product + ' · ' + s.plan,
+            (s.price_cents ? money(s.price_cents) + ' / ' + (s.cadence || 'monthly') : '') +
+            (s.renews_at ? ' · renews ' + fmt(s.renews_at) : ''),
+            badge(s.status, s.status === 'active' ? '#22c55e' : '#c89830')));
+        });
+        wrap.appendChild(ss);
+      }
+
+      // A checkout they started and never approved. Nothing bills and nothing is
+      // owed, but it is the difference between "they did not buy" and "they tried".
+      var abandoned = (c.subscribe_intents || []).filter(function (i) { return i.status !== 'activated'; });
+      if (abandoned.length) {
+        var as = sec('Unfinished checkouts');
+        abandoned.forEach(function (i) {
+          as.appendChild(row(i.product + ' · ' + i.plan + ' (' + (i.cadence || 'monthly') + ')',
+            'Started ' + fmt(i.created_at) + ' · nothing was charged',
+            badge(i.status, '#c89830')));
+        });
+        wrap.appendChild(as);
+      }
+
+      // ---- keys ----
+      if (c.licenses.length) {
+        var ks = sec('Product keys');
+        c.licenses.forEach(function (l) {
+          var note = [l.plan_label, l.machine_bound ? 'bound to a machine' : 'not activated'];
+          if (l.archived) note.push('archived');
+          if (l.unassigned) note.push('hidden from customer');
+          ks.appendChild(row(l.product, note.join(' · '),
+            badge(l.status, LIC_COLOR[l.status] || '#8aa48d')));
+        });
+        wrap.appendChild(ks);
+      }
+
+      // ---- trials ----
+      if (c.trial_claims.length) {
+        var ts = sec('Free trials');
+        c.trial_claims.forEach(function (t) {
+          ts.appendChild(row(t.product,
+            t.spent
+              ? 'Claimed ' + fmt(t.claimed_at) + '. They cannot start another one.'
+              : 'Claimed ' + fmt(t.claimed_at) + ', released by ' + (t.released_by || 'staff'),
+            badge(t.spent ? 'spent' : 'released', t.spent ? '#c89830' : '#22c55e')));
+        });
+        wrap.appendChild(ts);
+      }
+
+      // ---- tickets ----
+      var tks = sec('Tickets (' + c.tickets.length + ')');
+      if (!c.tickets.length) tks.appendChild(el('div', 'row-sub', 'None attached to this account.'));
+      c.tickets.forEach(function (t) {
+        tks.appendChild(row(t.ticket_number + ' · ' + (t.subject || ''),
+          fmt(t.created_at), badge(t.status, STATUS[t.status] || '#8aa48d'),
+          function () { showView('tickets'); open(t.id); }));
+      });
+      wrap.appendChild(tks);
+
+      // ---- invoices ----
+      var ivs = sec('Invoices (' + c.invoices.length + ')');
+      if (!c.invoices.length) ivs.appendChild(el('div', 'row-sub', 'None attached to this account.'));
+      c.invoices.forEach(function (i) {
+        var amt = el('span', 'inv-amt', money(i.amount_cents));
+        var right = el('span');
+        right.appendChild(amt);
+        right.appendChild(document.createTextNode(' '));
+        right.appendChild(badge(i.status, STATUS_COLOR[i.status] || '#8aa48d'));
+        ivs.appendChild(row(i.number + ' · ' + (i.service || ''),
+          i.due_at ? 'Due ' + fmt(i.due_at) : (i.issued_at ? 'Issued ' + fmt(i.issued_at) : ''),
+          right));
+      });
+      wrap.appendChild(ivs);
+
+      return wrap;
+    }
+
+    custQEl.addEventListener('input', function () {
+      clearTimeout(custTimer);
+      custTimer = setTimeout(function () { loadCustomers(custQEl.value.trim()); }, 250);
+    });
+
     // ---- view switching --------------------------------------------------
     var VIEWS = {
       tickets: { view: 'viewTickets', nav: 'navTickets' },
+      customers: { view: 'viewCustomers', nav: 'navCustomers', load: function () { loadCustomers(''); } },
       invoices: { view: 'viewInvoices', nav: 'navInvoices', load: loadInvoices },
       keys: { view: 'viewKeys', nav: 'navKeys', load: loadKeys }
     };
@@ -968,6 +1655,10 @@
     });
     if (location.hash === '#invoices') showView('invoices');
     if (location.hash === '#keys') showView('keys');
+    if (location.hash === '#customers') showView('customers');
+    // #c=<account_id> opens straight onto one person's file.
+    var mc = /#c=([A-Za-z0-9_-]{1,64})/.exec(location.hash);
+    if (mc) { showView('customers'); openCustomer(mc[1]); }
   })();
   </script>
 </body>
