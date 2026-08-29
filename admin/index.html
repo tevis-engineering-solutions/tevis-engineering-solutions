@@ -172,6 +172,11 @@
     .cust-sec > button:hover, .cust-sec .row button:hover { border-color:var(--green); }
     .cust-sec > button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
 
+    .sla-line { font-size:0.76rem; color:var(--muted); margin-bottom:0.7rem; }
+    .sla-line b { color:var(--text); }
+    .sla-line.late b, .sla-line.late { color:#ef4444; }
+    .sla-line.soon b { color:var(--gold); }
+
     .orgbar { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin-top:0.5rem; }
     .orgbar input { flex:1 1 10rem; min-width:0; padding:0.5rem 0.6rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.85rem; }
     .orgbar button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; }
@@ -427,6 +432,24 @@
       return n;
     }
 
+    // The server decides whether a ticket is late; the browser only paints it. Two
+    // consoles open in different timezones must not disagree about a breach.
+    var SLA_COLOR = { ok: '#6a8ba8', due_soon: '#c89830', breached: '#ef4444',
+                      met: '#22c55e', missed: '#fb923c' };
+    var SLA_LABEL = { ok: 'SLA', due_soon: 'DUE SOON', breached: 'LATE',
+                      met: 'ON TIME', missed: 'MISSED' };
+
+    function slaBadge(sla) {
+      if (!sla) return null;
+      var text = SLA_LABEL[sla.state] || 'SLA';
+      // A live countdown is worth more than the word "SLA" while the clock is running.
+      if (sla.state === 'ok' && sla.minutes_left != null) text = fmtDur(sla.minutes_left) + ' left';
+      if (sla.state === 'due_soon' && sla.minutes_left != null) {
+        text = fmtDur(sla.minutes_left) + ' left';
+      }
+      return badge(text, SLA_COLOR[sla.state] || '#8aa48d');
+    }
+
     function renderList() {
       listEl.textContent = '';
       if (!tickets.length) {
@@ -444,6 +467,11 @@
         badges.appendChild(badge(t.status, STATUS[t.status] || '#8aa48d'));
         badges.appendChild(document.createTextNode(' '));
         badges.appendChild(badge(t.priority, PRIORITY[t.priority] || '#8aa48d'));
+        var sb = slaBadge(t.sla);
+        if (sb) {
+          badges.appendChild(document.createTextNode(' '));
+          badges.appendChild(sb);
+        }
         top.appendChild(badges);
         b.appendChild(top);
 
@@ -462,6 +490,30 @@
       p.appendChild(el('h2', null, (t.ticket_number || '#' + t.id) + ' — ' + (t.subject || '(no subject)')));
       var whoBits = [t.contact_name, t.company, t.email, t.phone].filter(Boolean).join(' · ');
       p.appendChild(el('div', 'who', whoBits));
+
+      if (t.sla) {
+        var sl = el('div', 'sla-line' +
+          (t.sla.state === 'breached' || t.sla.state === 'missed' ? ' late' :
+           t.sla.state === 'due_soon' ? ' soon' : ''));
+        var due = 'First reply due ' + fmt(t.sla.due_at) +
+          ' (' + fmtDur(t.sla.minutes) + ' of business time)';
+        if (t.sla.state === 'met') {
+          sl.appendChild(el('b', null, 'Answered on time'));
+          sl.appendChild(document.createTextNode(' · replied ' + fmt(t.sla.responded_at) +
+            ', due ' + fmt(t.sla.due_at)));
+        } else if (t.sla.state === 'missed') {
+          sl.appendChild(el('b', null, 'Answered late'));
+          sl.appendChild(document.createTextNode(' · replied ' + fmt(t.sla.responded_at) +
+            ', was due ' + fmt(t.sla.due_at)));
+        } else if (t.sla.state === 'breached') {
+          sl.appendChild(el('b', null, 'No reply yet and past due'));
+          sl.appendChild(document.createTextNode(' · was due ' + fmt(t.sla.due_at)));
+        } else {
+          sl.appendChild(el('b', null, fmtDur(t.sla.minutes_left) + ' left to reply'));
+          sl.appendChild(document.createTextNode(' · ' + due));
+        }
+        p.appendChild(sl);
+      }
 
       if (t.description) p.appendChild(el('div', 'desc', t.description));
 
@@ -1658,6 +1710,14 @@
       p.appendChild(document.createTextNode(
         un.governed_by === 'org' ? '. Held by the organization.' : '.'));
       d.appendChild(p);
+      if (a.sla_response_hours) {
+        var s2 = el('p');
+        s2.appendChild(el('b', null, a.sla_response_hours + 'h'));
+        s2.appendChild(document.createTextNode(
+          ' first response on a Medium ticket, in business hours. ' +
+          'Critical gets a quarter of that, High a half, Low double.'));
+        d.appendChild(s2);
+      }
       return d;
     }
 
@@ -1860,7 +1920,12 @@
         var agRate = document.createElement('input');
         agRate.type = 'text'; agRate.placeholder = 'Overage $/hr (blank = standard)';
         agRate.setAttribute('aria-label', 'Overage rate');
+        var agSla = document.createElement('input');
+        agSla.type = 'text';
+        agSla.placeholder = 'Response hrs (blank = no SLA)';
+        agSla.setAttribute('aria-label', 'First response hours');
         ag.appendChild(agName); ag.appendChild(agHrs); ag.appendChild(agRate);
+        ag.appendChild(agSla);
         ag.appendChild(licAction('Add agreement', 'prim', function () {
           var hrs = parseFloat(agHrs.value);
           if (!(hrs >= 0)) return toast('Enter the included hours, e.g. 10');
@@ -1870,7 +1935,11 @@
             body: {
               holder_type: 'org', holder_id: o.id, name: agName.value.trim(),
               included_minutes: Math.round(hrs * 60),
-              rate_cents: rate === '' ? null : Math.round(parseFloat(rate) * 100)
+              rate_cents: rate === '' ? null : Math.round(parseFloat(rate) * 100),
+              // Baseline for a Medium ticket. Critical gets a quarter of it, High a
+              // half, Low double, and the clock runs on business hours.
+              sla_response_hours: agSla.value.trim() === ''
+                ? null : parseFloat(agSla.value.trim())
             }
           }).then(function (r) {
             toast(r && r.ok ? 'Agreement added' : (r && r.message) || 'Could not add it');
