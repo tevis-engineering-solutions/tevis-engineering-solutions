@@ -1443,8 +1443,12 @@
       // ---- who they are ----
       var head = el('div', 'cust-head');
       head.appendChild(el('h2', null, c.profile.name || c.profile.company || c.account.email));
-      var sub = [c.profile.company, c.account.email, c.profile.phone].filter(Boolean).join(' · ');
+      var sub = [c.profile.company, c.account.email, c.profile.phone, c.profile.alt_phone]
+        .filter(Boolean).join(' · ');
       head.appendChild(el('div', 'who', sub));
+      // Service address, when they have given one. Its own line: it is what you read
+      // out loud when dispatching an on-site visit.
+      if (c.profile.address) head.appendChild(el('div', 'who', c.profile.address));
 
       var badges = el('div', 'cust-badges');
       badges.appendChild(badge(c.account.plan_label || c.account.plan, '#4fa2ff'));
@@ -1457,7 +1461,9 @@
       // rather than presenting the two as equally reliable.
       head.appendChild(el('div', 'cust-src',
         c.profile.source === 'profile'
-          ? 'Details corrected by ' + (c.profile.updated_by || 'staff') +
+          ? (c.profile.updated_source === 'customer'
+              ? 'Details entered by the customer in their portal'
+              : 'Details corrected by ' + (c.profile.updated_by || 'staff')) +
             (c.profile.updated_at ? ' on ' + fmt(c.profile.updated_at) : '')
           : c.profile.source === 'ticket'
             ? 'Details read from their most recent ticket. No profile saved yet.'

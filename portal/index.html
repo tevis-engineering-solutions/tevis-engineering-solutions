@@ -55,9 +55,6 @@
     .pill.ok { background:rgba(74,172,101,0.15); color:#9fe3b4; border:1px solid rgba(74,172,101,0.4); }
     .pill.gold { background:rgba(200,152,48,0.12); color:#e6c68a; border:1px solid rgba(200,152,48,0.35); }
     /* info banner */
-    .pbanner { display:flex; gap:0.8rem; align-items:flex-start; background:rgba(200,152,48,0.09); border:1px solid rgba(200,152,48,0.3); border-radius:12px; padding:0.9rem 1.1rem; margin-bottom:1.5rem; color:#ecd9b3; font-size:0.9rem; }
-    .pbanner i { color:var(--gold); margin-top:0.15rem; }
-    .pbanner b { color:#f2e2c0; }
     /* cards */
     .pgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
     .pcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.3rem; display:flex; flex-direction:column; }
@@ -111,17 +108,12 @@
       <p>Manage your TES software, subscriptions, billing, and support in one place.</p>
     </div>
 
-    <div class="pbanner">
-      <i class="fa-solid fa-circle-info"></i>
-      <div><b>Setting things up.</b> Your live license, plan, and usage data will appear here as soon as your account is linked. <strong>Billing and support are active right now</strong> &mdash; pay an invoice or open a ticket any time below.</div>
-    </div>
-
     <div class="pgrid">
       <div class="pcard">
         <div class="ic"><i class="fa-solid fa-cubes"></i></div>
         <h2>My Software</h2>
         <p>License keys, downloads, activation, and usage for your TES applications.</p>
-        <div class="status"><span class="pill muted">No active products yet</span></div>
+        <div class="status"><span class="pill muted" id="softwarePill">Checking&hellip;</span></div>
         <a class="plink" href="software.html">Open My Software <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <div class="pcard">
@@ -142,7 +134,7 @@
         <div class="ic"><i class="fa-solid fa-user-gear"></i></div>
         <h2>Account</h2>
         <p>Your profile, company details, and notification preferences.</p>
-        <div class="status"><span class="pill muted">Profile</span></div>
+        <div class="status"><span class="pill muted" id="accountPill">Profile</span></div>
         <a class="plink" href="account.html">Open Account <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
@@ -184,6 +176,57 @@
       if (!id || !id.email) { location.replace('../login.html'); return false; }
       return true;
     }
+      // The Software and Account cards used to carry hardcoded pills reading "No
+      // active products yet" and "Profile". Both are read from the API now: a
+      // customer holding a license was being told they held none.
+      function pill(id, cls, label) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = 'pill ' + cls;
+        el.textContent = label;
+      }
+
+      function loadSoftware() {
+        return fetch('/portal-api/software', { credentials: 'same-origin' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (!d || !d.ok) { pill('softwarePill', 'muted', 'Unavailable'); return; }
+            var products = d.products || [];
+            if (!products.length) {
+              pill('softwarePill', 'muted', 'No active products yet');
+              return;
+            }
+            var active = products.filter(function (pr) { return pr.status === 'active'; });
+            if (active.length === products.length) {
+              pill('softwarePill', 'ok', products.length +
+                   ' active product' + (products.length === 1 ? '' : 's'));
+            } else {
+              // Something needs attention -- an expired trial, a revoked or
+              // un-activated key. The card says so rather than reading "active".
+              pill('softwarePill', 'gold', active.length + ' of ' + products.length +
+                   ' active');
+            }
+          })
+          .catch(function () { pill('softwarePill', 'muted', 'Unavailable'); });
+      }
+
+      function loadProfile() {
+        return fetch('/portal-api/profile', { credentials: 'same-origin' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (!d || !d.ok || !d.profile) return;
+            var pf = d.profile;
+            if (pf.source !== 'profile') {
+              pill('accountPill', 'gold', 'Add your details');
+            } else if (!pf.phone || !pf.address_line1) {
+              pill('accountPill', 'gold', 'Finish your profile');
+            } else {
+              pill('accountPill', 'ok', 'Details on file');
+            }
+          })
+          .catch(function () {});
+      }
+
       TESInvoices.getIdentity().then(function (id) {
         if (!requireSession(id)) return null;
         var email = id.email;
@@ -194,6 +237,9 @@
         if (nameEl) nameEl.textContent = display;
         if (emailEl) emailEl.textContent = email;
         if (avatarEl) avatarEl.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+
+        loadSoftware();
+        loadProfile();
 
         return TESInvoices.fetchForEmail(email).then(function (invoices) {
           var open = invoices.filter(function (inv) { return !inv.paid; });

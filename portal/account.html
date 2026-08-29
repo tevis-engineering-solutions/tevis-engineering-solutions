@@ -56,6 +56,33 @@
     .kv .k { color:var(--muted); }
     .kv .v { color:#e4ede5; font-weight:500; text-align:right; }
     .note { font-size:0.82rem; color:var(--muted); margin-top:0.9rem; }
+    .note a { color:var(--green); }
+    .actnote { margin-top:0; }
+    .pcard.wide { grid-column:1 / -1; }
+    .field { margin-bottom:0.9rem; }
+    .field label { display:block; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:0.3rem; font-weight:600; }
+    .field input { width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:0.9rem; font-family:"Inter",sans-serif; outline:none; transition:border-color 0.2s; }
+    .field input:focus { border-color:var(--green); }
+    .field input:disabled { color:var(--muted); background:#101a13; cursor:not-allowed; }
+    .field .hint { display:block; font-size:0.74rem; color:var(--muted); margin-top:0.3rem; text-transform:none; letter-spacing:0; font-weight:400; }
+    .frow { display:grid; grid-template-columns:1fr 1fr; gap:0 1rem; }
+    .frow.three { grid-template-columns:2fr 1fr 1fr; }
+    @media (max-width:560px) { .frow, .frow.three { grid-template-columns:1fr; } }
+    .fsub { font-family:"Montserrat",sans-serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); font-weight:700; margin:1.2rem 0 0.7rem; padding-top:1rem; border-top:1px solid var(--line); }
+    .fsub.first { margin-top:0; padding-top:0; border-top:none; }
+    .formbar { display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; margin-top:1.1rem; }
+    .btn-primary { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; cursor:pointer; }
+    .btn-primary:disabled { opacity:0.55; cursor:not-allowed; }
+    button.btn { cursor:pointer; font-size:0.8rem; }
+    .savemsg { font-size:0.85rem; }
+    .savemsg.ok { color:#6dc882; }
+    .savemsg.bad { color:#f3b4b4; }
+    .note.ok { color:#6dc882; }
+    .note.bad { color:#f3b4b4; }
+    .srcnote { font-size:0.82rem; color:var(--muted); background:var(--card-2); border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:8px; padding:0.6rem 0.8rem; margin-bottom:1.1rem; }
+    .actrow { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.9rem; }
+    [hidden] { display:none !important; }
+    @media (max-width:640px) { .btn { min-height:44px; } }
     .secline { display:flex; gap:0.7rem; align-items:flex-start; font-size:0.88rem; color:#cfe0d2; margin-bottom:0.8rem; }
     .secline i { color:var(--green); margin-top:0.15rem; }
     .btn { text-decoration:none; border-radius:999px; padding:0.65rem 1.05rem; font-weight:700; border:1px solid transparent; font-size:0.8rem; font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; display:inline-flex; align-items:center; gap:0.5rem; }
@@ -66,7 +93,9 @@
     .toggle-row { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:0.6rem 0; border-bottom:1px solid var(--line); }
     .toggle-row:last-child { border-bottom:none; }
     .toggle-row span { font-size:0.88rem; color:#cfe0d2; }
-    .sw { width:40px; height:22px; border-radius:999px; background:var(--card-2); border:1px solid var(--line); position:relative; flex-shrink:0; }
+    .sw { width:40px; height:22px; border-radius:999px; background:var(--card-2); border:1px solid var(--line); position:relative; flex-shrink:0; padding:0; cursor:pointer; }
+    .sw:disabled { opacity:0.5; cursor:progress; }
+    .sw:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
     .sw.on { background:rgba(74,172,101,0.3); border-color:var(--green); }
     .sw::after { content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:999px; background:var(--muted); transition:transform .2s,background .2s; }
     .sw.on::after { transform:translateX(18px); background:var(--green); }
@@ -107,17 +136,86 @@
     </div>
 
     <div class="pgrid">
-      <section class="pcard">
-        <h2><i class="fa-solid fa-id-card"></i> Profile</h2>
-        <div class="kv"><span class="k">Name</span><span class="v" id="pfName">&mdash;</span></div>
-        <div class="kv"><span class="k">Email</span><span class="v" id="pfEmail">&mdash;</span></div>
-        <div class="kv"><span class="k">Company</span><span class="v" id="pfCompany">&mdash;</span></div>
-        <p class="note">Your name and email come from the account you sign in with. To update your company details or contacts, <a href="../contact.html">contact us</a> and we'll take care of it.</p>
+      <section class="pcard wide">
+        <h2><i class="fa-solid fa-id-card"></i> Contact details</h2>
+        <p class="srcnote" id="pfSource" hidden></p>
+        <form id="pfForm" novalidate>
+          <p class="fsub first">Who you are</p>
+          <div class="frow">
+            <div class="field">
+              <label for="pfName">Full name</label>
+              <input id="pfName" name="name" type="text" maxlength="120" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="pfTitle">Job title</label>
+              <input id="pfTitle" name="job_title" type="text" maxlength="120" autocomplete="organization-title">
+            </div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label for="pfCompany">Company</label>
+              <input id="pfCompany" name="company" type="text" maxlength="160" autocomplete="organization">
+              <span class="hint">The business this account is for. Leave it blank if the account is personal.</span>
+            </div>
+            <div class="field">
+              <label for="pfEmail">Email</label>
+              <input id="pfEmail" type="email" disabled autocomplete="email">
+              <span class="hint">How you sign in, and how your tickets and invoices are matched to you. <a href="../contact.html">Ask us</a> to change it.</span>
+            </div>
+          </div>
+
+          <p class="fsub">How to reach you</p>
+          <div class="frow">
+            <div class="field">
+              <label for="pfPhone">Phone</label>
+              <input id="pfPhone" name="phone" type="tel" maxlength="40" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="pfAlt">Alternate phone</label>
+              <input id="pfAlt" name="alt_phone" type="tel" maxlength="40">
+              <span class="hint">A mobile or front desk to try if the first line is busy.</span>
+            </div>
+          </div>
+
+          <p class="fsub">Service address</p>
+          <div class="field">
+            <label for="pfAddr1">Street address</label>
+            <input id="pfAddr1" name="address_line1" type="text" maxlength="160" autocomplete="address-line1">
+            <span class="hint">Where on-site work happens. It is never published anywhere.</span>
+          </div>
+          <div class="field">
+            <label for="pfAddr2">Suite, unit, or floor</label>
+            <input id="pfAddr2" name="address_line2" type="text" maxlength="160" autocomplete="address-line2">
+          </div>
+          <div class="frow three">
+            <div class="field">
+              <label for="pfCity">City</label>
+              <input id="pfCity" name="city" type="text" maxlength="100" autocomplete="address-level2">
+            </div>
+            <div class="field">
+              <label for="pfRegion">State</label>
+              <input id="pfRegion" name="region" type="text" maxlength="80" autocomplete="address-level1">
+            </div>
+            <div class="field">
+              <label for="pfZip">ZIP</label>
+              <input id="pfZip" name="postal_code" type="text" maxlength="20" autocomplete="postal-code">
+            </div>
+          </div>
+          <div class="field">
+            <label for="pfCountry">Country</label>
+            <input id="pfCountry" name="country" type="text" maxlength="80" autocomplete="country-name">
+          </div>
+
+          <div class="formbar">
+            <button type="submit" class="btn btn-primary" id="pfSave"><i class="fa-solid fa-floppy-disk"></i> Save changes</button>
+            <span class="savemsg" id="pfMsg" role="status" aria-live="polite"></span>
+          </div>
+        </form>
       </section>
 
       <section class="pcard">
         <h2><i class="fa-solid fa-shield-halved"></i> Sign-in &amp; security</h2>
-        <div class="secline"><i class="fa-solid fa-circle-check"></i><span>You're signed in securely through Cloudflare Access &mdash; with Google or a one-time email code.</span></div>
+        <div class="secline"><i class="fa-solid fa-circle-check"></i><span>You sign in with a one-time link or a 6-digit code sent to your email &mdash; there is no password to lose.</span></div>
         <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Tevis Engineering never sees or stores a password for your account.</span></div>
         <div class="secline"><i class="fa-solid fa-circle-check"></i><span>Sessions expire automatically, so an unattended device won't stay signed in.</span></div>
         <a class="btn btn-ghost signout-link" href="#" style="margin-top:0.6rem;"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
@@ -125,16 +223,26 @@
 
       <section class="pcard">
         <h2><i class="fa-solid fa-bell"></i> Notifications</h2>
-        <div class="toggle-row"><span>Product updates &amp; new features</span><span class="sw on" role="switch" aria-checked="true" aria-label="Product updates"></span></div>
-        <div class="toggle-row"><span>Billing &amp; renewal reminders</span><span class="sw on" role="switch" aria-checked="true" aria-label="Billing reminders"></span></div>
-        <div class="toggle-row"><span>Ticket status changes</span><span class="sw on" role="switch" aria-checked="true" aria-label="Ticket updates"></span></div>
-        <p class="note">Preference controls activate once your account is linked. Essential account and security emails are always sent.</p>
+        <div class="toggle-row">
+          <span>Email me when a ticket's status changes</span>
+          <button type="button" class="sw on" id="swTickets" role="switch" aria-checked="true" aria-label="Ticket status emails"></button>
+        </div>
+        <p class="note" id="swMsg" role="status" aria-live="polite"></p>
+        <p class="note">Everything else we send is part of the work itself &mdash; sign-in codes, replies on your tickets, invoices, receipts, and license keys &mdash; so those always go out.</p>
+        <p class="note">For product news and IT tips, <a href="../blog/index.html#newsletter">subscribe to the newsletter</a>. You can unsubscribe from it at any time.</p>
       </section>
 
       <section class="pcard">
         <h2><i class="fa-solid fa-gear"></i> Account actions</h2>
-        <p class="note" style="margin-top:0;">Need to change the email on your account, add a teammate, or close your account? We'll handle it personally.</p>
-        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.9rem;">
+        <p class="note actnote">Everything we do, and what it costs.</p>
+        <div class="actrow">
+          <a class="btn btn-ghost" href="../service_catalog.html"><i class="fa-solid fa-rectangle-list"></i> Service Catalog</a>
+          <a class="btn btn-ghost" href="../pricing_sheet.html"><i class="fa-solid fa-file-invoice"></i> Pricing Sheet</a>
+          <a class="btn btn-ghost" href="../software.html"><i class="fa-solid fa-laptop-code"></i> Software Services</a>
+          <a class="btn btn-ghost" href="tickets.html"><i class="fa-solid fa-plus"></i> Request Work</a>
+        </div>
+        <p class="note">Need to change the email on your account, add a teammate, or close your account? We'll handle that personally.</p>
+        <div class="actrow">
           <a class="btn btn-ghost" href="../contact.html"><i class="fa-solid fa-envelope"></i> Contact TES</a>
           <a class="btn btn-danger" href="../contact.html"><i class="fa-solid fa-user-slash"></i> Close Account</a>
         </div>
@@ -149,21 +257,149 @@
 
   <script>
     (function () {
-      fetch('/portal-api/me', { credentials: 'same-origin' })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (id) {
-          if (id && !id.ok) id = null;
-          if (!id || !id.email) return;
-          var display = id.name || id.email.split('@')[0];
-          var n = document.getElementById('acctName'), e = document.getElementById('acctEmail'), a = document.getElementById('acctAvatar');
-          if (n) n.textContent = display;
-          if (e) e.textContent = id.email;
-          if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
-          var pn = document.getElementById('pfName'), pe = document.getElementById('pfEmail');
-          if (pn) pn.textContent = display;
-          if (pe) pe.textContent = id.email;
-        })
-        .catch(function () {});
+      var FIELDS = ['name', 'job_title', 'company', 'phone', 'alt_phone',
+                    'address_line1', 'address_line2', 'city', 'region',
+                    'postal_code', 'country'];
+      var form = document.getElementById('pfForm');
+      var saveBtn = document.getElementById('pfSave');
+      var msg = document.getElementById('pfMsg');
+      var srcNote = document.getElementById('pfSource');
+      var sw = document.getElementById('swTickets');
+      var swMsg = document.getElementById('swMsg');
+      var loaded = null;
+
+      function input(name) { return form.elements[name]; }
+
+      function api(method, path, payload) {
+        var opts = { method: method, credentials: 'same-origin' };
+        // Every non-GET request carries the JSON content-type, body or not: the
+        // Worker's CSRF guard rejects a state-changing request without it.
+        if (method !== 'GET') {
+          opts.headers = { 'content-type': 'application/json' };
+          opts.body = JSON.stringify(payload || {});
+        }
+        return fetch('/portal-api' + path, opts).then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (b) {
+            b.httpStatus = r.status;
+            return b;
+          });
+        });
+      }
+
+      function say(el, text, cls) {
+        el.textContent = text;
+        el.className = (el === msg ? 'savemsg ' : 'note ') + (cls || '');
+      }
+
+      function fill(pf) {
+        loaded = pf;
+        FIELDS.forEach(function (f) {
+          var el = input(f);
+          if (el) el.value = pf[f] || '';
+        });
+        var em = document.getElementById('pfEmail');
+        if (em) em.value = pf.email || '';
+
+        // A profile nobody has saved yet is pre-filled from their last ticket. Say so,
+        // so confirming it is a deliberate correction rather than a guess promoted to
+        // fact the first time they press Save.
+        if (pf.source === 'ticket') {
+          srcNote.textContent = 'We filled this in from your most recent support ticket. ' +
+                                'Check it over and save to confirm.';
+          srcNote.hidden = false;
+        } else if (pf.source === 'profile' && pf.updated_at) {
+          srcNote.textContent = 'Last updated ' +
+            new Date(pf.updated_at * 1000).toLocaleDateString(undefined,
+              { year: 'numeric', month: 'short', day: 'numeric' }) +
+            (pf.updated_source === 'staff' ? ' by Tevis Engineering.' : '.');
+          srcNote.hidden = false;
+        } else {
+          srcNote.hidden = true;
+        }
+
+        setSwitch(pf.notify_ticket_updates !== false);
+      }
+
+      function setSwitch(on) {
+        sw.classList.toggle('on', !!on);
+        sw.setAttribute('aria-checked', on ? 'true' : 'false');
+      }
+
+      function header(pf) {
+        var display = pf.name || (pf.email || '').split('@')[0] || 'Your Account';
+        var n = document.getElementById('acctName');
+        var e = document.getElementById('acctEmail');
+        var a = document.getElementById('acctAvatar');
+        if (n) n.textContent = display;
+        if (e) e.textContent = pf.email || '';
+        if (a) a.textContent = display.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'TE';
+      }
+
+      api('GET', '/profile').then(function (r) {
+        // A portal page without a session renders its placeholder shell and looks
+        // half-signed-in. Send them to sign in instead, same as the dashboard does.
+        if (r.httpStatus === 401 || !r.ok || !r.profile) {
+          location.replace('../login.html');
+          return;
+        }
+        fill(r.profile);
+        header(r.profile);
+      }).catch(function () {
+        say(msg, 'We could not load your details. Please refresh.', 'bad');
+      });
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var patch = {};
+        FIELDS.forEach(function (f) {
+          var el = input(f);
+          if (el) patch[f] = el.value;
+        });
+        saveBtn.disabled = true;
+        say(msg, 'Saving...', '');
+        api('PATCH', '/profile', patch).then(function (r) {
+          saveBtn.disabled = false;
+          if (r.httpStatus === 401) { location.replace('../login.html'); return; }
+          if (!r.ok || !r.profile) {
+            say(msg, 'Could not save. ' + (r.error === 'nothing_to_save'
+              ? 'Nothing was changed.' : 'Please try again or contact us.'), 'bad');
+            return;
+          }
+          fill(r.profile);
+          header(r.profile);
+          say(msg, 'Saved.', 'ok');
+        }).catch(function () {
+          saveBtn.disabled = false;
+          say(msg, 'Could not save. Check your connection and try again.', 'bad');
+        });
+      });
+
+      // The one piece of mail that is a notification rather than the work itself, so
+      // it is the one that can be switched off. Reverts visibly if the save fails,
+      // rather than showing a preference that was never stored.
+      sw.addEventListener('click', function () {
+        if (!loaded) return;
+        var next = !sw.classList.contains('on');
+        var prev = !next;
+        setSwitch(next);
+        sw.disabled = true;
+        swMsg.textContent = '';
+        api('PATCH', '/profile', { notify_ticket_updates: next }).then(function (r) {
+          sw.disabled = false;
+          if (r.httpStatus === 401) { location.replace('../login.html'); return; }
+          if (!r.ok) {
+            setSwitch(prev);
+            say(swMsg, 'Could not save that preference. Please try again.', 'bad');
+            return;
+          }
+          loaded.notify_ticket_updates = next;
+          say(swMsg, next ? 'Status emails are on.' : 'Status emails are off.', 'ok');
+        }).catch(function () {
+          sw.disabled = false;
+          setSwitch(prev);
+          say(swMsg, 'Could not save that preference. Please try again.', 'bad');
+        });
+      });
     })();
   </script>
 
