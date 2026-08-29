@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Tevis Engineering Solutions</title>
+  <meta name="description" content="Your Tevis Engineering Solutions software subscription is being set up. Your license key is on its way by email.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <!-- Not a page anyone should reach from search: it only makes sense immediately
+       after returning from PayPal, and it reveals nothing on its own. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="canonical" href="https://tevisengineering.com/software-thanks.html">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --bg:#0d1710; --card:#142019; --line:#2c4232; --text:#e4ede5; --muted:#8aa48d; --green:#4aac65; --gold:#c89830; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:"Inter",sans-serif; background:var(--bg); color:var(--text); line-height:1.65; min-height:100vh; display:flex; flex-direction:column; }
+    a { color:var(--green); }
+    .wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:3rem 1.25rem; }
+    .card { width:100%; max-width:620px; background:radial-gradient(120% 130% at 50% 0%,rgba(74,172,101,0.14),transparent 60%),linear-gradient(160deg,#16261d,#0f1c14); border:1px solid rgba(74,172,101,0.28); border-radius:16px; padding:2.2rem 1.8rem; text-align:center; }
+    .mark { width:56px; height:56px; border-radius:12px; margin:0 auto 1.1rem; display:block; }
+    h1 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:1.35rem; color:#fff; margin-bottom:0.6rem; }
+    p { color:var(--muted); margin-bottom:1rem; }
+    .state { border-radius:12px; padding:1rem 1.1rem; margin:1.2rem 0; font-size:0.95rem; }
+    .state.working { background:rgba(200,152,48,0.10); border:1px solid rgba(200,152,48,0.35); color:#f0dcae; }
+    .state.done { background:rgba(74,172,101,0.10); border:1px solid rgba(74,172,101,0.35); color:#cdeed6; }
+    .spin { display:inline-block; width:14px; height:14px; border:2px solid rgba(240,220,174,0.35); border-top-color:#f0dcae; border-radius:50%; animation:sp 0.8s linear infinite; vertical-align:-2px; margin-right:0.5rem; }
+    @keyframes sp { to { transform:rotate(360deg); } }
+    .btns { display:flex; gap:0.7rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; min-height:44px; padding:0.7rem 1.3rem; border-radius:999px; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em; text-decoration:none; border:1px solid var(--line); color:var(--text); }
+    .btn-primary { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .foot { text-align:center; padding:1.5rem 1rem 2.5rem; color:var(--muted); font-size:0.85rem; }
+    .foot a { color:var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="card">
+      <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions" class="mark">
+      <h1>Thank you for your order</h1>
+      <p>PayPal has your subscription. We are setting up your license now &mdash; this usually takes a few seconds.</p>
+
+      <div class="state working" id="state">
+        <span class="spin" id="spin" aria-hidden="true"></span><span id="stateText">Checking on your license&hellip;</span>
+      </div>
+
+      <p id="detail">Your license key and a one-click sign-in link will arrive by email. You do not need to stay on this page.</p>
+
+      <div class="btns">
+        <a class="btn btn-primary" href="portal/software.html">Go to My Software</a>
+        <a class="btn" href="ohio-crash-report-analysis-tool.html">Back to the product</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    Questions? <a href="mailto:support@tevisengineering.com">support@tevisengineering.com</a>
+    &middot; <a href="tel:+12163028486">(216)&nbsp;302&#8209;8486</a>
+    &middot; &copy; <span id="yr"></span> Tevis Engineering Solutions
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Polls the portal for whether the license has been issued yet.
+    //
+    // This page ISSUES NOTHING and is not trusted for anything. It is a return URL,
+    // which means it is a plain browser redirect that anyone could visit with any
+    // subscription id they liked. Provisioning happens only when PayPal's signed
+    // webhook reaches the control plane. All this does is report, and stop asking.
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      // PayPal appends subscription_id to the return URL.
+      var subId = params.get('subscription_id') || '';
+      var stateEl = document.getElementById('state');
+      var textEl = document.getElementById('stateText');
+      var spin = document.getElementById('spin');
+      var detail = document.getElementById('detail');
+
+      function settle(cls, msg, note) {
+        stateEl.className = 'state ' + cls;
+        if (spin) spin.style.display = 'none';
+        textEl.textContent = msg;
+        if (note) detail.textContent = note;
+      }
+
+      if (!subId) {
+        // PayPal did not pass one back. Nothing is wrong with the payment; we simply
+        // cannot look it up from here, and the email does not depend on this page.
+        settle('done', 'Your order is being processed.',
+          'Your license key is on its way by email. If it has not arrived within a few minutes, check spam or call us.');
+        return;
+      }
+
+      var attempts = 0;
+      var MAX = 20;              // about 60 seconds
+      function poll() {
+        attempts++;
+        fetch('/portal-api/public/subscribe/status?subscription_id=' + encodeURIComponent(subId), {
+          credentials: 'same-origin'
+        })
+          .then(function(r) { return r.json(); })
+          .then(function(r) {
+            if (r && r.ready) {
+              settle('done', 'Your license is ready.',
+                'We have emailed your license key and a one-click sign-in link' +
+                (r.email ? ' to ' + r.email : '') + '. Open My Software to download the installer.');
+              return;
+            }
+            if (attempts >= MAX) {
+              // Not a failure. The webhook can lag, and the email arrives either way.
+              settle('done', 'Your order is confirmed.',
+                'Your license key will arrive by email shortly. If it has not turned up in a few minutes, ' +
+                'call (216) 302-8486 and we will sort it out straight away.');
+              return;
+            }
+            setTimeout(poll, 3000);
+          })
+          .catch(function() {
+            if (attempts >= 3) {
+              settle('done', 'Your order is confirmed.',
+                'Your license key will arrive by email shortly.');
+              return;
+            }
+            setTimeout(poll, 3000);
+          });
+      }
+      poll();
+    })();
+  </script>
+</body>
+</html>

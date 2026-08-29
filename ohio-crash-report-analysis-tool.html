@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     :root {
       --bg: #0d1710;
@@ -164,7 +165,24 @@
     .req-form .trap { position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden; }
     .req-form button { grid-column:1 / -1; }
     .req-success { max-width:640px; margin:1rem auto 0; background:rgba(74,172,101,0.1); border:1px solid rgba(74,172,101,0.35); border-radius:12px; padding:1.2rem; color:#cdeed6; }
-    @media (max-width:560px) { .req-form { grid-template-columns:1fr; } }
+    .cf-turnstile { width:100%; max-width:100%; overflow:hidden; grid-column:1 / -1; }
+    .cf-turnstile iframe { max-width:100% !important; }
+    .buy-panel { max-width:640px; margin:0 auto 1.6rem; background:rgba(255,255,255,0.03); border:1px solid rgba(74,172,101,0.22); border-radius:14px; padding:1.2rem 1.1rem; }
+    .buy-panel h3 { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:0.95rem; color:#fff; margin:0 0 0.3rem; }
+    .buy-panel .lede { color:var(--muted); font-size:0.9rem; margin:0 0 0.9rem; }
+    .buy-form { display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; text-align:left; margin:0; }
+    .buy-form .full { grid-column:1 / -1; }
+    .buy-form label { display:block; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:0.3rem; font-weight:600; }
+    .buy-form input, .buy-form select { width:100%; padding:0.6rem 0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:0.9rem; font-family:"Inter",sans-serif; outline:none; }
+    .buy-form input:focus, .buy-form select:focus { border-color:var(--green); }
+    .buy-form button { grid-column:1 / -1; }
+    .buy-form .trap { position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden; }
+    .buy-note { font-size:0.8rem; color:var(--muted); margin:0.7rem 0 0; grid-column:1 / -1; }
+    /* These start a purchase now rather than just scrolling, so they need a real tap
+       target. The shared .btn padding renders 37px on a phone. */
+    [data-buy] { min-height:44px; }
+    .buy-error { grid-column:1 / -1; display:none; background:rgba(200,60,60,0.12); border:1px solid rgba(220,90,90,0.4); border-radius:8px; padding:0.7rem 0.85rem; color:#ffc9c9; font-size:0.88rem; }
+    @media (max-width:560px) { .req-form, .buy-form { grid-template-columns:1fr; } }
 
     .mini-note { margin-top:0.75rem; font-size:0.88rem; color:var(--muted); }
     .breadcrumbs { padding:1.25rem 0 0; font-size:0.82rem; color:var(--muted); }
@@ -494,7 +512,7 @@
             <li>1 user</li>
             <li>Email support</li>
           </ul>
-          <a class="btn btn-secondary" href="#get-started">Start trial</a>
+          <button type="button" class="btn btn-secondary" data-buy="starter">Subscribe</button>
         </div>
         <div class="plan feat">
           <span class="ribbon">Most Popular</span>
@@ -508,7 +526,7 @@
             <li>Priority support</li>
             <li>Custom output format</li>
           </ul>
-          <a class="btn btn-primary" href="#get-started">Start trial</a>
+          <button type="button" class="btn btn-primary" data-buy="pro">Subscribe</button>
         </div>
         <div class="plan">
           <p class="pname">Firm / Statewide</p>
@@ -521,7 +539,7 @@
             <li>Phone support</li>
             <li>Custom integrations &amp; dashboards</li>
           </ul>
-          <a class="btn btn-secondary" href="#get-started">Talk to us</a>
+          <button type="button" class="btn btn-secondary" data-buy="enterprise">Subscribe</button>
         </div>
       </div>
       <ul class="incl">
@@ -578,6 +596,63 @@
     <section class="cta-band" id="get-started">
       <h2>Start your free trial or get a tailored quote</h2>
       <p>Tell us your target counties or agencies and how you'd like to work &mdash; own it, subscribe, or have us deliver the data &mdash; and we'll set you up with a 14-day free trial or a one-page quote. Straight to the engineer, one-business-day reply.</p>
+      <!-- 1. Instant free trial. Issues a key and emails it; nobody has to be awake. -->
+      <div class="buy-panel" id="trialPanel">
+        <h3>Start a free trial now</h3>
+        <p class="lede">14 days, 100 report analyses. We email your license key and a sign-in link straight away &mdash; no card, no call.</p>
+        <div class="req-success" id="trialSuccess" style="display:none;">
+          <strong>Check your email.</strong> Your license key and a one-click sign-in link are on the way to <span id="trialEmailEcho"></span>. If it has not arrived in a few minutes, look in spam or call <a href="tel:+12163028486" style="color:#cdeed6;">(216)&nbsp;302&#8209;8486</a>.
+        </div>
+        <form class="buy-form" id="trialForm" novalidate>
+          <input type="text" name="website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="full">
+            <label for="trialEmail">Work email</label>
+            <input id="trialEmail" type="email" name="email" required autocomplete="email" placeholder="you@yourfirm.com">
+          </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark" data-size="flexible"></div>
+          <div class="buy-error" id="trialError" role="alert"></div>
+          <button type="submit" class="btn btn-primary" id="trialSubmit">Email My Free Trial Key</button>
+          <p class="buy-note">One trial per firm. The 14 days start when you activate, not when we send the key.</p>
+        </form>
+      </div>
+
+      <!-- 2. Subscription checkout. The plan id is chosen server-side; this form only
+           names a tier. See /portal-api/public/subscribe. -->
+      <div class="buy-panel" id="buyPanel">
+        <h3>Subscribe</h3>
+        <p class="lede">Pick a plan and we will take you to PayPal. Your license key is emailed the moment the payment clears.</p>
+        <form class="buy-form" id="buyForm" novalidate>
+          <input type="text" name="website" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div>
+            <label for="buyPlan">Plan</label>
+            <select id="buyPlan" name="plan">
+              <option value="starter">Starter &mdash; $199/mo</option>
+              <option value="pro" selected>Pro &mdash; $549/mo</option>
+              <option value="enterprise">Firm / Statewide &mdash; $1,199/mo</option>
+            </select>
+          </div>
+          <div>
+            <label for="buyCadence">Billing</label>
+            <select id="buyCadence" name="cadence">
+              <option value="monthly" selected>Monthly</option>
+              <option value="annual">Annual &mdash; save about 20%</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="buyEmail">Work email</label>
+            <input id="buyEmail" type="email" name="email" required autocomplete="email" placeholder="you@yourfirm.com">
+          </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark" data-size="flexible"></div>
+          <div class="buy-error" id="buyError" role="alert"></div>
+          <button type="submit" class="btn btn-primary" id="buySubmit">Continue to PayPal</button>
+          <p class="buy-note">Cancel any time from PayPal. Annual plans bill once for the year.</p>
+        </form>
+      </div>
+
+      <!-- 3. Everything that is genuinely a conversation: buying outright, data as a
+           service, or anything bespoke. Unchanged Formspree form. -->
+      <h3 style="font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.04em;font-size:0.95rem;color:#fff;margin:1.8rem 0 0.3rem;">Or ask for a quote</h3>
+      <p style="color:var(--muted);max-width:640px;margin:0 auto 0.6rem;font-size:0.9rem;">Buying it outright, or want us to deliver the data as a service? Those are priced per engagement &mdash; tell us what you need.</p>
       <div class="req-success" id="reqSuccess" style="display:none;">
         <strong>Thanks &mdash; your request is in.</strong> We'll reply within one business day with trial access or a tailored quote. For anything urgent, call <a href="tel:+12163028486" style="color:#cdeed6;">(216)&nbsp;302&#8209;8486</a>.
       </div>
@@ -712,12 +787,142 @@
         window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
       });
     }
-    // Trial/quote request success state (Formspree _next redirect back with ?requested=1)
+      // Trial/quote request success state (Formspree _next redirect back with ?requested=1)
     (function() {
       if (window.location.search.indexOf('requested=1') !== -1) {
         var s = document.getElementById('reqSuccess'), f = document.getElementById('reqForm');
         if (s) s.style.display = 'block';
         if (f) f.style.display = 'none';
+      }
+    })();
+
+    // ---- self-serve trial and subscription --------------------------------
+    //
+    // Both post JSON to the portal Worker on the same origin. Neither sends a price
+    // or a plan id: the server reads those from its own catalogue, so nothing the
+    // browser says can change what a customer is charged.
+    (function() {
+      function tokenFrom(form) {
+        var el = form.querySelector('[name="cf-turnstile-response"]');
+        return el ? el.value : '';
+      }
+      function resetChallenge() {
+        // Turnstile tokens are single use; a retry needs a fresh one.
+        if (window.turnstile && window.turnstile.reset) { try { window.turnstile.reset(); } catch (e) {} }
+      }
+      function showError(box, msg) {
+        box.textContent = msg;
+        box.style.display = 'block';
+        resetChallenge();
+      }
+      function post(url, payload) {
+        var timeout = new Promise(function(resolve) {
+          setTimeout(function() { resolve({ ok: false, timedOut: true }); }, 12000);
+        });
+        return Promise.race([
+          fetch(url, {
+            method: 'POST', credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).then(function(r) { return r.json().catch(function() { return { ok: false }; }); }),
+          timeout
+        ]);
+      }
+
+      // ---- free trial ----
+      var tForm = document.getElementById('trialForm');
+      if (tForm) {
+        tForm.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          var box = document.getElementById('trialError');
+          var btn = document.getElementById('trialSubmit');
+          var email = document.getElementById('trialEmail').value.trim();
+          box.style.display = 'none';
+          if (!email || email.indexOf('@') < 1) { showError(box, 'Please enter a valid work email.'); return; }
+          var token = tokenFrom(tForm);
+          if (!token) { showError(box, 'Still checking that you are human — give it a second and try again.'); return; }
+
+          btn.disabled = true; btn.textContent = 'Sending your key…';
+          post('/portal-api/public/trial', {
+            email: email, product: 'ohio-crash',
+            website: tForm.querySelector('[name="website"]').value || '',
+            turnstileToken: token
+          }).then(function(r) {
+            btn.disabled = false; btn.textContent = 'Email My Free Trial Key';
+            if (r && r.ok) {
+              document.getElementById('trialEmailEcho').textContent = email;
+              document.getElementById('trialSuccess').style.display = 'block';
+              tForm.style.display = 'none';
+              return;
+            }
+            if (r && r.error === 'trial_already_used') {
+              showError(box, r.message || 'That address has already used its free trial. Subscribe below, or call us.');
+              return;
+            }
+            if (r && r.error === 'rate_limited') {
+              showError(box, 'That is a lot of attempts from this connection. Please try again later or call (216) 302-8486.');
+              return;
+            }
+            if (r && r.error === 'invalid_email') { showError(box, 'That email address does not look right.'); return; }
+            showError(box, 'Something went wrong starting your trial. Please use the quote form below, or call (216) 302-8486.');
+          }).catch(function() {
+            btn.disabled = false; btn.textContent = 'Email My Free Trial Key';
+            showError(box, 'Could not reach us just now. Please use the quote form below, or call (216) 302-8486.');
+          });
+        });
+      }
+
+      // ---- subscription checkout ----
+      var bForm = document.getElementById('buyForm');
+      if (bForm) {
+        bForm.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          var box = document.getElementById('buyError');
+          var btn = document.getElementById('buySubmit');
+          var email = document.getElementById('buyEmail').value.trim();
+          box.style.display = 'none';
+          if (!email || email.indexOf('@') < 1) { showError(box, 'Please enter a valid work email.'); return; }
+          var token = tokenFrom(bForm);
+          if (!token) { showError(box, 'Still checking that you are human — give it a second and try again.'); return; }
+
+          btn.disabled = true; btn.textContent = 'Taking you to PayPal…';
+          post('/portal-api/public/subscribe', {
+            email: email, product: 'ohio-crash',
+            plan: document.getElementById('buyPlan').value,
+            cadence: document.getElementById('buyCadence').value,
+            website: bForm.querySelector('[name="website"]').value || '',
+            turnstileToken: token
+          }).then(function(r) {
+            if (r && r.ok && r.approve_url) {
+              // Full-page redirect: PayPal owns the payment, we never see card details.
+              window.location.href = r.approve_url;
+              return;
+            }
+            btn.disabled = false; btn.textContent = 'Continue to PayPal';
+            if (r && r.error === 'rate_limited') {
+              showError(box, 'Too many attempts from this connection. Please try again shortly.');
+              return;
+            }
+            if (r && r.error === 'invalid_email') { showError(box, 'That email address does not look right.'); return; }
+            showError(box, 'We could not start checkout just now. Please use the quote form below, or call (216) 302-8486 and we will set it up for you.');
+          }).catch(function() {
+            btn.disabled = false; btn.textContent = 'Continue to PayPal';
+            showError(box, 'Could not reach us just now. Please call (216) 302-8486.');
+          });
+        });
+      }
+
+      // Tier buttons preselect a plan and bring the checkout panel into view.
+      var buyButtons = document.querySelectorAll('[data-buy]');
+      for (var i = 0; i < buyButtons.length; i++) {
+        buyButtons[i].addEventListener('click', function() {
+          var sel = document.getElementById('buyPlan');
+          if (sel) sel.value = this.getAttribute('data-buy');
+          var panel = document.getElementById('buyPanel');
+          if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var em = document.getElementById('buyEmail');
+          if (em) setTimeout(function() { em.focus(); }, 400);
+        });
       }
     })();
   </script>
