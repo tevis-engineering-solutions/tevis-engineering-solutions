@@ -1987,9 +1987,13 @@
         : 'Nothing is attached to this account.'));
 
       var hard = pv.blockers.filter(function (b) { return b.hard; });
-      var soft = pv.blockers.filter(function (b) { return !b.hard; });
+      // A detachable blocker is neither a dead end nor something to wave away with a
+      // tick box: it has its own button, because clearing it is a recorded decision.
+      var detachable = pv.blockers.filter(function (b) { return b.detachable; });
+      var soft = pv.blockers.filter(function (b) { return !b.hard && !b.detachable; });
       pv.blockers.forEach(function (b) {
-        z.appendChild(el('div', 'blocker', (b.hard ? 'Blocked: ' : 'Careful: ') + b.message));
+        z.appendChild(el('div', 'blocker',
+          (b.hard ? 'Blocked: ' : b.detachable ? 'Stale: ' : 'Careful: ') + b.message));
       });
       (pv.warnings || []).forEach(function (w) {
         z.appendChild(el('div', 'warn-line', w));
@@ -2000,6 +2004,43 @@
         // money keeps moving whatever this console does.
         z.appendChild(el('p', null, 'Deal with that first; this cannot be forced.'));
         z.appendChild(licAction('Close', null, function () {
+          z.textContent = ''; openCustomer(c.account.id);
+        }));
+        return;
+      }
+
+      if (detachable.length) {
+        var d = detachable[0];
+        z.appendChild(el('p', null,
+          'Detaching only unlinks it here. It does not cancel anything at PayPal, and ' +
+          'PayPal has already confirmed this one cannot bill again.'));
+        var dTyped = document.createElement('input');
+        dTyped.type = 'text';
+        dTyped.placeholder = 'Type ' + c.account.email + ' to confirm';
+        dTyped.setAttribute('aria-label', 'Type the email to confirm detaching');
+        z.appendChild(dTyped);
+        var det = licAction('Detach subscription', null, function () {
+          det.disabled = true;
+          api('/admin/customers/' + encodeURIComponent(c.account.id) + '/detach-subscription',
+            { method: 'POST', body: { confirm: dTyped.value.trim() } })
+            .then(function (r) {
+              det.disabled = false;
+              if (!r || !r.ok) {
+                return toast((r && r.message) || (r && r.error) || 'Could not detach it');
+              }
+              toast('Detached ' + r.subscription_id);
+              // Straight back into the preview, which re-checks PayPal, so the next
+              // screen is the real state rather than an assumption about it.
+              z.textContent = '';
+              api('/admin/customers/' + encodeURIComponent(c.account.id) + '/deletion-preview')
+                .then(function (p2) {
+                  if (p2 && p2.ok) renderDeleteConfirm(z, c, p2.preview);
+                  else openCustomer(c.account.id);
+                });
+            });
+        });
+        z.appendChild(det);
+        z.appendChild(licAction('Cancel', null, function () {
           z.textContent = ''; openCustomer(c.account.id);
         }));
         return;
