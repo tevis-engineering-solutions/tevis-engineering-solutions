@@ -6,6 +6,13 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["serve", "-l", "5500", "."],
       "port": 5500
+    },
+    {
+      "name": "TES Site (any port)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "."],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

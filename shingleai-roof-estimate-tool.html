@@ -250,6 +250,76 @@
     .tfoot-social a:hover { color:#4aac65; }
     @media (max-width:780px) { .tfoot-grid { grid-template-columns:1fr 1fr; } }
     @media (max-width:480px) { .tfoot-grid { grid-template-columns:1fr; } }
+
+    /* ---------- live estimator demo ---------- */
+    .hero-try { display:flex; gap:0.6rem; align-items:flex-start; margin-top:1rem; max-width:900px; padding:0.8rem 1rem; border:1px solid rgba(200,152,48,0.34); background:rgba(200,152,48,0.09); border-radius:12px; color:#ecd9b3 !important; font-size:0.97rem; }
+    .hero-try i { color:var(--gold); margin-top:0.25rem; }
+    .hero-try strong { color:#f2e2c0; }
+    .demo-sec { border-color:rgba(200,152,48,0.32); }
+    .rw { margin-top:1rem; border:1px solid rgba(200,152,48,0.3); border-radius:16px; background:linear-gradient(160deg,#16261d,#0f1c14); overflow:hidden; }
+    .rw [hidden] { display:none !important; }
+    .rw-steps { list-style:none; display:flex; flex-wrap:wrap; gap:0.4rem 1.1rem; padding:0.85rem 1.1rem; border-bottom:1px solid var(--line); background:rgba(0,0,0,0.18); margin:0; }
+    .rw-steps li { display:flex; align-items:center; gap:0.45rem; font-family:"Montserrat",sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+    .rw-steps li b { width:22px; height:22px; border-radius:999px; display:grid; place-items:center; font-size:0.7rem; background:rgba(255,255,255,0.05); border:1px solid var(--line); color:var(--muted); }
+    .rw-steps li.on { color:#f1f7f1; }
+    .rw-steps li.on b { background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; border-color:transparent; }
+    .rw-steps li.done b { background:rgba(74,172,101,0.25); color:#9fe3b4; border-color:rgba(74,172,101,0.4); }
+    .rw-body { padding:1.15rem; }
+    .rw-pane h3 { font-family:"Montserrat",sans-serif; font-size:1.05rem; color:#f1f7f1; margin-bottom:0.3rem; }
+    .rw-lede { color:var(--muted); font-size:0.93rem; margin-bottom:0.9rem; }
+    .rw-field { margin-bottom:0.9rem; }
+    .rw-field label, .rw-fs legend, .rw-lbl { display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:0.35rem; font-weight:700; font-family:"Montserrat",sans-serif; }
+    .rw-input { width:100%; padding:0.7rem 0.8rem; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:0.95rem; font-family:"Inter",sans-serif; outline:none; transition:border-color 0.2s; }
+    .rw-input:focus { border-color:var(--gold); }
+    .rw-fs { border:none; margin:0 0 0.9rem; padding:0; }
+    .rw-mats { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:0.55rem; }
+    .rw-mat { display:flex; gap:0.6rem; align-items:flex-start; padding:0.7rem 0.8rem; border:1px solid var(--line); border-radius:11px; background:var(--card); cursor:pointer; transition:border-color 0.18s,background 0.18s; }
+    .rw-mat:hover { border-color:rgba(200,152,48,0.45); }
+    .rw-mat input { margin-top:0.28rem; accent-color:#c89830; flex-shrink:0; }
+    .rw-mat b { display:block; font-size:0.9rem; color:#e4ede5; font-weight:600; }
+    .rw-mat span { display:block; font-size:0.79rem; color:var(--muted); margin-top:0.1rem; }
+    .rw-mat.sel { border-color:var(--gold); background:rgba(200,152,48,0.08); }
+    .rw-qs { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0 1rem; }
+    .rw-actions { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1rem; }
+    .rw-btn { font-family:"Montserrat",sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-weight:700; font-size:0.82rem; border-radius:999px; padding:0.72rem 1.25rem; min-height:44px; border:1px solid transparent; cursor:pointer; background:linear-gradient(135deg,#c89830,#e0b840); color:#0d1710; box-shadow:0 10px 20px rgba(200,152,48,0.22); transition:transform 0.18s,filter 0.18s; }
+    .rw-btn:hover { transform:translateY(-1px); filter:brightness(1.05); }
+    .rw-btn.ghost { background:rgba(74,172,101,0.1); border-color:rgba(74,172,101,0.4); color:#cdeed6; box-shadow:none; }
+    .rw-btn[disabled] { opacity:0.5; cursor:not-allowed; transform:none; }
+    .rw-map { width:100%; height:clamp(240px,42vw,380px); border-radius:12px; border:1px solid var(--line); background:#0b120d; }
+    .rw-legend { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; font-size:0.8rem; color:var(--muted); margin-top:0.55rem; }
+    .rw-swatch { width:14px; height:14px; border:2px solid #c89830; background:rgba(200,152,48,0.2); border-radius:3px; flex-shrink:0; }
+    .rw-fine-inline { color:#7d947f; }
+    .rw-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:0.6rem; margin:0.95rem 0 0; }
+    .rw-stat { background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:11px; padding:0.7rem 0.85rem; }
+    .rw-stat b { display:block; font-family:"Montserrat",sans-serif; font-size:1.3rem; font-weight:800; color:#f1f7f1; line-height:1.2; }
+    .rw-stat span { display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-top:0.15rem; }
+    .rw-note { margin-top:0.7rem; font-size:0.86rem; color:var(--muted); }
+    .rw-fine { margin-top:0.85rem; font-size:0.82rem; color:#7d947f; }
+    .rw-manual { margin-top:1rem; border-top:1px solid var(--line); padding-top:1rem; }
+    .rw-band { text-align:center; padding:1.3rem 1rem; border-radius:14px; border:1px solid rgba(200,152,48,0.35); background:rgba(200,152,48,0.08); }
+    .rw-band b { display:block; font-family:"Montserrat",sans-serif; font-size:clamp(1.6rem,5.5vw,2.5rem); font-weight:800; line-height:1.15; background:linear-gradient(90deg,#4aac65,#c89830); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .rw-band span { display:block; font-size:0.85rem; color:var(--muted); margin-top:0.4rem; }
+    .rw-lines { list-style:none; margin-top:1rem; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    .rw-lines li { display:flex; justify-content:space-between; gap:1rem; padding:0.6rem 0.9rem; font-size:0.9rem; color:#cfe0d2; border-bottom:1px solid var(--line); }
+    .rw-lines li:last-child { border-bottom:none; }
+    .rw-lines li i { font-style:normal; color:#f1f7f1; font-weight:600; white-space:nowrap; }
+    .rw-handoff { margin-top:1rem; border:1px solid rgba(74,172,101,0.3); background:rgba(74,172,101,0.08); border-radius:12px; padding:1rem; }
+    .rw-handoff b { display:block; color:#cdeed6; margin-bottom:0.35rem; font-family:"Montserrat",sans-serif; }
+    .rw-handoff p { color:var(--muted); font-size:0.92rem; margin-bottom:0.9rem; }
+    .rw-err { margin-top:0.85rem; border:1px solid rgba(224,90,90,0.4); background:rgba(224,90,90,0.1); color:#f2c4c4; border-radius:10px; padding:0.7rem 0.9rem; font-size:0.9rem; }
+    .rw-busy { display:flex; align-items:center; gap:0.7rem; padding:1.4rem 0.4rem; color:var(--muted); font-size:0.95rem; }
+    .rw-spin { width:20px; height:20px; border-radius:999px; border:2px solid rgba(200,152,48,0.25); border-top-color:var(--gold); animation:rwspin 0.8s linear infinite; flex-shrink:0; }
+    @keyframes rwspin { to { transform:rotate(360deg); } }
+    @media (prefers-reduced-motion:reduce) { .rw-spin { animation-duration:2.4s; } }
+    .rw-down { border:1px solid rgba(200,152,48,0.34); background:rgba(200,152,48,0.09); border-radius:12px; padding:1rem; color:#ecd9b3; }
+    .rw-down b { display:block; color:#f2e2c0; margin-bottom:0.3rem; }
+    .rw-down p { font-size:0.92rem; }
+    /* Google's autocomplete element renders its own input; ours is the fallback, and
+       only one of the two is ever on screen -- so only one of the two is labeled. */
+    #rwAcMount gmp-place-autocomplete { width:100%; display:block; }
+    #rwAddrField.has-ac #rwPlain { display:none; }
+    #rwAddrField.has-ac #rwAcLabel { display:block; }
+    @media (max-width:560px) { .rw-body { padding:0.9rem; } .rw-steps { gap:0.35rem 0.75rem; padding:0.7rem 0.8rem; } .rw-steps li { font-size:0.66rem; } }
   </style>
   <script type="application/ld+json">
   {
@@ -353,177 +423,216 @@
     </nav>
 
     <section class="hero">
-      <span class="eyebrow"><i class="fa-solid fa-satellite"></i> TES Software &middot; Now Booking Demos</span>
+      <span class="eyebrow"><i class="fa-solid fa-satellite"></i> TES Software &middot; Free to try</span>
       <h1>Instant Roof Estimates, <span class="grad">On Your Own Site</span></h1>
       <p>
-        <strong>ShingleAI</strong> is a roof-estimate tool that lives on <strong>your</strong> roofing website, under
-        <strong>your</strong> name. A homeowner types their address; the roof is measured straight from aerial survey
-        data &mdash; real area, real pitch, nothing to draw &mdash; and they see a price band built from
-        <strong>your</strong> rate card. The lead lands in your inbox with the measurement, your internal cost breakdown,
-        and a reply you can send from the truck. Your estimator, your brand, your lead.
+        A homeowner types their address. The roof is measured from aerial survey data &mdash; real area, real pitch,
+        nothing to draw &mdash; and they see a price band built from <strong>your</strong> rate card. The lead lands in
+        your inbox with the measurement already done.
+      </p>
+      <p class="hero-try">
+        <i class="fa-solid fa-circle-play"></i>
+        <span><strong>Try it on a real address, free, further down this page.</strong> No signup, no card, nothing to
+        install &mdash; the same estimator, running live.</span>
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#get-started">Book a 10-Minute Demo</a>
-        <a class="btn btn-secondary" href="#how">See How It Works</a>
+        <a class="btn btn-primary" href="#try">Try the Live Estimator</a>
+        <a class="btn btn-secondary" href="#get-started">Put It On My Site</a>
       </div>
-      <!-- <div class="stats">
-        <div class="stat"><b>0</b><span>roofs your customer has to draw</span></div>
-        <div class="stat"><b>11.8%</b><span>a 6/12 roof's surface over its footprint</span></div>
-        <div class="stat"><b>24/7</b><span>answers &ldquo;what will this cost?&rdquo; while you're on a roof</span></div>
-        <div class="stat"><b>100%</b><span>your brand, your rate card, your leads</span></div>
-      </div> -->
-    </section>
-
-    <section class="section" id="what">
-      <h2>Your estimator, on <span class="gold">your site</span> &mdash; not a lead marketplace</h2>
-      <p class="lead-line">
-        The homeowner never leaves your website and never goes through a middleman. They get a real number in about a
-        minute, you get a lead that was never sold to anyone else, and the first call starts at <strong>&ldquo;when can
-        you come measure it&rdquo;</strong> instead of <strong>&ldquo;what do you charge.&rdquo;</strong>
-      </p>
-      <p>
-        Every estimate ends the same way: this is an estimate, not a quote, and the only way to know is to look. That is
-        deliberate. The tool exists to <strong>book the site visit</strong> &mdash; warm, with the roof already measured
-        &mdash; not to price a job off a photograph.
-      </p>
-      <div class="shots-2 even">
-        <figure class="shot">
-          <img src="assets/shingleai/measured-roof.jpg" alt="The ShingleAI estimator on the Trace step: a card reading 1,250 sq ft of roof, steep pitch measured at about 32 degrees, and 4 roof planes detected, above a satellite view with the roof outline drawn on the house." width="1200" height="1842" loading="lazy" decoding="async">
-          <figcaption><span class="tag">The measurement</span><b>Measured, not guessed.</b> Where aerial survey data covers the building, the roof comes back already pitch-corrected &mdash; area, measured pitch, and plane count &mdash; with the real outline traced onto the aerial. The homeowner draws nothing; they confirm it is their house.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/shingleai/estimate-and-lead.jpg" alt="The ShingleAI estimator on the Estimate step: an estimated range of 9,000 to 12,500 dollars with the material and square-footage math beneath it, a plain-English accuracy notice, and a short contact form to send the estimate and book a technician." width="1200" height="2186" loading="lazy" decoding="async">
-          <figcaption><span class="tag">The hand-off</span><b>A number, an honest caveat, and a booked look.</b> The band, the math behind it, an accuracy notice in plain English, and one short form &mdash; which is where your lead comes from. <em>Figures shown come from the demo instance's placeholder rates, not a live price list.</em></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" id="capabilities">
-      <h2>What it does</h2>
-      <div class="grid">
-        <article class="card">
-          <h3><i class="fa-solid fa-satellite-dish"></i> Measured from survey data</h3>
-          <p>Where coverage exists, the roof's <strong>pitch-corrected area</strong> and its <strong>real pitch</strong> come straight from aerial survey data, plane by plane. No drawing, no guessing, and no &ldquo;about how steep is it?&rdquo; from someone who has never been on a ladder.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-draw-polygon"></i> The real roof outline</h3>
-          <p>The outline is traced from the imagery itself and drawn on the aerial, so it looks like the house. If it cannot be traced cleanly, <strong>no outline is drawn at all</strong> &mdash; a wrong picture on the one screen that says &ldquo;that's my house&rdquo; is worse than none.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-ruler-combined"></i> Pitch correction built in</h3>
-          <p>An aerial shows a footprint, not a roof. A <strong>6/12 roof is 11.8% bigger</strong> than its footprint; a <strong>12/12 is 41.4% bigger</strong>. Every estimate applies that correction, then squares, waste, tear-off per layer, and adders for steep pitch, height, and layers.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-lock"></i> Your rate card stays private</h3>
-          <p>The page sends geometry to the server; the server sends back dollars. Your rates <strong>never reach the browser</strong>, so no competitor reads your margins out of view-source &mdash; and the estimator only runs on domains you own.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-envelope-open-text"></i> A lead email you can act on</h3>
-          <p>Not just a name. You get the contact, the measurement, a <strong>breakdown of your own cost</strong> on that roof, the aerial with the outline, a measured-or-traced badge, and a suggested reply with a one-tap button to send it.</p>
-        </article>
-        <article class="card">
-          <h3><i class="fa-solid fa-palette"></i> Whitelabeled to you</h3>
-          <p>Your logo, your colors, your phone number, your inbox, your materials, your rates. Homeowners see <strong>your company</strong> the whole way through &mdash; the software never asks for the spotlight.</p>
-        </article>
-      </div>
-      <figure class="shot shot-narrow">
-        <img src="assets/shingleai/address-step.jpg" alt="The first step of the ShingleAI estimator: a branded header with the contractor's name, tagline and phone number, a four-step progress bar, and an address box headed Where's the roof?" width="1200" height="849" loading="lazy" decoding="async">
-        <figcaption><span class="tag">The front door</span><b>One box, on your page.</b> Your name, your tagline, your phone number, and a four-step bar so nobody wonders how long this is going to take.</figcaption>
-      </figure>
     </section>
 
     <section class="section" id="how">
       <h2>How it works</h2>
       <p>Four steps. The homeowner is done in about a minute; you are done when you pick up the phone.</p>
       <div class="process">
-        <div class="process-step"><strong>They type an address</strong><p>On your site, in your branding. Suggestions come from Google Places, and an address typed straight through without picking a suggestion still resolves.</p></div>
-        <div class="process-step"><strong>The roof gets measured</strong><p>Survey data returns the pitch-corrected area, the measured pitch, and the plane count, and the outline is drawn on the aerial. No coverage? They trace it by hand instead.</p></div>
-        <div class="process-step"><strong>Three questions</strong><p>Material, stories, and how many layers are up there &mdash; the things no aerial can answer. Pitch is already filled in whenever it was measured.</p></div>
-        <div class="process-step"><strong>Band, then booking</strong><p>They see a price range and the accuracy notice, then leave their details to book a technician. The lead is in your inbox before they close the tab.</p></div>
+        <div class="process-step"><strong>They type an address</strong><p>On your site, in your branding.</p></div>
+        <div class="process-step"><strong>The roof gets measured</strong><p>Survey data returns pitch-corrected area, the measured pitch, and the plane count.</p></div>
+        <div class="process-step"><strong>Three questions</strong><p>Material, stories, and layers &mdash; the things no aerial can answer.</p></div>
+        <div class="process-step"><strong>Band, then booking</strong><p>A price range, an honest caveat, and their details in your inbox.</p></div>
       </div>
-      <figure class="shot shot-narrow">
-        <img src="assets/shingleai/details-step.jpg" alt="The Details step of the ShingleAI estimator: the measured pitch shown as steep at about 32 degrees, a list of material choices with plain-English descriptions, and dropdowns for stories and layers to tear off." width="1200" height="1560" loading="lazy" decoding="async">
-        <figcaption><span class="tag">The three questions</span><b>Only what the photo can't tell you.</b> Material, stories, and existing layers &mdash; in plain English, with the measured pitch already filled in so there is nothing for the homeowner to guess.</figcaption>
-      </figure>
-      <div class="notice">
-        <b>Why it says &ldquo;estimate, not a quote&rdquo; right under the number.</b> Unusual shapes, dormers, and multi-level sections do not always resolve cleanly; trees, shadows, and snow hide roof; the imagery may be a year or two old; and nothing overhead shows the decking, the flashing, the ventilation, or how many layers are already up there. The widget says all of that in plain language, directly beneath the price, and adapts it to whether the roof was measured or hand-traced. A homeowner told the truth up front is not surprised by the real number &mdash; and <strong>that is the difference between a signed job and a canceled appointment.</strong>
-      </div>
-    </section>
 
-    <section class="section" id="value">
-      <h2>Versus <span class="gold">buying shared leads</span></h2>
-      <p>
-        A lead marketplace sells you a stranger who filled in a form somewhere else, at the same moment it sells that
-        stranger to three of your competitors. Your own estimator produces a different animal: someone who came to
-        <strong>your</strong> site, saw <strong>your</strong> number, and asked <strong>you</strong> to come look.
-      </p>
-      <div class="ptable-wrap">
-        <table class="ptable">
-          <thead><tr><th></th><th>Shared lead marketplace</th><th class="hl">Your own estimator</th></tr></thead>
-          <tbody>
-            <tr><td class="rowlab">Cost per lead</td><td>A fee every time, forever</td><td class="hl">No per-lead fee &mdash; it is your own traffic</td></tr>
-            <tr><td class="rowlab">Exclusivity</td><td>Sold to several contractors at once</td><td class="hl">Yours alone</td></tr>
-            <tr><td class="rowlab">Whose brand they saw</td><td>The marketplace's</td><td class="hl">Yours, start to finish</td></tr>
-            <tr><td class="rowlab">What you know before you drive</td><td>A name and &ldquo;needs a roof&rdquo;</td><td class="hl">Measured area, pitch, planes, material, stories, layers</td></tr>
-            <tr><td class="rowlab">The first phone call</td><td>&ldquo;What do you charge?&rdquo;</td><td class="hl">&ldquo;When can you come measure it?&rdquo;</td></tr>
-            <tr><td class="rowlab">After hours</td><td>You are one of four callbacks tomorrow</td><td class="hl">They already have a number and a time slot picked</td></tr>
-          </tbody>
-        </table>
+      <div class="shots-2 even">
+        <figure class="shot">
+          <img src="assets/shingleai/address-step.jpg" alt="The first step of the ShingleAI estimator: a branded header with the contractor's name, tagline and phone number, a four-step progress bar, and an address box headed Where's the roof?" width="1200" height="849" loading="lazy" decoding="async">
+          <figcaption><span class="tag">Step 1</span><b>Your name on the front door.</b> Your logo, colors, and phone number &mdash; the software never asks for the spotlight.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/shingleai/measured-roof.jpg" alt="The ShingleAI estimator on the Trace step: a card reading 1,250 sq ft of roof, steep pitch measured at about 32 degrees, and 4 roof planes detected, above a satellite view with the roof outline drawn on the house." width="1200" height="1842" loading="lazy" decoding="async">
+          <figcaption><span class="tag">Step 2</span><b>Measured, not guessed.</b> Area, pitch, and plane count from the survey, with the outline drawn on the aerial. They confirm it is their house.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/shingleai/details-step.jpg" alt="The Details step of the ShingleAI estimator: the measured pitch shown as steep at about 32 degrees, a list of material choices with plain-English descriptions, and dropdowns for stories and layers to tear off." width="1200" height="1560" loading="lazy" decoding="async">
+          <figcaption><span class="tag">Step 3</span><b>Only what the photo can't tell you.</b> Material, stories, and existing layers, with the measured pitch already filled in.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/shingleai/estimate-and-lead.jpg" alt="The ShingleAI estimator on the Estimate step: an estimated range of 9,000 to 12,500 dollars with the material and square-footage math beneath it, a plain-English accuracy notice, and a short contact form to send the estimate and book a technician." width="1200" height="2186" loading="lazy" decoding="async">
+          <figcaption><span class="tag">Step 4</span><b>A number, a caveat, a booked look.</b> The band, the math behind it, and one short form &mdash; which is where your lead comes from.</figcaption>
+        </figure>
       </div>
-      <p class="mini-note">The estimator does not replace canvassing, referrals, or storm work &mdash; it catches the homeowner who is already on your website at 10pm wondering what a roof runs, and who would otherwise close the tab.</p>
-    </section>
 
-    <section class="section" id="pricing">
-      <h2>Setup &amp; <span class="gold">pricing</span></h2>
-      <p class="lead-line">
-        This is not a self-serve signup. We put the estimator on your site, tuned to your numbers, and set the Google
-        Cloud side up in your name so the running costs stay yours and stay capped.
-      </p>
-      <h3 class="sub-h3">What a setup includes</h3>
-      <ul class="incl">
-        <li>Whitelabel config &mdash; your logo, colors, phone, and lead inbox</li>
-        <li>Your rate card loaded and checked against your real numbers</li>
-        <li>Your material list, waste factor, minimum job, and adders</li>
-        <li>A Google Cloud project and API keys created in your name</li>
-        <li>Key restrictions and a spending cap set before it goes live</li>
-        <li>Installed on your existing website, not handed to you as a snippet</li>
-        <li>Domain lock so nobody else can embed your estimator</li>
-        <li>Hosting, updates, and provider-change fixes handled by TES</li>
-      </ul>
-      <h3 class="sub-h3">How it is priced</h3>
-      <p>
-        Quoted per contractor, because two things genuinely differ from shop to shop:
-      </p>
       <div class="grid">
         <article class="card">
-          <h3><i class="fa-solid fa-sliders"></i> How complex your setup is</h3>
-          <p>A single-crew shop with one shingle line and one market is a short job. Several material lines, tiered pricing, multiple markets, or custom rules take longer to build and verify.</p>
+          <h3><i class="fa-solid fa-ruler-combined"></i> Pitch correction built in</h3>
+          <p>An aerial shows a footprint, not a roof. A <strong>6/12 roof is 11.8% bigger</strong> than its footprint; a <strong>12/12 is 41.4% bigger</strong>. Every estimate applies that, then waste, tear-off per layer, and adders for pitch and height.</p>
         </article>
         <article class="card">
-          <h3><i class="fa-solid fa-server"></i> Where your website lives</h3>
-          <p>Some hosts make an embed a ten-minute job. Others need workarounds, plugin access, or a hand from whoever built the site. We look at yours before quoting, so the number does not move later.</p>
+          <h3><i class="fa-solid fa-lock"></i> Your rate card stays private</h3>
+          <p>The page sends geometry to the server; the server sends back dollars. Your rates <strong>never reach the browser</strong>, and the estimator only runs on domains you own.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-envelope-open-text"></i> A lead you can act on</h3>
+          <p>Not just a name. The contact, the measurement, <strong>your own cost breakdown</strong> on that roof, the aerial, and a suggested reply you can send from the truck.</p>
+        </article>
+        <article class="card">
+          <h3><i class="fa-solid fa-user-shield"></i> The lead is yours alone</h3>
+          <p>It came from your website, not a marketplace. Nobody else is called about it, and the first conversation starts at <strong>&ldquo;when can you come measure it&rdquo;</strong> instead of <strong>&ldquo;what do you charge.&rdquo;</strong></p>
         </article>
       </div>
-      <div class="notice">
-        <b>Google usage is billed to you, at cost.</b> The address lookups and roof measurements run through Google Maps and Solar on <strong>your own Google Cloud account</strong>, on keys we create in your name and restrict properly. There is a recurring monthly free allowance that covers ordinary traffic, you hold the spending cap, and TES never marks it up.
-      </div>
-      <p class="mini-note">Want the short version? <a href="#get-started" class="gold-link">Send us your website</a> and we will come back with a fixed number and what it would take to go live. No obligation, and we will tell you honestly if your traffic does not justify it yet.</p>
     </section>
 
-    <section class="section" id="lead-email">
-      <h2>What lands in your inbox</h2>
-      <p>Every completed estimate emails you a single lead with everything already gathered:</p>
-      <div class="fields">
-        <code>name</code><code>phone</code><code>email</code><code>property address</code><code>measured or traced</code><code>roof area (sq ft)</code><code>measured pitch</code><code>roof planes</code><code>squares with waste</code><code>material chosen</code><code>stories</code><code>tear-off layers</code><code>price band shown</code><code>your internal cost breakdown</code><code>aerial with the outline</code><code>preferred visit window</code><code>homeowner's notes</code><code>suggested reply</code>
+    <!-- ===== LIVE DEMO ===== -->
+    <section class="section demo-sec" id="try">
+      <h2>Try it &mdash; <span class="gold">on a real address</span></h2>
+      <p class="lead-line">
+        This is the estimator running live, not a video. Type any US address and it will measure that roof from aerial
+        survey data and price it. Free, no signup, and nothing is sent to us unless you ask us to.
+      </p>
+
+      <div class="rw" id="roofWidget">
+        <ol class="rw-steps" id="rwSteps">
+          <li class="on" data-step="1"><b>1</b> Address</li>
+          <li data-step="2"><b>2</b> Roof</li>
+          <li data-step="3"><b>3</b> Details</li>
+          <li data-step="4"><b>4</b> Estimate</li>
+        </ol>
+
+        <div class="rw-body">
+
+          <!-- step 1 -->
+          <div class="rw-pane" id="rwPane1">
+            <h3>Where&rsquo;s the roof?</h3>
+            <p class="rw-lede">Start typing and pick a suggestion. Anywhere in the US &mdash; try your own house.</p>
+            <div class="rw-field" id="rwAddrField">
+              <span class="rw-lbl" id="rwAcLabel" hidden>Property address</span>
+              <div id="rwAcMount"></div>
+              <div id="rwPlain">
+                <label for="rwAddr">Property address</label>
+                <input id="rwAddr" class="rw-input" type="text" autocomplete="off" placeholder="1600 Pennsylvania Ave NW, Washington, DC">
+              </div>
+            </div>
+            <div class="rw-actions">
+              <button type="button" class="rw-btn" id="rwGo">Measure this roof</button>
+            </div>
+            <p class="rw-err" id="rwErr1" hidden></p>
+            <p class="rw-fine">Uses Google&rsquo;s aerial survey data. Coverage is good across most US metros and thinner in rural areas &mdash; if a building isn&rsquo;t covered you can enter an approximate size instead.</p>
+          </div>
+
+          <!-- step 2 -->
+          <div class="rw-pane" id="rwPane2" hidden>
+            <h3 id="rwRoofHead">Is this the right roof?</h3>
+            <p class="rw-lede" id="rwAddrEcho"></p>
+            <div class="rw-map" id="rwMap"></div>
+            <p class="rw-legend" id="rwLegend" hidden><span class="rw-swatch"></span> Roof planes detected from survey data. <span class="rw-fine-inline">The production widget traces the real outline; this demo draws the detected planes.</span></p>
+
+            <div class="rw-stats" id="rwStats"></div>
+            <p class="rw-note" id="rwExcluded" hidden></p>
+
+            <div class="rw-manual" id="rwManual" hidden>
+              <p class="rw-lede">Google has no survey coverage for this building, so there is nothing to measure. In the real widget the homeowner traces the roof by hand at this point. For the demo, give it a rough size instead:</p>
+              <div class="rw-qs">
+                <div class="rw-field">
+                  <label for="rwManualArea">Approximate roof area (sq ft)</label>
+                  <input id="rwManualArea" class="rw-input" type="number" min="200" max="20000" step="50" value="1800">
+                </div>
+                <div class="rw-field">
+                  <label for="rwManualPitch">Roughly how steep is it?</label>
+                  <select id="rwManualPitch" class="rw-input">
+                    <option value="14">Low &mdash; about 3/12</option>
+                    <option value="26.6" selected>Moderate &mdash; about 6/12</option>
+                    <option value="33.7">Steep &mdash; about 8/12</option>
+                    <option value="45">Very steep &mdash; about 12/12</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="rw-actions">
+              <button type="button" class="rw-btn" id="rwConfirm">Yes, that&rsquo;s it</button>
+              <button type="button" class="rw-btn ghost" id="rwBack2">Different address</button>
+            </div>
+            <p class="rw-err" id="rwErr2" hidden></p>
+          </div>
+
+          <!-- step 3 -->
+          <div class="rw-pane" id="rwPane3" hidden>
+            <h3>Three things the photo can&rsquo;t tell us</h3>
+            <p class="rw-lede" id="rwPitchEcho"></p>
+            <fieldset class="rw-fs">
+              <legend>What material?</legend>
+              <div class="rw-mats" id="rwMats"></div>
+            </fieldset>
+            <div class="rw-qs">
+              <div class="rw-field">
+                <label for="rwStories">How many stories?</label>
+                <select id="rwStories" class="rw-input">
+                  <option value="1">1 story</option>
+                  <option value="2" selected>2 stories</option>
+                  <option value="3">3 or more</option>
+                </select>
+              </div>
+              <div class="rw-field">
+                <label for="rwLayers">Layers to tear off</label>
+                <select id="rwLayers" class="rw-input">
+                  <option value="0">None &mdash; new deck or overlay</option>
+                  <option value="1" selected>1 layer</option>
+                  <option value="2">2 layers</option>
+                  <option value="3">3 layers</option>
+                </select>
+              </div>
+            </div>
+            <div class="rw-actions">
+              <button type="button" class="rw-btn" id="rwPrice">See the estimate</button>
+              <button type="button" class="rw-btn ghost" id="rwBack3">Back</button>
+            </div>
+            <p class="rw-err" id="rwErr3" hidden></p>
+          </div>
+
+          <!-- step 4 -->
+          <div class="rw-pane" id="rwPane4" hidden>
+            <h3>Estimated range</h3>
+            <div class="rw-band"><b id="rwBand"></b><span id="rwBandSub"></span></div>
+            <ul class="rw-lines" id="rwLines"></ul>
+            <div class="notice" id="rwAccuracy"></div>
+            <div class="rw-handoff">
+              <b>This is where your lead comes from.</b>
+              <p>In your version, the homeowner leaves their name, phone, and a preferred visit window right here &mdash; and the whole thing, measurement and cost breakdown included, is in your inbox before they close the tab. This demo stops at the number instead.</p>
+              <a class="btn btn-primary" href="#get-started">Put This On My Site</a>
+            </div>
+            <div class="rw-actions">
+              <button type="button" class="rw-btn ghost" id="rwRestart">Try another address</button>
+            </div>
+          </div>
+
+          <!-- shared states -->
+          <div class="rw-busy" id="rwBusy" hidden><span class="rw-spin" aria-hidden="true"></span> <span id="rwBusyText">Measuring the roof&hellip;</span></div>
+          <div class="rw-down" id="rwDown" hidden>
+            <b>The live demo isn&rsquo;t answering right now.</b>
+            <p>That is on us, not on you. The screenshots above show exactly what it does &mdash; or <a href="#get-started" class="gold-link">ask for a 10-minute demo</a> and we will run one on a roof in your market.</p>
+          </div>
+        </div>
       </div>
-      <p class="mini-note">The suggested reply opens in your mail app already drafted, so answering a 10pm lead from your phone takes about as long as reading it. Leads are written to disk before anything else runs &mdash; a dead mail server or a slow API never loses one.</p>
+
+      <p class="mini-note">
+        <strong>About the numbers:</strong> this demo runs on a placeholder rate card, not TES pricing and not any
+        contractor&rsquo;s pricing. On a real install it runs on <em>yours</em>. The measurement is real either way.
+      </p>
     </section>
 
     <section class="svc-faq faq" aria-label="Frequently asked questions">
       <h2 class="faq-h2">Frequently Asked Questions</h2>
       <details>
         <summary>Does the homeowner have to draw their own roof?</summary>
-        <div class="faq-a">Usually not. When aerial survey data covers the building, the roof is measured for them &mdash; pitch-corrected area, the measured pitch, and the number of roof planes &mdash; and the outline is drawn on the satellite view so they only have to confirm it is the right house. Hand-tracing is the fallback for buildings the survey does not cover, or for anyone who says it is not their house.</div>
+        <div class="faq-a">Usually not. Where aerial survey data covers the building, the roof is measured for them &mdash; pitch-corrected area, the measured pitch, and the number of roof planes &mdash; and the outline is drawn on the satellite view so they only confirm it is the right house. Hand-tracing is the fallback for buildings the survey does not cover.</div>
       </details>
       <details>
         <summary>How accurate is the estimate?</summary>
@@ -531,7 +640,7 @@
       </details>
       <details>
         <summary>Will it work on my existing website?</summary>
-        <div class="faq-a">In most cases, yes. The estimator is delivered as a responsive iframe plus a small sizing script, which works on WordPress, Squarespace, Wix, and custom sites. TES handles the install on your site rather than leaving you a code snippet to figure out.</div>
+        <div class="faq-a">In most cases, yes. The estimator is delivered as a responsive iframe plus a small sizing script, which works on WordPress, Squarespace, Wix, and custom sites. TES handles the install rather than leaving you a code snippet to figure out.</div>
       </details>
       <details>
         <summary>Who owns the leads?</summary>
@@ -542,23 +651,27 @@
         <div class="faq-a">No. Your rate card never reaches the browser. The page sends the roof geometry to the server and the server sends back dollars, so there is nothing to read in view-source. Your estimator is also locked to your own domains, so nobody can embed it on another site and collect your leads.</div>
       </details>
       <details>
-        <summary>What does it cost?</summary>
-        <div class="faq-a">It is quoted per contractor. Two things drive the number: how complex your rate card and configuration are, and where your website is hosted &mdash; some hosts make the install a short job and others take more work. Google Maps and Solar API usage is billed to your own Google Cloud account at cost, on keys set up in your name with restrictions and a spending cap you control.</div>
+        <summary>What does it cost, and who pays Google?</summary>
+        <div class="faq-a">Setup is quoted per contractor &mdash; the two things that move the number are how complex your rate card is and where your website is hosted. Google Maps and Solar usage runs on your own Google Cloud account at cost, on keys we create in your name with restrictions and a spending cap you control. TES never marks it up.</div>
       </details>
       <details>
         <summary>What happens if a roof is not covered by the survey data?</summary>
-        <div class="faq-a">The estimator falls back to a hand trace: the homeowner outlines the roof on the aerial and picks a pitch, and the footprint is corrected to a surface area from there. Every lead is labeled measured or traced &mdash; in the app, in the lead record, and in your email &mdash; so you always know whether you are looking at survey data or a homeowner's best guess before you drive out.</div>
+        <div class="faq-a">The estimator falls back to a hand trace: the homeowner outlines the roof on the aerial and picks a pitch, and the footprint is corrected to a surface area from there. Every lead is labeled measured or traced &mdash; in the app, in the lead record, and in your email &mdash; so you always know which you are looking at before you drive out.</div>
       </details>
     </section>
 
     <section class="cta-band" id="get-started">
-      <h2>Book a 10-minute demo</h2>
-      <p>Send us your website and we will run a live estimate on a roof in your market, show you the lead email it produces, and come back with a fixed number to put it on your site. Straight to the engineer, one-business-day reply.</p>
-      <div class="req-success" id="reqSuccess" style="display:none;">
-        <strong>Thanks &mdash; your request is in.</strong> We'll reply within one business day to set up your demo. For anything urgent, call <a href="tel:+12163028486" class="success-tel">(216)&nbsp;302&#8209;8486</a>.
+      <h2>Put it on your site</h2>
+      <p>
+        You just used it. Now we tune it to your rate card, brand it as yours, set the Google Cloud side up in your name
+        with a spending cap you control, and install it on your existing website. Send us your site and we will come back
+        with a fixed number. Straight to the engineer, one-business-day reply.
+      </p>
+      <div class="req-success" id="reqSuccess" hidden>
+        <strong>Thanks &mdash; your request is in.</strong> We&rsquo;ll reply within one business day to set up your demo. For anything urgent, call <a href="tel:+12163028486" class="success-tel">(216)&nbsp;302&#8209;8486</a>.
       </div>
       <form id="reqForm" class="req-form" action="https://formspree.io/f/maqvanal" method="POST">
-        <input type="hidden" name="_subject" value="ShingleAI Roof Estimator — Demo / Quote Request">
+        <input type="hidden" name="_subject" value="ShingleAI Roof Estimator &mdash; Demo / Quote Request">
         <input type="hidden" name="_next" value="https://tevisengineering.com/shingleai-roof-estimate-tool.html?requested=1">
         <input type="hidden" name="product" value="ShingleAI Roof Estimator">
         <input type="text" name="_honeypot" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -583,7 +696,7 @@
           <input id="reqSite" type="text" name="website" placeholder="yourroofingcompany.com" autocomplete="url">
         </div>
         <div class="full">
-          <label for="reqStart">How you'd like to start</label>
+          <label for="reqStart">How you&rsquo;d like to start</label>
           <select id="reqStart" name="start">
             <option value="Live 10-minute demo">Live 10-minute demo</option>
             <option value="Put it on my site">Put it on my site</option>
@@ -695,12 +808,395 @@
         window.open('https://buttondown.com/tevisengineering', 'popupwindow', 'scrollbars=yes,width=800,height=600');
       });
     }
+
+    // ---------------- live roof estimator demo ----------------
+    //
+    // Geometry comes from the TES portal Worker (/portal-api/public/roof/*), not from
+    // this page. Two reasons, and both are load-bearing rather than tidy: the rate card
+    // must not ship to a browser on a page whose selling point is that it does not, and
+    // the Google Solar key must not either. Maps JS runs here because a map and an
+    // address box can only run here; it uses the referrer-restricted browser key.
+    (function () {
+      var API = '/portal-api/public/roof';
+      var MAPS_KEY = 'AIzaSyAjU65fxH_TQ8RO2Ajd-KnZRCZOkWXHgJE';
+      var root = document.getElementById('roofWidget');
+      if (!root) return;
+
+      var el = function (id) { return document.getElementById(id); };
+      var panes = [null, el('rwPane1'), el('rwPane2'), el('rwPane3'), el('rwPane4')];
+      var steps = el('rwSteps').querySelectorAll('li');
+      var busy = el('rwBusy'), busyText = el('rwBusyText'), down = el('rwDown');
+
+      var state = { lat: null, lng: null, address: '', roof: null, material: null };
+      var map = null, shapes = [], marker = null, mapsReady = null;
+
+      function show(n) {
+        for (var i = 1; i <= 4; i++) panes[i].hidden = (i !== n);
+        busy.hidden = true;
+        Array.prototype.forEach.call(steps, function (li) {
+          var s = Number(li.getAttribute('data-step'));
+          li.classList.toggle('on', s === n);
+          li.classList.toggle('done', s < n);
+        });
+      }
+      function working(on, text) {
+        if (text) busyText.textContent = text;
+        busy.hidden = !on;
+        // The spinner replaces the pane rather than sitting under it. Every caller
+        // that turns it off follows with show(n) or the down state, so nothing is
+        // left blank.
+        if (on) for (var i = 1; i <= 4; i++) panes[i].hidden = true;
+      }
+      // Replaces the whole widget rather than sitting under it: a live address box
+      // above a "we are not answering" notice invites a second click that also fails.
+      function widgetDown() {
+        for (var i = 1; i <= 4; i++) panes[i].hidden = true;
+        busy.hidden = true;
+        down.hidden = false;
+      }
+      function fail(node, msg) { node.textContent = msg; node.hidden = false; }
+      function clearFail(node) { node.hidden = true; }
+      function money(n) { return '$' + Number(n).toLocaleString('en-US'); }
+
+      function post(path, payload) {
+        var ctl = new AbortController();
+        var timer = setTimeout(function () { ctl.abort(); }, 15000);
+        return fetch(API + path, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: ctl.signal
+        }).then(function (r) {
+          clearTimeout(timer);
+          return r.json().then(function (j) { return { status: r.status, data: j }; });
+        });
+      }
+
+      // ---- Google Maps JS, loaded once and only when someone actually tries it ----
+      function loadMaps() {
+        if (mapsReady) return mapsReady;
+        mapsReady = new Promise(function (resolve, reject) {
+          if (window.google && window.google.maps) return resolve();
+          window.tesRoofMapsReady = function () { resolve(); };
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(MAPS_KEY) +
+            '&loading=async&libraries=places,maps,geocoding&callback=tesRoofMapsReady';
+          s.onerror = function () { reject(new Error('maps_failed')); };
+          document.head.appendChild(s);
+          setTimeout(function () { reject(new Error('maps_timeout')); }, 12000);
+        });
+        return mapsReady;
+      }
+
+      // Address suggestions are a nicety, not the mechanism: if the element is not
+      // available the plain input plus a geocode still resolves the address, so the
+      // demo never dies because Google renamed a widget.
+      function mountAutocomplete() {
+        var mount = el('rwAcMount');
+        if (!mount || mount.firstChild) return;
+        try {
+          var P = google.maps.places;
+          if (!P || !P.PlaceAutocompleteElement) return;
+          var ac = new P.PlaceAutocompleteElement({ includedRegionCodes: ['us'] });
+          ac.id = 'rwAcEl';
+          mount.appendChild(ac);
+          var onPick = function (ev) {
+            var pred = ev && (ev.placePrediction || (ev.detail && ev.detail.placePrediction));
+            var place = pred ? pred.toPlace() : (ev.place || (ev.detail && ev.detail.place));
+            if (!place) return;
+            Promise.resolve(place.fetchFields({ fields: ['location', 'formattedAddress'] }))
+              .then(function () {
+                var loc = place.location;
+                if (!loc) return;
+                state.lat = typeof loc.lat === 'function' ? loc.lat() : loc.lat;
+                state.lng = typeof loc.lng === 'function' ? loc.lng() : loc.lng;
+                state.address = place.formattedAddress || '';
+                el('rwAddr').value = state.address;
+                measure();
+              })
+              .catch(function () { /* fall through to the geocode path */ });
+          };
+          ac.addEventListener('gmp-select', onPick);
+          ac.addEventListener('gmp-placeselect', onPick);
+          ac.setAttribute('aria-label', 'Property address');
+          el('rwAcLabel').hidden = false;
+          el('rwAddrField').classList.add('has-ac');
+        } catch (e) { /* plain input remains */ }
+      }
+
+      function geocode(text) {
+        return new Promise(function (resolve, reject) {
+          try {
+            new google.maps.Geocoder().geocode({ address: text, region: 'us' }, function (res, status) {
+              if (status === 'OK' && res && res[0]) {
+                resolve({
+                  lat: res[0].geometry.location.lat(),
+                  lng: res[0].geometry.location.lng(),
+                  address: res[0].formatted_address
+                });
+              } else { reject(new Error(status || 'geocode_failed')); }
+            });
+          } catch (e) { reject(e); }
+        });
+      }
+
+      // ---- step 1 -> 2 ----
+      function typedAddress() {
+        var acEl = document.getElementById('rwAcEl');
+        var v = acEl && acEl.value ? acEl.value : '';
+        return (v || el('rwAddr').value || '').trim();
+      }
+
+      el('rwGo').addEventListener('click', function () {
+        clearFail(el('rwErr1'));
+        var text = typedAddress();
+        if (state.lat !== null && state.address && text === state.address) return measure();
+        if (text.length < 6) return fail(el('rwErr1'), 'Type a street address first, then pick it from the list.');
+        working(true, 'Finding that address\u2026');
+        loadMaps()
+          .then(function () { return geocode(text); })
+          .then(function (hit) {
+            state.lat = hit.lat; state.lng = hit.lng; state.address = hit.address;
+            el('rwAddr').value = hit.address;
+            measure();
+          })
+          .catch(function () {
+            working(false);
+            show(1);
+            fail(el('rwErr1'), 'Could not find that address. Start typing and pick one of the suggestions.');
+          });
+      });
+
+      el('rwAddr').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); el('rwGo').click(); }
+      });
+
+      function measure() {
+        clearFail(el('rwErr1'));
+        working(true, 'Measuring the roof\u2026');
+        post('/measure', { lat: state.lat, lng: state.lng })
+          .then(function (res) {
+            if (res.status === 429) {
+              working(false); show(1);
+              return fail(el('rwErr1'), 'You have run the free demo a few times now \u2014 it costs us a Google call each time. Try again in an hour, or ask for a live demo below.');
+            }
+            if (!res.data || res.data.ok !== true) throw new Error('measure_failed');
+            state.roof = res.data;
+            renderRoof();
+          })
+          .catch(function () { widgetDown(); });
+      }
+
+      function renderRoof() {
+        var roof = state.roof;
+        show(2);
+        el('rwAddrEcho').textContent = state.address;
+        el('rwRoofHead').textContent = roof.measured ? 'Is this the right roof?' : 'No survey coverage here';
+        el('rwLegend').hidden = !roof.measured || !roof.segments.length;
+        el('rwManual').hidden = !!roof.measured;
+        el('rwExcluded').hidden = true;
+
+        var stats = el('rwStats');
+        stats.textContent = '';
+        if (roof.measured) {
+          addStat(stats, Number(roof.areaSqFt).toLocaleString('en-US'), 'sq ft of roof');
+          addStat(stats, roof.pitchLabel.text, roof.pitchLabel.band + ' pitch');
+          addStat(stats, String(roof.planes), roof.planes === 1 ? 'roof plane' : 'roof planes');
+          if (roof.imageryDate && roof.imageryDate.year) {
+            addStat(stats, String(roof.imageryDate.year), 'imagery from');
+          }
+          if (roof.excludedSqFt > 0) {
+            el('rwExcluded').hidden = false;
+            el('rwExcluded').textContent = 'Excluded about ' +
+              Number(roof.excludedSqFt).toLocaleString('en-US') +
+              ' sq ft of flat area \u2014 usually a deck, porch, or attached garage roof, which is not shingle work.';
+          }
+        }
+        drawMap();
+      }
+
+      function addStat(parent, value, label) {
+        var d = document.createElement('div');
+        d.className = 'rw-stat';
+        var b = document.createElement('b'); b.textContent = value;
+        var s = document.createElement('span'); s.textContent = label;
+        d.appendChild(b); d.appendChild(s);
+        parent.appendChild(d);
+      }
+
+      function drawMap() {
+        loadMaps().then(function () {
+          var roof = state.roof;
+          var center = { lat: state.lat, lng: state.lng };
+          if (roof.center && roof.center.latitude) {
+            center = { lat: roof.center.latitude, lng: roof.center.longitude };
+          }
+          if (!map) {
+            map = new google.maps.Map(el('rwMap'), {
+              center: center, zoom: 20, mapTypeId: 'satellite', tilt: 0,
+              disableDefaultUI: true, zoomControl: true, gestureHandling: 'cooperative'
+            });
+          } else {
+            map.setCenter(center); map.setZoom(20);
+          }
+          shapes.forEach(function (s) { s.setMap(null); });
+          shapes = [];
+          if (marker) { marker.setMap(null); marker = null; }
+
+          if (roof.measured && roof.segments.length) {
+            var bounds = new google.maps.LatLngBounds();
+            roof.segments.forEach(function (seg) {
+              var b = {
+                north: seg.ne.latitude, south: seg.sw.latitude,
+                east: seg.ne.longitude, west: seg.sw.longitude
+              };
+              shapes.push(new google.maps.Rectangle({
+                bounds: b, map: map,
+                strokeColor: '#c89830', strokeOpacity: 0.95, strokeWeight: 2,
+                fillColor: '#c89830', fillOpacity: 0.16, clickable: false
+              }));
+              bounds.extend({ lat: b.north, lng: b.east });
+              bounds.extend({ lat: b.south, lng: b.west });
+            });
+            map.fitBounds(bounds, 40);
+          } else {
+            marker = new google.maps.Marker({ position: center, map: map });
+          }
+        }).catch(function () { /* stats still render without the aerial */ });
+      }
+
+      el('rwBack2').addEventListener('click', function () { show(1); });
+
+      // ---- step 2 -> 3 ----
+      el('rwConfirm').addEventListener('click', function () {
+        var roof = state.roof;
+        clearFail(el('rwErr2'));
+        if (!roof.measured) {
+          var area = Number(el('rwManualArea').value);
+          if (!Number.isFinite(area) || area < 200 || area > 20000) {
+            // rwErr2, not rwErr1: this check runs on step 2, and an error written
+            // into the step-1 pane is an error nobody sees.
+            return fail(el('rwErr2'), 'Enter a roof area between 200 and 20,000 sq ft.');
+          }
+          roof.areaSqFt = Math.round(area);
+          roof.pitchDegrees = Number(el('rwManualPitch').value);
+        }
+        el('rwPitchEcho').textContent = roof.measured
+          ? 'Measured at ' + roof.pitchLabel.text + ' over ' +
+            Number(roof.areaSqFt).toLocaleString('en-US') + ' sq ft, so pitch is already answered.'
+          : 'Working from your ' + Number(roof.areaSqFt).toLocaleString('en-US') + ' sq ft estimate.';
+        show(3);
+      });
+
+      el('rwBack3').addEventListener('click', function () { show(2); });
+
+      // ---- materials, fetched so no price list is ever hardcoded here ----
+      fetch(API + '/options')
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.ok) throw new Error('options');
+          var box = el('rwMats');
+          j.materials.forEach(function (m, i) {
+            var lab = document.createElement('label');
+            lab.className = 'rw-mat' + (i === 1 ? ' sel' : '');
+            var input = document.createElement('input');
+            input.type = 'radio'; input.name = 'rwMaterial'; input.value = m.id;
+            if (i === 1) { input.checked = true; state.material = m.id; }
+            var txt = document.createElement('span');
+            var b = document.createElement('b'); b.textContent = m.label;
+            var s = document.createElement('span'); s.textContent = m.note;
+            txt.appendChild(b); txt.appendChild(s);
+            lab.appendChild(input); lab.appendChild(txt);
+            input.addEventListener('change', function () {
+              state.material = m.id;
+              box.querySelectorAll('.rw-mat').forEach(function (n) { n.classList.remove('sel'); });
+              lab.classList.add('sel');
+            });
+            box.appendChild(lab);
+          });
+        })
+        .catch(function () { widgetDown(); });
+
+      // ---- step 3 -> 4 ----
+      el('rwPrice').addEventListener('click', function () {
+        clearFail(el('rwErr3'));
+        if (!state.material) return fail(el('rwErr3'), 'Pick a material first.');
+        working(true, 'Pricing it\u2026');
+        post('/price', {
+          areaSqFt: state.roof.areaSqFt,
+          pitchDegrees: state.roof.pitchDegrees,
+          material: state.material,
+          stories: Number(el('rwStories').value),
+          layers: Number(el('rwLayers').value)
+        }).then(function (res) {
+          if (res.status === 429) {
+            working(false); show(3);
+            return fail(el('rwErr3'), 'Too many tries in a row. Give it a minute.');
+          }
+          if (!res.data || res.data.ok !== true) throw new Error('price_failed');
+          renderPrice(res.data);
+        }).catch(function () { widgetDown(); });
+      });
+
+      function renderPrice(p) {
+        show(4);
+        el('rwBand').textContent = money(p.low) + ' \u2013 ' + money(p.high);
+        el('rwBandSub').textContent = p.material + ' \u00b7 ' + p.squares + ' squares including ' +
+          p.wastePercent + '% waste \u00b7 ' + Number(p.areaSqFt).toLocaleString('en-US') +
+          ' sq ft at ' + p.pitchLabel.text;
+
+        var ul = el('rwLines');
+        ul.textContent = '';
+        p.lines.forEach(function (line) {
+          var li = document.createElement('li');
+          var a = document.createElement('span'); a.textContent = line.label;
+          var b = document.createElement('i'); b.textContent = money(line.amount);
+          li.appendChild(a); li.appendChild(b);
+          ul.appendChild(li);
+        });
+
+        var note = el('rwAccuracy');
+        note.textContent = '';
+        var b = document.createElement('b');
+        b.textContent = 'This is an estimate, not a quote.';
+        note.appendChild(b);
+        note.appendChild(document.createTextNode(' ' + (state.roof.measured
+          ? 'The area and pitch came from aerial survey data, which can be a year or two old and cannot see decking, flashing, ventilation, or how many layers are already up there.'
+          : 'This roof was not covered by survey data, so the size is the one you entered rather than a measurement.') +
+          ' The only way to know the real number is to look at it. On a live install, this is where the homeowner books that visit.'));
+      }
+
+      el('rwRestart').addEventListener('click', function () {
+        state.lat = null; state.lng = null; state.address = ''; state.roof = null;
+        el('rwAddr').value = '';
+        clearFail(el('rwErr2'));
+        var acEl = document.getElementById('rwAcEl');
+        if (acEl) { try { acEl.value = ''; } catch (e) { /* read-only on some builds */ } }
+        clearFail(el('rwErr1'));
+        show(1);
+      });
+
+      // Suggestions are worth loading eagerly once the visitor scrolls the demo into
+      // view -- the script is free, and only a lookup they actually type is billable.
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries, obs) {
+          if (!entries[0].isIntersecting) return;
+          obs.disconnect();
+          loadMaps().then(mountAutocomplete).catch(function () { /* plain input remains */ });
+        }, { rootMargin: '300px' });
+        io.observe(root);
+      } else {
+        loadMaps().then(mountAutocomplete).catch(function () {});
+      }
+    })();
+
     // Trial/quote request success state (Formspree _next redirect back with ?requested=1)
     (function() {
       if (window.location.search.indexOf('requested=1') !== -1) {
         var s = document.getElementById('reqSuccess'), f = document.getElementById('reqForm');
-        if (s) s.style.display = 'block';
-        if (f) f.style.display = 'none';
+        if (s) s.hidden = false;
+        if (f) f.hidden = true;
       }
     })();
   </script>
