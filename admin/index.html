@@ -1815,7 +1815,11 @@
     // Every field past the email is optional. The point is to have a client fully set
     // up -- org, agreement, license -- before they have ever signed in.
 
-    function field(parent, id, label, type, placeholder) {
+    // NOT named field(): there is already a field(label, value) above that renders a
+    // detail on a licence card, and a second declaration with the same name silently
+    // replaces it for the whole script -- which is exactly how the Product Keys tab
+    // stopped listing anything.
+    function formField(parent, id, label, type, placeholder) {
       var w = el('div');
       var l = el('label', null, label);
       l.setAttribute('for', id);
@@ -1832,15 +1836,15 @@
       box.textContent = '';
 
       var g1 = el('div', 'addgrid');
-      var fEmail = field(g1, 'addEmail', 'Email (required)', 'email', 'owner@theirfirm.com');
-      var fName = field(g1, 'addName', 'Name', 'text', 'Pat Nguyen');
-      var fCompany = field(g1, 'addCompany', 'Company', 'text', 'Their Firm LLC');
-      var fPhone = field(g1, 'addPhone', 'Phone', 'text', '216-555-0100');
+      var fEmail = formField(g1, 'addEmail', 'Email (required)', 'email', 'owner@theirfirm.com');
+      var fName = formField(g1, 'addName', 'Name', 'text', 'Pat Nguyen');
+      var fCompany = formField(g1, 'addCompany', 'Company', 'text', 'Their Firm LLC');
+      var fPhone = formField(g1, 'addPhone', 'Phone', 'text', '216-555-0100');
       box.appendChild(g1);
 
       box.appendChild(el('div', 'addsec', 'Organization'));
       var g2 = el('div', 'addgrid');
-      var fOrg = field(g2, 'addOrg', 'Existing organization', 'select');
+      var fOrg = formField(g2, 'addOrg', 'Existing organization', 'select');
       var noneOpt = document.createElement('option');
       noneOpt.value = ''; noneOpt.textContent = 'None (individual)';
       fOrg.appendChild(noneOpt);
@@ -1849,20 +1853,20 @@
         op.value = o.id; op.textContent = o.name;
         fOrg.appendChild(op);
       });
-      var fNewOrg = field(g2, 'addNewOrg', 'Or create one', 'text', 'Their Firm LLC');
+      var fNewOrg = formField(g2, 'addNewOrg', 'Or create one', 'text', 'Their Firm LLC');
       box.appendChild(g2);
 
       box.appendChild(el('div', 'addsec', 'Service agreement (optional)'));
       var g3 = el('div', 'addgrid');
-      var fHrs = field(g3, 'addHrs', 'Included hours / month', 'text', '10');
-      var fSla = field(g3, 'addSla', 'First response hours', 'text', '4');
-      var fRate = field(g3, 'addRate', 'Overage $/hr', 'text', 'blank = standard');
-      var fPlanName = field(g3, 'addPlanName', 'Plan name', 'text', 'Managed IT - Growth');
+      var fHrs = formField(g3, 'addHrs', 'Included hours / month', 'text', '10');
+      var fSla = formField(g3, 'addSla', 'First response hours', 'text', '4');
+      var fRate = formField(g3, 'addRate', 'Overage $/hr', 'text', 'blank = standard');
+      var fPlanName = formField(g3, 'addPlanName', 'Plan name', 'text', 'Managed IT - Growth');
       box.appendChild(g3);
 
       box.appendChild(el('div', 'addsec', 'license key (optional)'));
       var g4 = el('div', 'addgrid');
-      var fLic = field(g4, 'addLic', 'Ohio Crash plan', 'select');
+      var fLic = formField(g4, 'addLic', 'Ohio Crash plan', 'select');
       ['', 'trial', 'starter', 'pro', 'enterprise', 'owned'].forEach(function (v) {
         var op = document.createElement('option');
         op.value = v; op.textContent = v === '' ? 'No key' : v;
