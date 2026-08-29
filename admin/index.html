@@ -269,9 +269,13 @@
     function api(path, opts) {
       opts = opts || {};
       opts.credentials = 'same-origin';
-      if (opts.body) {
+      // The Worker's CSRF guard requires application/json on every state-changing
+      // request, body or not -- so the header goes on by method, not by body. A
+      // bodyless DELETE without it is rejected 415 before the route is reached.
+      var method = (opts.method || 'GET').toUpperCase();
+      if (method !== 'GET' && method !== 'HEAD') {
         opts.headers = { 'content-type': 'application/json' };
-        opts.body = JSON.stringify(opts.body);
+        opts.body = opts.body ? JSON.stringify(opts.body) : '{}';
       }
       return fetch(API + path, opts).then(function (r) {
         return r.json().catch(function () { return { ok: false }; });
@@ -832,7 +836,7 @@
                 'This cannot be undone.')) return;
           api('/admin/licenses/' + v.key_hash, { method: 'DELETE' })
             .then(function (r) {
-              toast(r.ok ? 'Deleted' : (r.message || 'Could not delete'));
+              toast(r.ok ? 'Deleted' : (r.message || r.error || 'Could not delete'));
               loadKeys();
             });
         }));
