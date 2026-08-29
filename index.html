@@ -154,7 +154,7 @@
 
   /* ---------- Section scaffolding ---------- */
   .section { max-width:var(--container); margin:0 auto; padding:5rem 5%; }
-  .section .lead, .pricing-sec .lead { text-align:center; color:var(--text-muted); max-width:680px; margin:1.25rem auto 2.25rem; line-height:1.7; }
+  .section .lead { text-align:center; color:var(--text-muted); max-width:680px; margin:1.25rem auto 2.25rem; line-height:1.7; }
   .band { background:var(--surface-card); border-top:1px solid var(--border-default); border-bottom:1px solid var(--border-default); }
 
   /* ---------- Scroll reveal ---------- */
@@ -170,51 +170,137 @@
   .mh-cl-node { fill:var(--tes-gold-300); transform-box:fill-box; transform-origin:center; filter:drop-shadow(0 0 5px rgba(224,184,64,0.85)); animation:clPulse 3s ease-in-out infinite; }
   @keyframes clPulse { 0%,100% { opacity:0.4; transform:scale(0.7); } 50% { opacity:1; transform:scale(1.25); } }
 
-  /* ---------- SERVICES — cohesive uniform grid ---------- */
-  .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-default); border:1px solid var(--border-default); border-radius:var(--radius-xl); overflow:hidden; }
-  .svc-cell { background:var(--surface-card); padding:1.75rem; display:flex; flex-direction:column; position:relative; transition:background var(--dur-base); height:100%; width:100%; }
-  .svc-grid .rv { display:flex; }
-  .svc-cell::after { content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--brand-accent); transform:scaleX(0); transform-origin:left; transition:transform var(--dur-base) var(--ease-out); }
-  .svc-cell:hover { background:var(--surface-raised); }
-  .svc-cell:hover::after { transform:scaleX(1); }
-  .svc-ic { width:46px; height:46px; flex-shrink:0; border-radius:var(--radius-md); display:inline-flex; align-items:center; justify-content:center; font-size:1.2rem; background:var(--wash-green); border:1px solid var(--wash-green-border); color:var(--brand-accent); margin-bottom:1.1rem; }
-  .svc-cell-title { font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--text-strong); margin:0 0 0.9rem; line-height:1.25; }
-  .svc-cell-list { list-style:none; padding:0; margin:0 0 1.4rem; flex:1; }
-  .svc-cell-list li { position:relative; padding:5px 0 5px 1.3rem; color:var(--text-muted); font-size:0.88rem; line-height:1.5; }
-  .svc-cell-list li::before { content:'\2192'; position:absolute; left:0; top:5px; color:var(--brand-accent); font-size:0.8rem; }
-  .svc-price { font-family:var(--font-display); font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--brand-accent); background:var(--wash-gold); border:1px solid var(--wash-gold-border); padding:5px 12px; border-radius:999px; white-space:nowrap; align-self:flex-start; }
-  @media (max-width:860px) { .svc-grid { grid-template-columns:1fr; } }
+  /* ---------- SERVICES — software showcase + core services ---------- */
+  .hx-kicker { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-display); font-size:0.72rem; font-weight:800;
+    text-transform:uppercase; letter-spacing:0.14em; color:var(--brand-accent); margin:0 0 0.65rem; }
+  .hx-h { font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:0.015em;
+    font-size:1.95rem; line-height:1.12; color:#fff; margin:0; }
+  .hx-grad { display:block; background:linear-gradient(100deg,var(--tes-green-300),var(--tes-gold-300)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* Software showcase shell */
+  .hx-soft { position:relative; overflow:hidden; border:1px solid var(--wash-gold-border); border-radius:26px; padding:2.5rem;
+    background:radial-gradient(115% 140% at 92% -12%,rgba(200,152,48,0.17),transparent 54%),
+               radial-gradient(105% 125% at -5% 108%,rgba(74,172,101,0.14),transparent 55%),
+               linear-gradient(162deg,#17281e,#0e1b13); }
+  .hx-soft > * { position:relative; z-index:2; }
+  .hx-soft-traces { position:absolute; inset:0; z-index:1; opacity:0.09; pointer-events:none;
+    background:repeating-linear-gradient(90deg,transparent 0 52px,var(--tes-gold-500) 52px 53px),
+               repeating-linear-gradient(0deg,transparent 0 52px,var(--tes-gold-500) 52px 53px);
+    -webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%);
+    mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%); }
+  .hx-soft-head { display:flex; align-items:flex-end; justify-content:space-between; gap:1.75rem; flex-wrap:wrap; margin-bottom:2rem; }
+  .hx-soft-head > div { flex:1 1 460px; min-width:0; }
+  .hx-sub { color:var(--text-body); font-size:0.98rem; line-height:1.7; margin:0.85rem 0 0; max-width:620px; }
+  .hx-head-cta { flex-shrink:0; }
+
+  /* Product cards */
+  .hx-prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
+  .hx-prod { display:flex; flex-direction:column; text-decoration:none; overflow:hidden; height:100%;
+    background:rgba(8,16,11,0.62); border:1px solid var(--border-default); border-radius:16px; backdrop-filter:blur(2px);
+    transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base),box-shadow var(--dur-base); }
+  .hx-prod:hover { transform:translateY(-5px); border-color:var(--wash-gold-border); box-shadow:0 18px 40px rgba(0,0,0,0.45); }
+  .hx-shot { position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--surface-well); border-bottom:1px solid var(--border-default); }
+  .hx-shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block;
+    transition:transform 0.45s var(--ease-out); }
+  .hx-prod:hover .hx-shot img { transform:scale(1.05); }
+  .hx-shot::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(8,16,11,0.78),transparent 55%); }
+  .hx-live { position:absolute; left:0.85rem; bottom:0.8rem; z-index:2; display:inline-flex; align-items:center; gap:0.4rem;
+    font-family:var(--font-display); font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--text-on-accent); background:linear-gradient(135deg,var(--tes-gold-500),var(--tes-gold-300));
+    padding:5px 11px; border-radius:999px; box-shadow:var(--shadow-gold); }
+  .hx-prod-b { padding:1.15rem 1.2rem 1.25rem; display:flex; flex-direction:column; flex:1; }
+  .hx-prod-b h4 { font-family:var(--font-display); font-weight:700; font-size:1.02rem; line-height:1.3; color:var(--text-strong); margin:0 0 0.35rem; }
+  .hx-who { font-size:0.76rem; font-weight:600; color:var(--brand-primary); margin:0 0 0.6rem; line-height:1.4; }
+  .hx-desc { font-size:0.86rem; color:var(--text-muted); line-height:1.6; margin:0 0 1rem; flex:1; }
+  .hx-go { display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--font-display); font-size:0.74rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.05em; color:var(--brand-accent); }
+  .hx-go i { transition:transform var(--dur-base) var(--ease-out); }
+  .hx-prod:hover .hx-go i { transform:translateX(4px); }
+
+  /* Build-to-spec call */
+  .hx-build { display:flex; align-items:center; gap:1.25rem; margin-top:1.1rem; padding:1.25rem 1.4rem; text-decoration:none;
+    border:1px dashed var(--wash-gold-border); border-radius:16px; background:rgba(200,152,48,0.05);
+    transition:background var(--dur-base),border-color var(--dur-base); }
+  .hx-build:hover { background:rgba(200,152,48,0.11); border-color:var(--tes-gold-500); }
+  .hx-build-ic { width:46px; height:46px; flex-shrink:0; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem; color:var(--brand-accent); background:var(--wash-gold); border:1px solid var(--wash-gold-border); }
+  .hx-build-t { flex:1; min-width:0; }
+  .hx-build-t strong { display:block; font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--text-strong); margin-bottom:0.2rem; }
+  .hx-build-t span { display:block; font-size:0.86rem; color:var(--text-muted); line-height:1.55; }
+  .hx-build-go { flex-shrink:0; display:inline-flex; align-items:center; gap:0.45rem; font-family:var(--font-display); font-size:0.74rem;
+    font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--brand-accent); white-space:nowrap; }
+  .hx-build-go i { transition:transform var(--dur-base) var(--ease-out); }
+  .hx-build:hover .hx-build-go i { transform:translateX(4px); }
+
+  /* Core services */
+  .hx-core-head { text-align:center; margin:3.75rem 0 1.9rem; }
+  .hx-core-head .hx-h { font-size:1.75rem; }
+  .hx-core-head p.hx-sub { margin:0.7rem auto 0; text-align:center; }
+  .hx-core { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+  .hx-core .rv { display:flex; }
+  .hx-svc { position:relative; display:flex; flex-direction:column; width:100%; overflow:hidden; text-decoration:none;
+    background:var(--surface-card); border:1px solid var(--border-default); border-radius:var(--radius-xl); padding:1.9rem 1.65rem 1.5rem;
+    transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base),box-shadow var(--dur-base),background var(--dur-base); }
+  .hx-svc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--tes-green-500),var(--tes-gold-300));
+    transform:scaleX(0); transform-origin:left; transition:transform 0.35s var(--ease-out); }
+  .hx-svc:hover { transform:translateY(-5px); background:var(--surface-raised); border-color:var(--wash-gold-border); box-shadow:var(--shadow-md); }
+  .hx-svc:hover::before { transform:scaleX(1); }
+  .hx-svc-ic { width:54px; height:54px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem;
+    color:var(--brand-accent); background:var(--wash-green); border:1px solid var(--wash-green-border); margin-bottom:1.2rem; }
+  .hx-svc h4 { font-family:var(--font-display); font-weight:700; font-size:1.22rem; line-height:1.25; color:var(--text-strong); margin:0 0 0.6rem; }
+  .hx-svc > p { font-size:0.92rem; color:var(--text-body); line-height:1.65; margin:0 0 1.1rem; }
+  .hx-svc ul { list-style:none; padding:0; margin:0 0 1.35rem; flex:1; }
+  .hx-svc ul li { position:relative; padding:6px 0 6px 1.4rem; font-size:0.86rem; color:var(--text-muted); line-height:1.5; }
+  .hx-svc ul li::before { content:'\2192'; position:absolute; left:0; top:6px; color:var(--brand-accent); font-size:0.8rem; }
+  .hx-svc-go { display:inline-flex; align-items:center; gap:0.45rem; padding-top:0.9rem; border-top:1px solid var(--border-default);
+    font-family:var(--font-display); font-size:0.76rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--brand-accent); }
+  .hx-svc-go i { transition:transform var(--dur-base) var(--ease-out); }
+  .hx-svc:hover .hx-svc-go i { transform:translateX(4px); }
+  .hx-foot { text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:1.9rem; }
+
+  /* Catalog line */
+  .hx-cat { display:flex; align-items:center; gap:1.5rem; margin-top:3.25rem; }
+  .hx-cat-rule { flex:1; height:1px; min-width:20px;
+    background:linear-gradient(90deg,transparent,var(--wash-gold-border),transparent); }
+  .hx-cat-link { display:inline-flex; align-items:center; gap:1rem; text-decoration:none; padding:0.85rem 1.6rem; border-radius:999px;
+    border:1px solid var(--wash-gold-border); background:rgba(200,152,48,0.06);
+    transition:background var(--dur-base),border-color var(--dur-base),transform var(--dur-base) var(--ease-out); }
+  .hx-cat-link:hover { background:rgba(200,152,48,0.13); border-color:var(--tes-gold-500); transform:translateY(-2px); }
+  .hx-cat-ic { color:var(--brand-accent); font-size:1.15rem; }
+  .hx-cat-txt { display:flex; flex-direction:column; line-height:1.35; text-align:left; }
+  .hx-cat-txt strong { font-family:var(--font-display); font-size:0.9rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-strong); }
+  .hx-cat-txt span { font-size:0.8rem; color:var(--text-muted); }
+  .hx-cat-arrow { color:var(--brand-accent); font-size:0.85rem; transition:transform var(--dur-base) var(--ease-out); }
+  .hx-cat-link:hover .hx-cat-arrow { transform:translateX(4px); }
+
+  @media (max-width:980px) {
+    .hx-prod-grid, .hx-core { grid-template-columns:1fr 1fr; }
+    .hx-prod-grid > :nth-child(3), .hx-core > :nth-child(3) { grid-column:1 / -1; }
+  }
+  @media (max-width:720px) {
+    .hx-soft { padding:1.6rem; border-radius:20px; }
+    .hx-h { font-size:1.55rem; }
+    .hx-core-head .hx-h { font-size:1.45rem; }
+    .hx-core-head { margin-top:2.75rem; }
+    .hx-prod-grid, .hx-core { grid-template-columns:1fr; }
+    .hx-prod-grid > :nth-child(3), .hx-core > :nth-child(3) { grid-column:auto; }
+    .hx-head-cta { width:100%; }
+    .hx-build { flex-wrap:wrap; gap:0.9rem; }
+    .hx-build-go { width:100%; justify-content:center; padding-top:0.4rem; }
+    .hx-cat { flex-direction:column; gap:0.9rem; margin-top:2.5rem; }
+    .hx-cat-rule { width:100%; flex:0 0 1px; }
+    .hx-cat-link { width:100%; justify-content:center; }
+  }
 
   /* ---------- About ---------- */
   .about { max-width:840px; margin:0 auto; padding:2rem 5% 3rem; text-align:center; }
   .about p.a1 { color:var(--text-body); font-size:1.12rem; line-height:1.8; margin:0 auto 1.25rem; }
   .about p.a2 { color:var(--text-muted); font-size:1.05rem; line-height:1.8; margin-bottom:1.75rem; }
 
-  /* ---------- Pricing ---------- */
-  .pricing-sec { max-width:var(--container); margin:0 auto; padding:4rem 5% 5rem; }
-  .mh-price-row { display:flex; gap:1.25rem; align-items:stretch; overflow-x:auto; overflow-y:hidden; padding:1.65rem 0.25rem 1.5rem;
-    scroll-snap-type:x proximity; scrollbar-width:thin; scrollbar-color:var(--tes-gold-500) rgba(255,255,255,0.06); }
-  .mh-price-row > .rv { scroll-snap-align:start; flex:0 0 280px; }
-  .mh-price-row::-webkit-scrollbar { height:9px; }
-  .mh-price-row::-webkit-scrollbar-track { background:rgba(255,255,255,0.05); border-radius:999px; }
-  .mh-price-row::-webkit-scrollbar-thumb { background:linear-gradient(90deg,var(--tes-green-600),var(--tes-gold-500)); border-radius:999px; border:2px solid transparent; background-clip:padding-box; }
-  .mh-price-row::-webkit-scrollbar-thumb:hover { background:linear-gradient(90deg,var(--tes-green-500),var(--tes-gold-300)); }
-  .pcard { position:relative; height:100%; background:var(--surface-card); border:1px solid var(--border-default); border-radius:var(--radius-xl); padding:24px; text-align:center; transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base),box-shadow var(--dur-base); }
-  .pcard:hover { transform:translateY(-4px); border-color:var(--brand-primary); box-shadow:var(--shadow-green); }
-  .pcard.is-feat { border-color:var(--wash-gold-border); animation:featGlow 3.4s ease-in-out infinite; }
-  @keyframes featGlow { 0%,100% { box-shadow:0 0 0 0 rgba(200,152,48,0); } 50% { box-shadow:0 0 30px 2px rgba(200,152,48,0.22); } }
-  .pcard .pc-badge { margin-bottom:1.1rem; }
-  .pcard .pc-ic { width:46px; height:46px; margin:0 auto 1rem; border-radius:var(--radius-md); background:var(--wash-green); border:1px solid var(--wash-green-border); display:flex; align-items:center; justify-content:center; color:var(--brand-primary); font-size:1.2rem; }
-  .pcard .pc-price { font-family:var(--font-display); font-size:2.3rem; font-weight:800; color:var(--text-strong); line-height:1; margin:0.2rem 0 0.15rem; }
-  .pcard .pc-price span { font-size:1rem; font-weight:500; color:var(--text-muted); }
-  .pcard .pc-name { font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--text-strong); margin:0.7rem 0 0.4rem; }
-  .pcard .pc-sub { font-size:0.9rem; color:var(--text-muted); margin:0 0 1.1rem; }
-  .pcard .pc-list { list-style:none; padding:0; margin:0; text-align:left; }
-  .pcard .pc-list li { font-size:0.9rem; color:var(--text-muted); padding:6px 0 6px 1.3rem; position:relative; line-height:1.45; border-top:1px solid var(--border-default); }
-  .pcard .pc-list li:first-child { border-top:none; }
-  .pcard .pc-list li::before { content:'\2192'; position:absolute; left:0; top:7px; color:var(--brand-accent); font-size:0.78rem; }
-
   /* ---------- Engineering ad ---------- */
+  .eng-sec { max-width:var(--container); margin:0 auto; padding:4rem 5% 4.5rem; }
+  .eng-sec .eng-ad { margin-top:0; }
   .eng-ad { position:relative; overflow:hidden; border:1px solid var(--wash-gold-border); border-radius:26px;
     background:radial-gradient(120% 150% at 88% -10%,rgba(200,152,48,0.16),transparent 52%),radial-gradient(110% 130% at 0% 110%,rgba(74,172,101,0.13),transparent 55%),linear-gradient(160deg,#17281e,#0e1b13);
     padding:2.6rem; display:grid; grid-template-columns:1.05fr 0.95fr; gap:2.25rem; align-items:center; margin-top:2.5rem; }
@@ -237,7 +323,6 @@
   .eng-chip:hover { border-color:var(--wash-gold-border); transform:translateY(-2px); background:var(--surface-raised); }
   .eng-chip i { color:var(--brand-primary); width:18px; text-align:center; font-size:0.95rem; }
   .eng-chip span { font-size:0.83rem; color:var(--text-body); font-weight:600; }
-  .pricing-foot { text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:2rem; }
   @media (max-width:880px) { .eng-ad { grid-template-columns:1fr; padding:2rem; } }
 
   /* ---------- Google Reviews (native Google look on dark bg) ---------- */
@@ -321,14 +406,6 @@
   /* ---------- About section heading ---------- */
   .about .sh { margin-bottom:1.75rem; }
 
-  /* ---------- Process bridge (before pricing cards) ---------- */
-  .process-bridge { display:flex; align-items:center; gap:1.25rem; background:var(--surface-card); border:1px solid var(--border-default); border-left:3px solid var(--brand-accent); border-radius:14px; padding:1.1rem 1.4rem; margin-bottom:2rem; }
-  .process-bridge-icon { width:42px; height:42px; flex-shrink:0; border-radius:10px; background:var(--wash-gold); border:1px solid var(--wash-gold-border); display:flex; align-items:center; justify-content:center; color:var(--brand-accent); font-size:1.1rem; }
-  .process-bridge-text { flex:1; min-width:0; }
-  .process-bridge-text strong { font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:var(--text-strong); display:block; margin-bottom:0.15rem; }
-  .process-bridge-text span { font-size:0.84rem; color:var(--text-muted); line-height:1.5; }
-  .process-bridge-link { flex-shrink:0; display:inline-flex; align-items:center; gap:0.45rem; background:var(--wash-gold); border:1px solid var(--wash-gold-border); color:var(--brand-accent); padding:0.55rem 1rem; border-radius:8px; font-family:var(--font-display); font-size:0.78rem; font-weight:700; letter-spacing:0.04em; text-decoration:none; white-space:nowrap; transition:background var(--dur-base),transform var(--dur-base); }
-  .process-bridge-link:hover { background:rgba(200,152,48,0.18); transform:translateX(3px); }
 
   /* ---------- Booking / contact section ---------- */
   .booking-sec { max-width:var(--container); margin:0 auto; padding:3rem 5% 2rem; text-align:center; }
@@ -349,10 +426,7 @@
   .contact-info strong { color:var(--text-body); }
 
   @media (max-width:600px) {
-    .process-bridge { flex-wrap:wrap; }
-    .process-bridge-link { width:100%; justify-content:center; }
     .section { padding:3.25rem 5% 1rem; }
-    .pricing-sec { padding-top:2.75rem; }
     .mh-cl { max-width:240px; }
     .sh h2 { font-size:2rem; }
     .eng-ad { padding:1.6rem; }
@@ -361,7 +435,8 @@
   }
   @media (prefers-reduced-motion:reduce) {
     .rv, .rv.is-in { opacity:1; transform:none; animation:none; }
-    .mh-cl-trace, .mh-cl-node, .pcard.is-feat { animation:none; }
+    .mh-cl-trace, .mh-cl-node { animation:none; }
+    .hx-prod, .hx-svc, .hx-shot img, .hx-cat-link { transition:none; }
     html { scroll-behavior:auto; }
   }
   </style>
@@ -446,26 +521,136 @@
   </div> -->
 
   <!-- ============ SERVICES ============ -->
-  <section class="section">
-    <div class="sh"><p class="eyebrow">What we do</p><h2>Services</h2><span class="rule"></span></div>
+  <section class="section" id="services">
+    <div class="sh"><p class="eyebrow">What we do</p><h2>Software We Ship. Work We Own.</h2><span class="rule"></span></div>
     <div class="mh-cl"><svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="mh-cl-trace" d="M0,20 H150 L180,8 H470 L500,32 H760 L790,12 H1020 L1050,20 H1200"/><circle cx="180" cy="8" r="4" class="mh-cl-node" style="animation-delay:0s"/><circle cx="470" cy="32" r="4" class="mh-cl-node" style="animation-delay:.5s"/><circle cx="760" cy="12" r="4" class="mh-cl-node" style="animation-delay:1s"/><circle cx="1020" cy="20" r="4" class="mh-cl-node" style="animation-delay:1.5s"/></svg></div>
-    <p class="lead">From quick repairs to full-scale engineering projects &mdash; every engagement is scoped, priced, and delivered with precision.</p>
-    <div class="svc-grid">
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-laptop-code"></i></span><h3 class="svc-cell-title">Web &amp; App Design</h3><ul class="svc-cell-list"><li>Brochure sites, e-commerce &amp; custom web apps</li><li>SEO, analytics &amp; booking integrations</li><li>Ongoing maintenance plans available</li></ul><span class="svc-price">From $750</span></article></div>
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-gears"></i></span><h3 class="svc-cell-title">Automation &amp; Efficiency</h3><ul class="svc-cell-list"><li>PowerShell, Python &amp; VBA scripting</li><li>Multi-step workflow automation</li><li>AI tool selection &amp; deployment</li></ul><span class="svc-price">From $200</span></article></div>
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-shield-halved"></i></span><h3 class="svc-cell-title">Monthly Support Plans</h3><ul class="svc-cell-list"><li>Fixed monthly rate, no surprise invoices</li><li>Priority scheduling &amp; proactive coverage</li><li>Remote &amp; on-site support included</li></ul><span class="svc-price">From $150/mo</span></article></div>
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-server"></i></span><h3 class="svc-cell-title">Setup &amp; Deployment</h3><ul class="svc-cell-list"><li>Windows 10/11, Azure &amp; Microsoft 365</li><li>Network config &amp; multi-device rollouts</li><li>VoIP / RingCentral phone systems</li></ul><span class="svc-price">From $160</span></article></div>
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-microchip"></i></span><h3 class="svc-cell-title">PCB &amp; CAD Design</h3><ul class="svc-cell-list"><li>Schematic capture &amp; board layout</li><li>Gerber file delivery</li><li>Enclosure &amp; mechanical CAD</li></ul><span class="svc-price">Quote</span></article></div>
-      <div class="rv"><article class="svc-cell"><span class="svc-ic"><i class="fa-solid fa-cube"></i></span><h3 class="svc-cell-title">3D Printing</h3><ul class="svc-cell-list"><li>FDM &amp; resin prototypes</li><li>Replacement parts &amp; fixtures</li><li>Custom enclosures</li></ul><span class="svc-price">From $40</span></article></div>
+    <p class="lead">Tevis Engineering builds and runs its own software products &mdash; and handles the hands-on technology work that keeps a business moving. Everything is scoped and quoted before a minute is billed.</p>
+
+    <!-- ---- Software showcase ---- -->
+    <div class="hx-soft">
+      <div class="hx-soft-traces" aria-hidden="true"></div>
+      <div class="hx-soft-head">
+        <div>
+          <p class="hx-kicker"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i> TES Software</p>
+          <h3 class="hx-h">Software We Built. <span class="hx-grad">Software We Run.</span></h3>
+          <p class="hx-sub">Not templates. Not resold SaaS. These are working products we designed, host, and support &mdash; whitelabeled to your brand and sold so you can actually own them instead of renting them forever.</p>
+        </div>
+        <a class="btn btn--primary hx-head-cta" href="software.html"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i> Explore All Software</a>
+      </div>
+
+      <div class="hx-prod-grid">
+        <div class="rv"><a class="hx-prod" href="ohio-crash-report-analysis-tool.html">
+          <div class="hx-shot">
+            <img src="assets/crash/lead-dashboard.png" alt="The Ohio Crash List lead dashboard, showing de-duplicated injury-crash records" loading="lazy" decoding="async" width="1500" height="938">
+            <span class="hx-live"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Available now</span>
+          </div>
+          <div class="hx-prod-b">
+            <h4>Ohio Crash Report Analysis Tool</h4>
+            <p class="hx-who">Personal-injury firms &amp; injury-care practices</p>
+            <p class="hx-desc">Turns Ohio&rsquo;s official crash reports into a clean, de-duplicated list of injury-crash leads &mdash; name, address, injury, county &mdash; that belongs to you.</p>
+            <span class="hx-go">See the product <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+          </div>
+        </a></div>
+
+        <div class="rv"><a class="hx-prod" href="shingleai-roof-estimate-tool.html">
+          <div class="hx-shot">
+            <img src="assets/shingleai/card-thumb.jpg" alt="The ShingleAI roof estimator: an aerial view of a house with the roof outline measured and traced" loading="lazy" decoding="async" width="1200" height="750">
+            <span class="hx-live"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Booking demos</span>
+          </div>
+          <div class="hx-prod-b">
+            <h4>ShingleAI Roof Estimator</h4>
+            <p class="hx-who">Roofing contractors &mdash; whitelabeled to your brand</p>
+            <p class="hx-desc">Drops onto your own site. A homeowner types their address, the roof is measured from aerial survey data, and a priced lead lands in your inbox before they close the tab.</p>
+            <span class="hx-go">See the product <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+          </div>
+        </a></div>
+
+        <div class="rv"><a class="hx-prod" href="3d-shed-builder-tool.html">
+          <div class="hx-shot">
+            <img src="assets/shed/card-thumb.jpg" alt="The 3D Shed Builder: a white lofted barn with a red gambrel roof rendered live in 3D" loading="lazy" decoding="async" width="1200" height="750">
+            <span class="hx-live"><i class="fa-solid fa-cube" aria-hidden="true"></i> Booking demos</span>
+          </div>
+          <div class="hx-prod-b">
+            <h4>3D Shed Builder</h4>
+            <p class="hx-who">Shed builders &amp; barn dealers &mdash; whitelabeled to your brand</p>
+            <p class="hx-desc">Customers pick a style, size, colors and doors and watch the building assemble in 3D while an itemized price updates on every click &mdash; then send the design to you as a lead.</p>
+            <span class="hx-go">See the product <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+          </div>
+        </a></div>
+      </div>
+
+      <a class="hx-build" href="contact.html">
+        <span class="hx-build-ic" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+        <span class="hx-build-t">
+          <strong>Yours doesn&rsquo;t exist yet? We build to spec.</strong>
+          <span>Web apps, configurators, dashboards, data pipelines, internal tools, integrations between the systems you already pay for. Describe the repetitive, data-heavy thing that eats your week &mdash; that is the part we turn into software.</span>
+        </span>
+        <span class="hx-build-go">Start the conversation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </a>
     </div>
 
-    <div class="process-bridge">
-      <div class="process-bridge-icon" aria-hidden="true"><i class="fa-solid fa-rectangle-list"></i></div>
-      <div class="process-bridge-text">
-        <strong>Want the full line sheet?</strong>
-        <span>Browse every service we offer with starting prices &mdash; the complete TES rate card &amp; catalog, scoped and fixed-quoted before any work begins.</span>
-      </div>
-      <a href="service_catalog.html" class="process-bridge-link">View Services Catalog <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    <!-- ---- Core services ---- -->
+    <div class="hx-core-head">
+      <p class="hx-kicker"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Services</p>
+      <h3 class="hx-h">The Work That Keeps You Running</h3>
+      <p class="hx-sub">Three engagements make up most of what we do. Each one starts with a free intro call and a written scope &mdash; never a number pulled out of the air.</p>
+    </div>
+
+    <div class="hx-core">
+      <div class="rv"><a class="hx-svc" href="website_creation.html">
+        <span class="hx-svc-ic" aria-hidden="true"><i class="fa-solid fa-globe"></i></span>
+        <h4>Websites &mdash; Design, Build &amp; Care</h4>
+        <p>A site that earns its keep, then stays that way. We design and build it, then keep it patched, backed up, and current so it never quietly goes stale.</p>
+        <ul>
+          <li>Conversion-focused sites, e-commerce &amp; custom web apps</li>
+          <li>Hosting, security updates, backups &amp; content edits</li>
+          <li>Take over an existing site or start from a clean sheet</li>
+          <li>Month-to-month care plans &mdash; 30-day cancel, no lock-in</li>
+        </ul>
+        <span class="hx-svc-go">Web &amp; App Design <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </a></div>
+
+      <div class="rv"><a class="hx-svc" href="contact.html">
+        <span class="hx-svc-ic" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+        <h4>Automation &amp; Efficiency</h4>
+        <p>The report that takes three hours every Monday does not have to. We find the manual work hiding in your week and hand back the hours.</p>
+        <ul>
+          <li>PowerShell, Python &amp; VBA built around how you already work</li>
+          <li>Multi-step workflows across the tools you already pay for</li>
+          <li>AI tooling selected, deployed &amp; actually adopted</li>
+          <li>Start with one process &mdash; expand once it proves out</li>
+        </ul>
+        <span class="hx-svc-go">Scope an automation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </a></div>
+
+      <div class="rv"><a class="hx-svc" href="how_support_works.html">
+        <span class="hx-svc-ic" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+        <h4>Monthly Support Plans</h4>
+        <p>One predictable number instead of a surprise invoice after every incident. Proactive coverage, priority scheduling, and a person who already knows your setup.</p>
+        <ul>
+          <li>Fixed monthly rate &mdash; no surprise invoices</li>
+          <li>Priority scheduling &amp; proactive maintenance</li>
+          <li>Remote and on-site across the Cleveland area</li>
+          <li>Sized to your headcount, not a canned tier</li>
+        </ul>
+        <span class="hx-svc-go">How support works <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </a></div>
+    </div>
+
+    <p class="hx-foot">Cleveland area on-site or remote &nbsp;&middot;&nbsp; transparent scope boundaries &nbsp;&middot;&nbsp; free 15-minute intro call</p>
+
+    <!-- ---- Full catalog ---- -->
+    <div class="hx-cat">
+      <span class="hx-cat-rule" aria-hidden="true"></span>
+      <a class="hx-cat-link" href="service_catalog.html">
+        <span class="hx-cat-ic" aria-hidden="true"><i class="fa-solid fa-rectangle-list"></i></span>
+        <span class="hx-cat-txt">
+          <strong>The Complete Service Catalog</strong>
+          <span>Every service we offer, in one line sheet</span>
+        </span>
+        <i class="fa-solid fa-arrow-right hx-cat-arrow" aria-hidden="true"></i>
+      </a>
+      <span class="hx-cat-rule" aria-hidden="true"></span>
     </div>
   </section>
 
@@ -478,30 +663,9 @@
     <span class="badge badge--veteran">Precision &middot; Integrity &middot; Results</span>
   </section>
 
-  <!-- ============ PRICING ============ -->
+  <!-- ============ ENGINEERING PROJECTS ============ -->
   <div class="band">
-    <section class="pricing-sec" id="pricing">
-      <div class="sh"><p class="eyebrow">Transparent rates</p><h2>Pricing</h2><span class="rule"></span></div>
-      <div class="mh-cl"><svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="mh-cl-trace" d="M0,20 H150 L180,8 H470 L500,32 H760 L790,12 H1020 L1050,20 H1200"/><circle cx="180" cy="8" r="4" class="mh-cl-node" style="animation-delay:0s"/><circle cx="470" cy="32" r="4" class="mh-cl-node" style="animation-delay:.5s"/><circle cx="760" cy="12" r="4" class="mh-cl-node" style="animation-delay:1s"/><circle cx="1020" cy="20" r="4" class="mh-cl-node" style="animation-delay:1.5s"/></svg></div>
-      <p class="lead">Scaled-to-fit plans with no surprise invoices. Every engagement is scoped and priced up front &mdash; you always know what you're paying before we start.</p>
-
-      <div class="process-bridge">
-        <div class="process-bridge-icon" aria-hidden="true"><i class="fa-solid fa-route"></i></div>
-        <div class="process-bridge-text">
-          <strong>Wondering how it all works?</strong>
-          <span>From first call to delivered results &mdash; the TES support process is straightforward, transparent, and fully documented.</span>
-        </div>
-        <a href="how_support_works.html" class="process-bridge-link">How Support Works <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
-
-      <div class="mh-price-row">
-        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Most Flexible</span></div><div class="pc-ic"><i class="fa-regular fa-clock"></i></div><div class="pc-price">$80<span>/hr</span></div><div class="pc-name">Hourly Rate</div><p class="pc-sub">1-hour minimum &middot; 10-min increments after</p><ul class="pc-list"><li>Remote and on-site support available</li><li>No long-term commitment required</li><li>After-hours work billed at premium rate</li></ul></div></div>
-        <div class="rv"><div class="pcard is-feat"><div class="pc-badge"><span class="badge badge--gold">100% Credited to Project</span></div><div class="pc-ic"><i class="fa-solid fa-lightbulb"></i></div><div class="pc-price">$50<span>/hr</span></div><div class="pc-name">Technical Consultation</div><p class="pc-sub">Deliverable-backed &middot; Scope draft included</p><ul class="pc-list"><li>Written plan of action &amp; recommendations</li><li>Full fee credited toward accepted project</li><li>Best for scoping before committing</li></ul></div></div>
-        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Best for Rollouts</span></div><div class="pc-ic"><i class="fa-regular fa-calendar-check"></i></div><div class="pc-price">$550<span>/wk</span></div><div class="pc-name">Weekly Service Rate</div><p class="pc-sub">Up to 7 hrs included &middot; 12 hr max/week</p><ul class="pc-list"><li>Ideal for hardware rollouts &amp; deployments</li><li>Overages at $100/hr in half-hour increments</li><li>Unused hours don't roll over</li></ul></div></div>
-        <div class="rv"><div class="pcard"><div class="pc-badge"><span class="badge badge--green">Ongoing Coverage</span></div><div class="pc-ic"><i class="fa-solid fa-shield-halved"></i></div><div class="pc-price">$1,560<span>/mo</span></div><div class="pc-name">Monthly Managed Support</div><p class="pc-sub">Up to 24 hrs/month included</p><ul class="pc-list"><li>Support availability up to 6 hrs/week</li><li>Device upkeep, admin tasks &amp; automation</li><li>Effective rate $65/hr &mdash; best per-hour value</li><li>Engineering work excluded (separate SOW)</li></ul></div></div>
-      </div>
-
-      <!-- Engineering ad -->
+    <section class="eng-sec" id="engineering">
       <div class="eng-ad">
         <div class="eng-traces" aria-hidden="true"></div>
         <div class="eng-l">
@@ -527,8 +691,6 @@
           </div>
         </div>
       </div>
-
-      <p class="pricing-foot">Cleveland area on-site or remote &nbsp;&middot;&nbsp; transparent scope boundaries &nbsp;&middot;&nbsp; free 15-minute intro call</p>
     </section>
   </div>
 
