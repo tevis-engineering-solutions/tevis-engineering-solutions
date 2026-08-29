@@ -1,0 +1,201 @@
+{
+  "_comment": "Doors, windows, and add-ons. 'requires' rules are checked against the live design and the greyed-out reason shown to the customer is GENERATED from the rule — you do not write the message. 'excludes' MUST be mutual (if A excludes B, B excludes A) or behaviour depends on click order; the validator enforces it. Omit 'styles' to offer an option on every style. Sizes are feet: a 6'8\" door is 6.667.",
+  "options": [
+    {
+      "id": "door-single-36",
+      "name": "36\" Single Door",
+      "kind": "door",
+      "group": "Doors",
+      "blurb": "Standard walk-in door.",
+      "price": 285,
+      "opening": { "w": 3, "h": 6.667 },
+      "trim": 0.35,
+      "defaultSillY": 0
+    },
+    {
+      "id": "door-double-60",
+      "name": "5' Double Door",
+      "kind": "door",
+      "group": "Doors",
+      "blurb": "Gets a mower through.",
+      "price": 465,
+      "opening": { "w": 5, "h": 6.667 },
+      "trim": 0.35,
+      "defaultSillY": 0
+    },
+    {
+      "id": "door-double-72",
+      "name": "6' Double Door",
+      "kind": "door",
+      "group": "Doors",
+      "blurb": "Gets a tractor through.",
+      "price": 545,
+      "opening": { "w": 6, "h": 6.667 },
+      "trim": 0.35,
+      "defaultSillY": 0
+    },
+    {
+      "id": "door-rollup-8",
+      "name": "8' Roll-Up Door",
+      "kind": "door",
+      "group": "Doors",
+      "blurb": "Manual overhead track. Needs 8ft walls for the drum to clear.",
+      "price": 1385,
+      "opening": { "w": 8, "h": 7 },
+      "trim": 0.4,
+      "defaultSillY": 0,
+      "requires": [{ "field": "wallHeight", "op": ">=", "value": 8 }],
+      "excludes": ["door-garage-power"]
+    },
+    {
+      "id": "window-24x36",
+      "name": "24\" × 36\" Window",
+      "kind": "window",
+      "group": "Windows",
+      "blurb": "Screened, opens.",
+      "price": 155,
+      "opening": { "w": 2, "h": 3 },
+      "trim": 0.3,
+      "_sillNote": "Sill + height + trim has to clear the eave. A 7ft wall gives you 6.75ft of budget (3in of siding is kept above the trim), so 3.0 + 3 + 0.3 = 6.3 fits. The obvious-looking 3.5 does not — it comes to 6.8 and the window then won't go on ANY 7ft wall, on any size.",
+      "defaultSillY": 3.0
+    },
+    {
+      "id": "window-30x40",
+      "name": "30\" × 40\" Window",
+      "kind": "window",
+      "group": "Windows",
+      "blurb": "Screened, opens. More light.",
+      "price": 195,
+      "opening": { "w": 2.5, "h": 3.333 },
+      "trim": 0.3,
+      "defaultSillY": 2.9
+    },
+    {
+      "id": "window-transom-48",
+      "name": "48\" Transom",
+      "kind": "window",
+      "group": "Windows",
+      "blurb": "High fixed light. Sits above the header, so it needs 8ft walls.",
+      "price": 175,
+      "opening": { "w": 4, "h": 1.333 },
+      "trim": 0.25,
+      "defaultSillY": 5.75,
+      "requires": [{ "field": "wallHeight", "op": ">=", "value": 8 }]
+    },
+    {
+      "id": "door-garage-power",
+      "name": "8' Power Garage Door",
+      "kind": "door",
+      "group": "Doors",
+      "blurb": "Insulated overhead door with an opener and two remotes. Needs 8ft walls and electrical.",
+      "price": 2485,
+      "opening": { "w": 8, "h": 7 },
+      "trim": 0.4,
+      "defaultSillY": 0,
+      "requires": [{ "field": "wallHeight", "op": ">=", "value": 8 }],
+      "excludes": ["door-rollup-8"]
+    },
+    {
+      "id": "loft-kit",
+      "name": "Loft Storage Kit",
+      "kind": "addon",
+      "group": "Interior",
+      "blurb": "Decked loft in the gambrel overhead. Barn only — nothing else has the headroom.",
+      "price": 385,
+      "styles": ["lofted-barn"]
+    },
+    {
+      "id": "electrical-basic",
+      "name": "Basic Electrical",
+      "kind": "addon",
+      "group": "Electrical",
+      "blurb": "Two outlets, one LED light, a switch, and a 25ft cord inlet. Hook-up is on you.",
+      "price": 385,
+      "excludes": ["electrical-full"]
+    },
+    {
+      "id": "electrical-full",
+      "name": "Full Electrical Package",
+      "kind": "addon",
+      "group": "Electrical",
+      "blurb": "60A sub-panel, six outlets, four LED fixtures, exterior GFCI and a light. Ready for an electrician to land a feed.",
+      "price": 685,
+      "excludes": ["electrical-basic"]
+    },
+    {
+      "id": "insulation",
+      "name": "Insulation",
+      "kind": "addon",
+      "group": "Interior",
+      "blurb": "R-13 walls, R-19 ceiling. Worth it the first winter.",
+      "price": 545
+    },
+    {
+      "id": "interior-walls",
+      "name": "Interior Wall Finish",
+      "kind": "addon",
+      "group": "Interior",
+      "blurb": "Painted plywood lining over the studs. Add insulation first or it's just a nicer-looking cold box.",
+      "price": 875
+    },
+    {
+      "id": "workbench",
+      "name": "Workbench",
+      "kind": "addon",
+      "group": "Interior",
+      "blurb": "8ft bench, full depth.",
+      "price": 245,
+      "requires": [{ "field": "wallHeight", "op": ">=", "value": 7 }]
+    },
+    {
+      "id": "shelving-kit",
+      "name": "Shelving Kit",
+      "kind": "addon",
+      "group": "Interior",
+      "blurb": "Three tiers, one wall.",
+      "price": 165
+    },
+    {
+      "id": "ramp",
+      "name": "Wooden Ramp",
+      "kind": "addon",
+      "group": "Exterior",
+      "blurb": "Sized to your door.",
+      "price": 195
+    },
+    {
+      "id": "vent-ridge",
+      "name": "Ridge Vent",
+      "kind": "addon",
+      "group": "Exterior",
+      "blurb": "Continuous vent along the peak.",
+      "price": 85,
+      "excludes": ["cupola"]
+    },
+    {
+      "id": "cupola",
+      "name": "Cupola",
+      "kind": "addon",
+      "group": "Exterior",
+      "blurb": "Sits on the peak. Takes the ridge, so it can't share with a ridge vent.",
+      "price": 395,
+      "excludes": ["vent-ridge"]
+    },
+    {
+      "id": "floor-upgrade",
+      "name": "Treated Floor Upgrade",
+      "kind": "addon",
+      "group": "Structure",
+      "blurb": "Pressure-treated joists and decking.",
+      "price": 365
+    },
+    {
+      "id": "anchor-kit",
+      "name": "Ground Anchor Kit",
+      "kind": "addon",
+      "group": "Structure",
+      "blurb": "Auger anchors. Some townships require them.",
+      "price": 185
+    }
+  ]
+}

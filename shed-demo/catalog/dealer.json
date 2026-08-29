@@ -1,0 +1,20 @@
+{
+  "_comment": "The overlay behind the live demo on tevisengineering.com/3d-shed-builder-tool.html. Build it with:  $env:DEPLOY_BASE='/shed-demo/'; $env:DEALER_OVERLAY='deploy/overlays/tes-website-demo.json'; npm run build:deploy static   — see website-integration/reference/tevisengineering-demo.md.",
+  "id": "tes-demo",
+  "name": "Demo Yard",
+  "phone": "216-302-8486",
+  "email": "tyler@tevisengineering.com",
+  "region": "441",
+  "enabledStyles": null,
+  "enabledOptions": null,
+  "priceOverrides": {},
+  "theme": {},
+  "quoteBlurb": "This is a demonstration build. On your install this design lands in your inbox.",
+  "_quote_comment": "demo mode: the sales page is not a shed yard and has no inbox for a customer's design to land in. Posting a lead here would be collecting somebody's name and phone for a company that does not exist. The button says so and points at the demo request form on the page around it instead — target=_top, because this runs inside an iframe.",
+  "quote": {
+    "mode": "demo",
+    "notice": "You are on a demonstration copy of the builder, so nothing has been sent and nobody has your details. On a real install this is the moment the design reaches the dealer — their inbox gets the building, the itemized price shown here, the customer's contact details, and a link that reopens this exact shed.",
+    "ctaLabel": "See it on your own site",
+    "ctaUrl": "https://tevisengineering.com/3d-shed-builder-tool.html#get-started"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "_comment": "Starting points. These double as the project's sample scenes — the eyeball check that geometry, colours, and pricing all still look right after a change (the same job make_samples.py does for the report cards). Every id referenced here is checked against the other catalog files by the validator, so a preset cannot go stale silently.",
+  "presets": [
+    {
+      "id": "classic-10x16-barn",
+      "name": "10×16 Lofted Barn",
+      "blurb": "The one most people buy.",
+      "design": {
+        "styleId": "lofted-barn",
+        "size": {
+          "w": 10,
+          "l": 16
+        },
+        "wallHeight": 7,
+        "colors": {
+          "siding": "barn-red",
+          "trim": "trim-white",
+          "roof": "roof-charcoal"
+        },
+        "materials": {
+          "siding": "lp-smartside",
+          "roof": "shingle-arch"
+        },
+        "options": [
+          "loft-kit",
+          "vent-ridge"
+        ],
+        "openings": [
+          {
+            "id": "p1",
+            "optionId": "door-double-60",
+            "wall": "front",
+            "offset": 2.5,
+            "sillY": 0
+          },
+          {
+            "id": "p2",
+            "optionId": "window-24x36",
+            "wall": "right",
+            "offset": 4,
+            "sillY": 3
+          },
+          {
+            "id": "p3",
+            "optionId": "window-24x36",
+            "wall": "right",
+            "offset": 10,
+            "sillY": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "workshop-12x20-utility",
+      "name": "12×20 Utility Workshop",
+      "blurb": "8ft walls, roll-up door, bench.",
+      "design": {
+        "styleId": "utility",
+        "size": {
+          "w": 12,
+          "l": 20
+        },
+        "wallHeight": 8,
+        "colors": {
+          "siding": "gray",
+          "trim": "trim-white",
+          "roof": "roof-charcoal"
+        },
+        "materials": {
+          "siding": "t1-11",
+          "roof": "metal-29"
+        },
+        "options": [
+          "workbench",
+          "floor-upgrade",
+          "anchor-kit"
+        ],
+        "openings": [
+          {
+            "id": "p1",
+            "optionId": "door-rollup-8",
+            "wall": "front",
+            "offset": 2,
+            "sillY": 0
+          },
+          {
+            "id": "p2",
+            "optionId": "window-transom-48",
+            "wall": "left",
+            "offset": 8,
+            "sillY": 5.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "garden-8x10-leanto",
+      "name": "8×10 Lean-To",
+      "blurb": "Tucks against a fence.",
+      "design": {
+        "styleId": "lean-to",
+        "size": {
+          "w": 8,
+          "l": 10
+        },
+        "wallHeight": 7,
+        "colors": {
+          "siding": "clay",
+          "trim": "trim-white",
+          "roof": "roof-galvalume"
+        },
+        "materials": {
+          "siding": "vinyl",
+          "roof": "metal-29"
+        },
+        "options": [
+          "shelving-kit"
+        ],
+        "openings": [
+          {
+            "id": "p1",
+            "optionId": "door-single-36",
+            "wall": "front",
+            "offset": 2.5,
+            "sillY": 0
+          },
+          {
+            "id": "p2",
+            "optionId": "window-24x36",
+            "wall": "front",
+            "offset": 5.5,
+            "sillY": 3
+          }
+        ]
+      }
+    }
+  ]
+}

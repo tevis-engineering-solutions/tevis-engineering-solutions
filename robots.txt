@@ -6,4 +6,8 @@ Allow: /
 Disallow: /admin/
 Disallow: /portal/
 
+# The embedded 3D Shed Builder demo. A bare app shell titled "Shed Builder" with no
+# copy on it; the page that sells it is 3d-shed-builder-tool.html.
+Disallow: /shed-demo/
+
 Sitemap: https://tevisengineering.com/sitemap.xml

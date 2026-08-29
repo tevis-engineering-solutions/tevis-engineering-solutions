@@ -186,6 +186,23 @@
     @media (max-width:760px) { .shots-2.even { grid-template-columns:1fr; } }
     @media (max-width:560px) { .shots-3 { grid-template-columns:1fr; } }
 
+    /* ---------- live builder demo ---------- */
+    .hero-try { display:flex; gap:0.6rem; align-items:flex-start; margin-top:1rem; max-width:900px; padding:0.8rem 1rem; border:1px solid rgba(200,152,48,0.34); background:rgba(200,152,48,0.09); border-radius:12px; color:#ecd9b3 !important; font-size:0.97rem; }
+    .hero-try i { color:var(--gold); margin-top:0.25rem; }
+    .hero-try strong { color:#f2e2c0; }
+    .gold-link { color:var(--gold); }
+    .demo-sec { border-color:rgba(200,152,48,0.32); }
+    /* The builder is a full-height app: it fills whatever box it is given and scrolls its
+       own panel. So the iframe gets a real height and never a postMessage sizer — there is
+       no content height to report, because the content is already sized to the frame. */
+    .sb-frame { margin-top:1rem; border:1px solid rgba(200,152,48,0.3); border-radius:16px; overflow:hidden; background:#0f1c14; height:clamp(640px,78vh,900px); }
+    .sb-frame iframe { display:block; width:100%; height:100%; border:0; }
+    .sb-meta { display:flex; flex-wrap:wrap; gap:0.6rem 1.2rem; align-items:center; justify-content:space-between; margin-top:0.8rem; }
+    .sb-fine { color:var(--muted); font-size:0.83rem; margin:0; max-width:62ch; }
+    .sb-open { display:inline-flex; align-items:center; gap:0.45rem; text-decoration:none; font-family:"Montserrat",sans-serif; font-weight:700; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; color:#0d1710; background:linear-gradient(135deg,#c89830,#e0b840); border-radius:999px; padding:0.6rem 1.1rem; white-space:nowrap; min-height:44px; box-sizing:border-box; }
+    .sb-open:hover { filter:brightness(1.06); }
+    @media (max-width:900px) { .sb-frame { height:88vh; min-height:660px; } }
+
     /* Newsletter signup */
     .newsletter-section { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 3.5rem 5%; margin-top: 4rem; }
     .newsletter-inner { max-width: 640px; margin: 0 auto; text-align: center; }
@@ -358,358 +375,33 @@
       <a href="index.html">Home</a> &rsaquo; <a href="software.html">Software Services</a> &rsaquo; <span>3D Shed Builder</span>
     </nav>
 
-    <section class="hero">
-      <span class="eyebrow"><i class="fa-solid fa-cube"></i> TES Software &middot; Now Booking Demos</span>
-      <h1>Let Them Build It <span class="grad">Before They Call You</span></h1>
-      <p>
-        <strong>3D Shed Builder</strong> is a shed configurator that lives on <strong>your</strong> website, under
-        <strong>your</strong> name. A customer picks a style, a size, colors, doors and windows, and watches the
-        building assemble in 3D while an itemized price and a monthly payment update on every click. When they are
-        happy, the design lands in your inbox as a lead &mdash; with the price they saw and a link that reopens their
-        exact building. And unlike the platforms that rent you a configurator by the month, you buy this one once and
-        <strong>own it</strong>, price sheet and all.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#get-started">Book a 10-Minute Demo</a>
-        <a class="btn btn-secondary" href="#how">See How It Works</a>
-      </div>
-      <!-- <div class="stats">
-        <div class="stat"><b>3</b><span>building styles ship out of the box</span></div>
-        <div class="stat"><b>0</b><span>developers needed to change a price</span></div>
-        <div class="stat"><b>24/7</b><span>answers &ldquo;what would that cost?&rdquo; while you're on the lot</span></div>
-        <div class="stat"><b>100%</b><span>your brand, your price sheet, your leads</span></div>
-      </div> -->
-    </section>
+const fs = require('fs');
+const p = '3d-shed-builder-tool.html';
+let s = fs.readFileSync(p, 'utf8');
+const crlf = s.includes('\r\n');
+s = s.replace(/\r\n/g, '\n');
 
-    <section class="section" id="what">
-      <h2>Your configurator, on <span class="gold">your site</span> &mdash; not a monthly platform fee</h2>
-      <p class="lead-line">
-        Most shoppers want a number before they want a salesperson. Right now they get one from whoever answers that
-        question first. This puts the answer on your own site, in your own colors, at two in the morning &mdash; and a
-        customer who has already built a shed on your website has picked out the doors before you ever speak.
-      </p>
-      <p>
-        The big configurator platforms solve this too, and they charge a subscription per dealer for the privilege
-        &mdash; which is easy to justify at twenty lots and hard to justify at two. This is the
-        <strong>buy-it-once</strong> version: one build, installed on your host, with a price sheet <strong>you</strong>
-        control. There is nothing to renew and nobody to ask for permission when your lumber cost moves.
-      </p>
-      <figure class="shot">
-        <img src="assets/shed/configurator.jpg" alt="The 3D Shed Builder: a red lofted barn with a charcoal gambrel roof rendered in 3D on the left, and on the right a price panel reading 260 dollars 31 cents per month over 48 months rent-to-own with a cash price of 7,960 dollars 60 cents, above controls for style, size, wall height, siding material and siding color." width="1400" height="877" loading="lazy" decoding="async">
-        <figcaption><span class="tag">The builder</span><b>Every change is priced instantly.</b> Style, size, wall height, siding, roof, colors, doors, windows and add-ons all rebuild the model and the number at the same time &mdash; nobody is waiting on a callback to find out what a bigger door costs. Prices shown throughout this page come from a demo price sheet; on your install they are yours.</figcaption>
-      </figure>
-    </section>
+const openTag = '  <main class="container">\n';
+const closeTag = '  </main>';
+const i = s.indexOf(openTag);
+const j = s.indexOf(closeTag, i);
+if (i === -1 || j === -1) throw new Error('main not found');
 
-    <section class="section" id="styles">
-      <h2>Three building styles, <span class="gold">your sizes</span></h2>
-      <p>
-        A utility gable, a lofted barn gambrel, and a lean-to. Within each one, the sizes you sell, the wall heights
-        you offer, and the roof geometry itself are yours to set &mdash; a taller barn or a shallower utility roof is a
-        price-sheet edit, not a development project.
-      </p>
-      <div class="shots-3">
-        <figure class="shot">
-          <img src="assets/shed/style-utility.jpg" alt="A hunter-green utility shed rendered in 3D with a charcoal gable roof, white trim, a double door on the gable end and a window on the side wall." width="760" height="475" loading="lazy" decoding="async">
-          <figcaption><span class="tag">Utility</span>Straight walls, simple gable roof, the most floor for the money.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/shed/style-barn.jpg" alt="A white lofted barn rendered in 3D with a barn-red gambrel roof, a six-foot double door on the gable end and two windows along the side wall." width="760" height="475" loading="lazy" decoding="async">
-          <figcaption><span class="tag">Lofted Barn</span>The gambrel silhouette, and real loft storage overhead.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/shed/style-leanto.jpg" alt="A clay-colored lean-to shed rendered in 3D with a single-slope galvalume metal roof and a walk-in door on the front wall." width="760" height="475" loading="lazy" decoding="async">
-          <figcaption><span class="tag">Lean-To</span>Single slope, low profile, sits tight to a fence or a building.</figcaption>
-        </figure>
-      </div>
-      <div class="notice">
-        <b>What needs a developer, honestly:</b> anything that changes the <em>plan</em> of the building rather than its
-        elevation &mdash; a wrapped porch, a side-lofted dormer. Those are a code change and we quote them separately,
-        rather than pretending a price-sheet edit can produce them.
-      </div>
-    </section>
+// The breadcrumb nav stays; it sits between <main> and the hero.
+const oldMain = s.slice(i + openTag.length, j);
+const bcEnd = oldMain.indexOf('</nav>\n');
+if (bcEnd === -1) throw new Error('breadcrumb not found');
+const breadcrumb = oldMain.slice(0, bcEnd + '</nav>\n'.length);
 
-    <section class="section" id="features">
-      <h2>What it does <span class="gold">for the sale</span></h2>
-      <div class="grid">
-        <div class="card">
-          <h3><i class="fa-solid fa-cubes"></i> It builds while they watch</h3>
-          <p>The model rebuilds on every change &mdash; move a door, swap to a gambrel roof, go from 7ft walls to 8ft &mdash; so the customer is designing, not filling in a form. That is what keeps them on the page long enough to send it.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fa-solid fa-tag"></i> An itemized price, not a mystery</h3>
-          <p>The panel opens to show the line items: base building, siding upgrade, roof, each door and window, each add-on, and the regional adjustment. Customers trust a number they can take apart.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fa-solid fa-calendar-day"></i> A monthly payment up front</h3>
-          <p>Most of this market buys on rent-to-own, so the monthly figure sits above the cash price, computed from payment factors you set. It is a display, not a credit offer &mdash; no application, no lender, nothing implied about approval.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fa-solid fa-ruler-combined"></i> Real dimensioned drawings</h3>
-          <p>A drawings tab gives front, back and both sides, dimensioned, with every opening located. It prints as a spec sheet &mdash; and it is what the small share of visitors with no working 3D see instead of a black rectangle.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fa-solid fa-link"></i> Shareable design links</h3>
-          <p>Every design has its own link. A customer texts it to a spouse, or you text it back after a phone call, and it reopens exactly the building they built &mdash; colors, doors, windows and all.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fa-solid fa-shield-halved"></i> Rules it cannot break</h3>
-          <p>A roll-up door needs 8ft walls; a loft kit only exists on a barn. The builder enforces that instead of letting someone design a building you cannot deliver &mdash; and it says why, in plain English.</p>
-        </div>
-      </div>
-    </section>
+let body = fs.readFileSync(process.argv[1], 'utf8').replace(/\r\n/g, '\n');
+if (!body.endsWith('\n')) body += '\n';
 
-    <section class="section" id="how">
-      <h2>How a <span class="gold">customer</span> uses it</h2>
-      <div class="process">
-        <div class="process-step">
-          <strong>Pick a style and a size</strong>
-          <p>Utility, lofted barn or lean-to, then a size and wall height from the list you actually sell. The price appears immediately &mdash; there is no &ldquo;submit to see pricing&rdquo; wall.</p>
-        </div>
-        <div class="process-step">
-          <strong>Choose materials and colors</strong>
-          <p>Siding and roof material, then the colors that material genuinely comes in. Pick vinyl and the barn-red option disappears, because it is not a color you can hand them.</p>
-        </div>
-        <div class="process-step">
-          <strong>Place doors, windows and add-ons</strong>
-          <p>Openings go on a specific wall at a specific position, and the builder checks each one will fit under the roof there. Interior, electrical and exterior add-ons are itemized as they are ticked.</p>
-        </div>
-        <div class="process-step">
-          <strong>Send it to you</strong>
-          <p>Name, email, phone and delivery ZIP. The lead reaches your inbox with the whole design, the price they saw, and a link that reopens it exactly &mdash; and they get their own copy of the link.</p>
-        </div>
-      </div>
-      <div class="shots-2 even">
-        <figure class="shot">
-          <img src="assets/shed/price-breakdown.jpg" alt="The price panel expanded: a 10 by 16 lofted barn at 5,095 dollars, LP SmartSide at 685 dollars, architectural shingle at 485 dollars, a 5-foot double door at 465 dollars, two 24 by 36 windows at 310 dollars, a loft storage kit at 385 dollars, a ridge vent at 85 dollars, and a 6 percent regional adjustment of 450 dollars 60 cents, totalling 7,960 dollars 60 cents." width="660" height="901" loading="lazy" decoding="async">
-          <figcaption><span class="tag">Itemized</span><b>Every dollar is accounted for.</b> Base building, upgrades, each opening, each add-on, and your regional adjustment. Money is handled in whole cents end to end, so the line items always add up to the total shown.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/shed/rules-engine.jpg" alt="The options list showing windows and interior add-ons. The Loft Storage Kit is greyed out and unselectable, with a highlighted note underneath reading Only on Lofted Barn." width="660" height="816" loading="lazy" decoding="async">
-          <figcaption><span class="tag">The rules</span><b>Unavailable, and it says why.</b> Options that do not apply are shown greyed with the reason spelled out, rather than quietly missing. The reason text is generated from the rule itself, so it can never drift out of date with what the rule actually does.</figcaption>
-        </figure>
-      </div>
-    </section>
+s = s.slice(0, i + openTag.length) + breadcrumb + '\n' + body + s.slice(j);
+fs.writeFileSync(p, crlf ? s.replace(/\n/g, '\r\n') : s);
 
-    <section class="section" id="drawings">
-      <h2>The drawings are the <span class="gold">same building</span> as the 3D</h2>
-      <p>
-        Most configurators render a picture. This one derives both the 3D model and the dimensioned elevations from a
-        single description of the building, so the drawings cannot show a door the model does not have, or a wall height
-        the price did not charge for. It is the difference between a marketing render and something you would hand a
-        crew.
-      </p>
-      <figure class="shot">
-        <img src="assets/shed/drawings.jpg" alt="The drawings tab: four dimensioned elevations of a 10 by 16 lofted barn. Front elevation showing 12 feet 11 inches to the peak with a 5-foot door located 2 feet 6 inches from each corner, right side showing two 2-foot windows spaced along a 16-foot wall with 7-foot walls, plus back and left side elevations." width="1400" height="759" loading="lazy" decoding="async">
-        <figcaption><span class="tag">Drawings tab</span><b>Front, back, and both sides &mdash; dimensioned.</b> Overall width, peak height, wall height, and the exact position of every door and window. Customers print it, and it is a useful thing to have on the clipboard when the building gets set.</figcaption>
-      </figure>
-    </section>
-
-    <section class="section" id="catalog">
-      <h2>You edit your <span class="gold">own price sheet</span></h2>
-      <p class="lead-line">
-        This is the part that matters twelve months from now. Everything you sell &mdash; the styles, the sizes, the
-        colors, the doors and windows, the add-ons, the prices, and the rules about what goes with what &mdash; lives in
-        a small set of plain files on your own host. You edit a price, save, and the next customer sees the new number.
-      </p>
-      <ul class="incl">
-        <li>No rebuild, no deploy, no developer</li>
-        <li>No support ticket and no waiting on us</li>
-        <li>Wall-height adders per style</li>
-        <li>Regional price multipliers by ZIP</li>
-        <li>Rent-to-own terms and payment factors</li>
-        <li>Your own colors, per material</li>
-        <li>New sizes and new options any time</li>
-        <li>A validator that checks it before you publish</li>
-      </ul>
-      <div class="notice">
-        <b>The validator is the safety net.</b> Before you publish, one command checks the whole price sheet for the
-        things a spot-check misses &mdash; a size you advertise but never priced, an option pointing at a style you
-        deleted, a rule that only works in one direction. It reports them in plain English. And if a bad edit somehow
-        reaches the site anyway, the builder refuses to start and shows the same plain list rather than a broken page in
-        front of a customer.
-      </div>
-    </section>
-
-    <section class="section" id="compare">
-      <h2>Three ways to answer <span class="gold">&ldquo;what would that cost?&rdquo;</span></h2>
-      <div class="ptable-wrap">
-        <table class="ptable">
-          <thead>
-            <tr>
-              <th scope="col">&nbsp;</th>
-              <th scope="col">A phone number<br>and a PDF</th>
-              <th scope="col">A subscription<br>configurator</th>
-              <th scope="col" class="hl">3D Shed Builder</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="rowlab">Customer gets a price</td><td>When you call back</td><td>Instantly</td><td class="hl">Instantly</td></tr>
-            <tr><td class="rowlab">Cost over five years</td><td>None</td><td>Every month, forever</td><td class="hl">Paid once</td></tr>
-            <tr><td class="rowlab">Changing a price</td><td>Re-do the PDF</td><td>Their portal, their rules</td><td class="hl">You edit it, live</td></tr>
-            <tr><td class="rowlab">Whose brand it wears</td><td>Yours</td><td>Usually theirs, partly</td><td class="hl">Entirely yours</td></tr>
-            <tr><td class="rowlab">Where leads go</td><td>Your phone</td><td>Through their platform</td><td class="hl">Your inbox, direct</td></tr>
-            <tr><td class="rowlab">If the vendor disappears</td><td>&mdash;</td><td>So does your configurator</td><td class="hl">You still have it</td></tr>
-            <tr><td class="rowlab">Hosting</td><td>&mdash;</td><td>Included in the fee</td><td class="hl">Your host, or ours</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="mini-note">Subscription platforms are a genuinely good fit for large multi-lot dealers, and we will say so if that is you. This exists for the yards where a per-month platform fee never quite pencils out.</p>
-    </section>
-
-    <section class="section" id="leads">
-      <h2>What lands in <span class="gold">your inbox</span></h2>
-      <p>
-        A finished design is a lead, and it arrives with everything you need to make the callback useful: who they are,
-        what they built, the price they were shown, how to reach them, and a link that reopens their exact building on
-        your site. Leads go to your email, or to a webhook so they can drop into a CRM, a spreadsheet, or an automation.
-      </p>
-      <div class="fields">
-        <code>Name</code><code>Email</code><code>Phone</code><code>Delivery ZIP</code><code>Style &amp; size</code>
-        <code>Wall height</code><code>Siding &amp; roof</code><code>Colors</code><code>Every opening</code>
-        <code>Every add-on</code><code>Itemized price</code><code>Monthly payment</code><code>Their notes</code>
-        <code>Link to the design</code>
-      </div>
-      <figure class="shot shot-wide">
-        <img src="assets/shed/quote-form.jpg" alt="The Get this quote panel over the 3D builder: a short form for name, email, phone, delivery ZIP and a notes box, headed 10 by 16 Lofted Barn at 7,960 dollars 60 cents, with a Send my design button." width="1400" height="877" loading="lazy" decoding="async">
-        <figcaption><span class="tag">Quote capture</span><b>Four fields and a note.</b> Short on purpose &mdash; the design is already the qualification. The customer keeps their own link, so the conversation can pick up days later without either of you rebuilding anything.</figcaption>
-      </figure>
-      <div class="notice">
-        <b>It will not quietly lose a lead.</b> If lead delivery ever fails, the form tells the customer so and shows
-        your phone number, instead of saying &ldquo;thanks!&rdquo; over a lead that went nowhere. A cheerful confirmation
-        on a dropped lead is revenue you never find out you lost.
-      </div>
-    </section>
-
-    <section class="section" id="brand">
-      <h2>It wears <span class="gold">your name</span></h2>
-      <p>
-        The builder is whitelabeled: your business name, your phone and email, and your brand colors on the chrome. You
-        also control which styles and options a customer can even see, so one install can be trimmed down to exactly
-        what a given lot sells. It goes on your own domain &mdash; typically a page like
-        <code class="inline-code">yoursite.com/build</code> &mdash; so the customer never leaves your website, and it
-        runs on ordinary web hosting including WordPress, Squarespace, Wix, and custom sites.
-      </p>
-      <p>
-        We handle the install on your site rather than emailing you a code snippet and wishing you luck.
-      </p>
-    </section>
-
-    <section class="section" id="pricing">
-      <h2>Setup &amp; <span class="gold">pricing</span></h2>
-      <p class="lead-line">
-        Quoted per dealer, because the work is not the same for everyone. Two things drive the number: how large and how
-        custom your price sheet is &mdash; how many styles, sizes, options and rules you actually sell &mdash; and where
-        your website is hosted, since some hosts make the install a short job and others take more work.
-      </p>
-      <div class="models">
-        <div class="model feat">
-          <span class="rec">Most dealers</span>
-          <h3>Own it outright</h3>
-          <div class="mprice">One-time</div>
-          <p>We build your catalog from your price sheet, install the builder on your host, and hand it over. It is yours &mdash; no subscription, no renewal, no per-lead fee. You edit prices yourself from day one.</p>
-          <p class="fit"><b>Best for</b> a yard that wants a fixed cost and no ongoing dependency.</p>
-        </div>
-        <div class="model">
-          <h3>Hosted &amp; maintained</h3>
-          <div class="mprice">Quoted</div>
-          <p>The same builder, but we host it, keep it patched, and handle catalog edits, seasonal price changes and new options for you. Sensible if nobody on your side wants to touch a price sheet.</p>
-          <p class="fit"><b>Best for</b> dealers who would rather send an email than edit anything.</p>
-        </div>
-        <div class="model">
-          <h3>Beyond the three styles</h3>
-          <div class="mprice">Scoped</div>
-          <p>Porches, side-lofted dormers, a fourth roof style, garages and other simple structures are real development work. We scope and quote them up front rather than folding a guess into the base number.</p>
-          <p class="fit"><b>Best for</b> builders whose flagship model is not a stock shed.</p>
-        </div>
-      </div>
-      <p class="mini-note">Every path starts the same way: a short demo on a building from your own line, so you can see your own product in it before anyone talks money.</p>
-    </section>
-
-    <section class="section" id="faq">
-      <h2 class="faq-h2">Common questions</h2>
-      <div class="faq">
-        <details>
-          <summary>Who changes the prices when my costs go up?</summary>
-          <div class="faq-a">You do, and it does not involve us. Your styles, sizes, colors, options, prices and rules live in a small set of plain files on your own host. You edit a price, save, and the next customer to load the builder sees the new number &mdash; no rebuild, no deploy, no support ticket. A validator is included that checks the whole price sheet before you publish and tells you in plain English if something does not line up, such as a size you advertise but never priced.</div>
-        </details>
-        <details>
-          <summary>Is the price the customer sees a real quote?</summary>
-          <div class="faq-a">It is an estimate, and the builder says so on screen. It prices the building from your own price sheet, but it does not know the delivery distance to that address, the site prep the lot needs, or local permitting &mdash; so every path ends on you confirming the number. That is deliberate. The tool exists to start a real conversation with someone who has already picked a building and seen a payment, not to sell a shed unattended.</div>
-        </details>
-        <details>
-          <summary>What building styles does it handle?</summary>
-          <div class="faq-a">Three ship out of the box: a utility gable, a lofted barn gambrel, and a lean-to. Within each one you control the sizes, wall heights and roof geometry, so a taller barn or a shallower utility roof is a price-sheet edit rather than a code change. Shapes that change the plan of the building rather than its elevation &mdash; a wrapped porch, a side-lofted dormer &mdash; are a code change, and we quote those separately.</div>
-        </details>
-        <details>
-          <summary>Will it work on my existing website?</summary>
-          <div class="faq-a">In most cases yes. The builder is a static site, so it lives at a page on your own domain such as yoursite.com/build and runs on ordinary web hosting &mdash; WordPress, Squarespace, Wix, and custom sites included. Tevis Engineering Solutions handles the install on your site rather than handing you a code snippet to figure out.</div>
-        </details>
-        <details>
-          <summary>Where do the leads go?</summary>
-          <div class="faq-a">Straight to you. When a customer sends their design, the lead is emailed to your inbox, or posted to a webhook so it can land in a CRM, a spreadsheet, or an automation. The email carries who they are, what they built, the price they saw, how to reach them, and a link that reopens their exact design. The leads are yours alone &mdash; not sold, shared, or resold to another dealer.</div>
-        </details>
-        <details>
-          <summary>Does the 3D model show every option I sell?</summary>
-          <div class="faq-a">No, and that is on purpose. Doors, windows, sizes, wall heights, materials and colors are drawn on the building. Add-ons such as insulation, electrical packages, shelving, ramps and anchor kits are priced and itemized but not modeled, because drawing them adds nothing to a customer's decision. Everything selected appears in the itemized price whether it is drawn or not.</div>
-        </details>
-        <details>
-          <summary>What about the rent-to-own payment it shows?</summary>
-          <div class="faq-a">It is a display, not a credit offer. It is calculated from payment factors you enter in your own price sheet so it mirrors the way your rent-to-own provider quotes. Nothing is submitted to a lender, no application is taken, and no approval is implied. If you do not sell rent-to-own, remove the terms and the builder shows the cash price alone.</div>
-        </details>
-        <details>
-          <summary>What does it cost?</summary>
-          <div class="faq-a">It is quoted per dealer. Two things drive the number: how large and how custom your catalog is &mdash; how many styles, sizes, options and rules you sell &mdash; and where your website is hosted, since some hosts make the install a short job and others take more work. You can buy it once and own the build outright, or have Tevis Engineering Solutions host and maintain it for you.</div>
-        </details>
-      </div>
-    </section>
-
-    <section class="cta-band" id="get-started">
-      <h2>Book a 10-minute demo</h2>
-      <p>Send us your website and a couple of buildings off your line, and we will load them into the builder and show you the thing running with your own product in it &mdash; plus the lead email it produces &mdash; then come back with a fixed number to put it on your site. Straight to the engineer, one-business-day reply.</p>
-      <div class="req-success" id="reqSuccess" style="display:none;">
-        <strong>Thanks &mdash; your request is in.</strong> We'll reply within one business day to set up your demo. For anything urgent, call <a href="tel:+12163028486" class="success-tel">(216)&nbsp;302&#8209;8486</a>.
-      </div>
-      <form id="reqForm" class="req-form" action="https://formspree.io/f/maqvanal" method="POST">
-        <input type="hidden" name="_subject" value="3D Shed Builder — Demo / Quote Request">
-        <input type="hidden" name="_next" value="https://tevisengineering.com/3d-shed-builder-tool.html?requested=1">
-        <input type="hidden" name="product" value="3D Shed Builder">
-        <input type="text" name="_honeypot" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div>
-          <label for="reqName">Name</label>
-          <input id="reqName" type="text" name="name" required autocomplete="name">
-        </div>
-        <div>
-          <label for="reqCompany">Company</label>
-          <input id="reqCompany" type="text" name="company" autocomplete="organization">
-        </div>
-        <div>
-          <label for="reqEmail">Email</label>
-          <input id="reqEmail" type="email" name="email" required autocomplete="email">
-        </div>
-        <div>
-          <label for="reqPhone">Phone</label>
-          <input id="reqPhone" type="tel" name="phone" autocomplete="tel">
-        </div>
-        <div class="full">
-          <label for="reqSite">Your website</label>
-          <input id="reqSite" type="text" name="website" placeholder="yourshedcompany.com" autocomplete="url">
-        </div>
-        <div class="full">
-          <label for="reqStart">How you'd like to start</label>
-          <select id="reqStart" name="start">
-            <option value="Live 10-minute demo">Live 10-minute demo</option>
-            <option value="Put it on my site">Put it on my site</option>
-            <option value="Just send pricing">Just send pricing</option>
-            <option value="Not sure yet">Not sure yet</option>
-          </select>
-        </div>
-        <div class="full">
-          <label for="reqNotes">What you build, and anything else</label>
-          <textarea id="reqNotes" name="notes" rows="3" placeholder="e.g. utility and lofted barns, 8x8 up to 14x32, rent-to-own through a local provider; site is on WordPress"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Request My Demo</button>
-      </form>
-    </section>
+const m = s.slice(s.indexOf('<main'), s.indexOf('</main>'));
+const words = m.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim().split(' ').length;
+console.log('spliced. words in <main>:', words);
   </main>
 
   <!-- NEWSLETTER SIGNUP -->

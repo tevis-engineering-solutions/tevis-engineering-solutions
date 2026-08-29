@@ -1,0 +1,75 @@
+{
+  "_comment": "Building styles. 'kind' selects a geometry builder in code (gable | gambrel | leanto) — you can tune 'params' freely, but a NEW kind needs code. Pitches are rise/run: a 4/12 roof is 0.3333. Sizes are the ones you actually sell; every size here must have a row in pricing.json or the validator will tell you.",
+  "styles": [
+    {
+      "id": "utility",
+      "name": "Utility",
+      "kind": "gable",
+      "blurb": "The workhorse. Straight walls, simple gable roof, maximum floor for the money.",
+      "wallHeights": [7, 8],
+      "sizes": [
+        { "w": 8, "l": 8 },
+        { "w": 8, "l": 10 },
+        { "w": 8, "l": 12 },
+        { "w": 10, "l": 12 },
+        { "w": 10, "l": 16 },
+        { "w": 10, "l": 20 },
+        { "w": 12, "l": 16 },
+        { "w": 12, "l": 20 },
+        { "w": 12, "l": 24 }
+      ],
+      "params": {
+        "pitch": 0.3333,
+        "overhangEave": 0.75,
+        "overhangRake": 0.5,
+        "roofThickness": 0.5
+      }
+    },
+    {
+      "id": "lofted-barn",
+      "name": "Lofted Barn",
+      "kind": "gambrel",
+      "blurb": "The classic barn silhouette. The gambrel roof buys you real loft storage overhead.",
+      "wallHeights": [7, 8],
+      "sizes": [
+        { "w": 10, "l": 12 },
+        { "w": 10, "l": 16 },
+        { "w": 10, "l": 20 },
+        { "w": 12, "l": 16 },
+        { "w": 12, "l": 20 },
+        { "w": 12, "l": 24 },
+        { "w": 12, "l": 32 },
+        { "w": 14, "l": 24 },
+        { "w": 14, "l": 32 }
+      ],
+      "params": {
+        "breakFrac": 0.62,
+        "lowerPitch": 1.6,
+        "upperPitch": 0.5,
+        "overhangEave": 0.75,
+        "overhangRake": 0.5,
+        "roofThickness": 0.5
+      }
+    },
+    {
+      "id": "lean-to",
+      "name": "Lean-To",
+      "kind": "leanto",
+      "blurb": "Single slope, low profile. Sits tight against a fence line or an existing building.",
+      "wallHeights": [7],
+      "sizes": [
+        { "w": 8, "l": 8 },
+        { "w": 8, "l": 10 },
+        { "w": 8, "l": 12 },
+        { "w": 10, "l": 12 },
+        { "w": 10, "l": 16 }
+      ],
+      "params": {
+        "slope": 0.25,
+        "overhangEave": 0.75,
+        "overhangRake": 0.5,
+        "roofThickness": 0.5
+      }
+    }
+  ]
+}

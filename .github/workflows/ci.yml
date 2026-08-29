@@ -30,10 +30,15 @@ jobs:
           # bundle exported from a design tool (custom <x-dc>/<helmet> elements,
           # __bundler_* ids, no lang attr). It is re-exported wholesale, so
           # hand-fixing it would be undone on the next export. See CLAUDE.md S25.
+          #
+          # shed-demo/ is excluded for the same reason: it is the Vite build output of
+          # the 3D Shed Builder, regenerated wholesale by build:deploy in the 3D Shed
+          # repo and copied in. Nothing inside it is authored here.
           find . -name "*.html" \
             -not -path "./_ops/*" \
             -not -path "./node_modules/*" \
             -not -path "./assets/*" \
+            -not -path "./shed-demo/*" \
             | xargs html-validate
 
 # ─── Job 2: Broken Internal Link Check ───────────────────────────────────────

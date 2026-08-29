@@ -1,0 +1,69 @@
+{
+  "_comment": "Money. Everything here is DOLLARS — the app converts to integer cents on load and never uses floats for money after that. Every size in styles.json needs a row in 'base'; if one is missing the app falls back to perSqFt and warns loudly in the console, because silently shipping a made-up price is worse than an obvious gap. Option prices live in options.json (next to the option), and dealer.json can override any of them.",
+  "base": {
+    "utility": {
+      "8x8": 2195,
+      "8x10": 2495,
+      "8x12": 2795,
+      "10x12": 3295,
+      "10x16": 3995,
+      "10x20": 4695,
+      "12x16": 4495,
+      "12x20": 5295,
+      "12x24": 6095
+    },
+    "lofted-barn": {
+      "10x12": 4195,
+      "10x16": 5095,
+      "10x20": 5995,
+      "12x16": 5695,
+      "12x20": 6695,
+      "12x24": 7695,
+      "12x32": 9695,
+      "14x24": 8695,
+      "14x32": 10995
+    },
+    "lean-to": {
+      "8x8": 1895,
+      "8x10": 2150,
+      "8x12": 2395,
+      "10x12": 2850,
+      "10x16": 3450
+    }
+  },
+  "fallbackPerSqFt": {
+    "utility": 26,
+    "lofted-barn": 34,
+    "lean-to": 22
+  },
+  "wallHeightAdder": {
+    "utility": { "7": 0, "8": 385 },
+    "lofted-barn": { "7": 0, "8": 425 },
+    "lean-to": { "7": 0 }
+  },
+  "regions": {
+    "default": 1.0,
+    "zip3": {
+      "432": 1.0,
+      "430": 1.0,
+      "431": 1.0,
+      "440": 1.04,
+      "441": 1.06,
+      "442": 1.04,
+      "443": 1.03,
+      "444": 1.02,
+      "445": 1.02,
+      "446": 1.0,
+      "447": 1.0
+    }
+  },
+  "rto": {
+    "_comment": "Rent-to-own is how most of this market actually buys. 'factor' is the monthly payment as a fraction of the cash price.",
+    "terms": [
+      { "months": 24, "factor": 0.0545 },
+      { "months": 36, "factor": 0.0398 },
+      { "months": 48, "factor": 0.0327 }
+    ]
+  },
+  "disclaimer": "Estimate only. Final price is confirmed on your site quote and depends on delivery distance, site prep, and local permitting. Prices do not include tax."
+}
