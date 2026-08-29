@@ -165,6 +165,24 @@
     .orphan button:hover { border-color:var(--green); }
     .orphan button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
 
+    /* Buttons dropped straight into a dossier section (Remove, End agreement) had no
+       rule of their own and rendered as 19px browser buttons. */
+    .cust-sec > button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; margin-top:0.4rem; }
+    .cust-sec .row button { font-family:"Montserrat",sans-serif; font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.35rem 0.7rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:36px; }
+    .cust-sec > button:hover, .cust-sec .row button:hover { border-color:var(--green); }
+    .cust-sec > button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+
+    .orgbar { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin-top:0.5rem; }
+    .orgbar input { flex:1 1 10rem; min-width:0; padding:0.5rem 0.6rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.85rem; }
+    .orgbar button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.8rem; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--text); cursor:pointer; min-height:40px; }
+    .orgbar button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
+    .agree { border:1px solid rgba(74,172,101,0.35); background:rgba(74,172,101,0.07); border-radius:12px; padding:0.7rem 0.85rem; margin-bottom:0.9rem; }
+    .agree h3 { font-family:"Montserrat",sans-serif; font-size:0.82rem; color:var(--green); margin-bottom:0.25rem; }
+    .agree p { font-size:0.78rem; color:var(--muted); }
+    .agree b { color:var(--text); }
+    .period { font-size:0.74rem; color:var(--muted); border-left:2px solid var(--line); padding-left:0.6rem; margin:0.3rem 0; }
+    .period b { color:var(--text); }
+
     /* ---- work log: time + documents on a ticket ---- */
     .worklog { border-top:1px solid var(--line); padding-top:0.9rem; margin-top:0.9rem; margin-bottom:0; }
     .worklog-head { display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem; }
@@ -232,6 +250,11 @@
   </div>
 
   <main class="wrap" id="viewCustomers" aria-label="Customers" hidden>
+    <div class="filters" id="custMode">
+      <button type="button" class="fpill on" data-mode="people">People</button>
+      <button type="button" class="fpill" data-mode="orgs">Organizations</button>
+    </div>
+
     <section class="custfind">
       <label for="custQ">Find a customer</label>
       <input id="custQ" type="search" autocomplete="off"
@@ -1508,36 +1531,33 @@
       }
 
       // ---- unbilled work ----
-      // The ticket is where you log an hour; this is where you notice you never
-      // charged for it.
-      if (owed.amount_cents) {
-        var us = sec('Unbilled work');
+      // The ticket is where you log an hour; this is where you notice you never charged
+      // for it. Work belonging to an organization is billed from the ORG, so this only
+      // offers the buttons when the client is this person.
+      if (owed.minutes) {
+        var us = sec('Outstanding work');
+        if (c.unbilled && c.unbilled.agreement) us.appendChild(agreementNote(c.unbilled));
+        (owed.periods || []).forEach(function (pd) { us.appendChild(periodLine(pd)); });
         owed.tickets.forEach(function (g) {
-          us.appendChild(row(g.ticket_number, g.duration, el('span', 'inv-amt', money(g.amount_cents))));
+          us.appendChild(row(g.ticket_number,
+            g.duration + (g.covered_minutes ? ' · ' + fmtDur(g.covered_minutes) + ' included' : ''),
+            el('span', 'inv-amt', money(g.amount_cents))));
         });
-        var mkInv = licAction('Create invoice for ' + money(owed.amount_cents), 'prim', function () {
-          var num = prompt('Invoice number for ' + owed.duration + ' (' +
-            money(owed.amount_cents) + ')?', suggestInvoiceNumber());
-          if (!num) return;
-          mkInv.disabled = true;
-          api('/admin/customers/' + encodeURIComponent(c.account.id) + '/invoice-from-time',
-            { method: 'POST', body: { number: num.trim() } })
-            .then(function (r) {
-              mkInv.disabled = false;
-              if (!r || !r.ok) {
-                return toast(r && r.error === 'duplicate_number'
-                  ? 'That invoice number is taken' : (r && r.error) || 'Could not create it');
-              }
-              // Said out loud rather than swallowed: the invoice covers more than it
-              // captured, and that needs a human to reconcile.
-              if (r.partial) alert('Warning: only ' + r.entries_billed + ' entries were ' +
-                'claimed. The invoice may overstate the work captured. Check it before sending.');
-              toast('Invoice created for ' + money(r.amount_cents));
-              openCustomer(c.account.id);
-            });
-        });
-        mkInv.style.marginTop = '0.4rem';
-        us.appendChild(mkInv);
+
+        if (c.unbilled && c.unbilled.org_id) {
+          // Billing here would send the whole organization's invoice to this one
+          // person. The org is the client; send the operator there.
+          var goOrg = licAction('Bill this at ' + (c.unbilled.org_name || 'the organization'),
+            'prim', function () { custMode = 'orgs'; syncMode(); openOrg(c.unbilled.org_id); });
+          goOrg.style.marginTop = '0.4rem';
+          us.appendChild(goOrg);
+        } else {
+          us.appendChild(billActions({
+            base: '/admin/customers/' + encodeURIComponent(c.account.id),
+            un: owed,
+            after: function () { openCustomer(c.account.id); }
+          }));
+        }
         wrap.appendChild(us);
       }
 
@@ -1624,6 +1644,311 @@
       clearTimeout(custTimer);
       custTimer = setTimeout(function () { loadCustomers(custQEl.value.trim()); }, 250);
     });
+
+    // ---- shared billing UI ------------------------------------------------
+
+    function agreementNote(un) {
+      var a = un.agreement;
+      var d = el('div', 'agree');
+      d.appendChild(el('h3', null, a.name || 'Service agreement'));
+      var p = el('p');
+      p.appendChild(el('b', null, fmtDur(a.included_minutes)));
+      p.appendChild(document.createTextNode(' included per month, then '));
+      p.appendChild(el('b', null, money(a.rate_cents) + '/hr'));
+      p.appendChild(document.createTextNode(
+        un.governed_by === 'org' ? '. Held by the organization.' : '.'));
+      d.appendChild(p);
+      return d;
+    }
+
+    // One line per allowance period, so the arithmetic on the invoice can be checked
+    // against something rather than taken on trust.
+    function periodLine(pd) {
+      var d = el('div', 'period');
+      d.appendChild(el('b', null, pd.period));
+      d.appendChild(document.createTextNode(': ' + fmtDur(pd.minutes) + ' logged, ' +
+        fmtDur(pd.covered_now) + ' covered' +
+        (pd.already_covered ? ' (' + fmtDur(pd.already_covered) + ' already used)' : '') +
+        ', ' + fmtDur(pd.chargeable_minutes) + ' chargeable'));
+      return d;
+    }
+
+    function billActions(opts) {
+      var un = opts.un;
+      var box = el('div', 'orgbar');
+      if (un.amount_cents > 0) {
+        var mk = licAction('Create invoice for ' + money(un.amount_cents), 'prim', function () {
+          var num = prompt('Invoice number for ' + fmtDur(un.chargeable_minutes) +
+            ' chargeable (' + money(un.amount_cents) + ')?', suggestInvoiceNumber());
+          if (!num) return;
+          mk.disabled = true;
+          api(opts.base + '/invoice-from-time', { method: 'POST', body: { number: num.trim() } })
+            .then(function (r) {
+              mk.disabled = false;
+              if (!r || !r.ok) {
+                return toast(r && r.error === 'duplicate_number' ? 'That invoice number is taken'
+                  : (r && r.message) || (r && r.error) || 'Could not create it');
+              }
+              // Said out loud rather than swallowed: the invoice covers more than it
+              // captured, and that needs a human to reconcile.
+              if (r.partial) alert('Warning: only ' + r.entries_billed + ' entries were ' +
+                'claimed. The invoice may overstate the work captured. Check it before sending.');
+              toast('Invoice created for ' + money(r.amount_cents) +
+                (r.billed_to ? ' to ' + r.billed_to : ''));
+              opts.after();
+            });
+        });
+        box.appendChild(mk);
+      }
+      // Nothing to charge, but the hours have been spent and must not be offered again
+      // next month.
+      if (un.covered_minutes > 0) {
+        box.appendChild(licAction(
+          un.amount_cents > 0 ? 'Apply coverage only' : 'Apply coverage (' +
+            fmtDur(un.covered_minutes) + ')', un.amount_cents > 0 ? null : 'prim', function () {
+          if (!confirm('Mark ' + fmtDur(un.covered_minutes) + ' as covered by their ' +
+              'agreement?\n\nNo invoice is raised. Those hours are spent for the month ' +
+              'and the entries can no longer be edited.')) return;
+          api(opts.base + '/settle-covered', { method: 'POST', body: {} }).then(function (r) {
+            toast(r && r.ok ? 'Coverage applied' : (r && r.message) || 'Nothing to apply');
+            opts.after();
+          });
+        }));
+      }
+      return box;
+    }
+
+    // ---- organizations ----------------------------------------------------
+
+    var custMode = 'people';
+    var orgRows = [];
+    var orgSel = null;
+
+    function syncMode() {
+      [].forEach.call(document.querySelectorAll('#custMode .fpill'), function (b) {
+        b.classList.toggle('on', b.getAttribute('data-mode') === custMode);
+      });
+      document.querySelector('.custfind').hidden = custMode !== 'people';
+      if (custMode === 'orgs') loadOrgs(); else renderCustList();
+    }
+
+    [].forEach.call(document.querySelectorAll('#custMode .fpill'), function (b) {
+      b.addEventListener('click', function () {
+        custMode = b.getAttribute('data-mode');
+        custDetailEl.textContent = '';
+        custDetailEl.appendChild(el('div', 'state', custMode === 'orgs'
+          ? 'Pick an organization, or add one.' : 'Pick somebody to open their file.'));
+        syncMode();
+      });
+    });
+
+    function loadOrgs() {
+      custListEl.textContent = '';
+      custListEl.appendChild(el('div', 'state', 'Loading…'));
+      return api('/admin/orgs').then(function (r) {
+        orgRows = (r && r.orgs) || [];
+        renderOrgList();
+      });
+    }
+
+    function renderOrgList() {
+      custListEl.textContent = '';
+
+      var add = el('div', 'custfind');
+      var nameIn = document.createElement('input');
+      nameIn.type = 'text'; nameIn.placeholder = 'New organization name';
+      nameIn.setAttribute('aria-label', 'New organization name');
+      var bar = el('div', 'orgbar');
+      bar.appendChild(nameIn);
+      bar.appendChild(licAction('Add', 'prim', function () {
+        var n = nameIn.value.trim();
+        if (!n) return toast('Give it a name');
+        api('/admin/orgs', { method: 'POST', body: { name: n } }).then(function (r) {
+          if (!r || !r.ok) return toast('Could not add that');
+          nameIn.value = '';
+          toast('Added ' + r.name);
+          loadOrgs().then(function () { openOrg(r.id); });
+        });
+      }));
+      add.appendChild(bar);
+      custListEl.appendChild(add);
+
+      if (!orgRows.length) {
+        custListEl.appendChild(el('div', 'state', 'No organizations yet.'));
+        return;
+      }
+      orgRows.forEach(function (o) {
+        var b = el('button', 'cust' + (orgSel === o.id ? ' sel' : ''));
+        b.type = 'button';
+        var top = el('div', 'cust-top');
+        top.appendChild(el('span', 'cust-name', o.name));
+        b.appendChild(top);
+        b.appendChild(el('div', 'cust-sub', o.billing_email || 'No billing contact'));
+        var counts = el('div', 'cust-counts');
+        [[o.domains, 'domain'], [o.members, 'member'], [o.tickets, 'ticket']]
+          .forEach(function (pair) {
+            var sp = el('span');
+            sp.appendChild(el('b', null, String(pair[0] || 0)));
+            sp.appendChild(document.createTextNode(' ' + pair[1] + (pair[0] === 1 ? '' : 's')));
+            counts.appendChild(sp);
+          });
+        b.appendChild(counts);
+        b.addEventListener('click', function () {
+          orgSel = o.id; renderOrgList(); openOrg(o.id);
+        });
+        custListEl.appendChild(b);
+      });
+    }
+
+    function openOrg(id) {
+      custDetailEl.textContent = '';
+      custDetailEl.appendChild(el('div', 'state', 'Loading…'));
+      api('/admin/orgs/' + encodeURIComponent(id)).then(function (r) {
+        custDetailEl.textContent = '';
+        if (!r || !r.ok) {
+          custDetailEl.appendChild(el('div', 'state', 'Could not load that organization.'));
+          return;
+        }
+        custDetailEl.appendChild(orgPanel(r.org, r.unbilled));
+      });
+    }
+
+    function orgPanel(o, un) {
+      var wrap = el('div', 'panel');
+      var head = el('div', 'cust-head');
+      head.appendChild(el('h2', null, o.name));
+      head.appendChild(el('div', 'who', o.billing_email
+        ? 'Invoices go to ' + o.billing_email : 'No billing contact set'));
+      wrap.appendChild(head);
+
+      // Billing contact
+      var bill = el('div', 'orgbar');
+      var beIn = document.createElement('input');
+      beIn.type = 'email'; beIn.value = o.billing_email || '';
+      beIn.placeholder = 'billing@theirfirm.com';
+      beIn.setAttribute('aria-label', 'Billing contact');
+      bill.appendChild(beIn);
+      bill.appendChild(licAction('Save contact', null, function () {
+        api('/admin/orgs/' + o.id, { method: 'PATCH', body: { billing_email: beIn.value.trim() } })
+          .then(function (r) {
+            toast(r && r.ok ? 'Saved' : (r && r.error) || 'Could not save');
+            openOrg(o.id);
+          });
+      }));
+      wrap.appendChild(bill);
+
+      // Agreement
+      var as = sec('Service agreement');
+      if (o.agreement) {
+        as.appendChild(agreementNote({ agreement: o.agreement, governed_by: 'org' }));
+        as.appendChild(licAction('End agreement', null, function () {
+          if (!confirm('End this agreement?\n\nWork logged after this bills at the full ' +
+            'rate. Coverage already granted stays on the entries it paid for.')) return;
+          api('/admin/agreements/' + o.agreement.id, { method: 'DELETE' }).then(function (r) {
+            toast(r && r.ok ? 'Ended' : 'Could not end it');
+            openOrg(o.id);
+          });
+        }));
+      } else {
+        var ag = el('div', 'orgbar');
+        var agName = document.createElement('input');
+        agName.type = 'text'; agName.placeholder = 'Plan name';
+        agName.setAttribute('aria-label', 'Plan name');
+        var agHrs = document.createElement('input');
+        agHrs.type = 'text'; agHrs.placeholder = 'Included hours, e.g. 10';
+        agHrs.setAttribute('aria-label', 'Included hours per month');
+        var agRate = document.createElement('input');
+        agRate.type = 'text'; agRate.placeholder = 'Overage $/hr (blank = standard)';
+        agRate.setAttribute('aria-label', 'Overage rate');
+        ag.appendChild(agName); ag.appendChild(agHrs); ag.appendChild(agRate);
+        ag.appendChild(licAction('Add agreement', 'prim', function () {
+          var hrs = parseFloat(agHrs.value);
+          if (!(hrs >= 0)) return toast('Enter the included hours, e.g. 10');
+          var rate = agRate.value.trim();
+          api('/admin/agreements', {
+            method: 'POST',
+            body: {
+              holder_type: 'org', holder_id: o.id, name: agName.value.trim(),
+              included_minutes: Math.round(hrs * 60),
+              rate_cents: rate === '' ? null : Math.round(parseFloat(rate) * 100)
+            }
+          }).then(function (r) {
+            toast(r && r.ok ? 'Agreement added' : (r && r.message) || 'Could not add it');
+            openOrg(o.id);
+          });
+        }));
+        as.appendChild(ag);
+      }
+      wrap.appendChild(as);
+
+      // Domains
+      var ds = sec('Email domains');
+      ds.appendChild(el('div', 'row-sub',
+        'Anyone writing in from these is this client, and their time comes out of these hours.'));
+      (o.domains || []).forEach(function (d) {
+        ds.appendChild(row(d.domain, 'Claimed ' + fmtDay(d.added_at),
+          licAction('Remove', null, function () {
+            if (!confirm('Stop treating @' + d.domain + ' as ' + o.name + '?\n\nTickets ' +
+              'already attributed to them keep that attribution.')) return;
+            api('/admin/orgs/' + o.id + '/domains/' + encodeURIComponent(d.domain),
+              { method: 'DELETE' }).then(function () { toast('Removed'); openOrg(o.id); });
+          })));
+      });
+      var db = el('div', 'orgbar');
+      var dIn = document.createElement('input');
+      dIn.type = 'text'; dIn.placeholder = 'theirfirm.com';
+      dIn.setAttribute('aria-label', 'Domain');
+      db.appendChild(dIn);
+      db.appendChild(licAction('Claim domain', null, function () {
+        var d = dIn.value.trim();
+        if (!d) return toast('Enter a domain');
+        api('/admin/orgs/' + o.id + '/domains', { method: 'POST', body: { domain: d } })
+          .then(function (r) {
+            if (!r || !r.ok) return toast((r && r.message) || 'Could not claim that');
+            dIn.value = '';
+            toast('Claimed ' + r.domain + ': ' + r.tickets_attached + ' tickets attached' +
+              (r.entries_skipped_billed ? ', ' + r.entries_skipped_billed +
+                ' already-billed entries left alone' : ''));
+            openOrg(o.id);
+          });
+      }));
+      ds.appendChild(db);
+      wrap.appendChild(ds);
+
+      // Members
+      var ms = sec('Members');
+      ms.appendChild(el('div', 'row-sub',
+        'For anyone whose address is not on a claimed domain. An explicit member always wins.'));
+      (o.members || []).forEach(function (mem) {
+        ms.appendChild(row(mem.email || mem.account_id, 'Added ' + fmtDay(mem.added_at),
+          licAction('Remove', null, function () {
+            api('/admin/orgs/' + o.id + '/members/' + encodeURIComponent(mem.account_id),
+              { method: 'DELETE' }).then(function () { toast('Removed'); openOrg(o.id); });
+          })));
+      });
+      wrap.appendChild(ms);
+
+      // Outstanding work
+      var ws = sec('Outstanding work');
+      if (!un || !un.minutes) {
+        ws.appendChild(el('div', 'row-sub', 'Nothing outstanding.'));
+      } else {
+        if (un.agreement) ws.appendChild(agreementNote(un));
+        (un.periods || []).forEach(function (pd) { ws.appendChild(periodLine(pd)); });
+        un.tickets.forEach(function (g) {
+          ws.appendChild(row(g.ticket_number,
+            g.duration + (g.covered_minutes ? ' · ' + fmtDur(g.covered_minutes) + ' included' : ''),
+            el('span', 'inv-amt', money(g.amount_cents))));
+        });
+        ws.appendChild(billActions({
+          base: '/admin/orgs/' + encodeURIComponent(o.id),
+          un: un,
+          after: function () { openOrg(o.id); loadOrgs(); }
+        }));
+      }
+      wrap.appendChild(ws);
+      return wrap;
+    }
 
     // ---- view switching --------------------------------------------------
     var VIEWS = {
