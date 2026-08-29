@@ -213,11 +213,11 @@
 
       if (p.explain) d.appendChild(el('div', 'prod-explain', p.explain));
 
-      // Owned licences are not metered, so there is no meter to draw. Rendering
+      // Owned licenses are not metered, so there is no meter to draw. Rendering
       // "0 of 0" would imply a limit that does not exist.
       if (!p.usage) {
         var own = el('div', 'meter-note');
-        own.textContent = 'Perpetual licence · no usage limit · runs on your own Anthropic API key';
+        own.textContent = 'Perpetual license · no usage limit · runs on your own Anthropic API key';
         own.style.marginBottom = '1rem';
         d.appendChild(own);
       }
@@ -255,7 +255,7 @@
           r.appendChild(el('span', 'lic-v', v));
           lic.appendChild(r);
         }
-        row('Licence type', l.type === 'trial' ? 'Free trial'
+        row('License type', l.type === 'trial' ? 'Free trial'
           : l.type === 'owned' ? 'Owned outright (perpetual)' : 'Subscription');
         row('Activated', l.activated ? fmt(l.activated_at) : 'Not yet activated');
         if (l.machine_bound) row('Installed on', '1 computer');
@@ -281,7 +281,7 @@
       // rather than pretending the portal can show one.
       var note = el('div', 'keynote');
       note.appendChild(document.createTextNode(
-        'For your security we store licence keys hashed, so they cannot be displayed here. ' +
+        'For your security we store license keys hashed, so they cannot be displayed here. ' +
         'Lost yours? We will issue a replacement. '));
       var req = el('button', null, 'Request a replacement key');
       req.type = 'button';
@@ -332,7 +332,7 @@
         'Your edition of the software' + (size ? ', ' + size : '') + '.' +
         (dl.byo_key
           ? ' Runs on your own Anthropic API key — nothing is metered by us.'
-          : ' Activate it with your licence key on first run.')));
+          : ' Activate it with your license key on first run.')));
 
       var acts = el('div', 'prod-actions');
       var a = el('a', 'btn btn-primary', 'Download Installer');
@@ -389,7 +389,7 @@
         stateEl.appendChild(ei);
         stateEl.appendChild(el('h2', null, 'No active products yet'));
         stateEl.appendChild(el('p', null,
-          'Once you start a subscription or purchase a TES application, your licence, plan and usage appear here.'));
+          'Once you start a subscription or purchase a TES application, your license, plan and usage appear here.'));
         var row = el('div', 'empty-actions');
         var a1 = el('a', 'btn btn-primary', 'Browse Software'); a1.href = '../software.html';
         var a2 = el('a', 'btn btn-ghost', 'Start a Free Trial');

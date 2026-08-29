@@ -719,7 +719,7 @@
       var acts = el('div', 'lic-manage');
 
       // Plan. A trial row shows Trial as the disabled current value: the control
-      // plane forces plan='trial' on a trial licence, so the only move is upward.
+      // plane forces plan='trial' on a trial license, so the only move is upward.
       acts.appendChild(el('span', 'lbl', 'Plan'));
       var sel = el('select');
       if (v.type === 'trial') {
@@ -751,7 +751,7 @@
 
       // Nonpayment lever. Suspending sets the ACCOUNT past_due, which is what the
       // control plane turns into "check your PayPal billing" for the customer.
-      // It has no effect on a trial licence -- revoke those instead.
+      // It has no effect on a trial license -- revoke those instead.
       var suspended = v.account_status && v.account_status !== 'active';
       acts.appendChild(licAction(suspended ? 'Restore account' : 'Suspend (nonpayment)', null, function () {
         var next = suspended ? 'active' : 'past_due';
@@ -804,7 +804,7 @@
       }
 
       // Hides a dead key from the customer's My Software page. Their dashboard
-      // should show the licence they are using, not every one ever issued to them.
+      // should show the license they are using, not every one ever issued to them.
       if (v.unassigned) {
         acts.appendChild(licAction('Show to customer', null, function () {
           api('/admin/licenses/' + v.key_hash + '/unassign',
