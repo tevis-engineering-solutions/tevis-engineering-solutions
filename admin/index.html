@@ -172,6 +172,24 @@
     .cust-sec > button:hover, .cust-sec .row button:hover { border-color:var(--green); }
     .cust-sec > button.prim { background:linear-gradient(135deg,var(--gold),#e0b840); color:#0d1710; border-color:transparent; }
 
+    .danger-zone { border:1px solid rgba(239,68,68,0.4); background:rgba(239,68,68,0.06); border-radius:12px; padding:0.8rem 0.9rem; margin-top:1rem; }
+    .danger-zone h3 { font-family:"Montserrat",sans-serif; font-size:0.82rem; color:#ef4444; margin-bottom:0.3rem; }
+    .danger-zone p { font-size:0.76rem; color:var(--muted); margin-bottom:0.5rem; }
+    .danger-zone .blocker { font-size:0.76rem; color:var(--gold); margin-bottom:0.35rem; }
+    .danger-zone .warn-line { font-size:0.76rem; color:var(--muted); margin-bottom:0.35rem; }
+    .danger-zone label { display:flex; gap:0.4rem; align-items:flex-start; font-size:0.76rem; color:var(--text); margin:0.4rem 0; }
+    .danger-zone input[type="text"] { width:100%; padding:0.5rem 0.6rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.85rem; margin-top:0.3rem; }
+    .danger-zone button { font-family:"Montserrat",sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.5rem 0.9rem; border-radius:999px; border:1px solid rgba(239,68,68,0.5); background:var(--bg); color:#ef4444; cursor:pointer; min-height:40px; margin-top:0.5rem; }
+    .danger-zone button:hover { background:rgba(239,68,68,0.12); }
+    .danger-zone button[disabled] { opacity:0.45; cursor:not-allowed; }
+
+    .addgrid { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-top:0.6rem; }
+    @media (max-width:640px) { .addgrid { grid-template-columns:1fr; } }
+    .addgrid label, .addwide label { display:block; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); font-weight:700; margin-bottom:0.2rem; }
+    .addgrid input, .addgrid select, .addwide input { width:100%; padding:0.5rem 0.65rem; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:0.85rem; }
+    .addwide { margin-top:0.5rem; }
+    .addsec { font-family:"Montserrat",sans-serif; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--gold); margin-top:0.9rem; }
+
     .sla-line { font-size:0.76rem; color:var(--muted); margin-bottom:0.7rem; }
     .sla-line b { color:var(--text); }
     .sla-line.late b, .sla-line.late { color:#ef4444; }
@@ -259,6 +277,14 @@
       <button type="button" class="fpill on" data-mode="people">People</button>
       <button type="button" class="fpill" data-mode="orgs">Organizations</button>
     </div>
+
+    <section class="custfind" id="custAddBox">
+      <div class="orgbar">
+        <button type="button" id="custAddToggle" class="prim">+ Add customer</button>
+        <span class="fnote">Set someone up before they have ever signed in.</span>
+      </div>
+      <div id="custAddForm" hidden></div>
+    </section>
 
     <section class="custfind">
       <label for="custQ">Find a customer</label>
@@ -1695,6 +1721,7 @@
       });
       wrap.appendChild(ivs);
 
+      wrap.appendChild(dangerZone(c));
       return wrap;
     }
 
@@ -1782,6 +1809,248 @@
         }));
       }
       return box;
+    }
+
+    // ---- adding a customer by hand ----------------------------------------
+    // Every field past the email is optional. The point is to have a client fully set
+    // up -- org, agreement, licence -- before they have ever signed in.
+
+    function field(parent, id, label, type, placeholder) {
+      var w = el('div');
+      var l = el('label', null, label);
+      l.setAttribute('for', id);
+      var i = document.createElement(type === 'select' ? 'select' : 'input');
+      i.id = id;
+      if (type !== 'select') { i.type = type; i.placeholder = placeholder || ''; }
+      w.appendChild(l); w.appendChild(i);
+      parent.appendChild(w);
+      return i;
+    }
+
+    function buildAddForm() {
+      var box = document.getElementById('custAddForm');
+      box.textContent = '';
+
+      var g1 = el('div', 'addgrid');
+      var fEmail = field(g1, 'addEmail', 'Email (required)', 'email', 'owner@theirfirm.com');
+      var fName = field(g1, 'addName', 'Name', 'text', 'Pat Nguyen');
+      var fCompany = field(g1, 'addCompany', 'Company', 'text', 'Their Firm LLC');
+      var fPhone = field(g1, 'addPhone', 'Phone', 'text', '216-555-0100');
+      box.appendChild(g1);
+
+      box.appendChild(el('div', 'addsec', 'Organization'));
+      var g2 = el('div', 'addgrid');
+      var fOrg = field(g2, 'addOrg', 'Existing organization', 'select');
+      var noneOpt = document.createElement('option');
+      noneOpt.value = ''; noneOpt.textContent = 'None (individual)';
+      fOrg.appendChild(noneOpt);
+      (orgRows || []).forEach(function (o) {
+        var op = document.createElement('option');
+        op.value = o.id; op.textContent = o.name;
+        fOrg.appendChild(op);
+      });
+      var fNewOrg = field(g2, 'addNewOrg', 'Or create one', 'text', 'Their Firm LLC');
+      box.appendChild(g2);
+
+      box.appendChild(el('div', 'addsec', 'Service agreement (optional)'));
+      var g3 = el('div', 'addgrid');
+      var fHrs = field(g3, 'addHrs', 'Included hours / month', 'text', '10');
+      var fSla = field(g3, 'addSla', 'First response hours', 'text', '4');
+      var fRate = field(g3, 'addRate', 'Overage $/hr', 'text', 'blank = standard');
+      var fPlanName = field(g3, 'addPlanName', 'Plan name', 'text', 'Managed IT - Growth');
+      box.appendChild(g3);
+
+      box.appendChild(el('div', 'addsec', 'Licence key (optional)'));
+      var g4 = el('div', 'addgrid');
+      var fLic = field(g4, 'addLic', 'Ohio Crash plan', 'select');
+      ['', 'trial', 'starter', 'pro', 'enterprise', 'owned'].forEach(function (v) {
+        var op = document.createElement('option');
+        op.value = v; op.textContent = v === '' ? 'No key' : v;
+        fLic.appendChild(op);
+      });
+      var mailWrap = el('div');
+      var mailLbl = el('label', null, ' Email the key to them');
+      mailLbl.setAttribute('for', 'addMail');
+      var fMail = document.createElement('input');
+      fMail.type = 'checkbox'; fMail.id = 'addMail';
+      mailWrap.appendChild(el('label', null, 'Delivery'));
+      var inline = el('div', 'worklog-bill');
+      inline.appendChild(fMail);
+      inline.appendChild(document.createTextNode(' Email the key to them'));
+      mailWrap.appendChild(inline);
+      g4.appendChild(mailWrap);
+      box.appendChild(g4);
+
+      var actions = el('div', 'orgbar');
+      var save = licAction('Create customer', 'prim', function () {
+        var email = fEmail.value.trim();
+        if (!email) return toast('An email address is required');
+        var hrs = parseFloat(fHrs.value);
+        var sla = parseFloat(fSla.value);
+        var rate = fRate.value.trim();
+        var payload = {
+          email: email,
+          name: fName.value.trim(), company: fCompany.value.trim(),
+          phone: fPhone.value.trim(),
+          org_id: fOrg.value || null,
+          new_org_name: fOrg.value ? null : (fNewOrg.value.trim() || null),
+        };
+        if (hrs >= 0 || sla > 0) {
+          payload.agreement = {
+            name: fPlanName.value.trim(),
+            included_minutes: hrs >= 0 ? Math.round(hrs * 60) : 0,
+            sla_response_hours: sla > 0 ? sla : null,
+            rate_cents: rate === '' ? null : Math.round(parseFloat(rate) * 100),
+          };
+        }
+        if (fLic.value) payload.license = { plan: fLic.value, notify: fMail.checked };
+
+        save.disabled = true;
+        api('/admin/customers', { method: 'POST', body: payload }).then(function (r) {
+          save.disabled = false;
+          if (!r || !r.ok) return toast((r && r.message) || (r && r.error) || 'Could not create that');
+          // Anything that did not land is named rather than swallowed: D1 has no
+          // transaction across these writes, so a half-built customer is possible.
+          var failed = (r.steps || []).filter(function (st) { return !st.ok; });
+          if (failed.length) {
+            alert('Created, but these did not apply:\n\n' +
+              failed.map(function (st) { return st.step + ': ' + (st.error || 'failed'); }).join('\n'));
+          }
+          if (r.license && r.license.key) {
+            // The raw key exists in this response and nowhere else.
+            alert('Licence key for ' + r.email + '\n\n' + r.license.key + '\n\n' +
+              (r.emailed ? 'Emailed to them.' :
+               r.email_failed ? 'The email FAILED to send. Copy this now.' :
+               'Not emailed. Copy this now, it is not shown again.'));
+          }
+          toast(r.created ? 'Customer created' : 'Existing account updated');
+          document.getElementById('custAddForm').hidden = true;
+          custMode = 'people';
+          loadCustomers('').then(function () { openCustomer(r.account_id); });
+        });
+      });
+      actions.appendChild(save);
+      actions.appendChild(licAction('Cancel', null, function () {
+        document.getElementById('custAddForm').hidden = true;
+      }));
+      box.appendChild(actions);
+    }
+
+    document.getElementById('custAddToggle').addEventListener('click', function () {
+      var box = document.getElementById('custAddForm');
+      if (!box.hidden) { box.hidden = true; return; }
+      // Orgs are needed for the dropdown, and may not have been fetched yet.
+      if (!orgRows.length) api('/admin/orgs').then(function (r) {
+        orgRows = (r && r.orgs) || [];
+        buildAddForm(); box.hidden = false;
+      });
+      else { buildAddForm(); box.hidden = false; }
+    });
+
+    // ---- deleting a customer ----------------------------------------------
+    // A hard delete, so the confirmation is the email typed back rather than a yes/no.
+
+    function dangerZone(c) {
+      var z = el('div', 'danger-zone');
+      z.appendChild(el('h3', null, 'Delete this customer'));
+      z.appendChild(el('p', null,
+        'Removes the account and everything attached to it. If they sign in again later ' +
+        'they get a fresh account, so this is safe for test accounts and for clients you ' +
+        'no longer work with.'));
+      var open = licAction('Delete customer', null, function () {
+        open.disabled = true;
+        api('/admin/customers/' + encodeURIComponent(c.account.id) + '/deletion-preview')
+          .then(function (r) {
+            open.disabled = false;
+            if (!r || !r.ok) return toast('Could not check that');
+            z.textContent = '';
+            renderDeleteConfirm(z, c, r.preview);
+          });
+      });
+      z.appendChild(open);
+      return z;
+    }
+
+    function renderDeleteConfirm(z, c, pv) {
+      z.appendChild(el('h3', null, 'Delete ' + c.account.email + '?'));
+
+      var counts = [];
+      Object.keys(pv.counts).forEach(function (k) {
+        if (pv.counts[k]) counts.push(pv.counts[k] + ' ' + k.replace(/_/g, ' '));
+      });
+      z.appendChild(el('p', null, counts.length
+        ? 'This will remove: ' + counts.join(', ') + '.'
+        : 'Nothing is attached to this account.'));
+
+      var hard = pv.blockers.filter(function (b) { return b.hard; });
+      var soft = pv.blockers.filter(function (b) { return !b.hard; });
+      pv.blockers.forEach(function (b) {
+        z.appendChild(el('div', 'blocker', (b.hard ? 'Blocked: ' : 'Careful: ') + b.message));
+      });
+      (pv.warnings || []).forEach(function (w) {
+        z.appendChild(el('div', 'warn-line', w));
+      });
+
+      if (hard.length) {
+        // Not overridable in the UI because it is not overridable on the server: the
+        // money keeps moving whatever this console does.
+        z.appendChild(el('p', null, 'Deal with that first; this cannot be forced.'));
+        z.appendChild(licAction('Close', null, function () {
+          z.textContent = ''; openCustomer(c.account.id);
+        }));
+        return;
+      }
+
+      var ack = null;
+      if (soft.length) {
+        var ackWrap = el('label');
+        ack = document.createElement('input');
+        ack.type = 'checkbox';
+        ackWrap.appendChild(ack);
+        ackWrap.appendChild(document.createTextNode(
+          ' I understand this destroys accounting records.'));
+        z.appendChild(ackWrap);
+      }
+
+      var relWrap = el('label');
+      var rel = document.createElement('input');
+      rel.type = 'checkbox';
+      relWrap.appendChild(rel);
+      relWrap.appendChild(document.createTextNode(
+        pv.trial_claims
+          ? ' Also release their free-trial claim, so this address can start another trial.'
+          : ' Also release any free-trial claim for this address.'));
+      z.appendChild(relWrap);
+
+      var typed = document.createElement('input');
+      typed.type = 'text';
+      typed.placeholder = 'Type ' + c.account.email + ' to confirm';
+      typed.setAttribute('aria-label', 'Type the email to confirm');
+      z.appendChild(typed);
+
+      var go = licAction('Delete permanently', null, function () {
+        go.disabled = true;
+        api('/admin/customers/' + encodeURIComponent(c.account.id), {
+          method: 'DELETE',
+          body: {
+            confirm: typed.value.trim(),
+            acknowledge_financial: !!(ack && ack.checked),
+            release_trial: rel.checked,
+            reason: 'removed from the admin console',
+          },
+        }).then(function (r) {
+          go.disabled = false;
+          if (!r || !r.ok) return toast((r && r.message) || (r && r.error) || 'Could not delete');
+          toast('Deleted ' + r.email);
+          custDetailEl.textContent = '';
+          custDetailEl.appendChild(el('div', 'state', 'Deleted. Pick somebody else.'));
+          loadCustomers(custQEl.value.trim());
+        });
+      });
+      z.appendChild(go);
+      z.appendChild(licAction('Cancel', null, function () {
+        z.textContent = ''; openCustomer(c.account.id);
+      }));
     }
 
     // ---- organizations ----------------------------------------------------
@@ -2022,6 +2291,26 @@
         }));
       }
       wrap.appendChild(ws);
+
+      var oz = el('div', 'danger-zone');
+      oz.appendChild(el('h3', null, 'Delete this organization'));
+      oz.appendChild(el('p', null,
+        'Removes the company, its domains, members and agreement. Tickets, time and ' +
+        'invoices are kept and revert to the people who filed them.'));
+      oz.appendChild(licAction('Delete organization', null, function () {
+        var typed = prompt('Type the organization name to confirm deleting it:\n\n' + o.name);
+        if (!typed) return;
+        api('/admin/orgs/' + encodeURIComponent(o.id), {
+          method: 'DELETE', body: { confirm: typed.trim() },
+        }).then(function (r) {
+          if (!r || !r.ok) return toast((r && r.message) || 'Could not delete it');
+          toast('Deleted ' + r.name + ' (' + (r.removed.tickets_detached || 0) + ' tickets kept)');
+          custDetailEl.textContent = '';
+          custDetailEl.appendChild(el('div', 'state', 'Deleted. Pick another organization.'));
+          loadOrgs();
+        });
+      }));
+      wrap.appendChild(oz);
       return wrap;
     }
 
