@@ -1813,7 +1813,7 @@
 
     // ---- adding a customer by hand ----------------------------------------
     // Every field past the email is optional. The point is to have a client fully set
-    // up -- org, agreement, licence -- before they have ever signed in.
+    // up -- org, agreement, license -- before they have ever signed in.
 
     function field(parent, id, label, type, placeholder) {
       var w = el('div');
@@ -1860,7 +1860,7 @@
       var fPlanName = field(g3, 'addPlanName', 'Plan name', 'text', 'Managed IT - Growth');
       box.appendChild(g3);
 
-      box.appendChild(el('div', 'addsec', 'Licence key (optional)'));
+      box.appendChild(el('div', 'addsec', 'license key (optional)'));
       var g4 = el('div', 'addgrid');
       var fLic = field(g4, 'addLic', 'Ohio Crash plan', 'select');
       ['', 'trial', 'starter', 'pro', 'enterprise', 'owned'].forEach(function (v) {
@@ -1918,7 +1918,7 @@
           }
           if (r.license && r.license.key) {
             // The raw key exists in this response and nowhere else.
-            alert('Licence key for ' + r.email + '\n\n' + r.license.key + '\n\n' +
+            alert('license key for ' + r.email + '\n\n' + r.license.key + '\n\n' +
               (r.emailed ? 'Emailed to them.' :
                r.email_failed ? 'The email FAILED to send. Copy this now.' :
                'Not emailed. Copy this now, it is not shown again.'));

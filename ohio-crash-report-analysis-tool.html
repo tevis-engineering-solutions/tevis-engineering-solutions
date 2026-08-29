@@ -651,7 +651,7 @@
           </div>
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfjPSABvMOUzIl3" data-theme="dark" data-size="flexible"></div>
           <div class="buy-error" id="buyError" role="alert"></div>
-          <!-- Rendered from GET /portal-api/public/plans, the same catalogue the server
+          <!-- Rendered from GET /portal-api/public/plans, the same catalog the server
                charges from, so the quoted figure cannot drift from the invoice. The
                markup here is only a fallback for a failed fetch. -->
           <div class="buy-total" id="buyTotal" aria-live="polite">
@@ -838,7 +838,7 @@
     // ---- self-serve trial and subscription --------------------------------
     //
     // Both post JSON to the portal Worker on the same origin. Neither sends a price
-    // or a plan id: the server reads those from its own catalogue, so nothing the
+    // or a plan id: the server reads those from its own catalog, so nothing the
     // browser says can change what a customer is charged.
     (function() {
       function tokenFrom(form) {
@@ -953,7 +953,7 @@
 
       // ---- the price shown above the button ----
       //
-      // Fetched from /public/plans, which serves the same catalogue the server charges
+      // Fetched from /public/plans, which serves the same catalog the server charges
       // from. Hardcoding these figures is how a page ends up quoting $5,720 while PayPal
       // bills $5,270; deriving them from one source makes that impossible.
       var PRICES = null;
