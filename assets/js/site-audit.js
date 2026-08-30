@@ -348,8 +348,13 @@
     // Both enrichments are requested from the report itself, after it has rendered.
     // A Lighthouse run takes tens of seconds and Claude takes tens more; behind the
     // scan they would have meant a minute of spinner before anything appeared.
-    requestSpeed(payload);
-    requestAdvice(payload);
+    //
+    // The advice waits for the speed result rather than racing it. Fired together, the
+    // advice request read payload.speed before PageSpeed had answered, so the write-up
+    // was told there were no speed numbers -- and correctly said the scan could not
+    // measure speed, in a report displaying Google's speed measurements directly above
+    // it. Caught on the first live run against tevisengineering.com.
+    requestAdvice(payload, requestSpeed(payload));
   }
 
   function renderHero(report) {
@@ -445,11 +450,13 @@
 
   // ---------------------------------------------------------------- speed section
 
+  // Returns a promise that always resolves, never rejects: the advice request waits on
+  // it, and a rejected speed lookup must not take the written section down with it.
   function requestSpeed(payload) {
     var section = document.getElementById('tesSpeed');
     var body = document.getElementById('tesSpeedBody');
 
-    post('/audit/speed', { url: payload.report.final_url }, 95000).then(function (res) {
+    return post('/audit/speed', { url: payload.report.final_url }, 95000).then(function (res) {
       var data = res.data || {};
       if (!data.ok) {
         body.textContent = '';
@@ -461,7 +468,7 @@
             + 'this happens; it says nothing about your site.'));
         return;
       }
-      // Kept for the advice request, which is still in flight and reads better with it.
+      // Read by the advice request, which is waiting on this promise.
       payload.speed = data;
       renderSpeed(data, body);
       section.classList.add('tes-arrived');
@@ -528,15 +535,25 @@
 
   // ---------------------------------------------------------------- advice section
 
-  function requestAdvice(payload) {
+  function requestAdvice(payload, speedReady) {
     var section = document.getElementById('tesAdvice');
     var body = document.getElementById('tesAdviceBody');
 
-    post('/audit/advice', {
-      url: payload.report.final_url,
-      notes: payload.notes || '',
-      speed: payload.speed || null
-    }, 150000).then(function (res) {
+    // Wait for the speed numbers, but not indefinitely. A hung PageSpeed call must not
+    // cost the visitor the written section entirely, so after 60s the advice goes out
+    // with whatever arrived.
+    var settled = Promise.race([
+      speedReady,
+      new Promise(function (resolve) { setTimeout(resolve, 60000); })
+    ]);
+
+    settled.then(function () {
+      return post('/audit/advice', {
+        url: payload.report.final_url,
+        notes: payload.notes || '',
+        speed: payload.speed || null
+      }, 150000);
+    }).then(function (res) {
       var data = res.data || {};
       if (!data.ok || !data.advice) {
         adviceFallback(section, body, data.error);
