@@ -593,6 +593,20 @@
       // The Formspree fallback path comes back here with ?submitted=1.
       if (window.location.search.indexOf('submitted=1') !== -1) { showSuccess(); return; }
 
+      // A visitor arriving from the plan sizer on how_support_works.html brings
+      // their estimate with them. Prefilling it means the enquiry and the Telegram
+      // alert we already received describe the same thing, and they do not have to
+      // retype numbers they just set with sliders.
+      try {
+        var sz = new URLSearchParams(window.location.search).get('sizer');
+        var msgBox = document.getElementById('cMessage');
+        if (sz && msgBox && !msgBox.value) {
+          msgBox.value = sz + '\n\n';
+          var topic = document.getElementById('cTopic');
+          if (topic) { topic.value = 'Managed IT'; }
+        }
+      } catch (e) { /* a malformed query string must not break the form */ }
+
       function fail(msg) {
         errBox.textContent = msg;
         errBox.classList.add('show');

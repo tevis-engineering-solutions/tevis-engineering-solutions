@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Support Works | Tevis Engineering Solutions</title>
-  <meta name="description" content="Flat-rate managed IT support for Cleveland small businesses. Remote monitoring, help desk, patch management, and on-site support from a veteran-owned local IT firm.">
+  <meta name="description" content="How Tevis Engineering Solutions delivers IT support in Cleveland: 30-day onboarding, five levels of service, and a plan sizer that estimates the monthly hours your business needs.">
   <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tevis Engineering Solutions">
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://tevisengineering.com/how_support_works.html">
   <meta property="og:title" content="How Support Works | Tevis Engineering Solutions">
-  <meta property="og:description" content="Structured IT support with clear scope, transparent billing, and predictable delivery from a Cleveland-based veteran-owned firm.">
+  <meta property="og:description" content="Onboarding, service levels, standing blocks of hours versus per-ticket support, and a plan sizer that estimates the hours your business needs.">
   <meta property="og:image" content="https://tevisengineering.com/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Cleveland IT Support &amp; Custom Engineering | Tevis Engineering Solutions">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How Support Works | Tevis Engineering Solutions">
-  <meta name="twitter:description" content="Structured IT support with clear scope, transparent billing, and predictable delivery from a Cleveland-based veteran-owned firm.">
+  <meta name="twitter:description" content="Onboarding, service levels, standing blocks of hours versus per-ticket support, and a plan sizer that estimates the hours your business needs.">
   <meta name="twitter:image" content="https://tevisengineering.com/assets/og-image.png">
   <link rel="canonical" href="https://tevisengineering.com/how_support_works.html">
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -34,172 +34,382 @@
     :root {
       --bg: #0d1710;
       --card: #142019;
+      --card-2: #1c2e22;
+      --panel-soft: #111b15;
       --text: #e4ede5;
       --muted: #8aa48d;
       --line: #2c4232;
+      --border: #2c4232;
       --blue: #4aac65;
       --blue-deep: #1d5c38;
       --accent: #c89830;
+      --accent-hi: #e0b840;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-      background: radial-gradient(circle at top, #172b1c 0%, var(--bg) 45%, #060e08 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 10% 4%, rgba(74,172,101,0.13), transparent 40%),
+        radial-gradient(circle at 92% 10%, rgba(200,152,48,0.10), transparent 34%),
+        radial-gradient(circle at 55% 92%, rgba(74,172,101,0.07), transparent 40%),
+        linear-gradient(180deg, #0d1710 0%, #080d09 100%);
       line-height: 1.65;
     }
-    .container {
-      width: min(1100px, 92%);
-      margin: 0 auto;
+    .container { width: min(1160px, 92%); margin: 0 auto; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+    /* =====================================================================
+       "How Support Works" visual language  (.hs-*)
+       Squared plates with corner registration ticks, hairline rules and
+       chamfered buttons. Deliberately NOT the rounded-pane / pill-button
+       vocabulary used elsewhere on the site.
+       ===================================================================== */
+
+    /* --- plates ------------------------------------------------------- */
+    .hs-plate {
+      position: relative;
+      background: linear-gradient(158deg, rgba(20,32,25,0.92), rgba(12,20,15,0.94));
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 1.5rem;
     }
-    .hero {
-      padding: 3.6rem 0 2.2rem;
-      text-align: center;
+    .hs-plate::before,
+    .hs-plate::after {
+      content: "";
+      position: absolute;
+      width: 14px; height: 14px;
+      border: 2px solid var(--accent);
+      opacity: 0.75;
+      pointer-events: none;
     }
-    .eyebrow {
-      display: inline-block;
-      padding: 0.32rem 0.75rem;
-      border: 1px solid rgba(255, 92, 127, 0.4);
-      border-radius: 999px;
-      color: #ffd6df;
-      font-size: 0.85rem;
-      letter-spacing: 0.07em;
+    .hs-plate::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+    .hs-plate::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+    .hs-plate--green::before, .hs-plate--green::after { border-color: var(--blue); }
+
+    /* --- buttons ------------------------------------------------------ */
+    .hs-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: rgba(255, 92, 127, 0.1);
+      letter-spacing: 0.09em;
+      padding: 0.9rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 0;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease, background 0.18s ease, color 0.18s ease;
     }
+    .hs-btn--gold {
+      background: linear-gradient(120deg, var(--accent), var(--accent-hi));
+      color: #0d1710;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%);
+    }
+    .hs-btn--gold:hover { transform: translateY(-2px); filter: brightness(1.07); }
+    .hs-btn--ghost {
+      background: rgba(74,172,101,0.07);
+      border-color: rgba(74,172,101,0.42);
+      color: #d6ecdb;
+      box-shadow: inset 3px 0 0 0 var(--accent);
+    }
+    .hs-btn--ghost:hover { background: rgba(74,172,101,0.16); transform: translateY(-2px); color: #fff; }
+    .hs-btn--dark {
+      background: rgba(9,16,11,0.7);
+      border-color: rgba(200,152,48,0.4);
+      color: #e8d6a8;
+      box-shadow: inset 3px 0 0 0 var(--blue);
+    }
+    .hs-btn--dark:hover { background: rgba(200,152,48,0.14); transform: translateY(-2px); }
+    .hs-btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.6rem; }
+
+    /* --- hero --------------------------------------------------------- */
+    .hs-hero { padding: 3.6rem 0 1rem; display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2.6rem; align-items: center; }
+    .hs-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .hs-eyebrow::before { content: ""; width: 26px; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
     h1 {
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      line-height: 1.15;
-      margin-bottom: 1rem;
+      letter-spacing: 0.005em;
+      font-size: clamp(2.05rem, 5.6vw, 3.35rem);
+      line-height: 1.08;
+      margin-bottom: 1.1rem;
+      background: linear-gradient(118deg, #ffffff 0%, #8ad6a0 46%, #e0b840 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .hero p {
-      max-width: 850px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 1.1rem;
+    .hs-lede { color: #b9cdbd; font-size: 1.06rem; max-width: 60ch; }
+    .hs-lede strong { color: #e4ede5; font-weight: 600; }
+
+    /* the hero's right-hand spec rail: rows on a hairline, not boxes */
+    .hs-spec { border-left: 2px solid var(--accent); padding-left: 1.25rem; }
+    .hs-spec-row { display: flex; align-items: baseline; gap: 0.9rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(74,172,101,0.16); }
+    .hs-spec-row:last-child { border-bottom: 0; }
+    .hs-spec-row b {
+      font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: #fff; line-height: 1; min-width: 4.3rem; flex-shrink: 0;
     }
-    .btn-row {
-      display: flex;
-      justify-content: center;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      margin-top: 1.6rem;
+    .hs-spec-row span { font-size: 0.85rem; color: #a7bfab; line-height: 1.4; }
+
+    /* --- section rhythm ----------------------------------------------- */
+    .hs-band { margin-top: 3.6rem; }
+    .hs-head { margin-bottom: 1.5rem; }
+    .hs-head-rail { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.9rem; }
+    .hs-idx {
+      font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 0.82rem;
+      letter-spacing: 0.1em; color: var(--accent);
+      border: 1px solid rgba(200,152,48,0.45); padding: 0.15rem 0.5rem; line-height: 1.4;
     }
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 0.8rem 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      border: 1px solid transparent;
+    .hs-kicker {
+      font-family: "Montserrat", sans-serif; font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #8aa48d; white-space: nowrap;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), #6dc882);
-      color: #06101f;
+    .hs-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,152,48,0.55), rgba(74,172,101,0.22) 40%, transparent); }
+    .hs-head h2 {
+      font-family: "Montserrat", sans-serif; text-transform: uppercase; letter-spacing: 0.01em;
+      font-size: clamp(1.5rem, 3.4vw, 2.05rem); line-height: 1.15; color: #f4faf5; margin-bottom: 0.6rem;
     }
-    .btn-secondary {
-      border-color: rgba(74, 172, 101, 0.35);
-      background: rgba(74, 172, 101, 0.12);
-      color: #d4edd7;
+    .hs-head p { color: var(--muted); max-width: 78ch; font-size: 0.99rem; }
+    .hs-sub {
+      font-family: "Montserrat", sans-serif; font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      margin: 2rem 0 0.9rem;
     }
-    .section {
-      margin-top: 2.2rem;
-      background: rgba(11, 18, 30, 0.66);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 1.4rem;
+
+    fieldset { border: 0; min-width: 0; }
+    .hs-inline { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid rgba(200,152,48,0.4); }
+    .hs-inline:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
+
+    /* --- lists -------------------------------------------------------- */
+    .hs-list { list-style: none; }
+    .hs-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.6rem; color: #c2d5c6; font-size: 0.95rem; }
+    .hs-list li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; background: var(--accent); }
+    .hs-list--green li::before { background: var(--blue); }
+    .hs-list b { color: #eef7ef; font-weight: 600; }
+
+    /* --- 01 onboarding track ------------------------------------------ */
+    .hs-track { position: relative; margin-top: 0.5rem; padding-left: 2.1rem; }
+    .hs-track::before {
+      content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--blue) 55%, rgba(74,172,101,0.15));
     }
-    .section h2 {
-      font-family: "Montserrat", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      font-size: 1.45rem;
-      margin-bottom: 0.85rem;
-      color: #f1f6ff;
+    .hs-stop { position: relative; padding: 0 0 1.7rem; }
+    .hs-stop:last-child { padding-bottom: 0; }
+    .hs-stop::before {
+      content: ""; position: absolute; left: -2.1rem; top: 0.35rem;
+      width: 14px; height: 14px; background: #0d1710;
+      border: 2px solid var(--accent); transform: rotate(45deg);
     }
-    .section p {
-      color: var(--muted);
+    .hs-stop-when {
+      display: inline-block; font-family: "Montserrat", sans-serif; font-size: 0.63rem;
+      font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #0d1710; background: linear-gradient(120deg, var(--accent), var(--accent-hi));
+      padding: 0.16rem 0.6rem; margin-bottom: 0.5rem;
     }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.9rem;
-      margin-top: 1.1rem;
+    .hs-stop h3 { font-family: "Montserrat", sans-serif; font-size: 1.05rem; color: #eef7ef; margin-bottom: 0.35rem; }
+    .hs-stop p { color: #b4c8b8; font-size: 0.95rem; }
+
+    /* --- 02 service tiers --------------------------------------------- */
+    .hs-tiers { border-top: 1px solid var(--line); }
+    .hs-tier {
+      display: grid; grid-template-columns: 62px 1.15fr 1.35fr 0.8fr;
+      gap: 1.3rem; align-items: start;
+      padding: 1.35rem 0.4rem; border-bottom: 1px solid var(--line);
+      transition: background 0.2s ease;
     }
-    .step {
-      background: var(--card);
-      border: 1px solid #2a3d5d;
-      border-radius: 14px;
-      padding: 1rem;
+    .hs-tier:hover { background: rgba(74,172,101,0.05); }
+    .hs-meter { display: flex; gap: 3px; align-items: flex-end; height: 26px; padding-top: 0.35rem; }
+    .hs-meter i { display: block; width: 8px; background: rgba(74,172,101,0.18); }
+    .hs-meter i:nth-child(1) { height: 30%; }
+    .hs-meter i:nth-child(2) { height: 48%; }
+    .hs-meter i:nth-child(3) { height: 66%; }
+    .hs-meter i:nth-child(4) { height: 83%; }
+    .hs-meter i:nth-child(5) { height: 100%; }
+    .hs-meter i.on { background: linear-gradient(180deg, var(--accent-hi), var(--accent)); }
+    .hs-tier h3 { font-family: "Montserrat", sans-serif; font-size: 1.06rem; color: #f2faf3; margin-bottom: 0.25rem; }
+    .hs-tier-for { font-size: 0.88rem; color: var(--muted); }
+    .hs-tier-what { font-size: 0.93rem; color: #c2d5c6; }
+    .hs-tier-rate {
+      font-family: "Montserrat", sans-serif; font-size: 0.92rem; font-weight: 800;
+      color: var(--accent); line-height: 1.35; text-align: right;
     }
-    .step strong {
-      display: inline-block;
-      color: #bbd8ff;
-      margin-bottom: 0.45rem;
+    .hs-tier-rate small { display: block; font-family: "Inter", sans-serif; font-size: 0.76rem; font-weight: 500; color: var(--muted); letter-spacing: 0; margin-top: 0.2rem; }
+    .hs-tier--flag { background: linear-gradient(90deg, rgba(200,152,48,0.09), transparent 65%); box-shadow: inset 3px 0 0 0 var(--accent); }
+
+    /* --- 03 block vs ticket ------------------------------------------- */
+    .hs-versus { display: grid; grid-template-columns: 1fr 46px 1fr; align-items: stretch; margin-top: 0.4rem; }
+    .hs-vs-mark { display: grid; place-items: center; position: relative; }
+    .hs-vs-mark::before { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, transparent, rgba(200,152,48,0.5), transparent); }
+    .hs-vs-mark span {
+      position: relative; z-index: 1; background: #0d1710; border: 1px solid rgba(200,152,48,0.5);
+      color: var(--accent); font-family: "Montserrat", sans-serif; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; padding: 0.4rem 0.32rem; writing-mode: vertical-rl;
     }
-    .step p {
-      font-size: 0.95rem;
+    .hs-vs-col { padding: 1.5rem; }
+    .hs-vs-col h3 { font-family: "Montserrat", sans-serif; font-size: 1.1rem; color: #f2faf3; margin-bottom: 0.5rem; }
+    .hs-vs-tag {
+      display: inline-block; font-family: "Montserrat", sans-serif; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 0.2rem 0.55rem; margin-bottom: 0.7rem;
     }
-    ul {
-      list-style: none;
-      margin-top: 0.7rem;
+    .hs-vs-tag--gold { background: rgba(200,152,48,0.16); border: 1px solid rgba(200,152,48,0.45); color: #e8cf95; }
+    .hs-vs-tag--green { background: rgba(74,172,101,0.16); border: 1px solid rgba(74,172,101,0.45); color: #8ad6a0; }
+    .hs-vs-col > p { color: #b4c8b8; font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .hs-fit { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.88rem; color: #a7bfab; }
+    .hs-fit b { color: var(--accent); font-weight: 700; }
+
+    .hs-rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 1.6rem; border: 1px solid var(--line); }
+    .hs-rule-cell { padding: 1.15rem 1.2rem; border-right: 1px solid var(--line); }
+    .hs-rule-cell:last-child { border-right: 0; }
+    .hs-rule-cell h4 { font-family: "Montserrat", sans-serif; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .hs-rule-cell p { font-size: 0.9rem; color: #b4c8b8; }
+
+    /* --- 04 the plan sizer -------------------------------------------- */
+    .hs-sizer {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(200,152,48,0.34);
+      background:
+        radial-gradient(120% 150% at 4% 0%, rgba(200,152,48,0.13), transparent 55%),
+        radial-gradient(110% 140% at 97% 100%, rgba(74,172,101,0.16), transparent 55%),
+        linear-gradient(162deg, #16261d 0%, #0e1712 100%);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
     }
-    li {
-      position: relative;
-      padding-left: 1.25rem;
-      margin-bottom: 0.55rem;
-      color: #c3d5f0;
+    .hs-sizer::before {
+      content: ""; position: absolute; top: 0; left: -38%; width: 38%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-hi), transparent);
+      animation: hsSweep 6s linear infinite;
     }
-    li::before {
-      content: "•";
-      color: var(--blue);
-      position: absolute;
-      left: 0;
-      top: 0;
+    @keyframes hsSweep { 0% { left: -38%; } 100% { left: 100%; } }
+    @media (prefers-reduced-motion: reduce) { .hs-sizer::before { animation: none; opacity: 0.4; } }
+
+    .hs-sizer-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; }
+    .hs-sizer-in { padding: 2rem; border-right: 1px solid rgba(200,152,48,0.22); }
+    .hs-sizer-out { padding: 2rem; background: rgba(6,12,8,0.55); }
+
+    .hs-field { margin-bottom: 1.5rem; }
+    .hs-field-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.55rem; }
+    .hs-field label {
+      font-family: "Montserrat", sans-serif; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #c8dccc;
     }
-    .grid-two {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 0.95rem;
-      margin-top: 0.9rem;
+    .hs-val {
+      font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--accent-hi);
+      border-bottom: 2px solid rgba(200,152,48,0.4); padding: 0 0.35rem 0.05rem; min-width: 2.5rem; text-align: center;
     }
-    .panel {
-      background: var(--card);
-      border: 1px solid #2a3d5d;
-      border-radius: 14px;
-      padding: 1rem;
+    input[type="range"].hs-range {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 40px;
+      background: transparent; cursor: pointer; display: block;
     }
-    .panel h3 {
-      font-family: "Montserrat", sans-serif;
-      color: #c9dfff;
-      margin-bottom: 0.55rem;
-      font-size: 1.02rem;
+    input[type="range"].hs-range::-webkit-slider-runnable-track { height: 4px; background: rgba(255,255,255,0.12); border: 0; }
+    input[type="range"].hs-range::-moz-range-track { height: 4px; background: rgba(255,255,255,0.12); border: 0; }
+    input[type="range"].hs-range::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 16px; height: 18px; margin-top: -7px;
+      background: linear-gradient(180deg, var(--accent-hi), var(--accent)); border: 0; border-radius: 0;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.45);
     }
-    .note {
-      margin-top: 1rem;
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 92, 127, 0.3);
-      background: rgba(255, 92, 127, 0.1);
-      color: #ffd9e3;
-      font-size: 0.96rem;
+    input[type="range"].hs-range::-moz-range-thumb {
+      width: 16px; height: 18px; background: linear-gradient(180deg, var(--accent-hi), var(--accent));
+      border: 0; border-radius: 0;
     }
-    footer {
-      margin: 2.5rem 0 2rem;
-      color: #8ea3c4;
-      font-size: 0.93rem;
+    input[type="range"].hs-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .hs-scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: #6f8a75; margin-top: 0.1rem; }
+
+    .hs-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
+    .hs-chip { position: relative; display: inline-flex; cursor: pointer; }
+    .hs-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .hs-chip span {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: "Montserrat", sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.55rem 0.8rem; border: 1px solid rgba(74,172,101,0.3); color: #a7bfab;
+      background: rgba(9,16,11,0.5); transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease; min-height: 40px;
     }
-    footer a { color: #c89830; text-decoration: none; margin: 0 0.3rem; }
-    footer a:hover { text-decoration: underline; }
-    @media (max-width: 640px) { .hero { padding-top: 2.8rem; } .section { padding: 1.1rem; } }
-    @media (max-width: 480px) { .hero { padding: 2.2rem 0 1.5rem; } .btn-row { flex-direction: column; align-items: stretch; } .btn-row .btn { text-align: center; } .steps { grid-template-columns: 1fr; } .grid-two { grid-template-columns: 1fr; } }
+    .hs-chip span::before { content: ""; width: 9px; height: 9px; border: 1px solid rgba(74,172,101,0.55); flex-shrink: 0; }
+    .hs-chip input:checked + span { border-color: var(--accent); color: #f1e3c2; background: rgba(200,152,48,0.12); }
+    .hs-chip input:checked + span::before { background: var(--accent); border-color: var(--accent); }
+    .hs-chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .hs-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.2rem; }
+    .hs-mode { position: relative; cursor: pointer; }
+    .hs-mode input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .hs-mode span {
+      display: block; padding: 0.75rem 0.9rem; border: 1px solid rgba(74,172,101,0.3);
+      background: rgba(9,16,11,0.5); transition: border-color 0.18s ease, background 0.18s ease; height: 100%;
+    }
+    .hs-mode b { display: block; font-family: "Montserrat", sans-serif; font-size: 0.78rem; color: #d6ecdb; letter-spacing: 0.04em; }
+    .hs-mode em { display: block; font-style: normal; font-size: 0.76rem; color: #8aa48d; margin-top: 0.15rem; line-height: 1.45; }
+    .hs-mode input:checked + span { border-color: var(--accent); background: rgba(200,152,48,0.12); box-shadow: inset 3px 0 0 0 var(--accent); }
+    .hs-mode input:checked + span b { color: #f1e3c2; }
+    .hs-mode input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .hs-readout-label {
+      font-family: "Montserrat", sans-serif; font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+    }
+    .hs-readout-num {
+      font-family: "Montserrat", sans-serif; font-weight: 800; line-height: 0.95;
+      font-size: clamp(3rem, 8vw, 4.4rem); color: #fff; margin: 0.5rem 0 0.15rem;
+    }
+    .hs-readout-num small { font-size: 0.9rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .hs-readout-band { font-size: 0.86rem; color: #8aa48d; }
+    .hs-verdict { margin-top: 1.4rem; padding: 1.05rem 1.15rem; border: 1px solid rgba(200,152,48,0.4); background: rgba(200,152,48,0.08); }
+    .hs-verdict h3 { font-family: "Montserrat", sans-serif; font-size: 1.02rem; color: #f3e6c6; margin-bottom: 0.35rem; }
+    .hs-verdict p { font-size: 0.92rem; color: #ddcfae; }
+    .hs-breakdown { margin-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.9rem; list-style: none; }
+    .hs-breakdown li { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.86rem; color: #a7bfab; padding: 0.32rem 0; }
+    .hs-breakdown li b { color: #d8ecdc; font-family: "Montserrat", sans-serif; font-weight: 700; white-space: nowrap; }
+    .hs-caveat { margin-top: 1.1rem; font-size: 0.8rem; color: #7f9784; line-height: 1.6; }
+
+    /* --- close -------------------------------------------------------- */
+    .hs-close { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.4rem; }
+    .hs-close h3 { font-family: "Montserrat", sans-serif; font-size: 1.15rem; color: #f2faf3; margin-bottom: 0.45rem; }
+    .hs-close p { color: #b4c8b8; font-size: 0.95rem; margin-bottom: 1.1rem; }
+    .hs-close .hs-btn-row { margin-top: 0; }
+    .hs-callout {
+      margin-top: 1.2rem; padding: 1rem 1.15rem;
+      border: 1px solid rgba(200,152,48,0.32); background: rgba(200,152,48,0.07);
+      box-shadow: inset 3px 0 0 0 var(--accent);
+      color: #e7dcc2; font-size: 0.94rem;
+    }
+    .hs-callout b { color: #f3e6c6; }
+    .hs-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.4rem; }
+    .hs-split h3 { font-family: "Montserrat", sans-serif; font-size: 1.05rem; color: #eef7ef; margin-bottom: 0.6rem; }
+
+    /* --- responsive --------------------------------------------------- */
+    @media (max-width: 960px) {
+      .hs-hero { grid-template-columns: 1fr; gap: 1.8rem; padding-top: 2.8rem; }
+      .hs-sizer-grid { grid-template-columns: 1fr; }
+      .hs-sizer-in { border-right: 0; border-bottom: 1px solid rgba(200,152,48,0.22); }
+      .hs-tier { grid-template-columns: 46px 1fr; gap: 0.9rem 1rem; }
+      .hs-tier-what { grid-column: 2; }
+      .hs-tier-rate { grid-column: 2; text-align: left; }
+    }
+    @media (max-width: 820px) {
+      .hs-versus { grid-template-columns: 1fr; }
+      .hs-vs-mark { padding: 0.9rem 0; }
+      .hs-vs-mark::before { top: auto; bottom: auto; left: 0; right: 0; width: auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(200,152,48,0.5), transparent); }
+      .hs-vs-mark span { writing-mode: horizontal-tb; padding: 0.25rem 0.7rem; }
+      .hs-close, .hs-split { grid-template-columns: 1fr; }
+      .hs-rule-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .hs-rule-cell:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 560px) {
+      .hs-band { margin-top: 2.6rem; }
+      .hs-plate { padding: 1.15rem; }
+      .hs-sizer-in, .hs-sizer-out { padding: 1.25rem; }
+      .hs-vs-col { padding: 1.2rem; }
+      .hs-btn { width: 100%; justify-content: center; }
+      .hs-modes { grid-template-columns: 1fr; }
+      .hs-kicker { display: none; }
+    }
 
     /* ===== TES NAV ===== */
     .tnav-bar { position:sticky; top:0; z-index:50; background:rgba(9,18,12,0.9); backdrop-filter:blur(12px); border-bottom:1px solid rgba(74,172,101,0.22); }
@@ -282,6 +492,10 @@
     .svc-faq-guides { margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.1); font-size:0.92rem; color:#9fb0a3; }
     .svc-faq-guides a { color:#c89830; text-decoration:none; font-weight:600; }
     .svc-faq-guides a:hover { text-decoration:underline; }
+    /* --- squared overrides for the shared FAQ + newsletter blocks ------ */
+    .svc-faq, .svc-faq details, .newsletter-input, .newsletter-btn { border-radius: 0; }
+    .svc-faq { background: rgba(20,32,25,0.6); border-color: var(--line); }
+    .svc-faq details { border-color: var(--line); }
   </style>
   <script type="application/ld+json">
   {
@@ -300,7 +514,7 @@
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tevisengineering.com/"},{"@type":"ListItem","position":2,"name":"How Support Works","item":"https://tevisengineering.com/how_support_works.html"}]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does your IT support billing work?","acceptedAnswer":{"@type":"Answer","text":"You can choose a flat-rate monthly managed plan or pay as you go by the hour. Our standard rate is $80 per hour with a one-hour minimum, then 10-minute increments. Every engagement is scoped and quoted up front, so there are no surprise bills."}},{"@type":"Question","name":"How fast do you respond?","acceptedAnswer":{"@type":"Answer","text":"Standard response is within one business day. Managed-plan clients get priority, and many remote issues are resolved the same day. For a business-down emergency we do everything we can to get you working again fast."}},{"@type":"Question","name":"Do I have to sign a long-term contract?","acceptedAnswer":{"@type":"Answer","text":"No. Managed plans are month-to-month, and you can also work with us hourly with no plan at all."}},{"@type":"Question","name":"Do you support both remote and on-site work?","acceptedAnswer":{"@type":"Answer","text":"Yes. We are remote-first for speed and come on-site across the Cleveland area whenever hardware needs hands-on attention."}},{"@type":"Question","name":"What if I only have a one-time problem?","acceptedAnswer":{"@type":"Answer","text":"That is fine. You can hire us hourly for a single issue without committing to a plan."}}]}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a standing block of hours and paying per ticket?","acceptedAnswer":{"@type":"Answer","text":"A standing block commits you to a set number of hours each month and reserves them on the calendar, which buys you priority response and means proactive maintenance actually gets done. Per ticket has no commitment at all: you pay $80 an hour only when you need something, and you get scheduled after plan clients. Both come with the same work and the same session notes."}},{"@type":"Question","name":"How do you decide how many hours my business needs?","acceptedAnswer":{"@type":"Answer","text":"Four drivers: how many people you support, how many locations they work from, how much equipment sits behind them, and how many services have to be kept current. The sizer on this page gives you the same starting estimate we would. The committed number on your agreement comes out of the discovery step during onboarding, and we re-baseline it at day 90 against what you actually used."}},{"@type":"Question","name":"Do unused hours roll over to the next month?","acceptedAnswer":{"@type":"Answer","text":"No. Included hours are an allowance for that service period and reset at the start of the next one. That is what pays for the reserved service window and the priority response. If you are consistently finishing months well under the block, we tell you at the account review and size the plan down."}},{"@type":"Question","name":"What happens during onboarding, and is it extra?","acceptedAnswer":{"@type":"Answer","text":"Onboarding runs about 30 days: discovery and inventory, a written findings document, a stabilization pass that closes the obvious gaps, then agreeing service terms and going live. It is scoped and quoted separately as one-time work, not folded into a monthly cost. A simple single-location environment is quick. An undocumented network with no working backups takes longer, and we tell you that up front."}},{"@type":"Question","name":"How does your IT support billing work?","acceptedAnswer":{"@type":"Answer","text":"You can choose a flat-rate monthly managed plan or pay as you go by the hour. Our standard rate is $80 per hour with a one-hour minimum, then 10-minute increments. Every engagement is scoped and quoted up front, so there are no surprise bills."}},{"@type":"Question","name":"How fast do you respond?","acceptedAnswer":{"@type":"Answer","text":"Standard response is within one business day. Managed-plan clients get priority, and many remote issues are resolved the same day. For a business-down emergency we do everything we can to get you working again fast."}},{"@type":"Question","name":"Do I have to sign a long-term contract?","acceptedAnswer":{"@type":"Answer","text":"No. Managed plans are month-to-month with 30 days notice to cancel, and you can also work with us hourly with no plan at all."}},{"@type":"Question","name":"Do you support both remote and on-site work?","acceptedAnswer":{"@type":"Answer","text":"Yes. We are remote-first for speed and come on-site across the Cleveland area whenever hardware needs hands-on attention."}},{"@type":"Question","name":"What if I only have a one-time problem?","acceptedAnswer":{"@type":"Answer","text":"That is fine. You can hire us hourly for a single issue without committing to a plan."}}]}
   </script>
 </head>
 <body>
@@ -354,89 +568,405 @@
 </div>
 
   <main class="container">
-    <section class="hero">
-      <h1>How Support Works</h1>
-      <p>
-        Tevis Engineering Solutions uses a structured process so every request has clear scope, expected response, and documented next steps.
-        This keeps support fast, transparent, and predictable for both one-off and ongoing clients.
-      </p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="contact.html">Start With a Free 15 Minute Intro Call</a>
-        <a class="btn btn-secondary" href="pricing_sheet.html">Compare Support Plans</a>
+
+    <!-- ===== HERO ===== -->
+    <section class="hs-hero">
+      <div>
+        <span class="hs-eyebrow">Managed IT &middot; Cleveland, Ohio</span>
+        <h1>Support Scoped Before It Starts</h1>
+        <p class="hs-lede">
+          Two ways to work with us, and you are never locked into either. Commit <strong>a standing block of hours</strong> every month and get a reserved service window plus priority response, or <strong>pay per ticket</strong> at the hourly rate and use us only when something needs doing. Everything is scoped, quoted, and agreed before the first hour is spent.
+        </p>
+        <div class="hs-btn-row">
+          <a class="hs-btn hs-btn--gold" href="#sizer"><i class="fa-solid fa-sliders"></i> Size My Plan</a>
+          <a class="hs-btn hs-btn--ghost" href="contact.html">Book a Free 15-Minute Call</a>
+          <a class="hs-btn hs-btn--dark" href="pricing_sheet.html">Full Rate Card</a>
+        </div>
+      </div>
+      <div class="hs-spec">
+        <div class="hs-spec-row"><b>1 day</b><span>Standard response. Block-hour clients get priority ahead of it.</span></div>
+        <div class="hs-spec-row"><b>$80/hr</b><span>Per-use rate. One-hour minimum, then 10-minute increments.</span></div>
+        <div class="hs-spec-row"><b>30 days</b><span>Notice to cancel a plan. Month to month, no annual contract.</span></div>
+        <div class="hs-spec-row"><b>1 person</b><span>You talk to the engineer doing the work. No call center, no tier one.</span></div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>1) Intake and Triage</h2>
-      <p>Every request begins with a simple intake so support can be routed correctly and prioritized quickly.</p>
-      <div class="steps">
-        <div class="step">
-          <strong>Step A - Submit Request</strong>
-          <p>Use the <a href="contact.html">website contact form</a> with issue details, urgency, and best contact method.</p>
+    <!-- ===== 01 ONBOARDING ===== -->
+    <section class="hs-band" id="onboarding">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">01</span>
+          <span class="hs-kicker">Onboarding</span>
+          <span class="hs-rule"></span>
         </div>
-        <div class="step">
-          <strong>Step B - Initial Review</strong>
-          <p>The request is reviewed and classified as support, consultation, or engineering scope.</p>
+        <h2>The First 30 Days</h2>
+        <p>Onboarding exists so that the first real emergency is not the first time we see your network. We inventory what you have, document how it is wired together, and fix the cheap things before they become the expensive things. It is the same process whether you end up on a standing block or on per-ticket support.</p>
+      </header>
+
+      <div class="hs-plate">
+        <div class="hs-track">
+          <div class="hs-stop">
+            <span class="hs-stop-when">Day 0 &middot; Free</span>
+            <h3>Intro call</h3>
+            <p>Fifteen minutes, no cost and no pitch. We find out what you run, what keeps breaking, and whether we are the right fit. If a plan does not make sense for you yet, we say so.</p>
+          </div>
+          <div class="hs-stop">
+            <span class="hs-stop-when">Week 1</span>
+            <h3>Discovery and inventory</h3>
+            <p>Users, locations, workstations, servers, network gear, cloud tenants, backups, line-of-business software, and who currently holds which admin password. This is the step most businesses have never had done, and it is where the surprises surface.</p>
+          </div>
+          <div class="hs-stop">
+            <span class="hs-stop-when">Week 1&ndash;2</span>
+            <h3>Findings and plan sizing</h3>
+            <p>You get a written picture of your environment: what is healthy, what is at risk, and what is quietly costing you time. The recommended hours per month comes out of that document, not out of a price list.</p>
+          </div>
+          <div class="hs-stop">
+            <span class="hs-stop-when">Week 2&ndash;3</span>
+            <h3>Stabilize</h3>
+            <p>Before ongoing support begins we close the obvious gaps: verified backups, patching current, endpoint protection installed and reporting, admin accounts under control, and documentation written down where somebody other than us can read it.</p>
+          </div>
+          <div class="hs-stop">
+            <span class="hs-stop-when">Week 3&ndash;4</span>
+            <h3>Service terms and go live</h3>
+            <p>We agree the service level, the monthly hours, the recurring service window, and how those hours split between planned work and live help desk. Then support starts. Tickets come in through the portal and land on a real queue with a response clock on them.</p>
+          </div>
+          <div class="hs-stop">
+            <span class="hs-stop-when">Day 90</span>
+            <h3>Re-baseline</h3>
+            <p>Three months of real ticket volume beats any estimate. We review actual hours used against hours committed and adjust the plan up or down. Most clients move at least once, and moving down is a normal outcome.</p>
+          </div>
         </div>
-        <div class="step">
-          <strong>Step C - Response Plan</strong>
-          <p>You receive recommended next actions, expected timeline, and billing method before work begins.</p>
+        <div class="hs-callout">
+          <b>Onboarding is scoped and quoted separately.</b> It is one-time work with a defined deliverable, not a monthly cost. Simple single-location environments are quick. If we inherit an undocumented network with no backups and shared admin passwords, that gets quoted honestly up front rather than discovered on your invoice.
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>2) Scope and Service Boundaries</h2>
-      <div class="grid-two">
-        <div class="panel">
-          <h3>Included in Support Plans</h3>
-          <ul>
-            <li>Troubleshooting, maintenance, optimization, and IT administration</li>
-            <li>Device and account setup, security hygiene, and recurring support tasks</li>
-            <li>Remote and local support within agreed service terms</li>
+    <!-- ===== 02 LEVELS OF SERVICE ===== -->
+    <section class="hs-band" id="levels">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">02</span>
+          <span class="hs-kicker">Levels of service</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>Five Ways to Engage</h2>
+        <p>These are not packages you have to grow into. They are different shapes of work, and most clients use more than one. A monthly partnership covers the day to day; a new server rollout inside that same relationship still goes through an engineering statement of work.</p>
+      </header>
+
+      <div class="hs-tiers">
+        <article class="hs-tier">
+          <div class="hs-meter" role="img" aria-label="Commitment level 1 of 5"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+          <div>
+            <h3>Intro Call</h3>
+            <p class="hs-tier-for">Anyone deciding whether to talk to us at all.</p>
+          </div>
+          <p class="hs-tier-what">Fifteen minutes on the phone. We hear the situation, tell you what kind of engagement fits, and answer questions straight. No obligation attached to it.</p>
+          <p class="hs-tier-rate">Free<small>15 minutes</small></p>
+        </article>
+
+        <article class="hs-tier">
+          <div class="hs-meter" role="img" aria-label="Commitment level 2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div>
+            <h3>Technical Consultation</h3>
+            <p class="hs-tier-for">You need a decision made before you spend money.</p>
+          </div>
+          <p class="hs-tier-what">Written options, scope summary, timeline and risk overview, and a deliverable-first proposal draft. The fee is credited in full against approved project work.</p>
+          <p class="hs-tier-rate">$50/hr<small>Credited to your project</small></p>
+        </article>
+
+        <article class="hs-tier">
+          <div class="hs-meter" role="img" aria-label="Commitment level 3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+          <div>
+            <h3>On-Demand Support</h3>
+            <p class="hs-tier-for">One-off fixes, setups, migrations. No plan.</p>
+          </div>
+          <p class="hs-tier-what">Submit a ticket, we scope it, you approve, we do it. Same-day availability when the calendar allows. Session notes included every time so the next person has a record.</p>
+          <p class="hs-tier-rate">$80/hr<small>1-hour min, then 10-min increments</small></p>
+        </article>
+
+        <article class="hs-tier hs-tier--flag">
+          <div class="hs-meter" role="img" aria-label="Commitment level 4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+          <div>
+            <h3>Monthly Partnership</h3>
+            <p class="hs-tier-for">Ongoing IT for a business that depends on it working.</p>
+          </div>
+          <p class="hs-tier-what">A standing block of hours each month, up to 24. Priority scheduling, a recurring service window, proactive maintenance, and a period report showing what was done and where the hours went. Cancel with 30 days notice.</p>
+          <p class="hs-tier-rate">Monthly retainer<small>Quoted on included hours and scope</small></p>
+        </article>
+
+        <article class="hs-tier">
+          <div class="hs-meter" role="img" aria-label="Commitment level 5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <div>
+            <h3>Weekly Sprint or Engineering SOW</h3>
+            <p class="hs-tier-for">Projects with deliverables, not maintenance.</p>
+          </div>
+          <p class="hs-tier-what">A focused weekly block of up to seven hours for structured delivery, or a milestone-based statement of work with acceptance criteria and a written change-order process for custom builds.</p>
+          <p class="hs-tier-rate">Flat weekly or milestone<small>Quoted per scope, SOW before work begins</small></p>
+        </article>
+      </div>
+
+      <div class="hs-callout">
+        <b>Where the line sits.</b> Support keeps existing infrastructure running: troubleshooting, maintenance, optimization, account and device administration, security hygiene. New builds, new integrations, and hardware design move to an engineering SOW. If scope changes midstream we stop, write the change order, and get your approval before continuing. That boundary is what keeps a support invoice from turning into a project invoice without you agreeing to it.
+      </div>
+    </section>
+
+    <!-- ===== 03 BLOCK VS TICKET ===== -->
+    <section class="hs-band" id="hours">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">03</span>
+          <span class="hs-kicker">How hours work</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>Standing Block or Per Ticket</h2>
+        <p>Same engineer, same quality of work, same reporting. What changes is whether the time is reserved for you in advance or bought as you need it. This is the single biggest decision on this page, so here is the honest version of both.</p>
+      </header>
+
+      <div class="hs-plate hs-plate--green">
+        <div class="hs-versus">
+          <div class="hs-vs-col">
+            <span class="hs-vs-tag hs-vs-tag--gold">Committed</span>
+            <h3>Standing Block of Hours</h3>
+            <p>You commit to a set number of hours each month. Those hours are reserved on the calendar as one or two recurring service windows, and at kickoff we agree how they split between planned proactive work on your systems and on-call help desk time for live issues.</p>
+            <ul class="hs-list">
+              <li><b>Priority response</b> ahead of per-ticket requests.</li>
+              <li><b>Proactive work actually happens</b> because the time is already booked, instead of being the thing that always gets postponed.</li>
+              <li><b>One predictable invoice</b> at the same amount each month. Net 15.</li>
+              <li><b>Period reporting</b> with an executive summary, ticket counts by category, time per ticket, and an hours-billed breakdown.</li>
+              <li><b>Lower effective rate</b> than per-ticket, because we can schedule around you.</li>
+            </ul>
+            <p class="hs-fit"><b>Fits when:</b> your business stops when the computers stop, you have staff who need help regularly, or you are tired of hearing that everything is fine right up until it is not.</p>
+          </div>
+
+          <div class="hs-vs-mark"><span>OR</span></div>
+
+          <div class="hs-vs-col">
+            <span class="hs-vs-tag hs-vs-tag--green">Per use</span>
+            <h3>Per Ticket, Hourly</h3>
+            <p>No commitment at all. You submit a ticket when you need something, we scope and quote it, you approve, and we bill for the time actually spent at $80 an hour with a one-hour minimum and 10-minute increments after that.</p>
+            <ul class="hs-list hs-list--green">
+              <li><b>Pay only for what you use.</b> A quiet month costs nothing.</li>
+              <li><b>No contract, no notice period,</b> nothing to cancel.</li>
+              <li><b>Scoped and approved</b> before work starts, every time.</li>
+              <li><b>Session notes</b> on every ticket, same as plan clients get.</li>
+              <li><b>Scheduled around plan clients,</b> so a busy week means you wait behind them.</li>
+            </ul>
+            <p class="hs-fit"><b>Fits when:</b> you have a handful of machines, no server, an occasional problem, and someone in-house who handles the small stuff. Also the honest starting point for most businesses under five people.</p>
+          </div>
+        </div>
+
+        <div class="hs-rules">
+          <div class="hs-rule-cell">
+            <h4>Hours reset monthly</h4>
+            <p>Included hours are an allowance for that service period and do not roll over. That is what buys you the reserved window and the priority, and it is the standard retainer rule.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Overage is approved first</h4>
+            <p>When a month runs past the committed block, we tell you before we spend the extra time. Overage is billed hourly, never silently.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Split is yours to set</h4>
+            <p>At kickoff you decide how much of the block is planned execution and how much is held open as live help desk. It tracks your priorities, not a template.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Reviewed, not renewed</h4>
+            <p>Recurring clients get periodic account reviews. If usage is running under the block, we say so and size it down. That conversation is part of the service.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 THE SIZER ===== -->
+    <section class="hs-band" id="sizer">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">04</span>
+          <span class="hs-kicker">Plan sizing</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>How Many Hours Do You Actually Need?</h2>
+        <p>Plan size is driven by four things: how many people you support, how many places they work from, how much equipment sits behind them, and how many services have to be kept current. Move the sliders and this gives you the same starting estimate we would give you on the intro call.</p>
+      </header>
+
+      <div class="hs-sizer">
+        <div class="hs-sizer-grid">
+          <form class="hs-sizer-in" id="hsSizer">
+            <div class="hs-field">
+              <div class="hs-field-top">
+                <label for="hsUsers">People you support</label>
+                <output class="hs-val" id="hsUsersOut" for="hsUsers">12</output>
+              </div>
+              <input class="hs-range" type="range" id="hsUsers" min="1" max="75" step="1" value="12">
+              <div class="hs-scale"><span>1</span><span>75+</span></div>
+            </div>
+
+            <div class="hs-field">
+              <div class="hs-field-top">
+                <label for="hsSites">Locations</label>
+                <output class="hs-val" id="hsSitesOut" for="hsSites">1</output>
+              </div>
+              <input class="hs-range" type="range" id="hsSites" min="1" max="6" step="1" value="1">
+              <div class="hs-scale"><span>1</span><span>6+</span></div>
+            </div>
+
+            <div class="hs-field">
+              <div class="hs-field-top">
+                <label for="hsServers">Servers, NAS and network closets</label>
+                <output class="hs-val" id="hsServersOut" for="hsServers">1</output>
+              </div>
+              <input class="hs-range" type="range" id="hsServers" min="0" max="10" step="1" value="1">
+              <div class="hs-scale"><span>None</span><span>10+</span></div>
+            </div>
+
+            <fieldset class="hs-field">
+              <legend class="hs-sub">Services to maintain</legend>
+              <div class="hs-chips">
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.0" checked><span>Microsoft 365 or Google Workspace</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.2" checked><span>Backup and recovery</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.0" checked><span>Network and Wi-Fi</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.2"><span>Endpoint security</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="0.8"><span>Website and email deliverability</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.4"><span>Line-of-business applications</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.6"><span>Compliance documentation</span></label>
+                <label class="hs-chip"><input type="checkbox" class="hs-svc" value="1.0"><span>Onboarding and offboarding staff</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="hs-field">
+              <legend class="hs-sub">How you want us working</legend>
+              <div class="hs-modes">
+                <label class="hs-mode">
+                  <input type="radio" name="hsPosture" value="1" checked>
+                  <span><b>Reactive</b><em>Fix it when it breaks. Keep the lights on.</em></span>
+                </label>
+                <label class="hs-mode">
+                  <input type="radio" name="hsPosture" value="1.35">
+                  <span><b>Proactive</b><em>Stay ahead of it. Fewer surprises, more upkeep.</em></span>
+                </label>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="hs-sizer-out" aria-live="polite">
+            <span class="hs-readout-label">Estimated monthly hours</span>
+            <p class="hs-readout-num" id="hsHours">10 <small>hrs / mo</small></p>
+            <p class="hs-readout-band" id="hsBand">Typical range 8 to 13 hours depending on the month.</p>
+
+            <div class="hs-verdict">
+              <h3 id="hsPlan">Small standing block</h3>
+              <p id="hsWhy">A committed block starts paying for itself here.</p>
+            </div>
+
+            <ul class="hs-breakdown" id="hsBreak">
+              <li><span>Baseline account and admin time</span><b>2.0 hrs</b></li>
+            </ul>
+
+            <p class="hs-caveat">
+              This is an estimate, not a quote. It uses the same drivers we use on a real intake, but the number that ends up on your agreement comes from the discovery step, and it gets re-baselined at day 90 against what you actually used. Clicking through carries these numbers to the quote form so you do not have to retype them.
+            </p>
+
+            <div class="hs-btn-row">
+              <a class="hs-btn hs-btn--gold" id="hsQuote" href="contact.html"><i class="fa-solid fa-calendar-check"></i> Get This Quoted</a>
+              <a class="hs-btn hs-btn--dark" href="assessment.html">Take the IT Assessment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 DURING ACTIVE SUPPORT ===== -->
+    <section class="hs-band" id="cadence">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">05</span>
+          <span class="hs-kicker">Live service</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>What a Month Looks Like</h2>
+        <p>Support time is planned around your operating rhythm rather than dropped on you at random. Here is the rhythm itself, and here is exactly what you get in writing at the end of every service period.</p>
+      </header>
+
+      <div class="hs-split">
+        <div class="hs-plate">
+          <h3>The rhythm</h3>
+          <ul class="hs-list">
+            <li><b>Recurring service windows.</b> One or two blocks each week, either reserved for proactive work on your systems or held open as an on-call help desk window for live issues.</li>
+            <li><b>Tickets on a real queue.</b> Requests come in through the client portal, get a ticket number, and carry a response clock. Nothing lives in somebody's inbox.</li>
+            <li><b>Updates while work is open,</b> especially on anything blocked and waiting on a vendor, a license, or a decision from you.</li>
+            <li><b>Approval before major changes</b> and before any overage hours are used. You are never surprised by either.</li>
           </ul>
         </div>
-        <div class="panel">
-          <h3>Moved to Engineering Scope</h3>
-          <ul>
-            <li>Custom design and build efforts with formal deliverables</li>
-            <li>Novel hardware/software development and prototype projects</li>
-            <li>Milestone-based work requiring SOW and change-control process</li>
+        <div class="hs-plate hs-plate--green">
+          <h3>What lands in your inbox</h3>
+          <ul class="hs-list hs-list--green">
+            <li><b>Executive summary</b> for the period: top issues, business impact, what was completed, what is still open, what we recommend next.</li>
+            <li><b>Ticket detail:</b> count by category, resolution notes, and time spent per ticket.</li>
+            <li><b>Hours-billed breakdown</b> that maps line by line to the invoice, so you can see where the block went.</li>
+            <li><b>Pattern findings.</b> Repeat pain points and escalation trends, with recommendations for training, a process change, or a higher tier where it would actually reduce disruption.</li>
           </ul>
         </div>
       </div>
-      <p class="note">If scope changes midstream, work is paused and transitioned through a documented change order before continuing.</p>
     </section>
 
-    <section class="section">
-      <h2>3) During Active Support</h2>
-      <ul>
-        <li>Support time is planned around your operating rhythm: we can designate one or two recurring service windows each week where time is either reserved for proactive work on your business systems or held as an on-call help desk window for live issue response.</li>
-        <li>At kickoff, we agree on how paid hours should be split between planned execution and reactive support so effort tracks your immediate priorities instead of a rigid template.</li>
-        <li>Status updates are provided as work progresses, especially for blocked items, and approvals are requested before major changes or overage hours are used.</li>
-        <li>You receive an executive summary report for each service period that highlights top issues faced, business impact, what was completed, what remains open, and recommended next actions.</li>
-        <li>Detailed ticket reporting includes ticket count by category, resolution notes, time spent per ticket, and a clear hours-billed breakdown so invoice line items map directly to work performed.</li>
-      </ul>
-    </section>
+    <!-- ===== 06 BILLING ===== -->
+    <section class="hs-band" id="billing">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">06</span>
+          <span class="hs-kicker">Billing</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>Terms, In Plain Numbers</h2>
+      </header>
 
-    <section class="section">
-      <h2>4) Billing and Follow-Through</h2>
-      <ul>
-        <li>Accepted payment methods include PayPal (including credit card checkout through PayPal), cash, check, and Venmo.</li>
-        <li>Billing follows the selected plan terms (hourly, weekly, monthly, or milestone-based), with invoices containing a clear description of work performed and service period.</li>
-        <li>Payment terms align with the pricing sheet: weekly invoices are net 7, monthly support invoices are net 15, and project milestone invoices are due on issue unless otherwise documented in writing.</li>
-        <li>Recurring clients receive periodic account reviews to confirm whether service load is trending above or below expected volume and to adjust support level, cadence, or discount opportunities where appropriate.</li>
-        <li>Follow-through reports identify repeat pain points and escalation patterns, with recommendations for targeted training, process changes, or higher-tier support to reduce future disruptions.</li>
-      </ul>
-      <div class="btn-row" style="margin-top:1.25rem;">
-        <a class="btn btn-secondary" href="contact.html">Request Support</a>
-        <a class="btn btn-secondary" href="pricing_sheet.html">Read Full Pricing and Terms</a>
+      <div class="hs-plate">
+        <div class="hs-rules">
+          <div class="hs-rule-cell">
+            <h4>One-time work</h4>
+            <p>Net 7. Invoiced after the work is delivered, with a written description of what was done.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Monthly support</h4>
+            <p>Net 15. Same amount each period unless approved overage was used, itemized against the hours report.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Engineering milestones</h4>
+            <p>Due on delivery of the milestone, against acceptance criteria written into the SOW before work began.</p>
+          </div>
+          <div class="hs-rule-cell">
+            <h4>Past due</h4>
+            <p>Balances past 14 days carry a 1.5% monthly finance charge (18% APR). Service is suspended at 14+ days past due.</p>
+          </div>
+        </div>
+        <p class="hs-sub">Ways to pay</p>
+        <ul class="hs-list">
+          <li>PayPal, including credit card checkout through PayPal, from the invoice link or the <a class="hs-inline" href="pay_invoice.html">Pay an Invoice</a> page.</li>
+          <li>Cash, check, or Venmo, if that is simpler for your bookkeeping.</li>
+          <li>Every invoice carries the service period and a clear description of work performed. Plan clients can see their full billing history in the <a class="hs-inline" href="login.html">client portal</a>.</li>
+        </ul>
       </div>
     </section>
 
-    <!-- NEWSLETTER SIGNUP — BUTTONDOWN_USERNAME: replace tevisengineering in the form action below -->
-    <section class="svc-faq" aria-label="Frequently asked questions">
+    <!-- ===== FAQ ===== -->
+    <section class="hs-band svc-faq" aria-label="Frequently asked questions">
       <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What is the difference between a standing block of hours and paying per ticket?</summary>
+        <div class="a">A standing block commits you to a set number of hours each month and reserves them on the calendar, which buys you priority response and means proactive maintenance actually gets done. Per ticket has no commitment at all: you pay $80 an hour only when you need something, and you get scheduled after plan clients. Both come with the same work and the same session notes.</div>
+      </details>
+      <details>
+        <summary>How do you decide how many hours my business needs?</summary>
+        <div class="a">Four drivers: how many people you support, how many locations they work from, how much equipment sits behind them, and how many services have to be kept current. The sizer on this page gives you the same starting estimate we would. The committed number on your agreement comes out of the discovery step during onboarding, and we re-baseline it at day 90 against what you actually used.</div>
+      </details>
+      <details>
+        <summary>Do unused hours roll over to the next month?</summary>
+        <div class="a">No. Included hours are an allowance for that service period and reset at the start of the next one. That is what pays for the reserved service window and the priority response. If you are consistently finishing months well under the block, we tell you at the account review and size the plan down.</div>
+      </details>
+      <details>
+        <summary>What happens during onboarding, and is it extra?</summary>
+        <div class="a">Onboarding runs about 30 days: discovery and inventory, a written findings document, a stabilization pass that closes the obvious gaps, then agreeing service terms and going live. It is scoped and quoted separately as one-time work, not folded into a monthly cost. A simple single-location environment is quick. An undocumented network with no working backups takes longer, and we tell you that up front.</div>
+      </details>
       <details>
         <summary>How does your IT support billing work?</summary>
         <div class="a">You can choose a flat-rate monthly managed plan or pay as you go by the hour. Our standard rate is $80 per hour with a one-hour minimum, then 10-minute increments. Every engagement is scoped and quoted up front, so there are no surprise bills.</div>
@@ -447,7 +977,7 @@
       </details>
       <details>
         <summary>Do I have to sign a long-term contract?</summary>
-        <div class="a">No. Managed plans are month-to-month, and you can also work with us hourly with no plan at all.</div>
+        <div class="a">No. Managed plans are month-to-month with 30 days notice to cancel, and you can also work with us hourly with no plan at all.</div>
       </details>
       <details>
         <summary>Do you support both remote and on-site work?</summary>
@@ -458,6 +988,37 @@
         <div class="a">That is fine. You can hire us hourly for a single issue without committing to a plan.</div>
       </details>
       <p class="svc-faq-guides"><strong>Related guides:</strong> <a href="blog/managed-it-vs-break-fix.html">Managed IT vs. Break-Fix</a> &middot; <a href="blog/how-much-should-a-cleveland-small-business-spend-on-it.html">How Much Should You Spend on IT?</a></p>
+    </section>
+
+    <!-- ===== CLOSE ===== -->
+    <section class="hs-band" id="get-started">
+      <header class="hs-head">
+        <div class="hs-head-rail">
+          <span class="hs-idx">07</span>
+          <span class="hs-kicker">Get started</span>
+          <span class="hs-rule"></span>
+        </div>
+        <h2>Two Doors In</h2>
+      </header>
+
+      <div class="hs-close">
+        <div class="hs-plate">
+          <h3>Something is broken right now</h3>
+          <p>Open a ticket. It goes on the queue with a number and a response clock, and you do not need a plan or an account to send one. If it turns out to be a five-minute fix, we tell you that instead of scoping a project around it.</p>
+          <div class="hs-btn-row">
+            <a class="hs-btn hs-btn--gold" href="make_ticket.html"><i class="fa-solid fa-headset"></i> Submit a Ticket</a>
+            <a class="hs-btn hs-btn--dark" href="tel:+12163028486">(216)&nbsp;302&#8209;8486</a>
+          </div>
+        </div>
+        <div class="hs-plate hs-plate--green">
+          <h3>You are weighing up ongoing support</h3>
+          <p>Start with the free 15-minute call. Bring your sizer number if you ran it. We will tell you which level fits, what onboarding would involve for your environment, and whether a standing block is worth it yet. Sometimes the answer is not yet.</p>
+          <div class="hs-btn-row">
+            <a class="hs-btn hs-btn--ghost" href="contact.html"><i class="fa-solid fa-calendar-check"></i> Book the Intro Call</a>
+            <a class="hs-btn hs-btn--dark" href="pricing_sheet.html">Read Full Pricing and Terms</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="newsletter-section" aria-label="Email newsletter signup">
@@ -486,7 +1047,7 @@
             class="newsletter-input"
           >
           <button type="submit" class="newsletter-btn">Subscribe</button>
-          <noscript><p style="margin-top:0.75rem;font-size:0.85rem;">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
+          <noscript><p class="newsletter-fine">To subscribe, visit <a href="https://buttondown.com/tevisengineering" target="_blank" rel="noopener noreferrer">buttondown.email</a> directly.</p></noscript>
         </form>
         <p class="newsletter-fine">
           Powered by <a href="https://buttondown.com/refer/tevisengineering" target="_blank" rel="noopener noreferrer">Buttondown</a>.
@@ -557,6 +1118,175 @@
       document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) setOpen(false); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
       mega.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setOpen(false); }); });
+      // ---- Plan sizer -------------------------------------------------
+      // Client-side only. Same four drivers we use on a real intake:
+      // people, locations, equipment behind them, services to keep current.
+      // Deliberately an estimate, not a quote -- the page says so.
+      var sizer = document.getElementById('hsSizer');
+      if (sizer) {
+        var elUsers = document.getElementById('hsUsers');
+        var elSites = document.getElementById('hsSites');
+        var elServers = document.getElementById('hsServers');
+        var outUsers = document.getElementById('hsUsersOut');
+        var outSites = document.getElementById('hsSitesOut');
+        var outServers = document.getElementById('hsServersOut');
+        var outHours = document.getElementById('hsHours');
+        var outBand = document.getElementById('hsBand');
+        var outPlan = document.getElementById('hsPlan');
+        var outWhy = document.getElementById('hsWhy');
+        var outBreak = document.getElementById('hsBreak');
+
+        var BASE = 2.0;          // account admin, reporting, staying current
+        var PER_USER = 0.30;     // help desk load per person supported
+        var PER_SITE = 2.0;      // each location past the first
+        var PER_SERVER = 1.5;    // servers, NAS, network closets
+
+        function fmt(n) { return (Math.round(n * 10) / 10).toFixed(1); }
+
+        function row(label, hours) {
+          var li = document.createElement('li');
+          var s = document.createElement('span');
+          s.textContent = label;
+          var b = document.createElement('b');
+          b.textContent = fmt(hours) + ' hrs';
+          li.appendChild(s);
+          li.appendChild(b);
+          return li;
+        }
+
+        var lastResult = null;
+
+        // Plain-text version for the contact form's message box, so the estimate
+        // arrives with the enquiry instead of only in the Telegram alert.
+        function summary(d) {
+          var t = 'Plan sizer estimate: ' + d.hours + ' hrs/mo (' + d.plan + ').\n' +
+                  'People: ' + d.users + ' | Locations: ' + d.sites +
+                  ' | Servers and closets: ' + d.servers + ' | ' + d.posture + '.\n';
+          t += d.services.length
+            ? 'Services to maintain: ' + d.services.join(', ') + '.'
+            : 'No services selected.';
+          return t;
+        }
+
+        function recalc() {
+          var users = parseInt(elUsers.value, 10);
+          var sites = parseInt(elSites.value, 10);
+          var servers = parseInt(elServers.value, 10);
+          var posture = 1;
+          var pick = sizer.querySelector('input[name="hsPosture"]:checked');
+          if (pick) { posture = parseFloat(pick.value); }
+
+          var svc = 0;
+          var svcCount = 0;
+          var labels = [];
+          sizer.querySelectorAll('.hs-svc').forEach(function (c) {
+            if (!c.checked) return;
+            svc += parseFloat(c.value);
+            svcCount++;
+            var lbl = c.nextElementSibling;
+            if (lbl) { labels.push(lbl.textContent.trim()); }
+          });
+
+          outUsers.textContent = users >= 75 ? '75+' : String(users);
+          outSites.textContent = sites >= 6 ? '6+' : String(sites);
+          outServers.textContent = servers >= 10 ? '10+' : String(servers);
+
+          var userH = users * PER_USER;
+          var siteH = (sites - 1) * PER_SITE;
+          var svrH = servers * PER_SERVER;
+          var sub = BASE + userH + siteH + svrH + svc;
+          var total = sub * posture;
+          var uplift = total - sub;
+
+          var shown = Math.max(1, Math.round(total));
+          outHours.textContent = '';
+          outHours.appendChild(document.createTextNode(shown + ' '));
+          var small = document.createElement('small');
+          small.textContent = 'hrs / mo';
+          outHours.appendChild(small);
+
+          var lo = Math.max(1, Math.round(total * 0.78));
+          var hi = Math.round(total * 1.25);
+          outBand.textContent = 'Typical range ' + lo + ' to ' + hi + ' hours depending on the month.';
+
+          var plan, why;
+          if (total < 6) {
+            plan = 'Per ticket, hourly';
+            why = 'At this size a standing block is not worth committing to. Work with us on demand at $80 an hour, and revisit it if your ticket volume climbs.';
+          } else if (total < 12) {
+            plan = 'Small standing block';
+            why = 'A committed block starts paying for itself here. Enough recurring load to justify a reserved service window, well under the 24-hour monthly ceiling.';
+          } else if (total <= 24) {
+            plan = 'Monthly Partnership';
+            why = 'This is the shape the monthly plan was built for: a standing block up to 24 hours, priority scheduling, and proactive maintenance that actually gets done.';
+          } else {
+            plan = 'Weekly cadence or a custom block';
+            why = 'Past 24 hours a month you are into a reserved weekly day rather than a monthly block. That gets quoted directly, usually as a weekly sprint cadence plus project work.';
+          }
+          outPlan.textContent = plan;
+          outWhy.textContent = why;
+
+          outBreak.textContent = '';
+          outBreak.appendChild(row('Baseline account and admin time', BASE));
+          outBreak.appendChild(row(users + (users === 1 ? ' person supported' : ' people supported'), userH));
+          if (siteH > 0) {
+            outBreak.appendChild(row((sites - 1) + (sites === 2 ? ' extra location' : ' extra locations'), siteH));
+          }
+          if (svrH > 0) {
+            outBreak.appendChild(row(servers + (servers === 1 ? ' server or closet' : ' servers and closets'), svrH));
+          }
+          if (svc > 0) {
+            outBreak.appendChild(row(svcCount + (svcCount === 1 ? ' service maintained' : ' services maintained'), svc));
+          }
+          if (uplift > 0.05) {
+            outBreak.appendChild(row('Proactive uplift', uplift));
+          }
+
+          lastResult = {
+            users: users, sites: sites, servers: servers,
+            services: labels, posture: posture === 1 ? 'reactive' : 'proactive',
+            hours: shown, plan: plan
+          };
+        }
+
+        // Carry the sizing to the quote form, and send Tyler a copy.
+        //
+        // The copy matters because most people who size a plan never finish the
+        // contact form; without this the interest leaves no trace at all. The
+        // request sends only the raw inputs -- the Worker revalidates and
+        // recomputes them before it pages anyone, so the alert cannot be spoofed
+        // from here or from anywhere else.
+        //
+        // keepalive:true is load-bearing: the click navigates immediately, and a
+        // normal fetch would be cancelled by the page unload. Nothing waits on
+        // the response and nothing is shown if it fails -- this is our bookkeeping,
+        // not the visitor's deliverable, and it must never delay their click.
+        var quoteBtn = document.getElementById('hsQuote');
+        if (quoteBtn) {
+          quoteBtn.addEventListener('click', function () {
+            var d = lastResult;
+            if (!d) return;
+            try {
+              fetch('/portal-api/public/sizer', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({
+                  users: d.users, sites: d.sites, servers: d.servers,
+                  services: d.services, posture: d.posture
+                }),
+                keepalive: true
+              }).catch(function () {});
+            } catch (err) { /* never block the navigation */ }
+            quoteBtn.setAttribute('href', 'contact.html?sizer=' + encodeURIComponent(summary(d)));
+          });
+        }
+
+        sizer.addEventListener('input', recalc);
+        sizer.addEventListener('change', recalc);
+        sizer.addEventListener('submit', function (e) { e.preventDefault(); });
+        recalc();
+      }
+
       // Newsletter popup
       var form = document.getElementById('newsletterForm');
       if (form) {
