@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Website Report Card | Tevis Engineering Solutions</title>
+  <meta name="description" content="Your free website analysis from Tevis Engineering Solutions.">
+  <meta name="author" content="Tyler Tevis, Tevis Engineering Solutions">
+  <!-- Not an indexable page: it renders one visitor's own scan, held in their browser. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* This page is deliberately LIGHT while the rest of the site is dark.
+       It is a document, not a web page: it prints to PDF cleanly, it reads as
+       something you keep, and it matches the report we already hand clients from
+       the desktop version of this tool. Do not dark-mode it. */
+    :root {
+      --brand-dark: #0d1710;
+      --brand-green: #4aac65;
+      --brand-green-600: #2f7d4a;
+      --brand-green-300: #8ad6a0;
+      --brand-gold: #c89830;
+      --ink: #12211a;
+      --muted: #5d7266;
+      --line: #dfe7e1;
+      --bg: #f4f7f4;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.6 "Inter", "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, .wordmark, .tes-grade { font-family: "Montserrat", sans-serif; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 26px 22px 70px; }
+    [hidden] { display: none !important; }
+
+    /* --- brand bar --- */
+    .brandbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      flex-wrap: wrap; background: var(--brand-dark); border-radius: 14px;
+      padding: 14px 20px; margin-bottom: 20px;
+    }
+    .lockup { display: flex; align-items: center; gap: 13px; }
+    .lockup img { width: 46px; height: 46px; border-radius: 9px; display: block; }
+    .lockup .rule { width: 2px; height: 38px; background: var(--brand-green); border-radius: 2px; }
+    .wordmark { display: flex; flex-direction: column; line-height: 1.05; text-decoration: none; }
+    .wordmark .n1 { font-size: 16px; font-weight: 800; letter-spacing: 2px; color: #fff; }
+    .wordmark .n2 { font-size: 10px; font-weight: 600; letter-spacing: 4.2px; color: var(--brand-green-300); margin-top: 4px; }
+    .brandcontact { font-size: 11.5px; color: #8aa48d; text-align: right; line-height: 1.7; }
+    .brandcontact a { color: var(--brand-green-300); font-weight: 600; text-decoration: none; }
+
+    /* --- toolbar --- */
+    .toolbar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 10px 14px; margin-bottom: 18px; font-size: 12.5px; color: var(--muted);
+    }
+    .toolbar .sp { margin-left: auto; }
+    .tbtn {
+      border: 0; border-radius: 9px; padding: 9px 17px; cursor: pointer;
+      font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 12.5px;
+      background: var(--brand-green-600); color: #fff; text-decoration: none;
+      display: inline-block;
+    }
+    .tbtn:hover { filter: brightness(1.08); }
+    /* 44px is the tap target the rest of the site uses; these buttons are the only
+       controls on a page people will read on a phone. */
+    @media (max-width: 700px) { .tbtn { min-height: 44px; line-height: 26px; padding: 9px 18px; } }
+    .tbtn.alt { background: var(--brand-gold); color: #241a03; }
+
+    /* --- hero --- */
+    .tes-hero {
+      display: flex; gap: 22px; align-items: center; background: var(--card);
+      border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin-bottom: 16px;
+    }
+    .tes-grade {
+      flex: 0 0 auto; width: 94px; height: 94px; border-radius: 50%; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 46px; font-weight: 800; background: #64748b;
+    }
+    .tes-hero h1 { font-size: 20px; letter-spacing: -0.2px; margin-bottom: 3px; }
+    .tes-hero .sub { color: var(--muted); font-size: 13px; word-break: break-all; }
+    .tes-hero .verdict { margin-top: 8px; font-size: 14px; color: #2c4034; font-weight: 500; }
+    .tes-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+    @media (max-width: 560px) { .tes-hero { flex-direction: column; align-items: flex-start; gap: 14px; } }
+
+    /* --- sections --- */
+    .tes-sec {
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+      padding: 20px 24px; margin-bottom: 16px;
+    }
+    .tes-sec > h2 {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px;
+      color: var(--brand-green-600); font-weight: 700; margin-bottom: 14px;
+    }
+    .tes-sec > h2 .n { color: var(--muted); font-weight: 600; letter-spacing: 0.6px; }
+
+    .tes-bars { display: grid; grid-template-columns: 190px 1fr 42px; gap: 9px 12px; align-items: center; }
+    .tes-lbl { font-size: 13px; }
+    .tes-track { background: #eaf0eb; border-radius: 999px; height: 10px; overflow: hidden; }
+    .tes-fill { height: 100%; border-radius: 999px; }
+    .tes-val { text-align: right; font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--muted); }
+    @media (max-width: 520px) { .tes-bars { grid-template-columns: 128px 1fr 36px; } .tes-lbl { font-size: 12px; } }
+
+    .tes-cathead {
+      margin: 22px 0 6px; font-size: 13px; font-weight: 700; color: var(--ink);
+      border-bottom: 1px solid var(--line); padding-bottom: 5px;
+    }
+    .tes-cathead:first-child { margin-top: 0; }
+    .tes-finding { border-left: 4px solid var(--line); padding: 10px 0 10px 14px; margin: 12px 0; }
+    .tes-ftitle { font-weight: 650; }
+    .tes-tag {
+      display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 7px;
+      border-radius: 5px; color: #fff; margin-right: 7px; vertical-align: 1px; letter-spacing: 0.3px;
+    }
+    .tes-detail { margin-top: 6px; font-size: 13.5px; color: #33463c; }
+    .tes-kv { margin-top: 5px; font-size: 12.5px; color: var(--muted); word-break: break-word; }
+    .tes-kv b { color: #40564a; font-weight: 650; }
+    .tes-none { font-size: 13.5px; color: #33463c; }
+
+    /* --- speed --- */
+    .tes-blurb { font-size: 13px; color: #33463c; margin-bottom: 14px; }
+    .tes-blurb-in { font-size: 12.5px; color: var(--muted); margin: 14px 0 6px; }
+    .tes-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+    .tes-score { border: 1px solid var(--line); border-radius: 11px; padding: 12px; text-align: center; }
+    .tes-score-n { font-family: "Montserrat", sans-serif; font-size: 27px; font-weight: 800; line-height: 1; }
+    .tes-score-l { font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+    .tes-metrics { width: 100%; border-collapse: collapse; margin-top: 4px; }
+    .tes-metrics td { border-top: 1px solid var(--line); padding: 8px 6px; vertical-align: top; font-size: 12.5px; }
+    .tes-metrics tr:first-child td { border-top: 0; }
+    .tes-mname { font-weight: 650; color: var(--ink); width: 210px; }
+    .tes-mabbr {
+      display: inline-block; margin-left: 6px; padding: 1px 5px; border-radius: 4px;
+      background: #e7f2ea; color: var(--brand-green-600); font-size: 10px; font-weight: 700;
+    }
+    .tes-mval { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--brand-green-600); width: 70px; }
+    .tes-mdesc { color: #4a5f53; }
+    .tes-good { color: var(--muted); font-style: normal; display: block; margin-top: 2px; font-size: 11.5px; }
+    @media (max-width: 560px) { .tes-mname { width: 130px; } }
+
+    /* --- written advice --- */
+    .tes-adv-headline { font-family: "Montserrat", sans-serif; font-size: 16px; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
+    .tes-adv-p { font-size: 14px; color: #33463c; margin-bottom: 10px; }
+    .tes-adv-h { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-green-600); margin: 20px 0 10px; }
+    .tes-priorities { margin: 0; padding-left: 20px; }
+    .tes-priorities li { margin-bottom: 14px; }
+    .tes-priorities strong { font-family: "Montserrat", sans-serif; font-size: 14px; color: var(--ink); }
+    .tes-adv-why { font-size: 13.5px; color: #33463c; margin-top: 4px; }
+    .tes-adv-how { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .tes-answer { margin-bottom: 12px; }
+    .tes-answer strong { display: block; font-size: 13.5px; color: var(--ink); margin-bottom: 3px; }
+    .tes-wins { margin: 0; padding-left: 20px; }
+    .tes-wins li { font-size: 13.5px; color: #33463c; margin-bottom: 6px; }
+    .tes-adv-close { font-size: 14px; color: #33463c; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .tes-adv-fine { font-size: 11.5px; color: var(--muted); margin-top: 12px; }
+
+    /* Both enrichment sections start as a skeleton. They arrive after the report is
+       already readable, which is the point: nobody waits a minute for a first pixel. */
+    .tes-pending { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--muted); }
+    .tes-pending::before {
+      content: ''; width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid #d3e0d6; border-top-color: var(--brand-green); flex-shrink: 0;
+      animation: tesSpin 0.9s linear infinite;
+    }
+    @keyframes tesSpin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .tes-pending::before { animation: none; } }
+    .tes-arrived { animation: tesFade 0.45s ease; }
+    @keyframes tesFade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* --- closing callout --- */
+    .callout { background: var(--brand-dark); color: #d8e6da; border-radius: 14px; padding: 22px 24px; }
+    .callout h2 { color: var(--brand-green-300); font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: 12px; }
+    .callout p { font-size: 14px; margin-bottom: 10px; }
+    .callout b { color: #fff; }
+    .callout a { color: var(--brand-green-300); }
+    .callout .acts { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .callout .callout-sig { margin-top: 14px; }
+    .foot { color: var(--muted); font-size: 11.5px; text-align: center; margin-top: 24px; }
+    .foot a { color: var(--muted); }
+
+    /* --- empty state --- */
+    .empty { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 40px 24px; text-align: center; }
+    .empty h1 { font-size: 20px; margin-bottom: 10px; }
+    .empty p { color: var(--muted); font-size: 14px; margin-bottom: 18px; max-width: 460px; margin-left: auto; margin-right: auto; }
+
+    @media print {
+      body { background: #fff; }
+      .wrap { padding-top: 0; }
+      .toolbar, .noprint { display: none !important; }
+      .tes-sec, .tes-hero, .callout { break-inside: avoid; border-color: #ccc; }
+      .brandbar, .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="tesReport">
+
+    <div class="brandbar">
+      <a class="lockup" href="index.html">
+        <img src="assets/logo-mark.png" alt="Tevis Engineering Solutions">
+        <span class="rule"></span>
+        <span class="wordmark">
+          <span class="n1">TEVIS ENGINEERING</span>
+          <span class="n2">SOLUTIONS</span>
+        </span>
+      </a>
+      <div class="brandcontact">
+        <a href="tel:+12163028486">(216)&nbsp;302&#8209;8486</a> &nbsp;&middot;&nbsp; tyler@tevisengineering.com<br>
+        IT Support &amp; Custom Engineering &middot; Cleveland, OH
+      </div>
+    </div>
+
+    <!-- Nothing in local storage: somebody opened this page directly, or their
+         browser cleared it between tabs. -->
+    <div class="empty" id="tesReportEmpty" hidden>
+      <h1>No report to show</h1>
+      <p>
+        This page displays a website report card that was generated in your browser. We
+        could not find one, which usually means you opened this address directly or your
+        browser cleared it. Running a fresh scan takes about ten seconds.
+      </p>
+      <a class="tbtn" href="free-website-analysis.html">Run a Free Analysis</a>
+    </div>
+
+    <div id="tesReportBody" hidden>
+      <div class="toolbar noprint">
+        <b>Your report card</b>
+        <span>Yours to keep. Save it as a PDF, or send it to whoever maintains your site.</span>
+        <span class="sp"></span>
+        <button type="button" class="tbtn" id="tesPrint">Save as PDF</button>
+      </div>
+
+      <div class="tes-hero">
+        <div class="tes-grade" id="tesGrade">?</div>
+        <div>
+          <h1>Website Report Card &mdash; <span id="tesDomain"></span></h1>
+          <div class="sub" id="tesUrl"></div>
+          <p class="verdict" id="tesVerdict"></p>
+          <div class="tes-meta" id="tesMeta"></div>
+        </div>
+      </div>
+
+      <section class="tes-sec">
+        <h2>Scorecard</h2>
+        <div class="tes-bars" id="tesBars"></div>
+      </section>
+
+      <section class="tes-sec">
+        <h2>What we found <span class="n" id="tesFindingCount"></span></h2>
+        <div id="tesFindings"></div>
+      </section>
+
+      <section class="tes-sec" id="tesSpeed">
+        <h2>Speed &amp; performance, measured by Google</h2>
+        <div id="tesSpeedBody">
+          <p class="tes-pending">Asking Google to load your site on a phone. This part takes up to a minute.</p>
+        </div>
+      </section>
+
+      <section class="tes-sec" id="tesAdvice">
+        <h2>What we would do about it</h2>
+        <div id="tesAdviceBody">
+          <p class="tes-pending">Writing your recommendations from the findings above.</p>
+        </div>
+      </section>
+
+      <div class="callout">
+        <h2>What happens next</h2>
+        <p>
+          Every item in this report is fixable. <b>Tevis Engineering Solutions</b> can take
+          this site over, put ownership of the domain and hosting in your name, correct what
+          is broken, and keep it healthy on a flat monthly plan &mdash; so problems like these
+          get caught before your customers do.
+        </p>
+        <p>
+          Nothing above is a sales estimate. It is what our scanner measured on your live
+          site, and the findings are yours whether or not you ever call us.
+        </p>
+        <div class="acts noprint">
+          <a class="tbtn alt" href="contact.html">Talk To Us About This Report</a>
+          <a class="tbtn" href="website_creation.html#maintenance">See Maintenance Plans</a>
+        </div>
+        <p class="callout-sig">
+          Tyler Tevis &nbsp;&middot;&nbsp; <b><a href="tel:+12163028486">(216)&nbsp;302&#8209;8486</a></b>
+          &nbsp;&middot;&nbsp; tyler@tevisengineering.com
+          &nbsp;&middot;&nbsp; <a href="https://tevisengineering.com">tevisengineering.com</a>
+        </p>
+      </div>
+
+      <p class="foot">
+        Prepared by Tevis Engineering Solutions, LLC &middot; Cleveland, Ohio &middot;
+        <a href="privacy_policy.html">Privacy &amp; Terms</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="assets/js/site-audit.js" defer></script>
+</body>
+</html>
