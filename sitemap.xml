@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://tevisengineering.com/ohio-crash-report-analysis-tool.html</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -245,5 +245,29 @@
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tevisengineering.com/blog/how-to-get-an-ohio-crash-report.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tevisengineering.com/blog/ohio-crash-report-leads-for-law-firms.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tevisengineering.com/blog/what-is-in-an-ohio-crash-report.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tevisengineering.com/blog/ohio-crash-reports-by-county.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
